@@ -1,0 +1,9 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	background-color: #F4F4F4;
+	font-family: 'Raleway', sans-serif;
+}
