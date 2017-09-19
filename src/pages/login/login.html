@@ -37,7 +37,8 @@
 
 <!-- </ion-list> -->
   <!-- <ion-footer> -->
-    <button block ion-button full (click)="login()" color="lightText">Log in with Spotify</button>
+    <button block ion-button full (click)="login()" color="lightText" *ngIf="authenticated == false">Log in with Spotify</button>
+    <button block ion-button full (click)="toHome()" color="lightText" *ngIf="authenticated">Coninue</button>
   <!-- </ion-footer> -->
   <!-- </ion-content> -->
 

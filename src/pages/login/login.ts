@@ -15,9 +15,19 @@ import { OAuth } from 'oauthio-web';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
+
+
 export class LoginPage {
+  authenticated: any;
+
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    var spotify = OAuth.create('spotify');
+    if (spotify.access_token) {
+      this.authenticated = true;
+      this.navCtrl.push(HomePage);
+    } else this.authenticated = false;
   }
 
   ionViewDidLoad() {
@@ -25,11 +35,15 @@ export class LoginPage {
   }
 
   login() {
-    OAuth.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4')
-    OAuth.popup('spotify').done(function(result) {
-    console.log(result)
-    // do some stuff with result
-})
+
+    OAuth.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
+    OAuth.popup('spotify',{cache: true}).done(function(spotify) {
+    // console.log(spotify)
+    })
+      this.authenticated = true;
+  }
+
+  toHome() {
     this.navCtrl.push(HomePage);
   }
 

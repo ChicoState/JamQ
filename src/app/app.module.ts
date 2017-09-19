@@ -8,10 +8,17 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SearchPage } from '../pages/search/search';
 import { SlidesPage } from '../pages/slides/slides';
+// import { Http } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+
+// import { RemoteService } from '../providers/remote-service';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { RemoteServiceProvider } from '../providers/remote-service/remote-service';
 
 @NgModule({
   declarations: [
@@ -24,6 +31,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -38,7 +46,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    RemoteServiceProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    RemoteServiceProvider
   ]
 })
 export class AppModule {}
