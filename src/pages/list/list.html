@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Queue</ion-title>
+    <ion-title>Austin's Party</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -19,7 +19,14 @@
     <h2>{{ item.title }}  </h2>
     <p>{{ item.note }} </p>
 
-    <button ion-button clear item-end>Like</button>
+    <!-- <button ion-button clear item-end>
+      <ion-icon name="heart-outline"></ion-icon>
+    </button> -->
+
+    <button ion-button clear item-end (click)="toggle(item.id)">
+   <ion-icon name="{{item.icon}}">
+   </ion-icon>
+    </button>
 
       <!-- <ion-icon [name]="item.icon" item-left></ion-icon> -->
       <!-- <div class="item-note" item-right> -->

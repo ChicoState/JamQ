@@ -7,12 +7,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding text-center>
   <!-- <h3>Ionic Menu Starter</h3> -->
-  {{name}}
-  <br>
-  <br>
-  <br>
+  <!-- {{name}} -->
+  <br><br><br><br><br><br><br>
   <!-- <h4 text-center> JamQ </h4> -->
 
   <!-- <p>
@@ -20,8 +18,13 @@
   </p> -->
   <br>
   <br>
+  <ion-item>
+    <ion-input text-center type="text" placeholder="Enter Party ID"></ion-input>
+  </ion-item>
+
   <br>
   <button ion-button primary block (click)="goQueue()">Join Party</button>
+  <h1 text-center><b> OR</b> </h1>
   <br>
-  <button ion-button secondary block>Host a Party!</button>
+  <button ion-button secondary block (click)="hostParty()">Host a Party!</button>
 </ion-content>

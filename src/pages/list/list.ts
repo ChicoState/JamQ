@@ -8,7 +8,7 @@ import { NavController, NavParams } from 'ionic-angular';
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  items: Array<{title: string, note: string, icon: string,id: number}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     // If we navigated to this page, we will have an item available as a nav param
@@ -24,7 +24,8 @@ export class ListPage {
         title: 'Song ' + i,
         note: 'Artist ' + i,
         //icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-        icon: 'wifi'
+        icon: 'heart-outline',
+        id: i
       });
     }
   }
@@ -34,6 +35,14 @@ export class ListPage {
     // this.navCtrl.push(ListPage, {
       // item: item
     // });
-
   }
+
+  toggle(id) {
+    if(this.items.find(x => x.id === id).icon == 'heart-outline') {
+        this.items.find(x => x.id === id).icon = 'heart'
+      } else this.items.find(x => x.id === id).icon = 'heart-outline'
+
+}
+
+
 }

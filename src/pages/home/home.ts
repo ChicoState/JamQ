@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ListPage } from '../list/list';
+import { NowplayingPage } from '../nowplaying/nowplaying';
 import { OAuth } from 'oauthio-web';
 // import { , Headers, RequestOptions } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
@@ -25,18 +26,17 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public http: HttpClient) {
 
-
-
-
-
       var spotify = OAuth.create('spotify');
       spotify.me().done(function(data) {
-          this.name =  data.name;
+          this.name = data.name;
       });
       // console.log(spotify.access_token);
-
-
 }
+
+  hostParty() {
+    this.navCtrl.setRoot(NowplayingPage);
+  }
+  
   goQueue() {
     this.navCtrl.setRoot(ListPage);
   }

@@ -8,6 +8,8 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SearchPage } from '../pages/search/search';
 import { SlidesPage } from '../pages/slides/slides';
+import { NowplayingPage } from '../pages/nowplaying/nowplaying';
+
 // import { Http } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -27,6 +29,7 @@ import { RemoteServiceProvider } from '../providers/remote-service/remote-servic
     ListPage,
     LoginPage,
     SearchPage,
+    NowplayingPage,
     SlidesPage
   ],
   imports: [
@@ -41,6 +44,7 @@ import { RemoteServiceProvider } from '../providers/remote-service/remote-servic
     LoginPage,
     SearchPage,
     ListPage,
+    NowplayingPage,
     SlidesPage
   ],
   providers: [
