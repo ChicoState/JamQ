@@ -12,7 +12,7 @@ import { NowplayingPage } from '../pages/nowplaying/nowplaying';
 
 // import { Http } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+// import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 // import { RemoteService } from '../providers/remote-service';
