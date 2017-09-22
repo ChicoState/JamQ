@@ -9,71 +9,31 @@ Check your install with the Command:
 docker --version
 ```
 
-## 2 Methods for developing with the JamQ docker container
-### First Method (recomended)
-Run docker with localy cloned directory mounted in the container
+### Running the container (recomended)
+This will run the docker environment and use the local ionic project files 
 * The container will have all tools regardless of host OS
 * Any changes to the git directory will reflect in local host directory
 
 Run JamQ container (this will install image if not found locally)
 Use the absolute path of your github repository of your machine
 ```bash
-sudo docker run -i --name JamQ -v <Path-To-JamQ-Dir>:/JamQ -d -p 8100:8100 -p 35729:35729 -p 53703:53703 asmitherman/jamq
+sudo docker run -i --name JamQ -v <Path-To-JamQ-Dir>:/JamQ -p 8100:8100 -p 35729:35729 -p 53703:53703 asmitherman/jamq
 ```
 EXAMPLE:
 ```bash
-sudo docker run -i --name JamQ -v /Users/asmitherman/Projects/JamQ:/JamQ -d -p 8100:8100 -p 35729:35729 -p 53703:53703 asmitherman/jamq
-
+sudo docker run -i --name JamQ -v /Users/asmitherman/Projects/JamQ:/JamQ -p 8100:8100 -p 35729:35729 -p 53703:53703 asmitherman/jamq
 ```
+
 This command will install and run docker image from asmitherman/jamq repository on docker cloud. 
  * -i   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       Runs container in interactive mode 
  * --name    &nbsp;&nbsp;&nbsp;  Will name container JamQ for easy reference
  * -v    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   Will use local directory volume and mount it to /JamQ of container
- * -d      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   Will run JamQ container in the background
  * -p      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  Will secify port number, opens ionic serve through 8100, 35729, 53703
 
-Now we can execute the shell for running the development server for ionic 
-```bash
-sudo docker exec -it JamQ /bin/bash
-```
-* This will open the interactive shell for our container 
-
-From here run:
-```bash
-ionic serve --lab
-```
-* This command will fail once, just run it again. 
-
-Once the live reload development server is running we can reach it at [localhost:8100](http://localhost:8100/ionic-lab) on the host machine 
-
-### Second Method (not recommended)
-Run a docker container and git pull into the container 
-* not recomended because each time the container is stopped it will delete the directory and work will be gone forever. 
-
-Install and run
-```bash
-sudo docker run -i --name JamQ -d -p 8100:8100 -p 35729:35729 -p 53703:53703 asmitherman/jamq
-```
-Get into JamQ shell
-```bash
-sudo docker exec -it JamQ /bin/bash
-```
-Clone JamQ repository (not recommended)
-```bash
-git clone https://github.com/ChicoState/JamQ.git
-```
-From here run:
-```bash
-ionic serve --lab
-```
-* This command will fail once, just run it again. 
-
-Once the live reload development server is running we can reach it at [localhost:8100](http://localhost:8100/ionic-lab) on the host machine 
-
+You will see the output from the development server running in live reload which will refresh whenever there is a change in the JamQ project directory. We can now reach it at [localhost:8100](http://localhost:8100/ionic-lab) on the host machine. 
 
 ## Known issues using JamQ docker container
 * ionic serve will not open browser automatically
-* ionic serve will fail once, success on second try
 
 ## Built With
 - [Ionic 3](https://ionicframework.com/) - The web framework used
