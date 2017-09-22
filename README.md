@@ -48,6 +48,7 @@ Once the live reload development server is running we can reach it at [localhost
 ### Second Method (not recommended)
 Run a docker container and git pull into the container 
 * not recomended because each time the container is stopped it will delete the directory and work will be gone forever. 
+
 Install and run
 ```bash
 sudo docker run -i --name JamQ -d -p 8100:8100 asmitherman/jamq
