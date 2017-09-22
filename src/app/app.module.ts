@@ -11,7 +11,7 @@ import { SlidesPage } from '../pages/slides/slides';
 import { NowplayingPage } from '../pages/nowplaying/nowplaying';
 
 // import { Http } from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
+// import {HttpClientModule} from '@angular/common/http';
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
@@ -34,7 +34,7 @@ import { RemoteServiceProvider } from '../providers/remote-service/remote-servic
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    // HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
