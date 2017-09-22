@@ -18,18 +18,19 @@ Run docker with localy cloned directory mounted in the container
 Run JamQ container (this will install image if not found locally)
 Use the absolute path of your github repository of your machine
 ```bash
-sudo docker run -i --name JamQ -v <Path-To-JamQ-Dir>:/JamQ -d -p 8100:8100 asmitherman/jamq
+sudo docker run -i --name JamQ -v <Path-To-JamQ-Dir>:/JamQ -d -p 8100:8100 -p 35729:35729 -p 53703:53703 asmitherman/jamq
 ```
 EXAMPLE:
 ```bash
-sudo docker run -i --name JamQ -v /Users/asmitherman/Projects/JamQ:/JamQ -d -p 8100:8100 asmitherman/jamq
+sudo docker run -i --name JamQ -v /Users/asmitherman/Projects/JamQ:/JamQ -d -p 8100:8100 -p 35729:35729 -p 53703:53703 asmitherman/jamq
+
 ```
 This command will install and run docker image from asmitherman/jamq repository on docker cloud. 
  * -i   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       Runs container in interactive mode 
  * --name    &nbsp;&nbsp;&nbsp;  Will name container JamQ for easy reference
  * -v    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   Will use local directory volume and mount it to /JamQ of container
  * -d      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   Will run JamQ container in the background
- * -p      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  Will secify port number, opens ionic serve through 8100
+ * -p      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  Will secify port number, opens ionic serve through 8100, 35729, 53703
 
 Now we can execute the shell for running the development server for ionic 
 ```bash
@@ -51,7 +52,7 @@ Run a docker container and git pull into the container
 
 Install and run
 ```bash
-sudo docker run -i --name JamQ -d -p 8100:8100 asmitherman/jamq
+sudo docker run -i --name JamQ -d -p 8100:8100 -p 35729:35729 -p 53703:53703 asmitherman/jamq
 ```
 Get into JamQ shell
 ```bash
@@ -70,10 +71,9 @@ ionic serve --lab
 Once the live reload development server is running we can reach it at [localhost:8100](http://localhost:8100/ionic-lab) on the host machine 
 
 
-
 ## Known issues using JamQ docker container
 * ionic serve will not open browser automatically
-* livereload will build on change but not reflect in browser. Must refresh page after each build
+* ionic serve will fail once, success on second try
 
 ## Built With
 - [Ionic 3](https://ionicframework.com/) - The web framework used
