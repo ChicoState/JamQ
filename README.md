@@ -3,7 +3,7 @@ An app that lets your guests create your music playlist.
 
 
 ## Setting up Docker container
-See [Docker Instructions](Docker.md)
+See [Docker Instructions](docker.md)
 
 ## Built With
 - [Ionic 3](https://ionicframework.com/) - The web framework used
