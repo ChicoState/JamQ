@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,7 +6,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var path = require("path");
 var main_1 = require("../src/main");
@@ -180,6 +181,26 @@ describe('tsc-wrapped', function () {
             .then(function () {
             var out = readOut('js.map');
             expect(out).toContain('"sources":["other_test.ts"]');
+            done();
+        })
+            .catch(function (e) { return done.fail(e); });
+    });
+    it('should expand shorthand imports for ES2015 modules', function (done) {
+        write('tsconfig.json', "{\n      \"compilerOptions\": {\n        \"experimentalDecorators\": true,\n        \"types\": [],\n        \"outDir\": \"built\",\n        \"declaration\": true,\n        \"moduleResolution\": \"node\",\n        \"target\": \"es2015\",\n        \"module\": \"es2015\"\n      },\n      \"angularCompilerOptions\": {\n        \"annotateForClosureCompiler\": true\n      },\n      \"files\": [\"test.ts\"]\n    }");
+        main_1.main(basePath, { basePath: basePath })
+            .then(function () {
+            var fileOutput = readOut('js');
+            expect(fileOutput).toContain("export { A, B } from './dep/index'");
+            done();
+        })
+            .catch(function (e) { return done.fail(e); });
+    });
+    it('should expand shorthand imports for ES5 CommonJS modules', function (done) {
+        write('tsconfig.json', "{\n      \"compilerOptions\": {\n        \"experimentalDecorators\": true,\n        \"types\": [],\n        \"outDir\": \"built\",\n        \"declaration\": true,\n        \"moduleResolution\": \"node\",\n        \"target\": \"es5\",\n        \"module\": \"commonjs\"\n      },\n      \"angularCompilerOptions\": {\n        \"annotateForClosureCompiler\": true\n      },\n      \"files\": [\"test.ts\"]\n    }");
+        main_1.main(basePath, { basePath: basePath })
+            .then(function () {
+            var fileOutput = readOut('js');
+            expect(fileOutput).toContain("var index_1 = require(\"./dep/index\");");
             done();
         })
             .catch(function (e) { return done.fail(e); });

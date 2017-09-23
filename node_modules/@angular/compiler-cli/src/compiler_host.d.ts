@@ -9,7 +9,7 @@ import { AotCompilerHost } from '@angular/compiler';
 import { AngularCompilerOptions, CollectorOptions, MetadataCollector, ModuleMetadata } from '@angular/tsc-wrapped';
 import * as ts from 'typescript';
 export interface CompilerHostContext extends ts.ModuleResolutionHost {
-    readResource(fileName: string): Promise<string>;
+    readResource?(fileName: string): Promise<string> | string;
     assumeFileExists(fileName: string): void;
 }
 export declare class CompilerHost implements AotCompilerHost {
@@ -21,8 +21,9 @@ export declare class CompilerHost implements AotCompilerHost {
     protected basePath: string;
     private genDir;
     private resolverCache;
-    private bundleIndexCache;
-    private bundleIndexNames;
+    private flatModuleIndexCache;
+    private flatModuleIndexNames;
+    private flatModuleIndexRedirectNames;
     private moduleFileNames;
     protected resolveModuleNameHost: CompilerHostContext;
     constructor(program: ts.Program, options: AngularCompilerOptions, context: CompilerHostContext, collectorOptions?: CollectorOptions);
@@ -53,7 +54,7 @@ export declare class CompilerHost implements AotCompilerHost {
     getMetadataFor(filePath: string): ModuleMetadata[] | undefined;
     readMetadata(filePath: string, dtsFilePath: string): ModuleMetadata[];
     private upgradeVersion1Metadata(v1Metadata, dtsFilePath);
-    loadResource(filePath: string): Promise<string>;
+    loadResource(filePath: string): Promise<string> | string;
     loadSummary(filePath: string): string | null;
     getOutputFileName(sourceFilePath: string): string;
     isSourceFile(filePath: string): boolean;

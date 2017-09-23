@@ -42,7 +42,7 @@ var root_1 = require('../util/root');
  * source.then((value) => console.log('Value: %s', value));
  * // => Value: 42
  *
- * @param PromiseCtor promise The constructor of the promise. If not provided,
+ * @param {PromiseConstructor} [PromiseCtor] The constructor of the promise. If not provided,
  * it will look for a constructor first in Rx.config.Promise then fall back to
  * the native Promise constructor if available.
  * @return {Promise<T>} An ES2015 compatible promise with the last value from

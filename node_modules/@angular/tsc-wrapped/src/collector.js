@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5,7 +6,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var ts = require("typescript");
 var evaluator_1 = require("./evaluator");
 var schema_1 = require("./schema");
@@ -336,7 +337,7 @@ var MetadataCollector = (function () {
                     // Record functions that return a single value. Record the parameter
                     // names substitution will be performed by the StaticReflector.
                     var functionDeclaration = node;
-                    if (isExported(functionDeclaration)) {
+                    if (isExported(functionDeclaration) && functionDeclaration.name) {
                         if (!metadata)
                             metadata = {};
                         var name_4 = exportedName(functionDeclaration);
@@ -416,6 +417,9 @@ var MetadataCollector = (function () {
                             if (typeof varValue == 'string' || typeof varValue == 'number' ||
                                 typeof varValue == 'boolean') {
                                 locals.define(nameNode.text, varValue);
+                                if (exported) {
+                                    locals.defineReference(nameNode.text, { __symbolic: 'reference', name: nameNode.text });
+                                }
                             }
                             else if (!exported) {
                                 if (varValue && !schema_1.isMetadataError(varValue)) {

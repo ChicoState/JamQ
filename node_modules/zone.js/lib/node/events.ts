@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {makeZoneAwareAddListener, makeZoneAwareListeners, makeZoneAwareRemoveAllListeners, makeZoneAwareRemoveListener, patchMethod} from '../common/utils';
+import {globalSources, patchEventTarget, zoneSymbolEventNames} from '../common/events';
 
 Zone.__load_patch('EventEmitter', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
   const callAndReturnFirstParam = (fn: (self: any, args: any[]) => any) => {
@@ -24,27 +24,28 @@ Zone.__load_patch('EventEmitter', (global: any, Zone: ZoneType, api: _ZonePrivat
   const EE_LISTENERS = 'listeners';
   const EE_ON = 'on';
 
-  const zoneAwareAddListener = callAndReturnFirstParam(
-      makeZoneAwareAddListener(EE_ADD_LISTENER, EE_REMOVE_LISTENER, false, true, false));
-  const zoneAwarePrependListener = callAndReturnFirstParam(
-      makeZoneAwareAddListener(EE_PREPEND_LISTENER, EE_REMOVE_LISTENER, false, true, true));
-  const zoneAwareRemoveListener =
-      callAndReturnFirstParam(makeZoneAwareRemoveListener(EE_REMOVE_LISTENER, false));
-  const zoneAwareRemoveAllListeners =
-      callAndReturnFirstParam(makeZoneAwareRemoveAllListeners(EE_REMOVE_ALL_LISTENER));
-  const zoneAwareListeners = makeZoneAwareListeners(EE_LISTENERS);
-
-  function patchEventEmitterMethods(obj: any): boolean {
-    if (obj && obj.addListener) {
-      patchMethod(obj, EE_ADD_LISTENER, () => zoneAwareAddListener);
-      patchMethod(obj, EE_PREPEND_LISTENER, () => zoneAwarePrependListener);
-      patchMethod(obj, EE_REMOVE_LISTENER, () => zoneAwareRemoveListener);
-      patchMethod(obj, EE_REMOVE_ALL_LISTENER, () => zoneAwareRemoveAllListeners);
-      patchMethod(obj, EE_LISTENERS, () => zoneAwareListeners);
-      obj[EE_ON] = obj[EE_ADD_LISTENER];
+  const compareTaskCallbackVsDelegate = function(task: any, delegate: any) {
+    if (task.callback === delegate || task.callback.listener === delegate) {
+      // same callback, same capture, same event name, just return
       return true;
-    } else {
-      return false;
+    }
+    return false;
+  };
+
+  function patchEventEmitterMethods(obj: any) {
+    const result = patchEventTarget(global, [obj], {
+      useGlobalCallback: false,
+      addEventListenerFnName: EE_ADD_LISTENER,
+      removeEventListenerFnName: EE_REMOVE_LISTENER,
+      prependEventListenerFnName: EE_PREPEND_LISTENER,
+      removeAllFnName: EE_REMOVE_ALL_LISTENER,
+      listenersFnName: EE_LISTENERS,
+      checkDuplicate: false,
+      returnTarget: true,
+      compareTaskCallbackVsDelegate: compareTaskCallbackVsDelegate
+    });
+    if (result && result[0]) {
+      obj[EE_ON] = obj[EE_ADD_LISTENER];
     }
   }
 

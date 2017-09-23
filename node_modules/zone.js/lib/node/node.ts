@@ -9,8 +9,9 @@
 import './events';
 import './fs';
 
+import {findEventTasks} from '../common/events';
 import {patchTimer} from '../common/timers';
-import {findEventTask, isMix, patchMacroTask, patchMicroTask} from '../common/utils';
+import {isMix, patchMacroTask, patchMicroTask} from '../common/utils';
 
 const set = 'set';
 const clear = 'clear';
@@ -32,7 +33,7 @@ Zone.__load_patch('node_timers', (global: any, Zone: ZoneType, api: _ZonePrivate
         globalUseTimeoutFromTimer = true;
         return originSetTimeout.apply(this, arguments);
       };
-      const detectTimeout = global.setTimeout(noop, 100);
+      const detectTimeout = global.setTimeout(() => {}, 100);
       clearTimeout(detectTimeout);
       timers.setTimeout = originSetTimeout;
     }
@@ -92,7 +93,7 @@ Zone.__load_patch(
       // handle unhandled promise rejection
       function findProcessPromiseRejectionHandler(evtName: string) {
         return function(e: any) {
-          const eventTasks = findEventTask(process, evtName);
+          const eventTasks = findEventTasks(process, evtName);
           eventTasks.forEach(eventTask => {
             // process has added unhandledrejection event listener
             // trigger the event listener
@@ -132,4 +133,22 @@ Zone.__load_patch('crypto', (global: any, Zone: ZoneType, api: _ZonePrivate) => 
       });
     });
   }
+});
+
+Zone.__load_patch('console', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
+  const consoleMethods =
+      ['dir', 'log', 'info', 'error', 'warn', 'assert', 'debug', 'timeEnd', 'trace'];
+  consoleMethods.forEach((m: string) => {
+    const originalMethod = (console as any)[Zone.__symbol__(m)] = (console as any)[m];
+    if (originalMethod) {
+      (console as any)[m] = function() {
+        const args = Array.prototype.slice.call(arguments);
+        if (Zone.current === Zone.root) {
+          return originalMethod.apply(this, args);
+        } else {
+          return Zone.root.run(originalMethod, this, args);
+        }
+      };
+    }
+  });
 });
