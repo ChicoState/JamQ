@@ -5,6 +5,9 @@ An app that lets your guests create your music playlist.
 ## Setting up Docker container
 See [Docker Instructions](docker.md)
 
+## General Flow
+![Alt text](Pageflow.jpg?raw=true "JamQ")
+
 ## Built With
 - [Ionic 3](https://ionicframework.com/) - The web framework used
 - [Angular 4](https://angular.io/) 
