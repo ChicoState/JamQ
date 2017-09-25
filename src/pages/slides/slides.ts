@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LoginPage } from '../login/login';
 import { OAuth } from 'oauthio-web';
 import { HomePage } from '../home/home';
 
@@ -31,9 +30,9 @@ export class SlidesPage {
     console.log('ionViewDidLoad SlidesPage');
   }
 
-  login(){
+  home(){
   // Your app login API web service call triggers
-  this.navCtrl.push(LoginPage, {}, {animate: false});
+  this.navCtrl.push(HomePage, {}, {animate: false});
 
 }
 

@@ -5,7 +5,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { LoginPage } from '../pages/login/login';
 import { SearchPage } from '../pages/search/search';
 import { SlidesPage } from '../pages/slides/slides';
 import { NowplayingPage } from '../pages/nowplaying/nowplaying';
@@ -27,7 +26,6 @@ import { RemoteServiceProvider } from '../providers/remote-service/remote-servic
     MyApp,
     HomePage,
     ListPage,
-    LoginPage,
     SearchPage,
     NowplayingPage,
     SlidesPage
@@ -41,7 +39,6 @@ import { RemoteServiceProvider } from '../providers/remote-service/remote-servic
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage,
     SearchPage,
     ListPage,
     NowplayingPage,

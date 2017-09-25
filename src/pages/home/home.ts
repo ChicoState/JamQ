@@ -20,6 +20,7 @@ import 'rxjs/add/operator/map';
 })
 export class HomePage {
   name: any;
+  authenticated: any;
   // response: Observable<any>;
   // test: any;
   // user$: Observable<any>;
@@ -27,15 +28,32 @@ export class HomePage {
   // constructor(public navCtrl: NavController, public http: HttpClient) {
   constructor(public navCtrl: NavController) {
 
-      var spotify = OAuth.create('spotify');
-      spotify.me().done(function(data) {
-          this.name = data.name;
-      });
+      // var spotify = OAuth.create('spotify');
+      // spotify.me().done(function(data) {
+      //     this.name = data.name;
+      //     this.authenticated = true;
+      // });
       // console.log(spotify.access_token);
 }
 
+  checkAuth(){
+    var spotify = OAuth.create('spotify');
+    console.log("checking");
+    if(spotify.access_token) {
+      this.authenticated = true;
+    }
+  }
+
   hostParty() {
-    this.navCtrl.setRoot(NowplayingPage);
+    OAuth.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
+    OAuth.popup('spotify',{cache: true}).done(function(spotify) {
+      this.authenticated = true;
+    // console.log(spotify)
+    })
+      // setTimeout(this.checkAuth, 1000);
+
+        this.navCtrl.setRoot(NowplayingPage);
+      
   }
 
   goQueue() {

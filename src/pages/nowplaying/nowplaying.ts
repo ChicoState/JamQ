@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { OAuth } from 'oauthio-web';
 
 /**
  * Generated class for the NowplayingPage page.
@@ -17,6 +18,10 @@ export class NowplayingPage {
 items: Array<{title: string, note: string, icon: string,id: number}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    var spotify = OAuth.create('spotify');
+    if (spotify.access_token) {
+      // this.navCtrl.setRoot(HomePage, {}, {animate: false});
+    }
 
     this.items = [];
     for (let i = 1; i < 11; i++) {

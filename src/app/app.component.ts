@@ -14,7 +14,8 @@ import { SlidesPage } from '../pages/slides/slides';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
+  // @ViewChild('content') navCtrl: NavController;
+//
   rootPage: any = SlidesPage;
 
   userpages: Array<{title: string, component: any}>;
