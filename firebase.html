@@ -1,13 +1,49 @@
-<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBg6bOg4y20B70t_KeIddB_DU1go3sRZrs",
+        authDomain: "myfirstproject-7b43f.firebaseapp.com",
+        databaseURL: "https://myfirstproject-7b43f.firebaseio.com",
+        projectId: "myfirstproject-7b43f",
+        storageBucket: "myfirstproject-7b43f.appspot.com",
+        messagingSenderId: "461926492985"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-messaging.js"></script>
+
+<!-- Leave out Storage -->
+<!-- <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase-storage.js"></script> -->
+
 <script>
-  // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyBg6bOg4y20B70t_KeIddB_DU1go3sRZrs",
-    authDomain: "myfirstproject-7b43f.firebaseapp.com",
-    databaseURL: "https://myfirstproject-7b43f.firebaseio.com",
-    projectId: "myfirstproject-7b43f",
-    storageBucket: "",
-    messagingSenderId: "461926492985"
+    // ...
   };
   firebase.initializeApp(config);
 </script>
+
+  </body>
+</html>
+
+
+
+
