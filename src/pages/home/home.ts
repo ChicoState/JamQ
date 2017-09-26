@@ -1,17 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 import { ListPage } from '../list/list';
 import { NowplayingPage } from '../nowplaying/nowplaying';
 import { OAuth } from 'oauthio-web';
-// import { , Headers, RequestOptions } from '@angular/http';
-// import { HttpClient } from '@angular/common/http';
+
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
-// import * as _ from 'lodash';
-// import { Observable } from 'rxjs/Observable';
-// import {Injectable} from '@angular/core';
-// import {HttpEvent, HttpHeaders, HttpInterceptor, HttpHandler, HttpRequest, HttpParams } from '@angular/common/http';
 
 
 @Component({
@@ -19,24 +14,13 @@ import 'rxjs/add/operator/map';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  name: any;
   authenticated: any;
-  // response: Observable<any>;
-  // test: any;
-  // user$: Observable<any>;
 
-  // constructor(public navCtrl: NavController, public http: HttpClient) {
   constructor(public navCtrl: NavController) {
-
-      // var spotify = OAuth.create('spotify');
-      // spotify.me().done(function(data) {
-      //     this.name = data.name;
-      //     this.authenticated = true;
-      // });
-      // console.log(spotify.access_token);
 }
 
   checkAuth(){
+    // Pulls the spotify auth if cached and checks if currently Authenticated
     var spotify = OAuth.create('spotify');
     console.log("checking");
     if(spotify.access_token) {
@@ -45,19 +29,38 @@ export class HomePage {
   }
 
   hostParty() {
+    //initializes spotify auth
     OAuth.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
-    OAuth.popup('spotify',{cache: true}).done(function(spotify) {
-      this.authenticated = true;
-    // console.log(spotify)
-    })
-      // setTimeout(this.checkAuth, 1000);
+    //popup for spotify login
+    //then resets html to wait for auth to complete
+        //idealy this would be a loading feature to wait until popup closes with success
+    //on error sends alert  to page for debbuging
+      OAuth.popup('spotify',{cache: true}).done(function(spotify) {
 
-        this.navCtrl.setRoot(NowplayingPage);
-      
+      }).then( this.goHost()
+      ).fail(function(err) {
+        alert("Error with spotify login");
+      });
+
+
   }
 
+  goHost() {
+    //need to generate Host Key ID's Here
+    var hostPage = "Your Host Key\n J534BS";
+    //replaces previous page with key
+    document.getElementById("keyPage").innerHTML = hostPage ;
+    //reveals button to continue to host page
+    document.getElementById("hide").style.visibility = "visible";
+
+  }
+  //navigates to and sets root Queue
   goQueue() {
     this.navCtrl.setRoot(ListPage);
+  }
+  //navigates to and sets root to host now playing page
+  goParty() {
+    this.navCtrl.setRoot(NowplayingPage);
   }
 
 }
