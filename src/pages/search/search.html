@@ -19,8 +19,19 @@
 <ion-content padding>
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
-    <button ion-item *ngFor="let item of items">
-      {{ item }}
+  <ion-item clear ion-item (click)="itemTapped($event, item)">
+
+    <ion-thumbnail item-start>
+      <img id="img" src="">
+    </ion-thumbnail>
+    <h2 id="title"></h2>
+    <p id="artist"></p>
+
+
+    <button ion-button clear item-end>
+   <ion-icon name="add"></ion-icon>
     </button>
+
+  </ion-item>
   </ion-list>
 </ion-content>
