@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { OAuth } from 'oauthio-web';
 
 /**
  * Generated class for the SearchPage page.
@@ -14,10 +15,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'search.html',
 })
 export class SearchPage {
+  user: any;
   searchQuery: string = '';
   items: string[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
     this.initializeItems();
   }
   initializeItems() {
