@@ -8,6 +8,8 @@ import { ListPage } from '../pages/list/list';
 import { SearchPage } from '../pages/search/search';
 import { SlidesPage } from '../pages/slides/slides';
 import { NowplayingPage } from '../pages/nowplaying/nowplaying';
+import { Keyboard } from '@ionic-native/keyboard';
+
 
 // import { Http } from '@angular/http';
 // import {HttpClientModule} from '@angular/common/http';
@@ -19,7 +21,6 @@ import { NowplayingPage } from '../pages/nowplaying/nowplaying';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { RemoteServiceProvider } from '../providers/remote-service/remote-service';
 
 @NgModule({
   declarations: [
@@ -47,9 +48,8 @@ import { RemoteServiceProvider } from '../providers/remote-service/remote-servic
   providers: [
     StatusBar,
     SplashScreen,
-    RemoteServiceProvider,
+    Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RemoteServiceProvider
   ]
 })
 export class AppModule {}
