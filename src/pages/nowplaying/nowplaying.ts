@@ -8,14 +8,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Platform } from 'ionic-angular';
 
-
-/**
- * Generated class for the NowplayingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-nowplaying',
@@ -34,6 +26,7 @@ isMobile: any;
     if (platform.is('cordova')) { this.isMobile = true; }
       else { this.isMobile = false; }
 
+
     this.songs = af.list('/111/songlist', { query: { limitToLast: 10 } });
     //getting spotify api library
     var SpotifyWebApi = require('spotify-web-api-node');
@@ -46,10 +39,10 @@ isMobile: any;
       //gets auth from cache named 'spotify' is Web
       var spotify = OAuthWeb.create('spotify');
     }
-
     //sets access token of authenticated user
     spotifyApi.setAccessToken(spotify.access_token);
-    // gets user data from api and asynchronously throws it into page
+
+      // gets user data from api and asynchronously throws it into page
       // checks if user has display name if not uses user id
       spotifyApi.getMe().then(function(data) {
         if (data.body.display_name){
@@ -62,19 +55,19 @@ isMobile: any;
       })
 
      this.afAuth.authState.subscribe((auth) => {
-     this.users = auth
-    //  console.log(auth);
+     this.users = auth;
+    //  console.log(this.users);
    });
 
+   //signs into firebase using anonymous user
    this.afAuth.auth.signInAnonymously().catch(function(error) {
      var errorMessage = error.message;
    });
 
-
-
   }
 
-  chatSend(songTitle: string) {
+  //sends the input from box to song list in firebase
+  songSend(songTitle: string) {
         this.songs.push({ songTitle: songTitle, artist: "Artist Name" });
         this.songObj = '';
     }

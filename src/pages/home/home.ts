@@ -35,18 +35,9 @@ export class HomePage {
     if (platform.is('cordova')) { this.isMobile = true; }
     else { this.isMobile = false; }
 
-    var spotify = OAuthWeb.create('spotify');
-    if(spotify.access_token){}
-      // afAuth.auth().signInWithCustomToken(access_token).catch(function(error) {
-      // Handle Errors here.
-      // var errorCode = error.code;
-      // var errorMessage = error.message;
-      // ...
-// });
-    // }
-
   }
 
+  //use for authentiating with mobile libraries
   mobileAuth(){
     //initializes spotify auth
     OAuth.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
@@ -62,12 +53,12 @@ export class HomePage {
       });
   }
 
+  //use for authenticating with web libraries
   webAuth() {
     var spotify = OAuthWeb.create('spotify');
     if(spotify.access_token){
       // console.log(spotify.access_token);
       this.goHost();
-      // return;
 
     } else {
     OAuthWeb.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
@@ -119,10 +110,9 @@ export class HomePage {
   }
   //navigates to and sets root Queue
   goQueue() {
-    // var data = {hostKey: document.getElementById('party').innerHTML }
+    //create obj for passing key to next page
     var data = {hostKey: this.key}
-
-    console.log("data in home", this.key);
+    //takes user to queue with data containing party key
     this.navCtrl.setRoot(ListPage, data);
   }
   //navigates to and sets root to host now playing page

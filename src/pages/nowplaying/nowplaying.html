@@ -18,7 +18,7 @@
   <h1 text-center id="name"> </h1>
   <!-- <h1 text-center *ngIf="userid == null"> {{userid}}'s Party</h1> -->
   <p> Party ID: G3HW8Z </p>
-  <input type="text" id="message" *ngIf="users" placeholder="Add here" (keyup.enter)="chatSend($event.target.value)" [(ngModel)]="msgVal" />
+  <input type="text" id="message" *ngIf="users" placeholder="Add here" (keyup.enter)="songSend($event.target.value)" [(ngModel)]="msgVal" />
 
     <!-- <div class="chat-container" *ngFor="let song of songs | async">
       <a href="#">{{song.name}}</a>
