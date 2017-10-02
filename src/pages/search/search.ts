@@ -4,6 +4,8 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { OAuth as OAuthWeb } from 'oauthio-web';
 import { OAuth } from 'oauth-phonegap';
 import { Platform } from 'ionic-angular';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+
 
 
 /**
@@ -21,15 +23,25 @@ import { Platform } from 'ionic-angular';
 
 export class SearchPage {
   spotifyApi: any;
+  songs: FirebaseListObservable<any>;
+  key: any;
+  isMobile: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private keyboard: Keyboard) {
+
+  constructor(public platform: Platform, public navCtrl: NavController, public   navParams: NavParams,private keyboard: Keyboard, public af: AngularFireDatabase) {
+    if (platform.is('cordova')) { this.isMobile = true; }
+      else { this.isMobile = false; }
+
+      this.key = this.navParams.get('hostKey');
+
+      this.songs = af.list('/111/songlist');
+
       //getting spotify api library
       var SpotifyWebApi = require('spotify-web-api-node');
       //build api with no params
       this.spotifyApi = new SpotifyWebApi();
 
-    var platform = new Platform;
-    if (platform.is('ios') || platform.is('android') || platform.is('windows')) {
+    if (this.isMobile) {
       //is phone
       //gets auth from cache named 'spotify'
       var spotify = OAuth.create('spotify');
@@ -37,6 +49,7 @@ export class SearchPage {
       //is web
       //gets auth from cache named 'spotify'
       var spotify = OAuthWeb.create('spotify');
+      console.log("is Web");
     }
       //sets access token of authenticated user
       this.spotifyApi.setAccessToken(spotify.access_token);
@@ -62,22 +75,45 @@ export class SearchPage {
 
           for(var i = 0; i < 10; i++)
           {
+            if(!song.items[i]) {
+               continue;
+            }
+
+            // let item = document.createElement('ion-item');
             i.toString();
-            var html = '<ion-item clear ion-item (click)="itemTapped($event, item)">' +
-            '<ion-thumbnail item-start>' +
-            '<img id="img" src="' + song.items[i].album.images['0'].url + '">' +
-            '</ion-thumbnail>' +
-            '<h2 id="title">' + song.items[i].name + ' </h2>' +
+            var html = //'<ion-item clear ion-item (click)="itemTapped($event, item)">' +
+            //'<ion-thumbnail item-start>' +
+            // '<img id="img" src="' + song.items[i].album.images['0'].url + '">' +
+            //'</ion-thumbnail>' +
+            '<h2 id="title" (click)="itemTapped(' + song.items[i].name + ')">' + song.items[i].name + ' </h2>' +
             '<p id="artist"> ' + song.items[i].artists['0'].name +
             ' </p>' +
-            '<button ion-button clear item-end>' +
-            '<ion-icon name="add"> </ion-icon>' +
-            '</button>' +
-            '</ion-item>';
+            //'<button ion-button clear item-end>' +
+            //'<ion-icon name="add"> </ion-icon>' +
+            //'</button>' +
+            //'</ion-item>';
+            '';
 
-            var div = document.createElement('ion-item');
+            // var ionItem = document.createElement('ion-item clear ion-item')
+
+            var imgContainer = document.createElement('img');
+            imgContainer.setAttribute('src', song.items[i].album.images[0].url);
+            imgContainer.setAttribute('id', i.toString() );
+
+            // imgContainer.setAttribute("onclick", "itemTapped(" + song.items[i].name + ")");
+            // imgContainer.setAttribute("onclick", "itemTapped('song')");
+
+            // var ionThumbnail = document.createElement('ion-thumbnail item-start').appendChild(imgContainer)
+
+            // ionItem.appendChild(ionThumbnail);
+
+
+            // document.getElementById('img').appendChild(imgContainer);
+
+            var div = document.createElement('div');
             // div.setAttribute('class', 'post block bc2');
             div.insertAdjacentHTML('beforeend', html);
+            document.getElementById('list').appendChild(imgContainer);
             document.getElementById('list').appendChild(div);
 
           }
@@ -101,9 +137,13 @@ export class SearchPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
+
   }
 
-  itemTapped(event, item) {
+  itemTapped() {
+    // let title = document.getElementById('title').innerHTML
+    console.log("yo");
+    this.songs.push({songTitle: "Added Song", artist: "Added Artist" });
   }
 
   showKeyboard() {

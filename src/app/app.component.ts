@@ -47,3 +47,12 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 }
+
+export const firebaseConfig = {
+    apiKey: "AIzaSyCp9HMB336Zfcrl5spkAy4-w1nsrOe5wU0",
+    authDomain: "jamq-b015a.firebaseapp.com",
+    databaseURL: "https://jamq-b015a.firebaseio.com",
+    projectId: "jamq-b015a",
+    storageBucket: "jamq-b015a.appspot.com",
+    messagingSenderId: "45757196990"
+  };

@@ -19,21 +19,17 @@
 <ion-content padding>
   <ion-searchbar item-input (ionInput)="getItems($event)" (click)="showKeyboard()">
   </ion-searchbar>
-  <ion-list id="list">
-    <!-- <ion-list> -->
-    <!-- <div id="songObj">
-    </div> -->
-  <!-- <ion-item *ng-repeat=" i in [10]" clear ion-item (click)="itemTapped($event, item)">
-    <ion-thumbnail item-start>
-      <img id="img{{i}}" src="">
-    </ion-thumbnail>
-    <h2 id="title{{i}}"></h2>
-    <p id="artist{{i}}"></p>
-    <button ion-button clear item-end>
+  <ion-list id="list" (click)="itemTapped()">
+  <!-- <ion-item clear ion-item (click)="itemTapped($event, item)"> -->
+     <!-- <ion-thumbnail item-start>
+      <img id="img" src=""/>
+    </ion-thumbnail>  -->
+    <!-- <h2 id="title{{i}}"></h2>
+    <p id="artist{{i}}"></p> -->
+    <!-- <button ion-button clear item-end>
    <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-item> -->
-
+    </button> -->
+  <!-- </ion-item> -->
 
 
 

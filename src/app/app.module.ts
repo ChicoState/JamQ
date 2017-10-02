@@ -10,6 +10,11 @@ import { SlidesPage } from '../pages/slides/slides';
 import { NowplayingPage } from '../pages/nowplaying/nowplaying';
 import { Keyboard } from '@ionic-native/keyboard';
 
+import { AngularFireModule } from 'angularfire2';
+import { firebaseConfig } from './app.component';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule, FirebaseListObservable } from 'angularfire2/database'
+
 
 // import { Http } from '@angular/http';
 // import {HttpClientModule} from '@angular/common/http';
@@ -33,6 +38,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     // HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],

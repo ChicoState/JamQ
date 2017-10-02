@@ -1,16 +1,25 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+
 
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
 })
 export class ListPage {
+  songs: FirebaseListObservable<any>;
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string,id: number}>;
+  key: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public af: AngularFireDatabase) {
+    this.key = this.navParams.get('hostKey');
+    this.songs = af.list('/'+ this.key +'/songlist');
+
     // If we navigated to this page, we will have an item available as a nav param
     // this.selectedItem = navParams.get('item');
 
@@ -37,12 +46,12 @@ export class ListPage {
     // });
   }
 
-  toggle(id) {
-    if(this.items.find(x => x.id === id).icon == 'heart-outline') {
-        this.items.find(x => x.id === id).icon = 'heart'
-      } else this.items.find(x => x.id === id).icon = 'heart-outline'
-
-}
+//   toggle(id) {
+//     if(this.items.find(x => x.id === id).icon == 'heart-outline') {
+//         this.items.find(x => x.id === id).icon = 'heart'
+//       } else this.items.find(x => x.id === id).icon = 'heart-outline'
+//
+// }
 
 
 }
