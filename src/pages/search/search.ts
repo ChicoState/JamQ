@@ -26,15 +26,17 @@ export class SearchPage {
   songs: FirebaseListObservable<any>;
   key: any;
   isMobile: any;
+  that: this;
 
 
-  constructor(public platform: Platform, public navCtrl: NavController, public   navParams: NavParams,private keyboard: Keyboard, public af: AngularFireDatabase) {
+  constructor(public platform: Platform, public navCtrl: NavController,
+    public navParams: NavParams, public af: AngularFireDatabase) {
       //checks if device is mobile or Web
     if (platform.is('cordova')) { this.isMobile = true; }
       else { this.isMobile = false; }
 
       //gets the list at party id 111 for pushing songs there
-      this.songs = af.list('/111/songlist');
+      this.songs = af.list('/333/songlist');
 
       //getting spotify api library
       var SpotifyWebApi = require('spotify-web-api-node');
@@ -56,7 +58,17 @@ export class SearchPage {
       this.spotifyApi.setAccessToken(spotify.access_token);
   }
 
-  getItems(ev: any) {
+  getItems(ev: any, that ) {
+
+    for(var i = 0; i < 10; i++) {
+      var artist = document.getElementById("artist" + i);
+      var title = document.getElementById("title" + i);
+      if( artist != null) {
+        // artist.addEventListener("click", function(){ that.itemTapped(i) });
+        console.log(artist.innerHTML + " " + title.innerHTML)
+      }
+    }
+
     //gets the list that displays songs
     var mydiv = document.getElementById('list');
     //while loop that removes list of current songs displayed
@@ -70,7 +82,7 @@ export class SearchPage {
     if (queryTerm && queryTerm.trim() != '') {
     //search track titles and return top 10 results
     var prev = this.spotifyApi.searchTracks(queryTerm, {limit: 10})
-        .then(function(data) {
+        .then(function(data, that) {
           //song object for easier calls
           let song = data.body.tracks;
           // clean the promise so it doesn't call abort
@@ -86,12 +98,15 @@ export class SearchPage {
             }
 
             i.toString();
-            //html sting to push to page
-            var html =
-            //h2 element for Song title
-            '<h2 id="title" (click)="itemTapped(' + song.items[i].name + ')">' + song.items[i].name + ' </h2>' +
-            //p element for Artist name
-            '<p id="artist"> ' + song.items[i].artists['0'].name +' </p>';
+            var title = document.createElement('h2');
+            title.innerHTML = song.items[i].name;
+            title.setAttribute('id', "title" + i);
+            // title.onclick =
+            // title.addEventListener("click", function() { console.log(title.id); console.log(title.innerHTML) })
+
+            var artist = document.createElement('p');
+            artist.innerHTML = song.items[i].artists['0'].name;
+            artist.setAttribute('id', "artist" + i);
 
             //img container for album cover
             var imgContainer = document.createElement('img');
@@ -102,26 +117,34 @@ export class SearchPage {
 
             //create div for pushing elements to page
             var div = document.createElement('div');
-            //adds html from above to the div
-            div.insertAdjacentHTML('beforeend', html);
+            div.appendChild(imgContainer);
+            div.appendChild(title);
+            div.appendChild(artist);
+            // div.setAttribute("class", "item item-block item-ios");
             //appends img to list
-            document.getElementById('list').appendChild(imgContainer);
+            // document.getElementById('list').appendChild(imgContainer);
             //appends album info to list under img
             document.getElementById('list').appendChild(div);
           }
         }, function(err) { //some error checking
           console.error(err);
-        });
+        })
+
     }
+
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
   }
 
-  itemTapped() {
-    // console.log("yo");
-    this.songs.push({songTitle: "Added Song", artist: "Added Artist" });
+  itemTapped(index) {
+    console.log(index);
+    // console.log(document.getElementById("title" + index).innerHTML);
+    // console.log(document.getElementById('artist' + index).innerHTML);
+    // this.songs.push({songTitle: "Added Song", artist: "Added Artist" });
+    // return document.getElementById("title" + index);
   }
 
 }
