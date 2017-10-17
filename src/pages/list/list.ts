@@ -24,7 +24,4 @@ export class ListPage {
 
   }
 
-  itemTapped(event, item) {
-  }
-
 }

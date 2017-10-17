@@ -16,57 +16,18 @@
 
 <ion-content padding>
   <h1 text-center id="name"> </h1>
-  <!-- <h1 text-center *ngIf="userid == null"> {{userid}}'s Party</h1> -->
-  <p> Party ID: G3HW8Z </p>
-  <input type="text" id="message" *ngIf="users" placeholder="Add here" (keyup.enter)="songSend($event.target.value)" [(ngModel)]="msgVal" />
-
-    <!-- <div class="chat-container" *ngFor="let song of songs | async">
-      <a href="#">{{song.name}}</a>
-
-      <p>{{song.message}}</p>
-    </div> -->
-
 
   <ion-list>
-    <ion-item clear ion-item *ngFor= "let song of songs | async" (click)="itemTapped($event, item)">
+    <ion-item clear ion-item *ngFor= "let song of songs | async" >
     <ion-thumbnail item-start>
-      <img src="https://yt3.ggpht.com/-APsbUMwis70/AAAAAAAAAAI/AAAAAAAAAAA/619A7af1k1g/s900-c-k-no-mo-rj-c0xffffff/photo.jpg">
+      <img src= "{{song.img}}">
     </ion-thumbnail>
-    <h2> {{ song.songTitle }} </h2>
+    <h2> {{ song.title }} </h2>
     <p> {{ song.artist }}</p>
     <button ion-button clear item-end>
-   <ion-icon>
-   </ion-icon>
+      <ion-icon name="ios-close"></ion-icon>
     </button>
   </ion-item>
 </ion-list>
-
-
-
-  <!-- <ion-item clear ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-
-    <ion-thumbnail item-start>
-      <img src="https://yt3.ggpht.com/-APsbUMwis70/AAAAAAAAAAI/AAAAAAAAAAA/619A7af1k1g/s900-c-k-no-mo-rj-c0xffffff/photo.jpg">
-    </ion-thumbnail>
-    <h2>{{ item.title }}  </h2>
-    <p>{{ item.note }} </p>
-
-    <button ion-button clear item-end>
-      <ion-icon name="heart-outline"></ion-icon>
-    </button> -->
-
-    <!-- <button ion-button clear item-end> -->
-   <!-- <ion-icon> -->
-   <!-- </ion-icon> -->
-    <!-- </button> -->
-
-      <!-- <ion-icon [name]="item.icon" item-left></ion-icon> -->
-      <!-- <div class="item-note" item-right> -->
-      <!-- </div> -->
-    <!-- </button> -->
-  <!-- </ion-item> -->
-  <!-- </ion-list>  -->
 
 </ion-content>

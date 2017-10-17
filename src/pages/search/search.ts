@@ -59,22 +59,10 @@ export class SearchPage {
   }
 
   getItems(ev: any, that ) {
-
-    for(var i = 0; i < 10; i++) {
-      var artist = document.getElementById("artist" + i);
-      var title = document.getElementById("title" + i);
-      if( artist != null) {
-        // artist.addEventListener("click", function(){ that.itemTapped(i) });
-        console.log(artist.innerHTML + " " + title.innerHTML)
-      }
-    }
+    document.getElementById("list").style.visibility = "visible";
 
     //gets the list that displays songs
     var mydiv = document.getElementById('list');
-    //while loop that removes list of current songs displayed
-    while(mydiv.firstChild) {
-    mydiv.removeChild(mydiv.firstChild);
-    }
 
     // set val to the value of the searchbar
     let queryTerm = ev.target.value;
@@ -98,41 +86,20 @@ export class SearchPage {
             }
 
             i.toString();
-            var title = document.createElement('h2');
+            //artist name
+            document.getElementById('artist' + i ).innerHTML = song.items[i].artists['0'].name;
+            //album cover
+            document.getElementById('img' + i ).setAttribute('src', song.items[i].album.images[0].url);
+            //song title
+            var title = document.getElementById('title' + i );
             title.innerHTML = song.items[i].name;
-            title.setAttribute('id', "title" + i);
-            // title.onclick =
-            // title.addEventListener("click", function() { console.log(title.id); console.log(title.innerHTML) })
-
-            var artist = document.createElement('p');
-            artist.innerHTML = song.items[i].artists['0'].name;
-            artist.setAttribute('id', "artist" + i);
-
-            //img container for album cover
-            var imgContainer = document.createElement('img');
-            //set src attribute from api
-            imgContainer.setAttribute('src', song.items[i].album.images[0].url);
-            //sets unique id dynamically
-            imgContainer.setAttribute('id', i.toString() );
-
-            //create div for pushing elements to page
-            var div = document.createElement('div');
-            div.appendChild(imgContainer);
-            div.appendChild(title);
-            div.appendChild(artist);
-            // div.setAttribute("class", "item item-block item-ios");
-            //appends img to list
-            // document.getElementById('list').appendChild(imgContainer);
-            //appends album info to list under img
-            document.getElementById('list').appendChild(div);
+            //pass track id to page
+            title.setAttribute("data-songid", song.items[i].id);
           }
         }, function(err) { //some error checking
           console.error(err);
         })
-
     }
-
-
   }
 
   ionViewDidLoad() {
@@ -140,11 +107,25 @@ export class SearchPage {
   }
 
   itemTapped(index) {
-    console.log(index);
-    // console.log(document.getElementById("title" + index).innerHTML);
-    // console.log(document.getElementById('artist' + index).innerHTML);
-    // this.songs.push({songTitle: "Added Song", artist: "Added Artist" });
-    // return document.getElementById("title" + index);
-  }
+    //get songid from song clicked
+    var id = document.getElementById('title'+index).getAttribute("data-songid");
+    //move songlist to loval variable
+    var db = this.songs;
+    //call spotify api for song information
+        this.spotifyApi.getTrack(id)
+          .then(function(data) {
+            //shorten call
+            let track = data.body;
+            //send track information to firebase
+            db.push({
+              artist: track.artists['0'].name,
+              title: track.name,
+              songid: id,
+              img:track.album.images['0'].url
+            });
 
+        }, function(err) { //error checking
+        console.log('Something went wrong!', err);
+    });
+  }
 }

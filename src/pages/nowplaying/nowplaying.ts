@@ -14,24 +14,24 @@ import { Platform } from 'ionic-angular';
   templateUrl: 'nowplaying.html',
 })
 export class NowplayingPage {
-items: Array<{title: string, note: string, icon: string,id: number}>;
 songs: FirebaseListObservable<any>;
 users: any;
-songObj: string = '';
 key: any;
 isMobile: any;
+spotifyApi: any;
 
 
-  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, public af: AngularFireDatabase, public afAuth: AngularFireAuth) {
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams,
+    public af: AngularFireDatabase, public afAuth: AngularFireAuth) {
     if (platform.is('cordova')) { this.isMobile = true; }
       else { this.isMobile = false; }
 
 
-    this.songs = af.list('/111/songlist', { query: { limitToLast: 10 } });
+    this.songs = af.list('/333/songlist', { query: { limitToLast: 10 } });
     //getting spotify api library
     var SpotifyWebApi = require('spotify-web-api-node');
     //build api with no params
-    var spotifyApi = new SpotifyWebApi();
+    this.spotifyApi = new SpotifyWebApi();
     if(this.isMobile) {
       //gets auth from cache named 'spotify'
       var spotify = OAuth.create('spotify');
@@ -40,11 +40,11 @@ isMobile: any;
       var spotify = OAuthWeb.create('spotify');
     }
     //sets access token of authenticated user
-    spotifyApi.setAccessToken(spotify.access_token);
+    this.spotifyApi.setAccessToken(spotify.access_token);
 
       // gets user data from api and asynchronously throws it into page
       // checks if user has display name if not uses user id
-      spotifyApi.getMe().then(function(data) {
+      this.spotifyApi.getMe().then(function(data) {
         if (data.body.display_name){
           document.getElementById("name").innerHTML = data.body.display_name + "'s party";
         } else {
@@ -63,20 +63,10 @@ isMobile: any;
    this.afAuth.auth.signInAnonymously().catch(function(error) {
      var errorMessage = error.message;
    });
-
-  }
-
-  //sends the input from box to song list in firebase
-  songSend(songTitle: string) {
-        this.songs.push({ songTitle: songTitle, artist: "Artist Name" });
-        this.songObj = '';
-    }
+}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NowplayingPage');
-  }
-
-  itemTapped(event, item) {
   }
 
 }

@@ -8,34 +8,20 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>{{ key }} </h2>
+  <h2 text-center>{{ key }} </h2>
   <ion-list>
-  <ion-item clear ion-item *ngFor="let song of songs | async" (click)="itemTapped($event, item)">
-    <!-- <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)"> -->
-    <!-- <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)"> -->
-
-    <ion-thumbnail item-start>
-      <img src="https://yt3.ggpht.com/-APsbUMwis70/AAAAAAAAAAI/AAAAAAAAAAA/619A7af1k1g/s900-c-k-no-mo-rj-c0xffffff/photo.jpg">
-    </ion-thumbnail>
-    <h2>{{ song.songTitle }}  </h2>
-    <p>{{ song.artist }} </p>
-
-    <!-- <button ion-button clear item-end>
-      <ion-icon name="heart-outline"></ion-icon>
-    </button> -->
-
-    <!-- <button ion-button clear item-end (click)="toggle(item.id)">
-   <ion-icon name="{{item.icon}}">
-   </ion-icon>
-    </button> -->
-
-      <!-- <ion-icon [name]="item.icon" item-left></ion-icon> -->
-      <!-- <div class="item-note" item-right> -->
-      <!-- </div> -->
-    <!-- </button> -->
+    <ion-item clear ion-item *ngFor= "let song of songs | async" (click)="itemTapped($event, item)">
+    <!-- <ion-thumbnail item-start>
+      <img src= "{{song.img}}">
+    </ion-thumbnail> -->
+    <h2> {{ song.title }} </h2>
+    <p> {{ song.artist }}</p>
+    <button ion-button clear item-end>
+   <ion-icon name="ios-thumbs-down-outline" ></ion-icon>
+    </button>
+    <button ion-button clear item-end >
+      <ion-icon name="ios-thumbs-up-outline"></ion-icon>
+    </button>
   </ion-item>
-  </ion-list>
-  <!-- <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div> -->
+</ion-list>
 </ion-content>

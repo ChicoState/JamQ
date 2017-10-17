@@ -19,20 +19,118 @@
 <ion-content padding>
   <ion-searchbar item-input (ionInput)="getItems($event)">
   </ion-searchbar>
-  <ion-list id="list" >
-  <!-- <ion-list id="list" (click)="itemTapped()"> -->
-  <!-- <ion-item clear ion-item (click)="itemTapped($event, item)"> -->
-     <!-- <ion-thumbnail item-start>
-      <img id="img" src=""/>
-    </ion-thumbnail>  -->
-    <!-- <h2 id="title{{i}}"></h2>
-    <p id="artist{{i}}"></p> -->
-    <!-- <button ion-button clear item-end>
+
+  <ion-list id="list" style="visibility:hidden;">
+  <ion-item clear ion-item >
+     <ion-thumbnail item-start>
+      <img id="img0" src=""/>
+    </ion-thumbnail>
+    <h2 id="title0" data-songid></h2>
+    <p id="artist0"></p>
+    <button ion-button clear item-end (click)="itemTapped(0)">
    <ion-icon name="add"></ion-icon>
-    </button> -->
-  <!-- </ion-item> -->
+    </button>
+  </ion-item>
+
+  <ion-item clear ion-item >
+     <ion-thumbnail item-start>
+      <img id="img1" src=""/>
+    </ion-thumbnail>
+    <h2 id="title1" data-songid></h2>
+    <p id="artist1"></p>
+    <button ion-button clear item-end (click)="itemTapped(1)">
+   <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-item>
+
+  <ion-item clear ion-item >
+   <ion-thumbnail item-start>
+    <img id="img2" src=""/>
+  </ion-thumbnail>
+  <h2 id="title2" data-songid></h2>
+  <p id="artist2"></p>
+  <button ion-button clear item-end (click)="itemTapped(2)">
+ <ion-icon name="add"></ion-icon>
+  </button>
+</ion-item>
+
+<ion-item clear ion-item >
+   <ion-thumbnail item-start>
+    <img id="img3" src=""/>
+  </ion-thumbnail>
+  <h2 id="title3" data-songid></h2>
+  <p id="artist3"></p>
+  <button ion-button clear item-end (click)="itemTapped(3)">
+ <ion-icon name="add"></ion-icon>
+  </button>
+</ion-item>
+
+<ion-item clear ion-item >
+   <ion-thumbnail item-start>
+    <img id="img4" src=""/>
+  </ion-thumbnail>
+  <h2 id="title4" data-songid></h2>
+  <p id="artist4"></p>
+  <button ion-button clear item-end (click)="itemTapped(4)">
+ <ion-icon name="add"></ion-icon>
+  </button>
+</ion-item>
+
+<ion-item clear ion-item >
+   <ion-thumbnail item-start>
+    <img id="img5" src=""/>
+  </ion-thumbnail>
+  <h2 id="title5" data-songid></h2>
+  <p id="artist5"></p>
+  <button ion-button clear item-end (click)="itemTapped(5)">
+ <ion-icon name="add"></ion-icon>
+  </button>
+</ion-item>
 
 
+<ion-item clear ion-item >
+   <ion-thumbnail item-start>
+    <img id="img6" src=""/>
+  </ion-thumbnail>
+  <h2 id="title6" data-songid></h2>
+  <p id="artist6"></p>
+  <button ion-button clear item-end (click)="itemTapped(6)">
+ <ion-icon name="add"></ion-icon>
+  </button>
+</ion-item>
+
+<ion-item clear ion-item >
+   <ion-thumbnail item-start>
+    <img id="img7" src=""/>
+  </ion-thumbnail>
+  <h2 id="title7" data-songid></h2>
+  <p id="artist7"></p>
+  <button ion-button clear item-end (click)="itemTapped(7)">
+ <ion-icon name="add"></ion-icon>
+  </button>
+</ion-item>
+
+<ion-item clear ion-item >
+   <ion-thumbnail item-start>
+    <img id="img8" src=""/>
+  </ion-thumbnail>
+  <h2 id="title8" data-songid></h2>
+  <p id="artist8"></p>
+  <button ion-button clear item-end (click)="itemTapped(8)">
+ <ion-icon name="add"></ion-icon>
+  </button>
+</ion-item>
+
+<ion-item clear ion-item >
+   <ion-thumbnail item-start>
+    <img id="img9" src=""/>
+  </ion-thumbnail>
+  <h2 id="title9" data-songid></h2>
+  <p id="artist9"></p>
+  <button ion-button clear item-end (click)="itemTapped(9)">
+ <ion-icon name="add"></ion-icon>
+  </button>
+</ion-item>
 
   </ion-list>
 </ion-content>
