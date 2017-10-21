@@ -21,7 +21,6 @@ export class ListPage {
     this.key = this.navParams.get('hostKey');
     //use key to access correct queue
     this.songs = af.list('/'+ this.key +'/songlist');
-
   }
 
 }

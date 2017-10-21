@@ -37,43 +37,6 @@ export class HomePage {
 
   }
 
-  //use for authentiating with mobile libraries
-  mobileAuth(){
-    //initializes spotify auth
-    OAuth.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
-    //popup for spotify login
-    //then resets html to wait for auth to complete
-      //idealy this would be a loading feature to wait until popup closes with success
-    //on error sends alert  to page for debbuging
-      OAuth.popup('spotify',{cache: true}).done(function(spotify) {
-
-      }).then( this.goHost()
-      ).fail(function(err) {
-        alert("Error with spotify login");
-      });
-  }
-
-  //use for authenticating with web libraries
-  webAuth() {
-    var spotify = OAuthWeb.create('spotify');
-    if(spotify.access_token){
-      // console.log(spotify.access_token);
-      this.goHost();
-
-    } else {
-    OAuthWeb.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
-      //popup for spotify login
-      //then resets html to wait for auth to complete
-        //idealy this would be a loading feature to wait until popup closes with success
-      //on error sends alert  to page for debbuging
-        OAuthWeb.popup('spotify',{cache: true}).done(function(spotify) {
-        }).then( this.goHost()
-        ).fail(function(err) {
-          alert("Error with spotify login");
-        });
-      }
-
-  }
 
   checkAuth(){
     // Pulls the spotify auth if cached and checks if currently Authenticated
@@ -89,16 +52,6 @@ export class HomePage {
   //   this.key = ev.target.value.toString();
   //   console.log(this.key);
   // }
-
-  hostParty() {
-    if (this.isMobile == true) {
-        //is phone
-      this.mobileAuth();
-    } else {
-      //is web
-      this.webAuth();
-    }
-  }
 
   goHost() {
     //need to generate Host Key ID's Here

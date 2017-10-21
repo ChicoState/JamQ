@@ -9,23 +9,13 @@ import { SearchPage } from '../pages/search/search';
 import { SlidesPage } from '../pages/slides/slides';
 import { NowplayingPage } from '../pages/nowplaying/nowplaying';
 import { Keyboard } from '@ionic-native/keyboard';
-
 import { AngularFireModule } from 'angularfire2';
 import { firebaseConfig } from './app.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, FirebaseListObservable } from 'angularfire2/database'
-
-
-// import { Http } from '@angular/http';
-// import {HttpClientModule} from '@angular/common/http';
-// import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
-
-// import { RemoteService } from '../providers/remote-service';
-
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
@@ -34,7 +24,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     SearchPage,
     NowplayingPage,
-    SlidesPage
+    SlidesPage,
+    LoginPage,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +42,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SearchPage,
     ListPage,
     NowplayingPage,
-    SlidesPage
+    SlidesPage,
+    LoginPage,
   ],
   providers: [
     StatusBar,
