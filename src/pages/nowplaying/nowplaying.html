@@ -24,7 +24,7 @@
     </ion-thumbnail>
     <h2> {{ song.title }} </h2>
     <p> {{ song.artist }}</p>
-    <button ion-button clear item-end>
+    <button ion-button clear item-end (click)=remove(song.songid)>
       <ion-icon name="close"></ion-icon>
     </button>
   </ion-item>
