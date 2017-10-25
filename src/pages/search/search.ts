@@ -124,7 +124,8 @@ export class SearchPage {
               artist: track.artists['0'].name,
               title: track.name,
               songid: id,
-              img:track.album.images['0'].url
+              img: track.album.images['0'].url,
+              likes: 1
             });
 
         }, function(err) { //error checking
