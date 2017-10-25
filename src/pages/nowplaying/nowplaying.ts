@@ -29,7 +29,6 @@ partyKey: any;
 
 
     this.partyKey = sessionStorage['partyCookie'];
-    console.log(this.partyKey);
     this.songs = af.list("/" + this.partyKey + "/songlist", {query: { limitToLast: 10 }});
     //this.songs = af.list("/333/songlist", { query: { limitToLast: 10 } });
 
@@ -84,7 +83,6 @@ partyKey: any;
   }
 
   ionViewDidLoad() {
-    document.getElementById("key").innerHTML = this.partyKey;
     console.log('ionViewDidLoad NowplayingPage');
   }
 

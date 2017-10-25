@@ -16,7 +16,7 @@
 
 <ion-content padding>
   <h1 text-center id="name"> </h1> <!-- would like to add party number here or somewhere else on the page -->
-  <h3 text-center id="key"> </h3>
+  <h3 text-center id="key"> {{partyKey}}</h3>
   <ion-list>
     <ion-item clear ion-item *ngFor= "let song of songs | async" >
     <ion-thumbnail item-start>
