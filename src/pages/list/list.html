@@ -3,12 +3,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>CSCI 430's Party</ion-title>
+    <ion-title>{{host}}'s Party</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2 text-center>{{ key }} </h2>
+  <h2 text-center>Party Key: {{ partyKey }}</h2>
   <ion-list>
     <ion-item clear ion-item *ngFor= "let song of songs | async" (click)="itemTapped($event, item)">
     <!-- <ion-thumbnail item-start>
