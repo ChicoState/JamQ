@@ -125,7 +125,10 @@ export class SearchPage {
               title: track.name,
               songid: id,
               img: track.album.images['0'].url,
-              likes: 1
+
+              //maybe make a new table with likes columns of users who liked it and new table of users who disliked it
+              likes: 1,// change to spotify users 
+              dislikes: 0 // change to spotify users
             });
 
         }, function(err) { //error checking
