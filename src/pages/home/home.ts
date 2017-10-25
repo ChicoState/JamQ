@@ -65,6 +65,8 @@ export class HomePage {
   goQueue() {
     //create obj for passing key to next page
     var data = { hostKey: this.key }
+    //var uniquePartyKey = data.toString();
+    sessionStorage["partyCookie"] = this.key; 
     
     //make sure that the key exists in the DB
     //if key is not in DB display alert and then go to home page again
@@ -72,6 +74,7 @@ export class HomePage {
 
     //takes user to queue with data containing party key
     this.navCtrl.setRoot(ListPage, data);
+    //this.navCtrl.setRoot(NowplayingPage);
   }
   //navigates to and sets root to host now playing page
   goParty() {
@@ -82,7 +85,7 @@ export class HomePage {
     var uniquePartyKey = randomServerNum.toString();
     sessionStorage["partyCookie"] = uniquePartyKey; 
     //console.log(hostKeyMessage);
-    alert(uniquePartyKey);
+    //alert(uniquePartyKey);
 
     //create new table in db with corresponding key
 
