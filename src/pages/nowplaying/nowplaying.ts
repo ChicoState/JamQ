@@ -19,6 +19,7 @@ users: any;
 key: any;
 isMobile: any;
 spotifyApi: any;
+partyKey: any;
 
 
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams,
@@ -27,12 +28,11 @@ spotifyApi: any;
       else { this.isMobile = false; }
 
 
-    var partyKey = sessionStorage['partyCookie'];
-    console.log(partyKey);
-    this.songs = af.list("/" + partyKey + "/songlist", {query: { limitToLast: 10 }});
-
+    this.partyKey = sessionStorage['partyCookie'];
+    console.log(this.partyKey);
+    this.songs = af.list("/" + this.partyKey + "/songlist", {query: { limitToLast: 10 }});
     //this.songs = af.list("/333/songlist", { query: { limitToLast: 10 } });
-    
+
     //This shows the party number at the top
     //document.getElementById("partyNum").innerHTML = partyKey.body;
 
@@ -84,6 +84,7 @@ spotifyApi: any;
   }
 
   ionViewDidLoad() {
+    document.getElementById("key").innerHTML = this.partyKey;
     console.log('ionViewDidLoad NowplayingPage');
   }
 
