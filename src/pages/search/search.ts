@@ -37,16 +37,8 @@ export class SearchPage {
     
       var partyKey = sessionStorage['partyCookie'];
       console.log(partyKey);
-      var str = "/"; 
-      partyKey = str.concat(partyKey);
-      console.log(partyKey);
-      str = "/songlist";
-      partyKey = partyKey.concat(str);
-      console.log(partyKey);
-      //var firebaseKey = partyKey;
-
-      var firebaseKey = '/333/songlist'; //will get rid of this once its working
-      this.songs = af.list(firebaseKey);  
+      this.songs = af.list("/" + partyKey + "/songlist");
+      //var firebaseKey = '/333/songlist'; //will get rid of this once its working
 
 
       //getting spotify api library

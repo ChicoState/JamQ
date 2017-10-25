@@ -26,18 +26,11 @@ spotifyApi: any;
     if (platform.is('cordova')) { this.isMobile = true; }
       else { this.isMobile = false; }
 
-    var partyKey = sessionStorage["partyCookie"];
-    console.log(partyKey);
-    var str = "/";
-    partyKey = str.concat(partyKey);
-    console.log(partyKey);
-    str = "/songlist";
-    partyKey = partyKey.concat(str);
-    console.log(partyKey);
-    //var firebaseKey = partyKey;
-    var firebaseKey = "/333/songlist"; //will get rid of this once its working
 
-    this.songs = af.list(firebaseKey, { query: { limitToLast: 10 } });
+    var partyKey = sessionStorage['partyCookie'];
+    console.log(partyKey);
+    this.songs = af.list("/" + partyKey + "/songlist", {query: { limitToLast: 10 }});
+
     //this.songs = af.list("/333/songlist", { query: { limitToLast: 10 } });
     
     //This shows the party number at the top
