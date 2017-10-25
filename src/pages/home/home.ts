@@ -35,6 +35,8 @@ export class HomePage {
     if (platform.is('cordova')) { this.isMobile = true; }
     else { this.isMobile = false; }
 
+
+
   }
 
 
@@ -66,8 +68,8 @@ export class HomePage {
     //create obj for passing key to next page
     var data = { hostKey: this.key }
     //var uniquePartyKey = data.toString();
-    sessionStorage["partyCookie"] = this.key; 
-    
+    sessionStorage["partyCookie"] = this.key;
+
     //make sure that the key exists in the DB
     //if key is not in DB display alert and then go to home page again
     //Then enter party
@@ -77,19 +79,30 @@ export class HomePage {
     //this.navCtrl.setRoot(NowplayingPage);
   }
   //navigates to and sets root to host now playing page
-  goParty() {
+  newParty() {
     // this.data.hostKey = document.getElementById('party').innerHTML
     //later we can check this and make sure that there is not already a party with that number
     //later we can check if the user is already hosting a party
-    var randomServerNum = Math.floor(1000 + Math.random() * 9000); 
+    var randomServerNum = Math.floor(1000 + Math.random() * 9000);
     var uniquePartyKey = randomServerNum.toString();
-    sessionStorage["partyCookie"] = uniquePartyKey; 
+    sessionStorage["partyCookie"] = uniquePartyKey;
     //console.log(hostKeyMessage);
     //alert(uniquePartyKey);
 
     //create new table in db with corresponding key
 
     this.navCtrl.setRoot(NowplayingPage);
+  }
+
+  goParty() {
+    this.navCtrl.setRoot(NowplayingPage);
+  }
+
+  ionViewDidLoad() {
+    if (sessionStorage["partyCookie"]>0) {
+      document.getElementById("goto").style.visibility =  "visible";
+    }
+    console.log('ionViewDidLoad NowplayingPage');
   }
 
 }
