@@ -3,6 +3,7 @@ import { NavController, Events } from 'ionic-angular';
 import { ListPage } from '../list/list';
 import { NowplayingPage } from '../nowplaying/nowplaying';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -26,17 +27,37 @@ export class HomePage {
   authenticated: any;
   isMobile: any;
   users: any;
-  key: any;
+  partyKey: any;
+  // party: FirebaseListObservable<any>;
+  party: FirebaseObjectObservable<any>;
+  spotifyApi: any;
   // hostKey: any;
   // data: { hostKey: any };
 
 
-  constructor(public navCtrl: NavController,public platform: Platform,public af: AngularFireDatabase, public afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController,public platform: Platform,
+    public af: AngularFireDatabase, public afAuth: AngularFireAuth) {
     if (platform.is('cordova')) { this.isMobile = true; }
     else { this.isMobile = false; }
 
+    if (sessionStorage["partyCookie"]>0) {
+      this.partyKey = sessionStorage['partyCookie'];
+    }
 
 
+    //getting spotify api library
+    var SpotifyWebApi = require('spotify-web-api-node');
+    //build api with no params
+    this.spotifyApi = new SpotifyWebApi();
+    if(this.isMobile) {
+      //gets auth from cache named 'spotify'
+      var spotify = OAuth.create('spotify');
+    } else {
+      //gets auth from cache named 'spotify' is Web
+      var spotify = OAuthWeb.create('spotify');
+    }
+    //sets access token of authenticated user
+    this.spotifyApi.setAccessToken(spotify.access_token);
   }
 
 
@@ -50,10 +71,6 @@ export class HomePage {
     }
   }
 
-  // getParty(ev: any) {
-  //   this.key = ev.target.value.toString();
-  //   console.log(this.key);
-  // }
 
   goHost() {
     //need to generate Host Key ID's Here
@@ -66,16 +83,16 @@ export class HomePage {
   //navigates to and sets root Queue
   goQueue() {
     //create obj for passing key to next page
-    var data = { hostKey: this.key }
+    // var data = { hostKey: this.key }
     //var uniquePartyKey = data.toString();
-    sessionStorage["partyCookie"] = this.key;
+    sessionStorage["partyCookie"] = this.partyKey;
 
     //make sure that the key exists in the DB
     //if key is not in DB display alert and then go to home page again
     //Then enter party
 
     //takes user to queue with data containing party key
-    this.navCtrl.setRoot(ListPage, data);
+    this.navCtrl.setRoot(ListPage);
     //this.navCtrl.setRoot(NowplayingPage);
   }
   //navigates to and sets root to host now playing page
@@ -84,8 +101,22 @@ export class HomePage {
     //later we can check this and make sure that there is not already a party with that number
     //later we can check if the user is already hosting a party
     var randomServerNum = Math.floor(1000 + Math.random() * 9000);
-    var uniquePartyKey = randomServerNum.toString();
-    sessionStorage["partyCookie"] = uniquePartyKey;
+    this.partyKey= randomServerNum.toString();
+
+    sessionStorage["partyCookie"] = this.partyKey;
+
+    //create the db observable to manipulate
+    this.party = this.af.object("/" + this.partyKey);
+    let db = this.party;
+    //gets the id of the spotify user and sets user to that id
+    this.spotifyApi.getMe().then(function(data) {
+      db.set({
+        owner: data.body.id
+      })
+      }, function(err) { //error checking
+      console.log('Something went wrong!', err);
+    })
+
     //console.log(hostKeyMessage);
     //alert(uniquePartyKey);
 
