@@ -64,13 +64,28 @@ export class HomePage {
   //navigates to and sets root Queue
   goQueue() {
     //create obj for passing key to next page
-    var data = {hostKey: this.key}
+    var data = { hostKey: this.key }
+    
+    //make sure that the key exists in the DB
+    //if key is not in DB display alert and then go to home page again
+    //Then enter party
+
     //takes user to queue with data containing party key
     this.navCtrl.setRoot(ListPage, data);
   }
   //navigates to and sets root to host now playing page
   goParty() {
     // this.data.hostKey = document.getElementById('party').innerHTML
+    //later we can check this and make sure that there is not already a party with that number
+    //later we can check if the user is already hosting a party
+    var randomServerNum = Math.floor(1000 + Math.random() * 9000); 
+    var uniquePartyKey = randomServerNum.toString();
+    sessionStorage["partyCookie"] = uniquePartyKey; 
+    //console.log(hostKeyMessage);
+    alert(uniquePartyKey);
+
+    //create new table in db with corresponding key
+
     this.navCtrl.setRoot(NowplayingPage);
   }
 
