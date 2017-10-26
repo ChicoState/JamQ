@@ -135,16 +135,8 @@ export class HomePage {
   goParty() {
     this.navCtrl.setRoot(NowplayingPage);
   }
-
-  ionViewDidLoad() {
-    if (sessionStorage["partyCookie"]>0) {
-      document.getElementById("goto").style.visibility =  "visible";
-    }
-    console.log('ionViewDidLoad NowplayingPage');
-  }
-
-}
-
+  
+  
   //this fumction does nothing
   goHost() {
     //need to generate Host Key ID's Here
@@ -155,3 +147,11 @@ export class HomePage {
     document.getElementById("hide").style.visibility = "visible";
   }
   
+  ionViewDidLoad() {
+    if (sessionStorage["partyCookie"]>0) {
+      document.getElementById("goto").style.visibility =  "visible";
+    }
+    console.log('ionViewDidLoad NowplayingPage');
+  }
+
+}
