@@ -82,11 +82,12 @@ export class HomePage {
     //create obj for passing key to next page
     var data = { hostKey: this.partyKey }
     //var uniquePartyKey = data.toString();
-    var uniquepartyKey = parseInt(this.partyKey);
-    if (isNaN(uniquepartyKey)) {
+    var uniquePartyKey = parseInt(this.partyKey);
+    console.log(uniquePartyKey);
+    if (isNaN(uniquePartyKey)) {
       alert("Please enter a party number");
       return;
-    } else if (uniquepartyKey < 1000 || uniquepartyKey > 9999) {
+    } else if (uniquePartyKey < 1000 || uniquePartyKey > 9999) {
       // later we should check if the party already exists in the db
       alert("Party number does not exist");
       return;
