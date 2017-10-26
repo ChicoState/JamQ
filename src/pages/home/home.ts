@@ -75,21 +75,23 @@ export class HomePage {
   //   this.key = ev.target.value.toString();
   //   console.log(this.key);
   // }
-
-  goHost() {
-    //need to generate Host Key ID's Here
-    var hostPage = "Your Host Key\n J534BS";
-    //replaces previous page with key
-    document.getElementById("keyPage").innerHTML = hostPage ;
-    //reveals button to continue to host page
-    document.getElementById("hide").style.visibility = "visible";
-  }
+  
   //navigates to and sets root Queue
   goQueue() {
     // this.partyKey = document.getElementById('party').innerHTML
     //create obj for passing key to next page
     var data = { hostKey: this.partyKey }
     //var uniquePartyKey = data.toString();
+    var uniquepartyKey = parseInt(this.partyKey);
+    if (isNaN(uniquepartyKey)) {
+      alert("Please enter a party number");
+      return;
+    } else if (uniquepartyKey < 1000 || uniquepartyKey > 9999) {
+      // later we should check if the party already exists in the db
+      alert("Party number does not exist");
+      return;
+    }
+    
     sessionStorage["partyCookie"] = this.partyKey;
 
     //make sure that the key exists in the DB
@@ -142,3 +144,14 @@ export class HomePage {
   }
 
 }
+
+  //this fumction does nothing
+  goHost() {
+    //need to generate Host Key ID's Here
+    var hostPage = "Your Host Key\n J534BS";
+    //replaces previous page with key
+    document.getElementById("keyPage").innerHTML = hostPage ;
+    //reveals button to continue to host page
+    document.getElementById("hide").style.visibility = "visible";
+  }
+  
