@@ -16,10 +16,10 @@
     </ion-thumbnail> -->
     <h2> {{ song.title }} </h2>
     <p> {{ song.artist }}</p>
-    <button ion-button clear item-end>
+    <button ion-button clear item-end (click)=like(song.songid)>
    <ion-icon ios="ios-thumbs-down-outline" md="md-thumbs-down" ></ion-icon>
     </button>
-    <button ion-button clear item-end >
+    <button ion-button clear item-end (click)=dislike(song.songid)>
       <ion-icon ios="ios-thumbs-up-outline" md="md-thumbs-up"></ion-icon>
     </button>
   </ion-item>
