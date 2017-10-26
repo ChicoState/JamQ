@@ -71,6 +71,10 @@ export class HomePage {
     }
   }
 
+  // getParty(ev: any) {
+  //   this.key = ev.target.value.toString();
+  //   console.log(this.key);
+  // }
 
   goHost() {
     //need to generate Host Key ID's Here
@@ -82,8 +86,9 @@ export class HomePage {
   }
   //navigates to and sets root Queue
   goQueue() {
+    // this.partyKey = document.getElementById('party').innerHTML
     //create obj for passing key to next page
-    // var data = { hostKey: this.key }
+    var data = { hostKey: this.partyKey }
     //var uniquePartyKey = data.toString();
     sessionStorage["partyCookie"] = this.partyKey;
 
@@ -92,7 +97,7 @@ export class HomePage {
     //Then enter party
 
     //takes user to queue with data containing party key
-    this.navCtrl.setRoot(ListPage);
+    this.navCtrl.setRoot(ListPage,data);
     //this.navCtrl.setRoot(NowplayingPage);
   }
   //navigates to and sets root to host now playing page
