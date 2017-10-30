@@ -29,7 +29,7 @@ export class ListPage {
     //use key to access correct queue
 
     this.partyKey = sessionStorage["partyCookie"];
-    console.log(this.partyKey);
+    //console.log(this.partyKey);
     this.songs = af.list("/" + this.partyKey + "/songlist");
     this.owner = af.object("/" + this.partyKey);
     this.owner.subscribe(snapshot => (this.host = snapshot.owner));

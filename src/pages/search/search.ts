@@ -36,7 +36,7 @@ export class SearchPage {
       else { this.isMobile = false; }
     
       var partyKey = sessionStorage['partyCookie'];
-      console.log(partyKey);
+      //console.log(partyKey);
       this.songs = af.list("/" + partyKey + "/songlist");
       //var firebaseKey = '/333/songlist'; //will get rid of this once its working
 

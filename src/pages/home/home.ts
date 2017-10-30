@@ -83,7 +83,7 @@ export class HomePage {
     var data = { hostKey: this.partyKey }
     //var uniquePartyKey = data.toString();
     var uniquePartyKey = parseInt(this.partyKey);
-    console.log(uniquePartyKey);
+    //console.log(uniquePartyKey);
     if (isNaN(uniquePartyKey)) {
       alert("Please enter a party number");
       return;
