@@ -39,24 +39,10 @@ export class ListPage {
   }
 
   like(songid) {
-    this.songs.forEach(song => {
-      song.forEach(song => {
-        if (song.songid == songid) {
-          //this.songs.remove(song.$key);
-          console.log("like");
-        }
-      });
-    });
+     console.log("liked song");
   }
 
   dislike(songid) {
-    this.songs.forEach(song => {
-      song.forEach(song => {
-        if (song.songid == songid) {
-          //this.songs.remove(song.$key);
-          console.log("dislike");
-        }
-      });
-    });
+    console.log("disliked song");
   }
 }
