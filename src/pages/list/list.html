@@ -10,7 +10,7 @@
 <ion-content padding>
   <h2 text-center>Party Key: {{ partyKey }}</h2>
   <ion-list>
-    <ion-item clear ion-item *ngFor= "let song of songs | async" (click)="itemTapped($event, item)">
+    <ion-item clear ion-item *ngFor= "let song of songs | async" > <!--</ion-item>(click)="itemTapped($event, item)">
     <!-- <ion-thumbnail item-start>
       <img src= "{{song.img}}">
     </ion-thumbnail> -->
