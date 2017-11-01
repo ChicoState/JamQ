@@ -93,6 +93,7 @@ export class HomePage {
     }
     
     sessionStorage["partyCookie"] = this.partyKey;
+        sessionStorage["role"] = "guest"; //maybe later have it check if its your party or not
 
     //make sure that the key exists in the DB
     //if key is not in DB display alert and then go to home page again
@@ -111,6 +112,7 @@ export class HomePage {
     this.partyKey= randomServerNum.toString();
 
     sessionStorage["partyCookie"] = this.partyKey;
+    sessionStorage["role"] = "host"; //maybe later have it check if its your party or not
 
     //create the db observable to manipulate
     this.party = this.af.object("/" + this.partyKey);
@@ -133,9 +135,25 @@ export class HomePage {
   }
 
   goParty() {
+    //create obj for passing key to next page
+    var data = { hostKey: this.partyKey };
+    //var uniquePartyKey = data.toString();
+    var uniquePartyKey = parseInt(this.partyKey);
+    //console.log(uniquePartyKey);
+    if (isNaN(uniquePartyKey)) {
+      alert("Please enter a party number");
+      return;
+    } else if (uniquePartyKey < 1000 || uniquePartyKey > 9999) {
+      // later we should check if the party already exists in the db
+      alert("Party number does not exist");
+      return;
+    }
+
+    sessionStorage["partyCookie"] = this.partyKey;
+    sessionStorage["role"] = "host"; //maybe later have it check if its your party or not
     this.navCtrl.setRoot(NowplayingPage);
   }
-  
+
   ionViewDidLoad() {
     if (sessionStorage["partyCookie"]>0) {
       document.getElementById("goto").style.visibility =  "visible";
