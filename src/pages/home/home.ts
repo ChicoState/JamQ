@@ -39,8 +39,7 @@ export class HomePage {
     public af: AngularFireDatabase, public afAuth: AngularFireAuth) {
     if (platform.is('cordova')) { this.isMobile = true; }
     else { this.isMobile = false; }
-
-    if (sessionStorage["partyCookie"]>0) {
+    if (sessionStorage["partyCookie"] > 0) {
       this.partyKey = sessionStorage['partyCookie'];
     }
 
@@ -135,17 +134,6 @@ export class HomePage {
 
   goParty() {
     this.navCtrl.setRoot(NowplayingPage);
-  }
-  
-  
-  //this fumction does nothing
-  goHost() {
-    //need to generate Host Key ID's Here
-    var hostPage = "Your Host Key\n J534BS";
-    //replaces previous page with key
-    document.getElementById("keyPage").innerHTML = hostPage ;
-    //reveals button to continue to host page
-    document.getElementById("hide").style.visibility = "visible";
   }
   
   ionViewDidLoad() {
