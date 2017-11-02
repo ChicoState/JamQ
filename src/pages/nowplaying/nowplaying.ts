@@ -7,6 +7,8 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Platform } from 'ionic-angular';
+import { User } from '../../models/user';
+
 
 @IonicPage()
 @Component({
@@ -16,6 +18,7 @@ import { Platform } from 'ionic-angular';
 export class NowplayingPage {
 songs: FirebaseListObservable<any>;
 users: any;
+user = {} as User;
 key: any;
 isMobile: any;
 spotifyApi: any;
@@ -36,40 +39,36 @@ partyKey: any;
     //document.getElementById("partyNum").innerHTML = partyKey.body;
 
     //getting spotify api library
-    var SpotifyWebApi = require('spotify-web-api-node');
+    // var SpotifyWebApi = require('spotify-web-api-node');
     //build api with no params
-    this.spotifyApi = new SpotifyWebApi();
-    if(this.isMobile) {
+    // this.spotifyApi = new SpotifyWebApi();
+    // if(this.isMobile) {
       //gets auth from cache named 'spotify'
-      var spotify = OAuth.create('spotify');
-    } else {
+    //   var spotify = OAuth.create('spotify');
+    // } else {
       //gets auth from cache named 'spotify' is Web
-      var spotify = OAuthWeb.create('spotify');
-    }
+      // var spotify = OAuthWeb.create('spotify');
+    // }
     //sets access token of authenticated user
-    this.spotifyApi.setAccessToken(spotify.access_token);
+    // this.spotifyApi.setAccessToken(spotify.access_token);
 
       // gets user data from api and asynchronously throws it into page
       // checks if user has display name if not uses user id
-      this.spotifyApi.getMe().then(function(data) {
-        if (data.body.display_name){
-          document.getElementById("name").innerHTML = data.body.display_name + "'s party";
-        } else {
-          document.getElementById("name").innerHTML = data.body.id + "'s party";
-        }
-      }, function(err) { //error checking
-        console.log('Something went wrong!', err);
-      })
+      // this.spotifyApi.getMe().then(function(data) {
+      //   if (data.body.display_name){
+      //     document.getElementById("name").innerHTML = data.body.display_name + "'s party";
+      //   } else {
+      //     document.getElementById("name").innerHTML = data.body.id + "'s party";
+      //   }
+      // }, function(err) { //error checking
+      //   console.log('Something went wrong!', err);
+      // })
 
-     this.afAuth.authState.subscribe((auth) => {
-     this.users = auth;
-    //  console.log(this.users);
-   });
 
    //signs into firebase using anonymous user
-   this.afAuth.auth.signInAnonymously().catch(function(error) {
-     var errorMessage = error.message;
-   });
+  //  this.afAuth.auth.signInAnonymously().catch(function(error) {
+  //    var errorMessage = error.message;
+  //  });
 }
 
   remove(songid) {
@@ -83,6 +82,11 @@ partyKey: any;
   }
 
   ionViewDidLoad() {
+    try {
+       this.afAuth.authState.subscribe((auth) => {
+        //  console.log(auth)
+       });
+    } catch (e) {}
     console.log('ionViewDidLoad NowplayingPage');
   }
 
