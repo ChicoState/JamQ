@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { SearchPage } from '../pages/search/search';
 import { SlidesPage } from '../pages/slides/slides';
+import { ProfilePage } from '../pages/profile/profile';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,9 +27,15 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.userpages = [
       { title: 'JamQ Home', component: HomePage },
-      { title: 'Host', component: NowplayingPage },
       { title: 'Queue', component: ListPage },
-      { title: 'Search', component: SearchPage }
+      { title: 'Search', component: SearchPage },
+      { title: 'Profile', component: ProfilePage }
+    ];
+    this.hostpages = [
+      { title: 'JamQ Home', component: HomePage },
+      { title: 'Host', component: NowplayingPage },
+      { title: 'Search', component: SearchPage },
+      { title: 'Profile', component: ProfilePage }
     ];
   }
 

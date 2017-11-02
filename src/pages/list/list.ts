@@ -3,6 +3,13 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { NowplayingPage } from '../nowplaying/nowplaying';
+import { HomePage } from '../home/home';
+// import { ListPage } from '../pages/list/list';
+import { SearchPage } from '../search/search';
+import { SlidesPage } from '../slides/slides';
+import { ProfilePage } from '../profile/profile';
+
 
 
 @Component({
@@ -20,6 +27,7 @@ export class ListPage {
   partyKey: any;
 
   constructor(
+    private afAuth: AngularFireAuth,
     public navCtrl: NavController,
     public navParams: NavParams,
     public af: AngularFireDatabase
@@ -33,6 +41,7 @@ export class ListPage {
     this.songs = af.list("/" + this.partyKey + "/songlist");
     this.owner = af.object("/" + this.partyKey);
     this.owner.subscribe(snapshot => (this.host = snapshot.owner));
+
     // console.log(this.owner);
 
     //var firebaseKey = '/333/songlist'; //will get rid of this once its working

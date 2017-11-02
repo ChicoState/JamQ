@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { OAuth } from 'oauthio-web';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
-
+import { AngularFireAuth } from 'angularfire2/auth'
 /**
  * Generated class for the SlidesPage page.
  *
@@ -19,20 +19,29 @@ import { HomePage } from '../home/home';
 export class SlidesPage {
   authenticated: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    var spotify = OAuth.create('spotify');
-    if (spotify.access_token) {
-      this.authenticated = true;
-      this.navCtrl.setRoot(HomePage, {}, {animate: false});
-    } else this.authenticated = false;
-  }
+  constructor(
+    private afAuth: AngularFireAuth,
+    public navCtrl: NavController, public navParams: NavParams) {
+
+    this.afAuth.authState.subscribe(auth => {
+      if(auth) {
+        this.navCtrl.setRoot(HomePage);
+      }
+    })
+
+    //   var spotify = OAuth.create('spotify');
+    //   if (spotify.access_token) {
+    //     this.authenticated = true;
+    //     this.navCtrl.setRoot(HomePage, {}, {animate: false});
+    //   } else this.authenticated = false;
+    }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SlidesPage');
   }
 
   login(){
-  // Your app login API web service call triggers
   this.navCtrl.push(LoginPage, {}, {animate: false});
 
 }

@@ -1,5 +1,5 @@
 <!--
-  Generated template for the LoginPage page.
+  Generated template for the RegisterPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>login</ion-title>
+    <ion-title>Register</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -27,12 +27,6 @@
       <ion-input type="password"[(ngModel)]="user.password"></ion-input>
     </ion-item>
   <br>
-  <br>
-  <button id="login" ion-button secondary block (click)="login(user)">Login!</button>
-  <button id="register" ion-button secondary block color="light" (click)="register()">Register</button>
-  <div id="hide" style="visibility:hidden;">
-  <br>
-  <br>
-  <button ion-button secondary block (click)="goHome()">Continue!</button>
-</div>
+  <button id="register" ion-button secondary block (click)="register(user)">Register</button>
+
 </ion-content>

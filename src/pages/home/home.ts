@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Events } from 'ionic-angular';
+import { NavController, Events, ToastController, MenuController } from 'ionic-angular';
 import { ListPage } from '../list/list';
 import { NowplayingPage } from '../nowplaying/nowplaying';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
@@ -28,53 +28,22 @@ export class HomePage {
   isMobile: any;
   users: any;
   partyKey: any;
-  // party: FirebaseListObservable<any>;
   party: FirebaseObjectObservable<any>;
-  spotifyApi: any;
-  // hostKey: any;
-  // data: { hostKey: any };
 
 
-  constructor(public navCtrl: NavController,public platform: Platform,
-    public af: AngularFireDatabase, public afAuth: AngularFireAuth) {
+  constructor(
+    private toast: ToastController,
+    public menuCtrl: MenuController,
+    public navCtrl: NavController, public platform: Platform,
+    public af: AngularFireDatabase, public afAuth: AngularFireAuth
+  ) {
     if (platform.is('cordova')) { this.isMobile = true; }
     else { this.isMobile = false; }
     if (sessionStorage["partyCookie"] > 0) {
       this.partyKey = sessionStorage['partyCookie'];
     }
-
-
-    //getting spotify api library
-    var SpotifyWebApi = require('spotify-web-api-node');
-    //build api with no params
-    this.spotifyApi = new SpotifyWebApi();
-    if(this.isMobile) {
-      //gets auth from cache named 'spotify'
-      var spotify = OAuth.create('spotify');
-    } else {
-      //gets auth from cache named 'spotify' is Web
-      var spotify = OAuthWeb.create('spotify');
-    }
-    //sets access token of authenticated user
-    this.spotifyApi.setAccessToken(spotify.access_token);
   }
 
-
-  checkAuth(){
-    // Pulls the spotify auth if cached and checks if currently Authenticated
-    var spotify = OAuth.create('spotify');
-    console.log("checking");
-    // console.log(spotify.access_token);
-    if(spotify.access_token) {
-      this.authenticated = true;
-    }
-  }
-
-  // getParty(ev: any) {
-  //   this.key = ev.target.value.toString();
-  //   console.log(this.key);
-  // }
-  
   //navigates to and sets root Queue
   goQueue() {
     // this.partyKey = document.getElementById('party').innerHTML
@@ -91,13 +60,17 @@ export class HomePage {
       alert("Party number does not exist");
       return;
     }
-    
+
     sessionStorage["partyCookie"] = this.partyKey;
-        sessionStorage["role"] = "guest"; //maybe later have it check if its your party or not
+    sessionStorage["role"] = "guest"; //maybe later have it check if its your party or not
 
     //make sure that the key exists in the DB
     //if key is not in DB display alert and then go to home page again
     //Then enter party
+
+    //remove user menu pptions
+    this.menuCtrl.enable(true, 'user');
+    this.menuCtrl.enable(false, 'host');
 
     //takes user to queue with data containing party key
     this.navCtrl.setRoot(ListPage,data);
@@ -105,7 +78,6 @@ export class HomePage {
   }
   //navigates to and sets root to host now playing page
   newParty() {
-    // this.data.hostKey = document.getElementById('party').innerHTML
     //later we can check this and make sure that there is not already a party with that number
     //later we can check if the user is already hosting a party
     var randomServerNum = Math.floor(1000 + Math.random() * 9000);
@@ -117,19 +89,17 @@ export class HomePage {
     //create the db observable to manipulate
     this.party = this.af.object("/" + this.partyKey);
     let db = this.party;
-    //gets the id of the spotify user and sets user to that id
-    this.spotifyApi.getMe().then(function(data) {
+    this.afAuth.authState.subscribe(data => {
       db.set({
-        owner: data.body.id
+        owner: data.email
       })
-      }, function(err) { //error checking
-      console.log('Something went wrong!', err);
     })
 
-    //console.log(hostKeyMessage);
-    //alert(uniquePartyKey);
-
     //create new table in db with corresponding key
+
+    //eable host menu/disable user
+    this.menuCtrl.enable(false, 'user');
+    this.menuCtrl.enable(true, 'host');
 
     this.navCtrl.setRoot(NowplayingPage);
   }
@@ -152,9 +122,21 @@ export class HomePage {
     sessionStorage["partyCookie"] = this.partyKey;
     sessionStorage["role"] = "host"; //maybe later have it check if its your party or not
     this.navCtrl.setRoot(NowplayingPage);
+    this.menuCtrl.enable(false, 'user');
+    this.menuCtrl.enable(true, 'host');
+
   }
 
   ionViewDidLoad() {
+    this.afAuth.authState.subscribe(data => {
+      this.toast.create({
+        message: 'Welcome to JamQ ',
+        duration: 4000,
+        position: 'top',
+        cssClass: 'page-home'
+      }).present();
+    });
+
     if (sessionStorage["partyCookie"]>0) {
       document.getElementById("goto").style.visibility =  "visible";
     }

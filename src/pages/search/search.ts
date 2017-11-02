@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 import { OAuth as OAuthWeb } from 'oauthio-web';
 import { OAuth } from 'oauth-phonegap';
@@ -27,19 +27,20 @@ export class SearchPage {
   key: any;
   isMobile: any;
   that: this;
+  spotify: any;
+  searchbar: any;
 
 
-  constructor(public platform: Platform, public navCtrl: NavController,
+  constructor(
+    public platform: Platform, public navCtrl: NavController,
     public navParams: NavParams, public af: AngularFireDatabase) {
       //checks if device is mobile or Web
     if (platform.is('cordova')) { this.isMobile = true; }
       else { this.isMobile = false; }
-    
+
       var partyKey = sessionStorage['partyCookie'];
       //console.log(partyKey);
       this.songs = af.list("/" + partyKey + "/songlist");
-      //var firebaseKey = '/333/songlist'; //will get rid of this once its working
-
 
       //getting spotify api library
       var SpotifyWebApi = require('spotify-web-api-node');
@@ -50,15 +51,15 @@ export class SearchPage {
       if (this.isMobile) {
         //is phone
         //gets auth from cache named 'spotify'
-        var spotify = OAuth.create('spotify');
+        this.spotify = OAuth.create('spotify');
       } else {
         //is web
         //gets auth from cache named 'spotify'
-        var spotify = OAuthWeb.create('spotify');
+        this.spotify = OAuthWeb.create('spotify');
         console.log("is Web");
       }
       //sets access token of authenticated user
-      this.spotifyApi.setAccessToken(spotify.access_token);
+      this.spotifyApi.setAccessToken(this.spotify.access_token);
   }
 
   getItems(ev: any, that ) {
@@ -106,7 +107,43 @@ export class SearchPage {
   }
 
   ionViewDidLoad() {
+    if (this.spotify.access_token) {
+      //do something here? or dont.
+    }
+    else {
+      let searchpage = document.getElementById('searchpage');
+      let everything = document.getElementById('everything');
+      this.searchbar = everything;
+      // let addSpotify = document.getElementById('addSpotify');
+      everything.parentNode.removeChild(everything);
+      // searchpage.style.backgroundColor = 'grey';
+      let img = document.createElement('img');
+      img.setAttribute('src','https://static1.squarespace.com/static/551ed270e4b07f2b9a28489c/t/59848e13f7e0ab6f61df1b05/1501859351405/');
+      img.style.alignContent = 'center';
+      img.style.height = '50px';
+      img.style.width = '50px';
+      var spotifyauth = this.spotifyLogin.bind(this)
+      img.onclick = spotifyauth;
+      // img.setAttribute('onclick','this.spotifyLogin()');
+      searchpage.replaceChild(img,searchpage.childNodes[0]);
+    }
     console.log('ionViewDidLoad SearchPage');
+  }
+
+  spotifyLogin() {
+    let searchpage = document.getElementById('searchpage');
+
+    if (this.isMobile == true) {
+      //is phone
+      this.mobileAuth();
+      searchpage.replaceChild(this.searchbar,searchpage.childNodes[0])
+
+    } else {
+      //is web
+      this.webAuth();
+      searchpage.replaceChild(this.searchbar,searchpage.childNodes[0])
+    }
+
   }
 
   itemTapped(index) {
@@ -127,7 +164,7 @@ export class SearchPage {
               img: track.album.images['0'].url,
 
               //maybe make a new table with likes columns of users who liked it and new table of users who disliked it
-              likes: 1,// change to spotify users 
+              likes: 1,// change to spotify users
               dislikes: 0 // change to spotify users
             });
 
@@ -135,4 +172,44 @@ export class SearchPage {
         console.log('Something went wrong!', err);
     });
   }
+
+  //use for authentiating with mobile libraries
+mobileAuth(){
+  //initializes spotify auth
+  OAuth.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
+  //popup for spotify login
+  //then resets html to wait for auth to complete
+    //idealy this would be a loading feature to wait until popup closes with success
+  //on error sends alert  to page for debbuging
+  let spotifyApi = this.spotifyApi;
+    OAuth.popup('spotify',{cache: true}).done(function(spotify) {
+      spotifyApi.setAccessToken(spotify.access_token);
+    }).then(     ).fail(function(err) {
+      alert("Error with spotify login");
+    });
+
+}
+
+//use for authenticating with web libraries
+webAuth() {
+  var spotify = OAuthWeb.create('spotify');
+  if(spotify.access_token){
+    // console.log(spotify.access_token);
+
+  } else {
+  OAuthWeb.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
+    //popup for spotify login
+    //then resets html to wait for auth to complete
+      //idealy this would be a loading feature to wait until popup closes with success
+    //on error sends alert  to page for debbuging
+    let spotifyApi = this.spotifyApi;
+      OAuthWeb.popup('spotify',{cache: true}).done(function(spotify) {
+        spotifyApi.setAccessToken(spotify.access_token);
+      }).then(       ).fail(function(err) {
+        alert("Error with spotify login");
+      });
+    }
+
+}
+
 }
