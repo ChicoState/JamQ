@@ -67,7 +67,8 @@ export class SearchPage {
 
     //gets the list that displays songs
     var mydiv = document.getElementById('list');
-
+    var temparr = [];
+    var songname= [];
     // set val to the value of the searchbar
     let queryTerm = ev.target.value;
     // if the value is an empty string don't filter the items
@@ -91,20 +92,66 @@ export class SearchPage {
 
             i.toString();
             //artist name
-            document.getElementById('artist' + i ).innerHTML = song.items[i].artists['0'].name;
+          // document.getElementById('artist' + i ).innerHTML = song.items[i].artists['0'].name;
+            var nameartist= song.items[i].artists['0'].name;
+            temparr.push(nameartist);
             //album cover
-            document.getElementById('img' + i ).setAttribute('src', song.items[i].album.images[0].url);
+            //document.getElementById('img' + i ).setAttribute('src', song.items[i].album.images[0].url);
             //song title
             var title = document.getElementById('title' + i );
-            title.innerHTML = song.items[i].name;
+           // title.innerHTML = song.items[i].name;
+            songname.push(song.items[i].name)
+
             //pass track id to page
-            title.setAttribute("data-songid", song.items[i].id);
+            //title.setAttribute("data-songid", song.items[i].id);
           }
+          /******************
+          Search by songs, no duplicates
+          ****************/
+
+       songname = songname.filter(function(elem, index, self) {
+               return index == self.indexOf(elem);
+      })
+
+      for(var i = 0; i < songname.length; i++)
+      {
+        var title = document.getElementById('title' + i);
+        var ind = i.toString();
+        document.getElementById('artist' + ind ).innerHTML = song.items[ind].artists['0'].name;
+        document.getElementById('img' + ind ).setAttribute('src', song.items[ind].album.images[0].url);
+        title.innerHTML = songname[i];
+        title.setAttribute("data-songid", song.items[ind].id);
+      }
+       /******************
+       Search by Artists , no duplicates 
+       ****************/
+         document.getElementById('Artists').innerHTML='Artists'
+         temparr = temparr.filter(function(elem, index, self) {
+           return index == self.indexOf(elem);
+         })
+
+         for(var i = 0; i < temparr.length; i++)
+         {
+           var p =  document.getElementById('artistonly' + i);
+           p.innerHTML = temparr[i];
+         }
         }, function(err) { //some error checking
           console.error(err);
         })
     }
   }
+
+clearText(){
+
+    for(var i = 0; i <10; i++){
+      i.toString();
+      document.getElementById('title'+ i).innerHTML=" ";
+      document.getElementById('artist'+ i).innerHTML=" ";
+      document.getElementById('img' +i).setAttribute('src'," ");
+      document.getElementById('artistonly' + i).innerHTML=" ";
+    }
+}
+
 
   ionViewDidLoad() {
     if (this.spotify.access_token) {
