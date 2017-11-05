@@ -19,11 +19,13 @@
 <ion-content padding>
   <div id="searchpage">
   <div id="everything">
-  <ion-searchbar item-input (ionInput)="getItems($event)">
+  <ion-searchbar item-input (ionInput)="getItems($event)" (ionInput)="clearText()" >
+
   </ion-searchbar>
 
+
   <ion-list id="list" style="visibility:hidden;">
-  <ion-item clear ion-item >
+  <ion-item  clear ion-item  >
      <ion-thumbnail item-start>
       <img id="img0" src=""/>
     </ion-thumbnail>
@@ -133,6 +135,38 @@
  <ion-icon name="add"></ion-icon>
   </button>
 </ion-item>
+
+ <h2 id="Artists" ></h2>
+ <ion-item clear ion-item >
+ <p id="artistonly0" ></p>
+ </ion-item>
+ <ion-item clear ion-item >
+ <p id="artistonly1" ></p>
+ </ion-item>
+ <ion-item clear ion-item >
+ <p id="artistonly2" ></p>
+ </ion-item>
+ <ion-item clear ion-item >
+ <p id="artistonly3" ></p>
+ </ion-item>
+ <ion-item clear ion-item >
+ <p id="artistonly4" ></p>
+ </ion-item>
+ <ion-item clear ion-item >
+ <p id="artistonly5" ></p>
+ </ion-item>
+ <ion-item clear ion-item >
+ <p id="artistonly6" ></p>
+ </ion-item>
+ <ion-item clear ion-item >
+ <p id="artistonly7" ></p>
+ </ion-item>
+ <ion-item clear ion-item >
+ <p id="artistonly8" ></p>
+ </ion-item>
+ <ion-item clear ion-item >
+ <p id="artistonly9" ></p>
+ </ion-item>
 
   </ion-list>
 </div>
