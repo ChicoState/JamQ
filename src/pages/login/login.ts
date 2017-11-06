@@ -83,7 +83,10 @@ export class LoginPage {
       const res = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
       // console.log(res);
       this.navCtrl.setRoot(HomePage);
-    } catch (error) {console.log(error)}
+    } catch (error) {
+      alert(error)
+      console.log(error)
+    }
 
     // if (this.isMobile == true) {
     //     //is phone
