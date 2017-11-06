@@ -24,6 +24,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 export class SearchPage {
   spotifyApi: any;
   songs: FirebaseListObservable<any>;
+  artist: FirebaseListObservable<any>;
   key: any;
   isMobile: any;
   that: this;
@@ -123,8 +124,9 @@ export class SearchPage {
         title.setAttribute("data-songid", song.items[ind].id);
       }
        /******************
-       Search by Artists , no duplicates 
+       Search by Artists , no duplicates
        ****************/
+/*
          document.getElementById('Artists').innerHTML='Artists'
          temparr = temparr.filter(function(elem, index, self) {
            return index == self.indexOf(elem);
@@ -135,14 +137,44 @@ export class SearchPage {
            var p =  document.getElementById('artistonly' + i);
            p.innerHTML = temparr[i];
          }
+*/
         }, function(err) { //some error checking
           console.error(err);
         })
+
+  document.getElementById('Artists').innerHTML='Artists'
+     var pre = this.spotifyApi.searchArtists(queryTerm, {limit: 8})
+          .then(function(data, that) {
+            let artist = data.body.artists;
+            // clean the promise so it doesn't call abort
+            pre = null;
+            //for loop that iterates through the 10 songs returned from api
+            //sends html for each one to page
+           for(var index = 0; index < 8; index++)
+            {
+              //checks if element exists
+              if(!artist.items[index]) {
+                 continue;
+              }else{
+          var ie= index.toString();
+               var artistn = document.getElementById('artistname' + ie);
+            if(artist.items[index].images[0]){
+               document.getElementById('imag' + ie ).setAttribute('src', artist.items[index].images[0].url);
+              artistn.innerHTML = artist.items[ie].name;
+            }else{
+               document.getElementById('imag' + ie ).setAttribute('src',"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87NixlNcf6A52z5o0v8Lx-wcwdQlxOTjc4AwWzEALPSQk0VuStw");
+              }
+            }
+          }
+
+          }, function(err) { //some error checking
+            console.error(err);
+          })
     }
   }
-
+/*
 clearText(){
-
+var mydiv = document.getElementById('list');
     for(var i = 0; i <10; i++){
       i.toString();
       document.getElementById('title'+ i).innerHTML=" ";
@@ -151,8 +183,7 @@ clearText(){
       document.getElementById('artistonly' + i).innerHTML=" ";
     }
 }
-
-
+*/
   ionViewDidLoad() {
     if (this.spotify.access_token) {
       //do something here? or dont.
