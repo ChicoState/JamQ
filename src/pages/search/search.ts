@@ -75,8 +75,8 @@ export class SearchPage {
     // if the value is an empty string don't filter the items
     if (queryTerm && queryTerm.trim() != '') {
     //search track titles and return top 10 results
-    var prev = this.spotifyApi.searchTracks(queryTerm, {limit: 10})
-        .then(function(data, that) {
+    var prev = this.spotifyApi.searchTracks(queryTerm, {limit: 5})
+    .then(function(data, that) {
           //song object for easier calls
           let song = data.body.tracks;
           // clean the promise so it doesn't call abort
@@ -84,7 +84,7 @@ export class SearchPage {
 
           //for loop that iterates through the 10 songs returned from api
           //sends html for each one to page
-          for(var i = 0; i < 10; i++)
+          for(var i = 0; i < 5; i++)
           {
             //checks if element exists
             if(!song.items[i]) {
@@ -93,23 +93,22 @@ export class SearchPage {
 
             i.toString();
             //artist name
-          // document.getElementById('artist' + i ).innerHTML = song.items[i].artists['0'].name;
+           //document.getElementById('artist' + i ).innerHTML = song.items[i].artists['0'].name;
             var nameartist= song.items[i].artists['0'].name;
             temparr.push(nameartist);
             //album cover
             //document.getElementById('img' + i ).setAttribute('src', song.items[i].album.images[0].url);
             //song title
             var title = document.getElementById('title' + i );
-           // title.innerHTML = song.items[i].name;
+           //title.innerHTML = song.items[i].name;
             songname.push(song.items[i].name)
 
             //pass track id to page
-            //title.setAttribute("data-songid", song.items[i].id);
+            title.setAttribute("data-songid", song.items[i].id);
           }
           /******************
           Search by songs, no duplicates
           ****************/
-
        songname = songname.filter(function(elem, index, self) {
                return index == self.indexOf(elem);
       })
@@ -122,35 +121,21 @@ export class SearchPage {
         document.getElementById('img' + ind ).setAttribute('src', song.items[ind].album.images[0].url);
         title.innerHTML = songname[i];
         title.setAttribute("data-songid", song.items[ind].id);
-      }
-       /******************
-       Search by Artists , no duplicates
-       ****************/
-/*
-         document.getElementById('Artists').innerHTML='Artists'
-         temparr = temparr.filter(function(elem, index, self) {
-           return index == self.indexOf(elem);
-         })
+       }
 
-         for(var i = 0; i < temparr.length; i++)
-         {
-           var p =  document.getElementById('artistonly' + i);
-           p.innerHTML = temparr[i];
-         }
-*/
         }, function(err) { //some error checking
           console.error(err);
         })
 
   document.getElementById('Artists').innerHTML='Artists'
-     var pre = this.spotifyApi.searchArtists(queryTerm, {limit: 8})
+     var pre = this.spotifyApi.searchArtists(queryTerm, {limit: 5})
           .then(function(data, that) {
             let artist = data.body.artists;
             // clean the promise so it doesn't call abort
             pre = null;
             //for loop that iterates through the 10 songs returned from api
             //sends html for each one to page
-           for(var index = 0; index < 8; index++)
+           for(var index = 0; index < 5; index++)
             {
               //checks if element exists
               if(!artist.items[index]) {
@@ -170,20 +155,25 @@ export class SearchPage {
           }, function(err) { //some error checking
             console.error(err);
           })
+    }else{
+      /**************
+      If search bar is empty, delete elements
+      ***************/
+      document.getElementById('list').style.visibility="hidden";
+      for(var i = 0; i <5; i++){
+        i.toString();
+        document.getElementById('title'+ i).innerHTML=" ";
+        document.getElementById('artist'+ i).innerHTML=" ";
+        document.getElementById('img' +i).setAttribute('src'," ");
+       }
+         for(var i = 0; i <5; i++){
+           document.getElementById('artistname' + i).innerHTML=" ";
+           document.getElementById('imag' + i ).setAttribute('src', " ");
+         }
     }
   }
-/*
-clearText(){
-var mydiv = document.getElementById('list');
-    for(var i = 0; i <10; i++){
-      i.toString();
-      document.getElementById('title'+ i).innerHTML=" ";
-      document.getElementById('artist'+ i).innerHTML=" ";
-      document.getElementById('img' +i).setAttribute('src'," ");
-      document.getElementById('artistonly' + i).innerHTML=" ";
-    }
-}
-*/
+
+
   ionViewDidLoad() {
     if (this.spotify.access_token) {
       //do something here? or dont.
