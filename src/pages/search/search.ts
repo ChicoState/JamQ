@@ -65,7 +65,6 @@ export class SearchPage {
 
   getItems(ev: any, that ) {
     document.getElementById("list").style.visibility = "visible";
-
     //gets the list that displays songs
     var mydiv = document.getElementById('list');
     var temparr = [];
@@ -81,7 +80,6 @@ export class SearchPage {
           let song = data.body.tracks;
           // clean the promise so it doesn't call abort
           prev = null;
-
           //for loop that iterates through the 10 songs returned from api
           //sends html for each one to page
           for(var i = 0; i < 5; i++)
@@ -90,7 +88,6 @@ export class SearchPage {
             if(!song.items[i]) {
                continue;
             }
-
             i.toString();
             //artist name
            //document.getElementById('artist' + i ).innerHTML = song.items[i].artists['0'].name;
@@ -102,7 +99,6 @@ export class SearchPage {
             var title = document.getElementById('title' + i );
            //title.innerHTML = song.items[i].name;
             songname.push(song.items[i].name)
-
             //pass track id to page
             title.setAttribute("data-songid", song.items[i].id);
           }
@@ -159,18 +155,16 @@ export class SearchPage {
       /**************
       If search bar is empty, delete elements
       ***************/
-      document.getElementById('list').style.visibility="hidden";
+      document.getElementById('list').style.visibility="hidden"; //hide song's list
       for(var i = 0; i <5; i++){
         i.toString();
         document.getElementById('title'+ i).innerHTML=" ";
         document.getElementById('artist'+ i).innerHTML=" ";
         document.getElementById('img' +i).setAttribute('src'," ");
-       }
-         for(var i = 0; i <5; i++){
-           document.getElementById('artistname' + i).innerHTML=" ";
-           document.getElementById('imag' + i ).setAttribute('src', " ");
-         }
+        document.getElementById('artistname' + i).innerHTML=" ";
+        document.getElementById('imag' + i ).setAttribute('src', " ");
     }
+   }
   }
 
 
