@@ -74,7 +74,7 @@ export class SearchPage {
     // if the value is an empty string don't filter the items
     if (queryTerm && queryTerm.trim() != '') {
     //search track titles and return top 10 results
-    var prev = this.spotifyApi.searchTracks(queryTerm, {limit: 5})
+    var prev = this.spotifyApi.searchTracks(queryTerm, {limit: 6})
     .then(function(data, that) {
           //song object for easier calls
           let song = data.body.tracks;
@@ -82,7 +82,7 @@ export class SearchPage {
           prev = null;
           //for loop that iterates through the 10 songs returned from api
           //sends html for each one to page
-          for(var i = 0; i < 5; i++)
+          for(var i = 0; i < 6; i++)
           {
             //checks if element exists
             if(!song.items[i]) {
@@ -96,34 +96,39 @@ export class SearchPage {
             //album cover
             //document.getElementById('img' + i ).setAttribute('src', song.items[i].album.images[0].url);
             //song title
-            var title = document.getElementById('title' + i );
+           // if(){
+            //var title = document.getElementById('title' + i );
+           // }
            //title.innerHTML = song.items[i].name;
-            songname.push(song.items[i].name)
+            songname.push(song.items[i].name);
             //pass track id to page
-            title.setAttribute("data-songid", song.items[i].id);
+           // title.setAttribute("data-songid", song.items[i].id);
           }
           /******************
           Search by songs, no duplicates
           ****************/
-       songname = songname.filter(function(elem, index, self) {
-               return index == self.indexOf(elem);
-      })
-
-      for(var i = 0; i < songname.length; i++)
-      {
-        var title = document.getElementById('title' + i);
-        var ind = i.toString();
-        document.getElementById('artist' + ind ).innerHTML = song.items[ind].artists['0'].name;
-        document.getElementById('img' + ind ).setAttribute('src', song.items[ind].album.images[0].url);
-        title.innerHTML = songname[i];
-        title.setAttribute("data-songid", song.items[ind].id);
-       }
-
-        }, function(err) { //some error checking
-          console.error(err);
+        songname=songname.filter(function(elem, index, self) {
+                 return index == self.indexOf(elem);
         })
+        var ns= songname.length;
+        //if no duplicates only 5 songs are shown
+        if(ns>5){
+          ns=5;
+        }
+        for(var i = 0; i <ns; i++)
+        {
+          var title = document.getElementById('title' + i);
+          var ind = i.toString();
+          document.getElementById('artist' + ind ).innerHTML = song.items[ind].artists['0'].name;
+          document.getElementById('img' + ind ).setAttribute('src', song.items[ind].album.images[0].url);
+          title.innerHTML = songname[i];
+          title.setAttribute("data-songid", song.items[ind].id);
+         }
 
-  document.getElementById('Artists').innerHTML='Artists'
+    }, function(err) { //some error checking
+      console.error(err);
+    })
+     //document.getElementById('Artists').innerHTML='Artists'
      var pre = this.spotifyApi.searchArtists(queryTerm, {limit: 5})
           .then(function(data, that) {
             let artist = data.body.artists;
@@ -135,19 +140,18 @@ export class SearchPage {
             {
               //checks if element exists
               if(!artist.items[index]) {
-                 continue;
+                continue;
               }else{
-          var ie= index.toString();
-               var artistn = document.getElementById('artistname' + ie);
-            if(artist.items[index].images[0]){
-               document.getElementById('imag' + ie ).setAttribute('src', artist.items[index].images[0].url);
-              artistn.innerHTML = artist.items[ie].name;
-            }else{
-               document.getElementById('imag' + ie ).setAttribute('src',"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87NixlNcf6A52z5o0v8Lx-wcwdQlxOTjc4AwWzEALPSQk0VuStw");
+                var ie=index.toString();
+                var artistn = document.getElementById('artistname' + ie);
+                if(artist.items[index].images[0]){
+                  document.getElementById('imag' + ie ).setAttribute('src', artist.items[index].images[0].url);
+                  artistn.innerHTML = artist.items[ie].name;
+                }else{
+                  document.getElementById('imag' + ie ).setAttribute('src',"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87NixlNcf6A52z5o0v8Lx-wcwdQlxOTjc4AwWzEALPSQk0VuStw");
+                }
               }
             }
-          }
-
           }, function(err) { //some error checking
             console.error(err);
           })
@@ -163,10 +167,9 @@ export class SearchPage {
         document.getElementById('img' +i).setAttribute('src'," ");
         document.getElementById('artistname' + i).innerHTML=" ";
         document.getElementById('imag' + i ).setAttribute('src', " ");
+     }
     }
-   }
   }
-
 
   ionViewDidLoad() {
     if (this.spotify.access_token) {
