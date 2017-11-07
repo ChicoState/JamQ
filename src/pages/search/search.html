@@ -15,14 +15,15 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <div id="searchpage">
   <div id="everything">
   <ion-searchbar item-input (ionInput)="getItems($event)" >
   </ion-searchbar>
   <ion-list id="list" style="visibility:hidden;">
-
+    <ion-navbar>
+       <ion-title>Songs</ion-title>
+     </ion-navbar>
     <ion-item  clear ion-item  >
        <ion-thumbnail item-start>
         <img id="img0" src=""/>
@@ -67,7 +68,7 @@
   </button>
 </ion-item>
 
-<ion-item clear ion-item >
+<ion-item id="item4" clear ion-item >
    <ion-thumbnail item-start>
     <img id="img4" src=""/>
   </ion-thumbnail>
@@ -77,9 +78,9 @@
  <ion-icon name="add"></ion-icon>
   </button>
 </ion-item>
-
- <h2 id="Artists" ></h2>
-
+<ion-navbar>
+   <ion-title>Artists</ion-title>
+ </ion-navbar>
  <ion-item clear ion-item >
   <ion-thumbnail item-start>
   <img id="imag0" src=""/>
