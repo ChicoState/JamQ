@@ -5,117 +5,113 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <button ion-button menuToggle>
   <ion-icon name="menu"></ion-icon>
 </button>
     <ion-title>Search</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 <ion-content padding>
   <div id="searchpage">
-  <div id="everything">
-  <ion-searchbar item-input (ionInput)="getItems($event)" >
-  </ion-searchbar>
-  <ion-list id="list" style="visibility:hidden;">
-    <ion-navbar>
-       <ion-title>Songs</ion-title>
-     </ion-navbar>
-    <ion-item  clear ion-item  >
-       <ion-thumbnail item-start>
-        <img id="img0" src=""/>
-      </ion-thumbnail>
-      <h2 id="title0" data-songid></h2>
-      <p id="artist0"></p>
-      <button ion-button clear item-end (click)="itemTapped(0)">
-     <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-item>
+    <div id="everything">
+      <ion-searchbar item-input (ionInput)="getItems($event)" >
+      </ion-searchbar>
+      <ion-list id="list" style="visibility:hidden;">
+        <ion-navbar>
+          <ion-title>Songs</ion-title>
+        </ion-navbar>
+        <ion-item  clear ion-item  >
+          <ion-thumbnail item-start>
+            <img id="img0" src=""/>
+          </ion-thumbnail>
+          <h2 id="title0" data-songid></h2>
+          <p id="artist0"></p>
+          <button ion-button clear item-end (click)="itemTapped(0)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
 
-  <ion-item clear ion-item >
-     <ion-thumbnail item-start>
-      <img id="img1" src=""/>
-    </ion-thumbnail>
-    <h2 id="title1" data-songid></h2>
-    <p id="artist1"></p>
-    <button ion-button clear item-end (click)="itemTapped(1)">
-   <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-item>
+        <ion-item clear ion-item >
+          <ion-thumbnail item-start>
+            <img id="img1" src=""/>
+          </ion-thumbnail>
+          <h2 id="title1" data-songid></h2>
+          <p id="artist1"></p>
+          <button ion-button clear item-end (click)="itemTapped(1)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
 
-  <ion-item clear ion-item >
-   <ion-thumbnail item-start>
-    <img id="img2" src=""/>
-  </ion-thumbnail>
-  <h2 id="title2" data-songid></h2>
-  <p id="artist2"></p>
-  <button ion-button clear item-end (click)="itemTapped(2)">
- <ion-icon name="add"></ion-icon>
-  </button>
-</ion-item>
+        <ion-item clear ion-item >
+          <ion-thumbnail item-start>
+            <img id="img2" src=""/>
+          </ion-thumbnail>
+          <h2 id="title2" data-songid></h2>
+          <p id="artist2"></p>
+          <button ion-button clear item-end (click)="itemTapped(2)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
 
-<ion-item clear ion-item >
-   <ion-thumbnail item-start>
-    <img id="img3" src=""/>
-  </ion-thumbnail>
-  <h2 id="title3" data-songid></h2>
-  <p id="artist3"></p>
-  <button ion-button clear item-end (click)="itemTapped(3)">
- <ion-icon name="add"></ion-icon>
-  </button>
-</ion-item>
+        <ion-item clear ion-item >
+          <ion-thumbnail item-start>
+            <img id="img3" src=""/>
+          </ion-thumbnail>
+          <h2 id="title3" data-songid></h2>
+          <p id="artist3"></p>
+          <button ion-button clear item-end (click)="itemTapped(3)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
 
-<ion-item id="item4" clear ion-item >
-   <ion-thumbnail item-start>
-    <img id="img4" src=""/>
-  </ion-thumbnail>
-  <h2 id="title4" data-songid></h2>
-  <p id="artist4"></p>
-  <button ion-button clear item-end (click)="itemTapped(4)">
- <ion-icon name="add"></ion-icon>
-  </button>
-</ion-item>
-<ion-navbar>
-   <ion-title>Artists</ion-title>
- </ion-navbar>
- <ion-item clear ion-item >
-  <ion-thumbnail item-start>
-  <img id="imag0" src=""/>
-   </ion-thumbnail>
-     <p id="artistname0" ></p>
-</ion-item>
+        <ion-item id="item4" clear ion-item >
+          <ion-thumbnail item-start>
+            <img id="img4" src=""/>
+          </ion-thumbnail>
+          <h2 id="title4" data-songid></h2>
+          <p id="artist4"></p>
+          <button ion-button clear item-end (click)="itemTapped(4)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-navbar>
+          <ion-title>Artists</ion-title>
+        </ion-navbar>
+        <ion-item clear ion-item >
+          <ion-thumbnail item-start>
+            <img id="imag0" src=""/>
+          </ion-thumbnail>
+          <p id="artistname0" ></p>
+        </ion-item>
 
- <ion-item clear ion-item >
-    <ion-thumbnail item-start>
-    <img id="imag1" src=""/>
-     </ion-thumbnail>
-       <p id="artistname1" ></p>
-       </ion-item>
+        <ion-item clear ion-item >
+          <ion-thumbnail item-start>
+            <img id="imag1" src=""/>
+          </ion-thumbnail>
+          <p id="artistname1" ></p>
+        </ion-item>
 
-     <ion-item clear ion-item >
-       <ion-thumbnail item-start>
-         <img id="imag2" src=""/>
-       </ion-thumbnail>
-       <p id="artistname2" ></p>
-    </ion-item>
+        <ion-item clear ion-item >
+          <ion-thumbnail item-start>
+            <img id="imag2" src=""/>
+          </ion-thumbnail>
+          <p id="artistname2" ></p>
+        </ion-item>
 
-   <ion-item clear ion-item >
-       <ion-thumbnail item-start>
-         <img id="imag3" src=""/>
-       </ion-thumbnail>
-       <p id="artistname3" ></p>
-      </ion-item>
+        <ion-item clear ion-item >
+          <ion-thumbnail item-start>
+            <img id="imag3" src=""/>
+          </ion-thumbnail>
+          <p id="artistname3" ></p>
+        </ion-item>
 
-    <ion-item clear ion-item >
-        <ion-thumbnail item-start>
-          <img id="imag4" src=""/>
-        </ion-thumbnail>
-        <p id="artistname4" ></p>
-       </ion-item>
-
+        <ion-item clear ion-item >
+          <ion-thumbnail item-start>
+            <img id="imag4" src=""/>
+          </ion-thumbnail>
+          <p id="artistname4" ></p>
+        </ion-item>
   </ion-list>
 </div>
 </div>
