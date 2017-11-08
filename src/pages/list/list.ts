@@ -9,7 +9,7 @@ import { HomePage } from '../home/home';
 import { SearchPage } from '../search/search';
 import { SlidesPage } from '../slides/slides';
 import { ProfilePage } from '../profile/profile';
-
+import "rxjs/add/operator/map";
 
 
 @Component({
@@ -41,17 +41,36 @@ export class ListPage {
     this.songs = af.list("/" + this.partyKey + "/songlist");
     this.owner = af.object("/" + this.partyKey);
     this.owner.subscribe(snapshot => (this.host = snapshot.owner));
+    this.songs = af.list("/" + this.partyKey+ '/songlist', {
+    query: {
+    orderByChild: 'likes' ,
+    limitToLast: 10
+    }
+  })
 
-    // console.log(this.owner);
-
-    //var firebaseKey = '/333/songlist'; //will get rid of this once its working
   }
-
-  like(songid) {
-     console.log("liked song");
+  /*****
+  This function only adds up to 20 likes
+  *****/
+  like(song) {
+    var sb = this.songs;
+    var index=0;
+//alert("not shows " + song.likes + " " + index);
+   for( index=0;index<20;index++){
+     if(song.likes==index){
+     this.songs.update(song.$key, {likes: index+1 });
+        index=30;
+      }
+   }
+    //alert("at end " + song.likes + " " + index);
   }
-
   dislike(songid) {
-    console.log("disliked song");
+    for(var i=0;i<20;i++){
+      if(songid.dislikes==i){
+      this.songs.update(songid.$key, { dislikes: i+1 });
+         i=30;
+       }
+    }
+
   }
 }
