@@ -7,9 +7,9 @@
 <ion-header>
 
   <ion-navbar>
-  <button ion-button menuToggle>
-    <ion-icon name="menu"></ion-icon>
-  </button>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Profile</ion-title>
   </ion-navbar>
 
@@ -18,77 +18,84 @@
 
 <ion-content padding>
   <div id="page">
-  <br>
-  <h1 text-center> Full Name</h1>
-  <br>
-  <button id="spotifyfull" ion-button color="spotify" block style="visibility:visible"(click)="spotifyLogin()">Register Spotify</button>
-  <button id="soundcloud" ion-button block color="soundcloud" (click)="soundcloudLogin()">Register Soundcloud</button>
-  <button id="youtube" ion-button block color="youtube" (click)="youtubeLogin()">Register Youtube</button>
-  <br>
-  <h3 text-center> Your Parties </h3>
-  <br>
-  <ion-card>
-  <ion-item text-center>
-    <h1>Party 5555</h1>
-  </ion-item>
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <ion-icon name="people"></ion-icon>
-        <div>58 listeners</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <ion-icon name="musical-notes"></ion-icon>
-        <div>40 songs</div>
-      </button>
-    </ion-col>
-  </ion-row>
-</ion-card>
-<ion-card>
-<ion-item text-center>
-  <h1>Party 3349</h1>
-</ion-item>
-<ion-row>
-  <ion-col>
-    <button ion-button icon-left clear small>
-      <ion-icon name="people"></ion-icon>
-      <div>30 listeners</div>
-    </button>
-  </ion-col>
-  <ion-col>
-    <button ion-button icon-left clear small>
-      <ion-icon name="musical-notes"></ion-icon>
-      <div>27 songs</div>
-    </button>
-  </ion-col>
-</ion-row>
-</ion-card>
-<ion-card>
-<ion-item text-center>
-  <h1>Party 1999</h1>
-</ion-item>
-<ion-row>
-  <ion-col>
-    <button ion-button icon-left clear small>
-      <ion-icon name="people"></ion-icon>
-      <div>124 listeners</div>
-    </button>
-  </ion-col>
-  <ion-col>
-    <button ion-button icon-left clear small>
-      <ion-icon name="musical-notes"></ion-icon>
-      <div>93 songs</div>
-    </button>
-  </ion-col>
-</ion-row>
-</ion-card>
+    <h1 text-center> Full Name</h1>
+    <br>
+    <button id="spotifyfull" ion-button color="spotify" block style="visibility:visible" (click)="spotifyLogin()">Register Spotify</button>
+    <button id="soundcloud" ion-button block color="soundcloud" (click)="soundcloudLogin()">Register Soundcloud</button>
+    <button id="youtube" ion-button block color="youtube" (click)="youtubeLogin()">Register Youtube</button>
+    <br>
 
 
 
-<button id="spotify" ion-button color="spotify" block style="visibility:hidden" clear (click)="spotifyLogout()">Register Spotify</button>
+
+    <button ion-button primary block (click)="goQueue()">Join a New Party</button>
+    <button ion-button secondary block (click)="newParty()">Create a New Party!</button>
 
 
-</div>
+    <br>
+    <h3 text-center> Join Previous Party </h3>
+    <ion-card>
+      <ion-item text-center>
+        <h1>Party 5555</h1>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="people"></ion-icon>
+            <div>58 listeners</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="musical-notes"></ion-icon>
+            <div>40 songs</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-card>
+      <ion-item text-center>
+        <h1>Party 3349</h1>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="people"></ion-icon>
+            <div>30 listeners</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="musical-notes"></ion-icon>
+            <div>27 songs</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-card>
+      <ion-item text-center>
+        <h1>Party 1999</h1>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="people"></ion-icon>
+            <div>124 listeners</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear small>
+            <ion-icon name="musical-notes"></ion-icon>
+            <div>93 songs</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+
+
+    <button id="spotify" ion-button color="spotify" block style="visibility:hidden" clear (click)="spotifyLogout()">Register Spotify</button>
+
+
+  </div>
 </ion-content>
