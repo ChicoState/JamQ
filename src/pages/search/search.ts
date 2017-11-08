@@ -222,7 +222,7 @@ export class SearchPage {
             //shorten call
             let track = data.body;
             //send track information to firebase
-         var inqueue = true;
+         var inqueue = false;
          var index;
          var key;
          var song_likes;
@@ -233,12 +233,12 @@ export class SearchPage {
            if(songs[index].songid==id){
              key= songs[index].$key;
              song_likes= songs[index].likes;
-             inqueue=false;
+             inqueue=true;
               break;
            }
           }
          })
-         if(inqueue==true){
+         if(inqueue==false){
           db.push({
             artist: track.artists['0'].name,
             title: track.name,
