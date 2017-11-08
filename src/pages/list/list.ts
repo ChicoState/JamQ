@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { NowplayingPage } from '../nowplaying/nowplaying';
-import { HomePage } from '../home/home';
+import { Component } from "@angular/core";
+import { NavController, NavParams } from "ionic-angular";
+import {
+  AngularFireDatabase,
+  FirebaseListObservable,
+  FirebaseObjectObservable
+} from "angularfire2/database";
+import { AngularFireModule } from "angularfire2";
+import { AngularFireAuth } from "angularfire2/auth";
+import { NowplayingPage } from "../nowplaying/nowplaying";
+import { HomePage } from "../home/home";
 // import { ListPage } from '../pages/list/list';
-import { SearchPage } from '../search/search';
-import { SlidesPage } from '../slides/slides';
-import { ProfilePage } from '../profile/profile';
+import { SearchPage } from "../search/search";
+import { SlidesPage } from "../slides/slides";
+import { ProfilePage } from "../profile/profile";
 import "rxjs/add/operator/map";
-
 
 @Component({
   selector: "page-list",
@@ -41,36 +44,29 @@ export class ListPage {
     this.songs = af.list("/" + this.partyKey + "/songlist");
     this.owner = af.object("/" + this.partyKey);
     this.owner.subscribe(snapshot => (this.host = snapshot.owner));
-    this.songs = af.list("/" + this.partyKey+ '/songlist', {
-    query: {
-    orderByChild: 'likes' ,
-    limitToLast: 10
-    }
-  })
-
+    this.songs = af.list("/" + this.partyKey + "/songlist", {
+      //toString(parseInt('likes') - parseInt('dislikes'))
+      query: {
+        //orderByChild: toString( (parseInt('likes') - parseInt('dislikes'))  ,
+        orderByChild: "likes",
+        limitToLast: 10
+      }
+    });
   }
   /*****
   This function only adds up to 20 likes
   *****/
   like(song) {
-    var sb = this.songs;
-    var index=0;
-//alert("not shows " + song.likes + " " + index);
-   for( index=0;index<20;index++){
-     if(song.likes==index){
-     this.songs.update(song.$key, {likes: index+1 });
-        index=30;
-      }
-   }
-    //alert("at end " + song.likes + " " + index);
+    this.songs.update(song.$key, { likes: song.likes + 1 });
+    //sleep(5);
   }
-  dislike(songid) {
-    for(var i=0;i<20;i++){
-      if(songid.dislikes==i){
-      this.songs.update(songid.$key, { dislikes: i+1 });
-         i=30;
-       }
-    }
+  dislike(song) {
+    this.songs.update(song.$key, { likes: song.likes - 1 });
+    //sleep(5);
+  }
+}
 
-  }
+function sleep(seconds) {
+  var e = new Date().getTime() + seconds * 1000;
+  while (new Date().getTime() <= e) {}
 }

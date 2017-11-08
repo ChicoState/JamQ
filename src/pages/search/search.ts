@@ -230,7 +230,7 @@ export class SearchPage {
 
               //maybe make a new table with likes columns of users who liked it and new table of users who disliked it
               likes: 1,// change to spotify users
-              dislikes: 0 // change to spotify users
+              //dislikes: 0 // change to spotify users
             });
 
         }, function(err) { //error checking
