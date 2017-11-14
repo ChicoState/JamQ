@@ -5,6 +5,7 @@ import { OAuth as OAuthWeb } from 'oauthio-web';
 import { OAuth } from 'oauth-phonegap';
 import { Platform } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 
@@ -35,7 +36,15 @@ export class SearchPage {
 
   constructor(
     public platform: Platform, public navCtrl: NavController,
-    public navParams: NavParams, public af: AngularFireDatabase) {
+    public navParams: NavParams, public af: AngularFireDatabase,
+    private afAuth: AngularFireAuth) {
+
+    this.afAuth.authState.subscribe(auth => {
+      this.af.object(`users/${auth.uid}`).take(1).subscribe(data => {
+        this.user_list = af.list("/" + partyKey + "/userlist/" + data.username + "/likes");
+    });
+    });
+
       //checks if device is mobile or Web
     if (platform.is('cordova')) { this.isMobile = true; }
       else { this.isMobile = false; }
@@ -43,7 +52,6 @@ export class SearchPage {
       var partyKey = sessionStorage['partyCookie'];
       //console.log(partyKey);
       this.songs = af.list("/" + partyKey + "/songlist");
-      this.user_list = af.list("/" + partyKey + "/user list" + "/user " + 1);
       //getting spotify api library
       var SpotifyWebApi = require('spotify-web-api-node');
       //build api with no params
