@@ -8,6 +8,8 @@ import {
   AngularFireDatabase,
   FirebaseListObservable
 } from "angularfire2/database";
+import { User } from '../../models/user';
+
 
 /**
  * Generated class for the ProfilePage page.
@@ -25,13 +27,32 @@ export class ProfilePage {
   spotify: any;
   spotifyApi: any;
   isMobile: any;
+  user = {} as User;
+  userJoin: FirebaseListObservable<any>;
+  // userHost: FirebaseListObservable<any>;
+  userHost: any;
+
 
   constructor(
-    private afAuth: AngularFireAuth,
+    private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase,
     private platform: Platform,
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
+    this.afAuth.authState.subscribe(auth => {
+      this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
+        console.log(data)
+        this.userHost = data;
+      });
+      this.userJoin = this.afDatabase.list(`users/${auth.uid}`);
+      console.log(this.userHost);
+      this.afDatabase.object(`users/${auth.uid}`).take(1).subscribe( userdata => {
+      // console.log(userdata.username);
+      this.user.username = userdata.username;
+      });
+    })
+
+    console.log(this.user.username)
     //checks if device is mobile or Web
     if (platform.is("cordova")) {
       this.isMobile = true;
