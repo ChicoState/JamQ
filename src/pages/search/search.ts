@@ -25,6 +25,7 @@ export class SearchPage {
   spotifyApi: any;
   songs: FirebaseListObservable<any>;
   artist: FirebaseListObservable<any>;
+  user_list: FirebaseListObservable<any>;
   key: any;
   isMobile: any;
   that: this;
@@ -42,7 +43,7 @@ export class SearchPage {
       var partyKey = sessionStorage['partyCookie'];
       //console.log(partyKey);
       this.songs = af.list("/" + partyKey + "/songlist");
-
+      this.user_list = af.list("/" + partyKey + "/user list" + "/user " + 1);
       //getting spotify api library
       var SpotifyWebApi = require('spotify-web-api-node');
       //build api with no params
@@ -216,6 +217,7 @@ export class SearchPage {
     var id = document.getElementById('title'+index).getAttribute("data-songid");
     //move songlist to loval variable
     var db = this.songs;
+    var ul= this.user_list
     //call spotify api for song information
         this.spotifyApi.getTrack(id)
           .then(function(data) {
@@ -249,7 +251,14 @@ export class SearchPage {
             likes: 1,// change to spotify users
             //dislikes: 0 // change to spotify users
           });
+          ul.push({
+            song :track.name,
+            likes: 1,
+          });
+
         }else{
+
+
         db.update(key, { likes: song_likes + 1 }); //likes update
         }
 
