@@ -6,8 +6,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-
-
+import { User } from '../../models/user';
 // import { OAuth } from 'oauthio-web';
 import { OAuth } from 'oauth-phonegap';
 import { OAuth as OAuthWeb } from 'oauthio-web';
@@ -29,10 +28,12 @@ export class HomePage {
   users: any;
   partyKey: any;
   party: FirebaseObjectObservable<any>;
-
+  userJoin: FirebaseListObservable<any>;
+  userHost: FirebaseListObservable<any>;
+  user = {} as User;
 
   constructor(
-    private toast: ToastController,
+    private toast: ToastController, private afDatabase: AngularFireDatabase,
     public menuCtrl: MenuController,
     public navCtrl: NavController, public platform: Platform,
     public af: AngularFireDatabase, public afAuth: AngularFireAuth
@@ -71,6 +72,8 @@ export class HomePage {
     //remove user menu pptions
     this.menuCtrl.enable(true, 'user');
     this.menuCtrl.enable(false, 'host');
+    this.userJoin.push({party:this.partyKey});
+
 
     //takes user to queue with data containing party key
     this.navCtrl.setRoot(ListPage,data);
@@ -90,16 +93,23 @@ export class HomePage {
     this.party = this.af.object("/" + this.partyKey);
     let db = this.party;
     this.afAuth.authState.subscribe(data => {
-      db.set({
-        owner: data.email
-      })
+      this.afDatabase.object(`users/${data.uid}`).take(1).subscribe(user => {
+        db.set({
+          owner: user.username
+        })
+      });
     })
+
+    this.userHost.push({party:this.partyKey});
 
     //create new table in db with corresponding key
 
     //eable host menu/disable user
     this.menuCtrl.enable(false, 'user');
     this.menuCtrl.enable(true, 'host');
+
+
+
 
     this.navCtrl.setRoot(NowplayingPage);
   }
@@ -118,7 +128,6 @@ export class HomePage {
       alert("Party number does not exist");
       return;
     }
-
     sessionStorage["partyCookie"] = this.partyKey;
     sessionStorage["role"] = "host"; //maybe later have it check if its your party or not
     this.navCtrl.setRoot(NowplayingPage);
@@ -129,6 +138,9 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.afAuth.authState.subscribe(data => {
+      this.userHost = this.afDatabase.list(`users/${data.uid}/hosted`);
+      this.userJoin = this.afDatabase.list(`users/${data.uid}/joined`);
+
       this.toast.create({
         message: 'Welcome to JamQ ',
         duration: 4000,
