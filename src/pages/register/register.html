@@ -18,6 +18,10 @@
   <br>
   <br>
   <ion-item>
+      <ion-label floating >Username</ion-label>
+      <ion-input type="text" [(ngModel)]="user.username"></ion-input>
+    </ion-item>
+  <ion-item>
       <ion-label floating >Email</ion-label>
       <ion-input type="text" [(ngModel)]="user.email"></ion-input>
     </ion-item>
@@ -26,6 +30,11 @@
       <ion-label floating>Password</ion-label>
       <ion-input type="password"[(ngModel)]="user.password"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label floating>Verify Password</ion-label>
+      <ion-input type="password"[(ngModel)]="user.verify"></ion-input>
+    </ion-item>
+
   <br>
   <button id="register" ion-button secondary block (click)="register(user)">Register</button>
 
