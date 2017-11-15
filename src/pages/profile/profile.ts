@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import {Events, ToastController, MenuController } from 'ionic-angular';
+import { Events, ToastController, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from "angularfire2/auth";
 import { OAuth as OAuthWeb } from "oauthio-web";
 import { OAuth } from "oauth-phonegap";
@@ -18,6 +18,7 @@ import { AngularFireModule } from 'angularfire2';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
+import { AlertController } from 'ionic-angular';
 
 
 
@@ -55,9 +56,10 @@ export class ProfilePage {
     public menuCtrl: MenuController,
     public af: AngularFireDatabase,
     public navCtrl: NavController,
-    public navParams: NavParams
-    
-    
+    public navParams: NavParams,
+    public alertCtrl: AlertController
+
+
   ) {
     this.afAuth.authState.subscribe(auth => {
       this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
@@ -128,6 +130,16 @@ export class ProfilePage {
     }
   }
 
+  soundcloudLogin() {
+    alert("Coming soon!");
+  }
+
+  youtubeLogin() {
+    alert("Coming soon!");
+  }
+
+
+
   ionViewDidLoad() {
     if (this.spotify.access_token) {
       let spotify = document.getElementById("spotify");
@@ -183,8 +195,15 @@ export class ProfilePage {
   }
 
   logout() {
-    this.afAuth.auth.signOut();
-    alert("logged out");
+    //this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut().then(function () {
+      // Sign-out successful.
+      alert("logged out");
+    }, function (error) {
+      // An error happened.
+      alert("// An error happened.");
+    });
+    
     this.navCtrl.setRoot(SlidesPage);
   }
 
@@ -192,7 +211,37 @@ export class ProfilePage {
   goQueue() {
     // this.partyKey = document.getElementById('party').innerHTML
     //create obj for passing key to next page
-    var data = { hostKey: this.partyKey };
+    var input;
+    let prompt = this.alertCtrl.create({
+      title: 'Enter the party # you want to join',
+      //message: "Enter a name for this new album you're so keen on adding",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Party Number'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: input => {
+            console.log(input);
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Join',
+          handler: input => {
+            console.log(input);
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
+    console.log(input)
+
+    input = { hostKey: this.partyKey };
     //var uniquePartyKey = data.toString();
     var uniquePartyKey = parseInt(this.partyKey);
     //console.log(uniquePartyKey);
@@ -217,7 +266,7 @@ export class ProfilePage {
     this.menuCtrl.enable(false, "host");
 
     //takes user to queue with data containing party key
-    this.navCtrl.setRoot(ListPage, data);
+    //this.navCtrl.setRoot(ListPage, data);
     //this.navCtrl.setRoot(NowplayingPage);
   }
   //navigates to and sets root to host now playing page
