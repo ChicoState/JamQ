@@ -67,18 +67,17 @@ export class ListPage {
       }
     });
   }
-  /*****
-  This function only adds up to 20 likes
-  *****/
+
   like(song) {
     var temp = [];
+     var check = false;
     this.likeCheck = this.af.list("/" + this.partyKey + "/userlist/" + this.username + "/likes");
     this.likeCheck.subscribe(data => {
-      // console.log(data)
         data.forEach(item => {
             // console.log(item.song)
             temp.push(item.song)
         })
+
         // if (exists == -1 || exists == 0) {
         //   this.user_likes.push({song: song.$key});
         //   this.songs.update(song.$key, { likes: song.likes + 1 });
@@ -90,11 +89,12 @@ export class ListPage {
       // }
 
     })
-    console.log(temp)
+    //console.log(temp)
     var check = false;
     if(temp.length == 0) {
       this.user_likes.push({song: song.$key});
       this.songs.update(song.$key, { likes: song.likes + 1 });
+      check=true;
     } else {
       for(var i = 0; i<temp.length; i++) {
         console.log("checking songs")
@@ -104,7 +104,9 @@ export class ListPage {
         }
       }
   }
-  if(!check) {
+
+
+  if(check==false) {
       this.user_likes.push({song: song.$key});
       this.songs.update(song.$key, { likes: song.likes + 1 });
   }
