@@ -6,6 +6,7 @@ import { OAuth } from 'oauth-phonegap';
 import { Platform } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { ProfilePage } from '../profile/profile';
 
 
 
@@ -184,8 +185,10 @@ export class SearchPage {
     if (this.spotify.access_token) {
       //do something here? or dont.
     }
-    else {
-      let searchpage = document.getElementById('searchpage');
+    else { 
+      alert("You need to sign into Spotify to search!");
+      this.navCtrl.setRoot(ProfilePage);
+      /* let searchpage = document.getElementById('searchpage');
       let everything = document.getElementById('everything');
       this.searchbar = everything;
       // let addSpotify = document.getElementById('addSpotify');
@@ -199,7 +202,7 @@ export class SearchPage {
       var spotifyauth = this.spotifyLogin.bind(this)
       img.onclick = spotifyauth;
       // img.setAttribute('onclick','this.spotifyLogin()');
-      searchpage.replaceChild(img,searchpage.childNodes[0]);
+      searchpage.replaceChild(img,searchpage.childNodes[0]); */
     }
     console.log('ionViewDidLoad SearchPage');
   }
