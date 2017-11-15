@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {Events, ToastController, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from "angularfire2/auth";
 import { OAuth as OAuthWeb } from "oauthio-web";
 import { OAuth } from "oauth-phonegap";
@@ -8,7 +9,17 @@ import {
   AngularFireDatabase,
   FirebaseListObservable
 } from "angularfire2/database";
+import { FirebaseObjectObservable } from 'angularfire2/database';
 import { User } from '../../models/user';
+import { SlidesPage } from '../slides/slides';
+import { ListPage } from '../list/list';
+import { NowplayingPage } from '../nowplaying/nowplaying';
+import { AngularFireModule } from 'angularfire2';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/map';
+
+
 
 
 /**
@@ -31,13 +42,22 @@ export class ProfilePage {
   userJoin: FirebaseListObservable<any>;
   // userHost: FirebaseListObservable<any>;
   userHost: any;
+  authenticated: any;
+  partyKey: any;
+  party: FirebaseObjectObservable<any>;
 
 
   constructor(
-    private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase,
+    private afAuth: AngularFireAuth,
+    private afDatabase: AngularFireDatabase,
+    //private toast: ToastController,
     private platform: Platform,
+    public menuCtrl: MenuController,
+    public af: AngularFireDatabase,
     public navCtrl: NavController,
     public navParams: NavParams
+    
+    
   ) {
     this.afAuth.authState.subscribe(auth => {
       this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
@@ -46,9 +66,9 @@ export class ProfilePage {
       });
       this.userJoin = this.afDatabase.list(`users/${auth.uid}`);
       console.log(this.userHost);
-      this.afDatabase.object(`users/${auth.uid}`).take(1).subscribe( userdata => {
-      // console.log(userdata.username);
-      this.user.username = userdata.username;
+      this.afDatabase.object(`users/${auth.uid}`).take(1).subscribe(userdata => {
+        // console.log(userdata.username);
+        this.user.username = userdata.username;
       });
     })
 
@@ -75,6 +95,10 @@ export class ProfilePage {
       //gets auth from cache named 'spotify'
       this.spotify = OAuthWeb.create("spotify");
       console.log("is Web");
+
+      if (sessionStorage["partyCookie"] > 0) {
+        this.partyKey = sessionStorage['partyCookie'];
+      }
     }
     //sets access token of authenticated user
     this.spotifyApi.setAccessToken(this.spotify.access_token);
@@ -127,11 +151,11 @@ export class ProfilePage {
     //on error sends alert  to page for debbuging
     let spotifyApi = this.spotifyApi;
     OAuth.popup("spotify", { cache: true })
-      .done(function(spotify) {
+      .done(function (spotify) {
         spotifyApi.setAccessToken(spotify.access_token);
       })
       .then()
-      .fail(function(err) {
+      .fail(function (err) {
         alert("Error with spotify login");
       });
   }
@@ -148,20 +172,23 @@ export class ProfilePage {
       //on error sends alert  to page for debbuging
       let spotifyApi = this.spotifyApi;
       OAuthWeb.popup("spotify", { cache: true })
-        .done(function(spotify) {
+        .done(function (spotify) {
           spotifyApi.setAccessToken(spotify.access_token);
         })
         .then()
-        .fail(function(err) {
+        .fail(function (err) {
           alert("Error with spotify login");
         });
     }
   }
-  goQueue() {}
-  newParty() {}
-  goParty() {}
 
-  /*
+  logout() {
+    this.afAuth.auth.signOut();
+    alert("logged out");
+    this.navCtrl.setRoot(SlidesPage);
+  }
+
+
   goQueue() {
     // this.partyKey = document.getElementById('party').innerHTML
     //create obj for passing key to next page
@@ -242,5 +269,5 @@ export class ProfilePage {
     this.menuCtrl.enable(false, "user");
     this.menuCtrl.enable(true, "host");
   }
-  */
+
 }
