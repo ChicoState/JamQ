@@ -143,7 +143,7 @@ export class HomePage {
 
       this.toast.create({
         message: 'Welcome to JamQ ',
-        duration: 4000,
+        duration: 1000,
         position: 'top',
         cssClass: 'page-home'
       }).present();
