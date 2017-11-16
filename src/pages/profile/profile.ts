@@ -241,25 +241,20 @@ export class ProfilePage {
               return;
             } else if (uniquePartyKey < 1000 || uniquePartyKey > 9999) {
               // later we should check if the party already exists in the db
-              alert("Party number does not exist");
+              alert("Party number does not exist"); // later we should check if the party already exists in the db
               return;
             }
 
             sessionStorage["partyCookie"] = data.title;
-            sessionStorage["role"] = "guest"; //maybe later have it check if its your party or not
+            sessionStorage["role"] = "guest";
+            //maybe later have it check if its your party or not
 
-            //make sure that the key exists in the DB
-            //if key is not in DB display alert and then go to home page again
-            //Then enter party
-
-            //remove user menu pptions
+            //remove user menu options
             this.menuCtrl.enable(true, "user");
             this.menuCtrl.enable(false, "host");
 
             //takes user to queue with data containing party key
-            //this.navCtrl.setRoot(ListPage);
-            this.navCtrl.setRoot(ListPage, data.title);    
-            //this.navCtrl.setRoot(NowplayingPage);
+            this.navCtrl.setRoot(ListPage);
           }
         }
       ]
