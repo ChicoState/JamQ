@@ -21,15 +21,6 @@ import 'rxjs/add/operator/map';
 import { AlertController } from 'ionic-angular';
 
 
-
-
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: "page-profile",
@@ -40,7 +31,7 @@ export class ProfilePage {
   spotifyApi: any;
   isMobile: any;
   user = {} as User;
-  userJoin: FirebaseListObservable<any>;
+  userJoin: any;//FirebaseListObservable<any>;
   // userHost: FirebaseListObservable<any>;
   userHost: any;
   authenticated: any;
@@ -138,8 +129,6 @@ export class ProfilePage {
     alert("Coming soon!");
   }
 
-
-
   ionViewDidLoad() {
     if (this.spotify.access_token) {
       let spotify = document.getElementById("spotify");
@@ -225,9 +214,7 @@ export class ProfilePage {
         {
           text: 'Cancel',
           handler: data => {
-            console.log(data.title);
-            input = data.title;
-            console.log('Cancel clicked');
+            //Do nothing just go back to the profile page
           }
         },
         {
@@ -248,6 +235,8 @@ export class ProfilePage {
             sessionStorage["partyCookie"] = data.title;
             sessionStorage["role"] = "guest";
             //maybe later have it check if its your party or not
+
+            //Will need to push joined party to user in DB
 
             //remove user menu options
             this.menuCtrl.enable(true, "user");

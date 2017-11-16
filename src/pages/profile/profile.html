@@ -33,58 +33,56 @@
 
 
     <br>
-      <div *ngIf="userHost">
-    <h3 text-center> Previously Hosted Events </h3>
-    <ion-card *ngFor="let host of userHost">
-    <!-- <ion-card> -->
-      <ion-item text-center>
-        <h1>{{host.party}}</h1>
-      </ion-item>
-      <ion-row>
-        <ion-col>
-          <button ion-button icon-left clear small>
-            <ion-icon name="people"></ion-icon>
-            <div>58 listeners</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-left clear small>
-            <ion-icon name="musical-notes"></ion-icon>
-            <div>40 songs</div>
-          </button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-  </div>
-      <br>
-      <div *ngIf="user.Join">
+    <div *ngIf="userHost">
+      <h3 text-center> Previously Hosted Events </h3>
+      <ion-card *ngFor="let host of userHost">
+        <!-- <ion-card> -->
+        <ion-item text-center>
+          <h1>{{host.party}}</h1>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="people"></ion-icon>
+              <div>58 listeners</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="musical-notes"></ion-icon>
+              <div>40 songs</div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
+    <br>
+    <div *ngIf="userJoin">
       <h3 text-center> Previously Joined Events </h3>
-    <ion-card *ngFor="let join of userJoin | async">
-      <ion-item text-center>
-        <h1>{{join.party}}</h1>
-      </ion-item>
-      <ion-row>
-        <ion-col>
-          <button ion-button icon-left clear small>
-            <ion-icon name="people"></ion-icon>
-            <div>124 listeners</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-left clear small>
-            <ion-icon name="musical-notes"></ion-icon>
-            <div>93 songs</div>
-          </button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-  </div>
+      <ion-card *ngFor="let join of userJoin | async">
+        <ion-item text-center>
+          <h1>{{join.party}}</h1>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="people"></ion-icon>
+              <div>124 listeners</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="musical-notes"></ion-icon>
+              <div>93 songs</div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
 
-<button ion-button secondary block (click)="logout()">Log Out</button>
-
+    <button ion-button secondary block (click)="logout()">Log Out</button>
 
     <button id="spotify" ion-button color="spotify" block style="visibility:hidden" clear (click)="spotifyLogout()">Register Spotify</button>
-
 
   </div>
 </ion-content>

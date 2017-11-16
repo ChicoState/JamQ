@@ -53,7 +53,9 @@ export class ListPage {
 
 
     //get key returned from join party page
-    this.key = this.navParams.get("hostKey");
+    //this.key = this.navParams.get("hostKey");
+    this.partyKey = sessionStorage["partyCookie"];
+    
     //console.log(this.partyKey);
     this.songs = af.list("/" + this.partyKey + "/songlist");
     this.owner = af.object("/" + this.partyKey);
