@@ -203,7 +203,7 @@ export class ProfilePage {
       // An error happened.
       alert("// An error happened.");
     });
-    
+
     this.navCtrl.setRoot(SlidesPage);
   }
 
@@ -224,50 +224,47 @@ export class ProfilePage {
       buttons: [
         {
           text: 'Cancel',
-          handler: input => {
-            console.log(input);
+          handler: data => {
+            console.log(data.title);
+            input = data.title;
             console.log('Cancel clicked');
           }
         },
         {
           text: 'Join',
-          handler: input => {
-            console.log(input);
-            console.log('Saved clicked');
+          handler: data => {
+            console.log(data.title);
+            var uniquePartyKey = parseInt(data.title);
+            //console.log(uniquePartyKey);
+            if (isNaN(uniquePartyKey)) {
+              alert("Please enter a party number");
+              return;
+            } else if (uniquePartyKey < 1000 || uniquePartyKey > 9999) {
+              // later we should check if the party already exists in the db
+              alert("Party number does not exist");
+              return;
+            }
+
+            sessionStorage["partyCookie"] = data.title;
+            sessionStorage["role"] = "guest"; //maybe later have it check if its your party or not
+
+            //make sure that the key exists in the DB
+            //if key is not in DB display alert and then go to home page again
+            //Then enter party
+
+            //remove user menu pptions
+            this.menuCtrl.enable(true, "user");
+            this.menuCtrl.enable(false, "host");
+
+            //takes user to queue with data containing party key
+            //this.navCtrl.setRoot(ListPage);
+            this.navCtrl.setRoot(ListPage, data.title);    
+            //this.navCtrl.setRoot(NowplayingPage);
           }
         }
       ]
     });
     prompt.present();
-    console.log(input)
-
-    input = { hostKey: this.partyKey };
-    //var uniquePartyKey = data.toString();
-    var uniquePartyKey = parseInt(this.partyKey);
-    //console.log(uniquePartyKey);
-    if (isNaN(uniquePartyKey)) {
-      alert("Please enter a party number");
-      return;
-    } else if (uniquePartyKey < 1000 || uniquePartyKey > 9999) {
-      // later we should check if the party already exists in the db
-      alert("Party number does not exist");
-      return;
-    }
-
-    sessionStorage["partyCookie"] = this.partyKey;
-    sessionStorage["role"] = "guest"; //maybe later have it check if its your party or not
-
-    //make sure that the key exists in the DB
-    //if key is not in DB display alert and then go to home page again
-    //Then enter party
-
-    //remove user menu pptions
-    this.menuCtrl.enable(true, "user");
-    this.menuCtrl.enable(false, "host");
-
-    //takes user to queue with data containing party key
-    //this.navCtrl.setRoot(ListPage, data);
-    //this.navCtrl.setRoot(NowplayingPage);
   }
   //navigates to and sets root to host now playing page
   newParty() {
