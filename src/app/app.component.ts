@@ -26,13 +26,13 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.userpages = [
-      { title: 'JamQ Home', component: HomePage },
+      //{ title: 'JamQ Home', component: HomePage },
       { title: 'Queue', component: ListPage },
       { title: 'Search', component: SearchPage },
       { title: 'Profile', component: ProfilePage }
     ];
     this.hostpages = [
-      { title: 'JamQ Home', component: HomePage },
+      //{ title: 'JamQ Home', component: HomePage },
       { title: 'Host', component: NowplayingPage },
       { title: 'Search', component: SearchPage },
       { title: 'Profile', component: ProfilePage }

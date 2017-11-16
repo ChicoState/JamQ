@@ -7,6 +7,7 @@ import { OAuth } from 'oauth-phonegap';
 import { OAuth as OAuthWeb } from 'oauthio-web';
 import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth'
+import { ProfilePage } from "../profile/profile";
 
 /**
  * Generated class for the LoginPage page.
@@ -82,7 +83,7 @@ export class LoginPage {
     try {
       const res = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
       // console.log(res);
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot(ProfilePage);
     } catch (error) {
       alert(error)
       console.log(error)
@@ -102,6 +103,6 @@ export class LoginPage {
       document.getElementById("hide").style.visibility = "visible";
   }
 
-  goHome() { this.navCtrl.setRoot(HomePage) }
+  goHome() { this.navCtrl.setRoot(ProfilePage) }
 
 }
