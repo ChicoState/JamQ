@@ -1,20 +1,18 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { Events, ToastController, MenuController } from 'ionic-angular';
+import { MenuController } from 'ionic-angular';
 import { AngularFireAuth } from "angularfire2/auth";
 import { OAuth as OAuthWeb } from "oauthio-web";
 import { OAuth } from "oauth-phonegap";
 import { Platform } from "ionic-angular";
 import {
   AngularFireDatabase,
-  FirebaseListObservable
 } from "angularfire2/database";
 import { FirebaseObjectObservable } from 'angularfire2/database';
 import { User } from '../../models/user';
 import { SlidesPage } from '../slides/slides';
 import { ListPage } from '../list/list';
 import { NowplayingPage } from '../nowplaying/nowplaying';
-import { AngularFireModule } from 'angularfire2';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
@@ -200,7 +198,6 @@ export class ProfilePage {
   goQueue() {
     // this.partyKey = document.getElementById('party').innerHTML
     //create obj for passing key to next page
-    var input;
     let prompt = this.alertCtrl.create({
       title: 'Enter the party # you want to join',
       //message: "Enter a name for this new album you're so keen on adding",
@@ -282,7 +279,7 @@ export class ProfilePage {
 
   goParty() {
     //create obj for passing key to next page
-    var data = { hostKey: this.partyKey };
+    //var data = { hostKey: this.partyKey };
     //var uniquePartyKey = data.toString();
     var uniquePartyKey = parseInt(this.partyKey);
     //console.log(uniquePartyKey);

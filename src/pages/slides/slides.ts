@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { OAuth } from 'oauthio-web';
 import { LoginPage } from '../login/login';
-import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { ProfilePage } from "../profile/profile";
 /**

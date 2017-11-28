@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { OAuth as OAuthWeb } from 'oauthio-web';
-import { OAuth } from 'oauth-phonegap';
-import { SpotifyWebApi } from 'spotify-web-api-node';
-import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Platform } from 'ionic-angular';
 import { User } from '../../models/user';
@@ -13,7 +9,6 @@ import {
   FirebaseObjectObservable
 } from "angularfire2/database";
 import "rxjs/add/operator/map";
-
 
 @IonicPage()
 @Component({
@@ -31,9 +26,6 @@ export class NowplayingPage {
   partyKey: any;
   host: any;
   username: any;
-
-
-
 
   constructor(
     public platform: Platform,

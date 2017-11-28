@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
-import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
-import { OAuth } from 'oauth-phonegap';
-import { OAuth as OAuthWeb } from 'oauthio-web';
 import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { ProfilePage } from "../profile/profile";
@@ -81,7 +78,7 @@ export class LoginPage {
 
   async login(user: User) {
     try {
-      const res = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+      this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
       // console.log(res);
       this.navCtrl.setRoot(ProfilePage);
     } catch (error) {

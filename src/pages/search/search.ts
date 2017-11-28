@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
-import { Keyboard } from '@ionic-native/keyboard';
+import { IonicPage, NavController, NavParams,  } from 'ionic-angular';
 import { OAuth as OAuthWeb } from 'oauthio-web';
 import { OAuth } from 'oauth-phonegap';
 import { Platform } from 'ionic-angular';
@@ -76,7 +75,6 @@ export class SearchPage {
   getItems(ev: any, that ) {
     document.getElementById("list").style.visibility = "visible";
     //gets the list that displays songs
-    var mydiv = document.getElementById('list');
     var temparr = [];
     var songname= [];
     // set val to the value of the searchbar
@@ -125,13 +123,13 @@ export class SearchPage {
         if(ns>5){
           ns=5;
         }
-        for(var i = 0; i <ns; i++)
+        for(var x = 0; x <ns; x++)
         {
-          var title = document.getElementById('title' + i);
-          var ind = i.toString();
+          var title = document.getElementById('title' + x);
+          var ind = x.toString();
           document.getElementById('artist' + ind ).innerHTML = song.items[ind].artists['0'].name;
           document.getElementById('img' + ind ).setAttribute('src', song.items[ind].album.images[0].url);
-          title.innerHTML = songname[i];
+          title.innerHTML = songname[x];
           title.setAttribute("data-songid", song.items[ind].id);
          }
 

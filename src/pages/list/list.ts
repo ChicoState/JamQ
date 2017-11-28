@@ -5,16 +5,8 @@ import {
   FirebaseListObservable,
   FirebaseObjectObservable
 } from "angularfire2/database";
-import { AngularFireModule } from "angularfire2";
 import { AngularFireAuth } from "angularfire2/auth";
-import { NowplayingPage } from "../nowplaying/nowplaying";
-import { HomePage } from "../home/home";
-// import { ListPage } from '../pages/list/list';
-import { SearchPage } from "../search/search";
-import { SlidesPage } from "../slides/slides";
-import { ProfilePage } from "../profile/profile";
 import "rxjs/add/operator/map";
-import { OAuth as OAuthWeb } from 'oauthio-web';
 
 @Component({
   selector: "page-list",
@@ -73,7 +65,6 @@ export class ListPage {
 
   like(song) {
     var temp = [];
-    var check = false;
     this.likeCheck = this.af.list("/" + this.partyKey + "/userlist/" + this.username + "/likes");
     this.likeCheck.subscribe(data => {
       data.forEach(item => {
