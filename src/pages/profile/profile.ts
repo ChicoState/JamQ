@@ -65,7 +65,7 @@ export class ProfilePage {
       });
     })
 
-    console.log(this.user.username)
+    console.log("username is " + this.user.username)
     //checks if device is mobile or Web
     if (platform.is("cordova")) {
       this.isMobile = true;
@@ -263,9 +263,11 @@ export class ProfilePage {
     //create the db observable to manipulate
     this.party = this.af.object("/" + this.partyKey);
     let db = this.party;
+    console.log("user name in newpart is: ")
+    console.log(this.user.username);
     this.afAuth.authState.subscribe(data => {
       db.set({
-        owner: data.email
+        owner: this.user.username
       });
     });
 
