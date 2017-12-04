@@ -18,6 +18,7 @@ export class ListPage {
   user_likes: FirebaseListObservable<any>;
   user_dislikes: FirebaseListObservable<any>;
   likeCheck: FirebaseListObservable<any>;
+  dislikeCheck: FirebaseListObservable<any>;
   dislikeCount: FirebaseObjectObservable<any>;
   host: any;
   selectedItem: any;
@@ -72,16 +73,6 @@ export class ListPage {
         temp.push(item.song)
       })
 
-      // if (exists == -1 || exists == 0) {
-      //   this.user_likes.push({song: song.$key});
-      //   this.songs.update(song.$key, { likes: song.likes + 1 });
-      // }
-      // } else if (exists == 0) {
-      //     console.log("gettinghere")
-      //       this.user_likes.push({song: song.$key});
-      //       this.songs.update(song.$key, { likes: song.likes + 1 });
-      // }
-
     })
     //console.log(temp)
     var check = false;
@@ -106,8 +97,34 @@ export class ListPage {
     }
   }
   dislike(song) {
-    this.user_dislikes.push({ song: song.$key });
-    this.songs.update(song.$key, { likes: song.likes - 1 });
-    //sleep(5);
+    var temp = [];
+    this.dislikeCheck = this.af.list("/" + this.partyKey + "/userlist/" + this.username + "/dislikes");
+    this.dislikeCheck.subscribe(data => {
+      data.forEach(item => {
+        // console.log(item.song)
+        temp.push(item.song)
+      })
+
+    })
+    //console.log(temp)
+    var check = false;
+    if (temp.length == 0) {
+      this.user_dislikes.push({ song: song.$key });
+      this.songs.update(song.$key, { likes: song.likes - 1 });
+      check = true;
+    } else {
+      for (var i = 0; i < temp.length; i++) {
+        console.log("checking songs")
+        if (temp[i] == song.$key) {
+          check = true;
+          break;
+        }
+      }
+    }
+
+    if (check == false) {
+      this.user_dislikes.push({ song: song.$key });
+      this.songs.update(song.$key, { likes: song.likes - 1 });
+    }
   }
 }
