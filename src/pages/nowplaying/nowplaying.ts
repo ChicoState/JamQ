@@ -44,7 +44,15 @@ export class NowplayingPage {
     });
 
     this.partyKey = sessionStorage['partyCookie'];
-    this.songs = af.list("/" + this.partyKey + "/songlist", { query: { limitToLast: 10 } });
+    // this.songs = af.list("/" + this.partyKey + "/songlist", { query: { limitToLast: 10 } });
+    this.songs = af.list("/" + this.partyKey + "/songlist", {
+      //toString(parseInt('likes') - parseInt('dislikes'))
+      query: {
+        //orderByChild: toString( (parseInt('likes') - parseInt('dislikes'))  ,
+        orderByChild: "likes",
+        limitToLast: 15
+      }
+    });
     this.owner = af.object("/" + this.partyKey);
     this.owner.subscribe(snapshot => (this.host = snapshot.owner));
     //this.songs = af.list("/333/songlist", { query: { limitToLast: 10 } });
