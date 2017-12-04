@@ -33,18 +33,61 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
+// $colors: (
+//   primary:    #488aff,
+//   secondary:  #32db64,
+//   danger:     #f53d3d,
+//   light:      #f4f4f4,
+//   dark:       #222,
+//   black:      #000000,
+//
+//   spotify: #84bd00,
+//   youtube: #cc181e,
+//   soundcloud: #ff8800,
+// );
+
+// Dark Theme
+// ----------------------------------
+
 $colors: (
-  primary:    #488aff,
+
+  primary:    #0277BD,
   secondary:  #32db64,
-  danger:     #f53d3d,
+  danger:     #d91e18,
   light:      #f4f4f4,
   dark:       #222,
-  black:      #000000,
-
-  spotify: #84bd00,
-  youtube: #cc181e,
+  spotify:    #84bd00,
+  youtube:    #cc181e,
   soundcloud: #ff8800,
-);
+
+) !default;
+
+
+$text-color:                 #fff !default;
+$link-color:                 color($colors, primary) !default;
+$background-color:           #757575 !default;
+$subdued-text-color:         #666 !default;
+
+$font-family-base:           -apple-system, "Helvetica Neue", "Roboto", sans-serif !default;
+$font-size-base:             1.4rem !default; // 1.4rem == 14px
+
+$content-padding:            16px !default;
+$content-margin:             16px !default;
+
+$toolbar-background:         #212121!default;
+$toolbar-border-color:       #222 !default;
+$toolbar-text-color:         $text-color !default;
+$toolbar-active-color:       $link-color !default;
+$toolbar-inactive-color:     #8c8c8c !default;
+
+$tabs-background:            #151515 !default;
+$tabs-border-color:          #222 !default;
+$tabs-tab-color-inactive:    #8c8c8c !default;
+$tabs-tab-color-active:      $link-color !default;
+
+$list-text-color:            $text-color !default;
+$list-background-color:      #242424 !default;
+$list-border-color:          #000 !default;
 
 
 // App iOS Variables
