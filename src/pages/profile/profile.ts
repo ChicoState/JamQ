@@ -126,6 +126,10 @@ export class ProfilePage {
   youtubeLogin() {
     alert("Coming soon!");
   }
+  
+  comingSoon() {
+    alert("Coming Soon!");
+  }
 
   ionViewDidLoad() {
     if (this.spotify.access_token) {
