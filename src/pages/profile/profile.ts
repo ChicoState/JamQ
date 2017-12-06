@@ -17,7 +17,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import { AlertController } from 'ionic-angular';
-
+import {FirebaseListObservable } from 'angularfire2/database';
 
 @IonicPage()
 @Component({
@@ -141,6 +141,10 @@ export class ProfilePage {
       spotifyfull.style.visibility = "hidden";
       page.replaceChild(spotify, spotifyfull);
     }
+        // this.afAuth.authState.subscribe(data => {
+    //   this.userHost = this.afDatabase.list(`users/${data.uid}/hosted`);
+    //   this.userJoin = this.afDatabase.list(`users/${data.uid}/joined`);
+    // });
     console.log("ionViewDidLoad ProfilePage");
   }
 
@@ -244,6 +248,7 @@ export class ProfilePage {
             this.menuCtrl.enable(false, "host");
 
             //takes user to queue with data containing party key
+            this.userJoin.push({ joined: this.partyKey });
             this.navCtrl.setRoot(ListPage);
           }
         }
@@ -277,7 +282,7 @@ export class ProfilePage {
     //eable host menu/disable user
     this.menuCtrl.enable(false, "user");
     this.menuCtrl.enable(true, "host");
-
+    this.userHost.push({ hosted: this.partyKey });
     this.navCtrl.setRoot(NowplayingPage);
   }
 
