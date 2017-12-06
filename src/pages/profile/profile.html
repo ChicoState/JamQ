@@ -36,12 +36,12 @@
 
 
     <br>
-    <div *ngIf="userHost">
+    <div>
       <h3 text-center> Previously Hosted Events </h3>
-      <ion-card *ngFor="let host of userHost">
+      <ion-card>
         <!-- <ion-card> -->
         <ion-item text-center>
-          <h1>{{host.party}}</h1>
+          <h1>3972</h1>
         </ion-item>
         <ion-row>
           <ion-col>
@@ -60,23 +60,43 @@
       </ion-card>
     </div>
     <br>
-    <div *ngIf="userJoin">
+    <div>
       <h3 text-center> Previously Joined Events </h3>
-      <ion-card *ngFor="let join of userJoin | async">
+      <ion-card>
         <ion-item text-center>
-          <h1>{{join.party}}</h1>
+          <h1>8267</h1>
         </ion-item>
         <ion-row>
           <ion-col>
             <button ion-button icon-left clear small>
               <ion-icon name="people"></ion-icon>
-              <div>124 listeners</div>
+              <div>184 listeners</div>
             </button>
           </ion-col>
           <ion-col>
             <button ion-button icon-left clear small>
               <ion-icon name="musical-notes"></ion-icon>
-              <div>93 songs</div>
+              <div>62 songs</div>
+            </button>
+          </ion-col>
+        </ion-row>
+        </ion-card>
+        <ion-card>
+        
+        <ion-item text-center>
+          <h1>5291</h1>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="people"></ion-icon>
+              <div>94 listeners</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="musical-notes"></ion-icon>
+              <div>83 songs</div>
             </button>
           </ion-col>
         </ion-row>
