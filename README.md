@@ -1,4 +1,6 @@
 # JamQ
+To view testing branch please go to [https://github.com/cnolan3/JamQ](https://github.com/cnolan3/JamQ)
+
 An app that lets your guests create your music playlist.
 
 
