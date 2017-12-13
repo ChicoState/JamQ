@@ -1,3 +1,0 @@
-#/bin/bash
-echo -e "\n\t Stopping all docker containers\n"
-docker stop $(docker ps -aq)

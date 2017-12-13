@@ -1,3 +1,0 @@
-#!/bin/bash
-echo -e "\n\t Removing all docker containers\n"
-docker rm $(docker ps -aq)
