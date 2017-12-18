@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LoginPage } from '../login/login';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { ProfilePage } from "../profile/profile";
+import { RegisterPage } from '../register/register';
+
 /**
  * Generated class for the SlidesPage page.
  *
@@ -20,10 +21,11 @@ export class SlidesPage {
 
   constructor(
     private afAuth: AngularFireAuth,
-    public navCtrl: NavController, public navParams: NavParams) {
+    public navCtrl: NavController,
+    public navParams: NavParams) {
 
     this.afAuth.authState.subscribe(auth => {
-      if(auth) {
+      if (auth) {
         this.navCtrl.setRoot(ProfilePage);
       }
     })
@@ -33,17 +35,17 @@ export class SlidesPage {
     //     this.authenticated = true;
     //     this.navCtrl.setRoot(HomePage, {}, {animate: false});
     //   } else this.authenticated = false;
-    }
+  }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SlidesPage');
   }
 
-  login(){
-  this.navCtrl.push(LoginPage, {}, {animate: false});
+  login() {
+    this.navCtrl.push(RegisterPage, {}, { animate: false });
 
-}
+  }
 
 
 }
