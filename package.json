@@ -28,7 +28,7 @@
     "ajv": "^5.3.0",
     "angularfire2": "^4.0.0-rc.2",
     "app-scripts": "0.0.0",
-    "auth0-js": "^8.10.1",
+    "auth0-js": "^9.3.0",
     "com.oauthio.plugins.oauthio": "https://github.com/oauth-io/oauth-phonegap",
     "cordova-android": "^6.2.3",
     "cordova-ios": "^4.4.0",
