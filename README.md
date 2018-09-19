@@ -31,5 +31,5 @@ See [Docker Instructions](docker.md)
 - [Connor Nolan](https://github.com/cnolan3)
 
 ## Spotify Login
-Email - e143499@nwytg.net
-Password - 430Jamq
+- Email - e143499@nwytg.net
+- Password - 430Jamq
