@@ -29,3 +29,7 @@ See [Docker Instructions](docker.md)
 - [Austin Smitherman](https://github.com/asmitherman)
 - [German Razo Rodriguez](https://github.com/german9304)
 - [Connor Nolan](https://github.com/cnolan3)
+
+## Spotify Login
+Email - e143499@nwytg.net
+Password - 430Jamq
