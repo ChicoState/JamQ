@@ -33,3 +33,7 @@ See [Docker Instructions](docker.md)
 ## Spotify Login
 - Email - e143499@nwytg.net
 - Password - 430Jamq
+
+## Discord
+- https://discord.gg/QkqfQpE
+
