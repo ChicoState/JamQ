@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase} from 'angularfire2/database';
 import 'rxjs/add/operator/take';
 import { LoginPage } from '../login/login';
+import { DjProfilePage } from '../djprofile/djprofile';
 
 
 /**
@@ -53,6 +54,11 @@ export class RegisterPage {
   
   existinglogin() {
     this.navCtrl.push(LoginPage, {}, { animate: false });
+
+  }
+
+  djLogin() {
+    this.navCtrl.push(DjProfilePage, {}, { animate: false });
 
   }
 
