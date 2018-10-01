@@ -1,11 +1,13 @@
-import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 import { AngularFireAuth } from "angularfire2/auth";
 import { OAuth as OAuthWeb } from "oauthio-web";
 import { OAuth } from "oauth-phonegap";
 import { Platform } from "ionic-angular";
-import { AngularFireDatabase } from "angularfire2/database";
+import {
+  AngularFireDatabase,
+} from "angularfire2/database";
 import { FirebaseObjectObservable } from 'angularfire2/database';
 import { User } from '../../models/user';
 import { SlidesPage } from '../slides/slides';
@@ -15,15 +17,22 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import { AlertController } from 'ionic-angular';
-import { FirebaseListObservable } from 'angularfire2/database';
-import { PartyPage } from '../party/party';
+import {FirebaseListObservable } from 'angularfire2/database';
+import { ProfilePage } from '../profile/profile';
+
+/**
+ * Generated class for the PartyPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
-  selector: "page-profile",
-  templateUrl: "profile.html"
+  selector: 'page-party',
+  templateUrl: 'party.html',
 })
-export class ProfilePage {
+export class PartyPage {
   spotify: any;
   spotifyApi: any;
   isMobile: any;
@@ -35,7 +44,6 @@ export class ProfilePage {
   partyKey: any;
   party: FirebaseObjectObservable<any>;
 
-
   constructor(
     private afAuth: AngularFireAuth,
     private afDatabase: AngularFireDatabase,
@@ -46,8 +54,6 @@ export class ProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController
-
-
   ) {
     this.afAuth.authState.subscribe(auth => {
       this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
@@ -94,42 +100,6 @@ export class ProfilePage {
     this.spotifyApi.setAccessToken(this.spotify.access_token);
   }
 
-  spotifyLogin() {
-    if (this.isMobile == true) {
-      //is phone
-      this.mobileAuth();
-      let spotify = document.getElementById("spotify");
-      let spotifyfull = document.getElementById("spotifyfull");
-      spotify.style.visibility = "visible";
-      spotify.innerHTML = "Spotify Signed In";
-      let page = document.getElementById("page");
-      spotifyfull.style.visibility = "hidden";
-      page.replaceChild(spotify, spotifyfull);
-    } else {
-      //is web
-      this.webAuth();
-      let spotify = document.getElementById("spotify");
-      let spotifyfull = document.getElementById("spotifyfull");
-      spotify.style.visibility = "visible";
-      spotify.innerHTML = "Spotify Signed In";
-      let page = document.getElementById("page");
-      spotifyfull.style.visibility = "hidden";
-      page.replaceChild(spotify, spotifyfull);
-    }
-  }
-
-  soundcloudLogin() {
-    alert("Coming soon!");
-  }
-
-  youtubeLogin() {
-    alert("Coming soon!");
-  }
-  
-  comingSoon() {
-    alert("Coming Soon!");
-  }
-
   ionViewDidLoad() {
     if (this.spotify.access_token) {
       let spotify = document.getElementById("spotify");
@@ -144,10 +114,9 @@ export class ProfilePage {
     //   this.userHost = this.afDatabase.list(`users/${data.uid}/hosted`);
     //   this.userJoin = this.afDatabase.list(`users/${data.uid}/joined`);
     // });
-    console.log("ionViewDidLoad ProfilePage");
+console.log("ionViewDidLoad ProfilePage");
   }
 
-  //use for authentiating with mobile libraries
   mobileAuth() {
     //initializes spotify auth
     OAuth.initialize("NJG7cpjPQHkVhSQgvpQi5MRoyM4");
@@ -186,21 +155,7 @@ export class ProfilePage {
           alert("Error with spotify login");
         });
     }
-  }
-
-  logout() {
-    //this.afAuth.auth.signOut();
-    this.afAuth.auth.signOut().then(function () {
-      // Sign-out successful.
-      alert("logged out");
-    }, function (error) {
-      // An error happened.
-      alert("// An error happened.");
-    });
-
-    this.navCtrl.setRoot(SlidesPage);
-  }
-
+}
 
   goQueue() {
     // this.partyKey = document.getElementById('party').innerHTML
@@ -255,6 +210,7 @@ export class ProfilePage {
     });
     prompt.present();
   }
+
   //navigates to and sets root to host now playing page
   newParty() {
     //later we can check this and make sure that there is not already a party with that number
@@ -286,7 +242,25 @@ export class ProfilePage {
   }
 
   goParty() {
-  this.navCtrl.setRoot(PartyPage);
+    //create obj for passing key to next page
+    //var data = { hostKey: this.partyKey };
+    //var uniquePartyKey = data.toString();
+    var uniquePartyKey = parseInt(this.partyKey);
+    //console.log(uniquePartyKey);
+    if (isNaN(uniquePartyKey)) {
+      alert("Please enter a party number");
+      return;
+    } else if (uniquePartyKey < 1000 || uniquePartyKey > 9999) {
+      // later we should check if the party already exists in the db
+      alert("Party number does not exist");
+      return;
+    }
+
+    sessionStorage["partyCookie"] = this.partyKey;
+    sessionStorage["role"] = "host"; //maybe later have it check if its your party or not
+    this.navCtrl.setRoot(NowplayingPage);
+    this.menuCtrl.enable(false, "user");
+    this.menuCtrl.enable(true, "host");
   }
 
 }
