@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth'
-import { ProfilePage } from "../profile/profile";
+import { PartyPage } from "../party/party";
 
 /**
  * Generated class for the LoginPage page.
@@ -75,7 +75,7 @@ export class LoginPage {
     try {
       this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
       // console.log(res);
-      this.navCtrl.setRoot(ProfilePage);
+      this.navCtrl.setRoot(PartyPage);
     } catch (error) {
       alert(error)
       console.log(error)
@@ -95,6 +95,6 @@ export class LoginPage {
       document.getElementById("hide").style.visibility = "visible";
   }
 
-  goHome() { this.navCtrl.setRoot(ProfilePage) }
+  goHome() { this.navCtrl.setRoot(PartyPage) }
 
 }

@@ -19,6 +19,7 @@ npm-debug.log*
 .sass-cache/
 .tmp/
 .versions/
+www/build
 coverage/
 dist/
 tmp/
@@ -33,6 +34,3 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-
-# WWW folder does not appear to need changes commited
-www/
