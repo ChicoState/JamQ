@@ -17,7 +17,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ProfilePage } from '../pages/profile/profile';
-import {DjProfilePage } from '../pages/djprofile/djprofile'
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import {DjProfilePage } from '../pages/djprofile/djprofile'
     LoginPage,
     RegisterPage,
     ProfilePage,
-    DjProfilePage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +46,6 @@ import {DjProfilePage } from '../pages/djprofile/djprofile'
     LoginPage,
     RegisterPage,
     ProfilePage,
-    DjProfilePage
   ],
   providers: [
     StatusBar,
