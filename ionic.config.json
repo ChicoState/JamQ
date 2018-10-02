@@ -1,6 +1,6 @@
 {
   "name": "SpotiJamQ",
-  "app_id": "864504d6",
+  "integrations": {},
   "type": "ionic-angular",
-  "integrations": {}
+  "pro_id": "864504d6"
 }
