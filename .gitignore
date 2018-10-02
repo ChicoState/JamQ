@@ -19,7 +19,7 @@ npm-debug.log*
 .sass-cache/
 .tmp/
 .versions/
-www/build/*
+www/
 coverage/
 dist/
 tmp/
