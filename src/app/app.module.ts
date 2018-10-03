@@ -19,6 +19,8 @@ import { RegisterPage } from '../pages/register/register';
 import { ProfilePage } from '../pages/profile/profile';
 import { PartyPage } from '../pages/party/party';
 
+import { HttpClientModule } from '@angular/common/http'; 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -38,6 +40,7 @@ import { PartyPage } from '../pages/party/party';
     AngularFireAuthModule,
     // HttpClientModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
