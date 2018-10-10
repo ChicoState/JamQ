@@ -25,13 +25,13 @@
       <button id="soundcloud" ion-button col-6 color="soundcloud" (click)="soundcloudLogin()">Register Soundcloud</button>
       <button id="youtube" ion-button col-6 color="youtube" (click)="youtubeLogin()">Register Youtube</button>
       -->
-      <button id="youtube" ion-button block color="youtube" style="visibility:hidden" (click)="comingSoon()">Register Youtube & Soundcloud</button>      
+      <button id="youtube" ion-button block color="youtube" style="visibility:hidden" (click)="comingSoon()">Register Youtube & Soundcloud</button>
     <br>
 
 
 
 
-    <button ion-button primary block (click)="goParty()">Go to Party page.</button>
+    <button ion-button primary block (click)="goParty()" ion-button color="spotify" >Go to Party page.</button>
 
 
     <br>
@@ -81,7 +81,7 @@
         </ion-row>
         </ion-card>
         <ion-card>
-        
+
         <ion-item text-center>
           <h1>5291</h1>
         </ion-item>
@@ -102,7 +102,7 @@
       </ion-card>
     </div>
 
-    <button ion-button secondary block (click)="logout()">Log Out</button>
+    <button ion-button secondary block (click)="logout()" ion-button color="spotify">Log Out</button>
 
     <button id="spotify" ion-button color="spotify" block style="visibility:hidden" clear (click)="spotifyLogout()">Register Spotify</button>
 

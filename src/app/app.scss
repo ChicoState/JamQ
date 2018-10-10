@@ -14,3 +14,27 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+$font-path: "../assets/fonts";
+
+
+// The app direction is used to include
+// rtl styles in your app. For more info, please see:
+// http://ionicframework.com/docs/theming/rtl-support/
+$app-direction: ltr;
+
+@import "ionic.globals";
+
+$colors: (
+
+  primary:    #0277BD,
+  secondary:  #32db64,
+  danger:     #d91e18,
+  light:      #f4f4f4,
+  dark:       #222,
+  spotify:    #84bd00,
+  youtube:    #cc181e,
+  soundcloud: #ff8800,
+);
+
+@import "ionic.theme.default";
