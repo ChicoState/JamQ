@@ -14,7 +14,7 @@ import { ProfilePage } from '../pages/profile/profile';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ProfilePage;
+  rootPage: any = SlidesPage;
 
   userpages: Array<{title: string, component: any}>;
   hostpages: Array<{title: string, component: any}>;
