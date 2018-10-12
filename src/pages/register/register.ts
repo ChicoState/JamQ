@@ -37,7 +37,7 @@ export class RegisterPage {
     } else {
       try {
         const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);
-        // console.log(result);
+        console.log(result);
         if(result) {
           this.afAuth.authState.take(1).subscribe(auth => {
             this.afDatabase.list(`users/${auth.uid}`).set("username", this.user.username);

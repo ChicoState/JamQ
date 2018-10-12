@@ -1,22 +1,12 @@
-<!--
-  Generated template for the RegisterPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Register</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-  <br><br><br><br><br><br><br>
-  <br>
-  <br>
+  <br><br><br><br><br><br><br><br><br><br><br>
   <ion-item>
       <ion-label floating >Username</ion-label>
       <ion-input type="text" [(ngModel)]="user.username"></ion-input>
@@ -36,8 +26,12 @@
     </ion-item>
 
   <br>
-  <button id="register" ion-button secondary block (click)="register(user)" color="spotify">Register</button>
-  <button ion-button secondary block (click)="existinglogin()" color="spotify">Login with an existing account</button>
+  <button id="register" ion-button secondary block (click)="register(user)" color="green">
+    Register
+  </button>
+  <button ion-button secondary block (click)="existinglogin()" color="green">
+    Login with an existing account
+  </button>
   
 
 </ion-content>
