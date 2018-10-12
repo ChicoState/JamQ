@@ -1,11 +1,7 @@
 page-slides {
 
-}
-
-.tutorial-page {
-
   .toolbar-background {
-    background: #fff;
+    background: #222;
     border-color: transparent;
   }
 
@@ -28,13 +24,13 @@ page-slides {
   }
 
   p {
-    padding: 0 40px;
+    padding: 0 30px;
     font-size: 14px;
-    line-height: 1.5;
-    color: #60646B;
+    line-height: 2.0;
+    color: #000000;
 
     b {
-      color: #000000;
+      color: #84bd00;
     }
   }
 
