@@ -4,7 +4,6 @@ import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase} from 'angularfire2/database';
 import 'rxjs/add/operator/take';
-import { LoginPage } from '../login/login';
 import {PartyPage } from '../party/party';
 
 /**
@@ -51,10 +50,4 @@ export class RegisterPage {
     }
 
   }
-  
-  existinglogin() {
-    this.navCtrl.push(LoginPage, {}, { animate: false });
-
-  }
-
 }
