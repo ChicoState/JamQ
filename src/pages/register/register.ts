@@ -47,13 +47,13 @@ export class RegisterPage {
         alert(error)
         // console.log(error)
       }
-      this.navCtrl.push(PartyPage, {}, { animate: false });
+      this.navCtrl.setRoot(PartyPage)
     }
 
   }
   
   existinglogin() {
-    this.navCtrl.setRoot(LoginPage)
+    this.navCtrl.push(LoginPage, {}, { animate: false });
 
   }
 
