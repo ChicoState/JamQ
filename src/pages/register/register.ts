@@ -53,7 +53,7 @@ export class RegisterPage {
   }
   
   existinglogin() {
-    this.navCtrl.push(LoginPage, {}, { animate: false });
+    this.navCtrl.setRoot(LoginPage)
 
   }
 
