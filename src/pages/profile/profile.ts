@@ -17,6 +17,7 @@ import 'rxjs/add/operator/map';
 import { AlertController } from 'ionic-angular';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { PartyPage } from '../party/party';
+import { DjprofilePage } from '../djprofile/djprofile';
 
 @IonicPage()
 @Component({
@@ -125,7 +126,7 @@ export class ProfilePage {
   youtubeLogin() {
     alert("Coming soon!");
   }
-  
+
   comingSoon() {
     alert("Coming Soon!");
   }
@@ -287,6 +288,10 @@ export class ProfilePage {
 
   goParty() {
   this.navCtrl.setRoot(PartyPage);
+  }
+
+  goDJ() {
+  this.navCtrl.setRoot(DjprofilePage);
   }
 
 }

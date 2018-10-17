@@ -1,27 +1,21 @@
+
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { User } from '../../models/user';
+import { DjUser } from '../../models/djuser';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase} from 'angularfire2/database';
 import 'rxjs/add/operator/take';
 import { LoginPage } from '../login/login';
 import {PartyPage } from '../party/party';
-import { DjregisterPage } from '../djregister/djregister';
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
-  selector: 'page-register',
-  templateUrl: 'register.html',
+  selector: 'page-djregister',
+  templateUrl: 'djregister.html',
 })
-export class RegisterPage {
-  user = {} as User;
+export class DjregisterPage {
+  djuser = {} as DjUser;
 
   constructor(
     private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase,
@@ -32,34 +26,31 @@ export class RegisterPage {
     console.log('ionViewDidLoad RegisterPage');
   }
 
-  async register(user: User,) {
-    if(user.password != user.verify) {
+  async register(djuser: DjUser,) {
+    if(djuser.password != djuser.verify) {
       alert("Passwords don't match")
     } else {
       try {
-        const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);
+        const result = await this.afAuth.auth.createUserWithEmailAndPassword(djuser.email,djuser.password);
         console.log(result);
         if(result) {
           this.afAuth.authState.take(1).subscribe(auth => {
-            this.afDatabase.list(`users/${auth.uid}`).set("username", this.user.username);
+            this.afDatabase.list(`users/${auth.uid}`).set("username", this.djuser.username);
+            this.afDatabase.list(`users/${auth.uid}`).set("firstname", this.djuser.firstname);
+            this.afDatabase.list(`users/${auth.uid}`).set("lastname", this.djuser.lastname);
           })
         }
       } catch (error) {
         alert(error)
         // console.log(error)
       }
-      this.navCtrl.push(PartyPage, {}, { animate: false });
+      this.navCtrl.setRoot(PartyPage);
     }
 
   }
 
   existinglogin() {
-    this.navCtrl.push(LoginPage, {}, { animate: false });
-
-  }
-
-  djregister() {
-    this.navCtrl.push(DjregisterPage, {}, { animate: false });
+    this.navCtrl.setRoot(LoginPage);
 
   }
 

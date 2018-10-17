@@ -18,8 +18,9 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ProfilePage } from '../pages/profile/profile';
 import { PartyPage } from '../pages/party/party';
-
-import { HttpClientModule } from '@angular/common/http'; 
+import { DjprofilePage } from '../pages/djprofile/djprofile';
+import { DjregisterPage } from '../pages/djregister/djregister';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { HttpClientModule } from '@angular/common/http';
     LoginPage,
     RegisterPage,
     ProfilePage,
-    PartyPage
+    PartyPage,
+    DjprofilePage,
+    DjregisterPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,9 @@ import { HttpClientModule } from '@angular/common/http';
     LoginPage,
     RegisterPage,
     ProfilePage,
-    PartyPage
+    PartyPage,
+    DjprofilePage,
+    DjregisterPage
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>DJ Register</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <br><br><br><br><br><br><br><br><br><br><br>
+  <ion-item>
+      <ion-label floating >Username</ion-label>
+      <ion-input type="text" [(ngModel)]="djuser.username"></ion-input>
+    </ion-item>
+  <ion-item>
+      <ion-label floating >Email</ion-label>
+      <ion-input type="text" [(ngModel)]="djuser.email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password"[(ngModel)]="djuser.password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Verify Password</ion-label>
+      <ion-input type="password"[(ngModel)]="djuser.verify"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>First Name</ion-label>
+      <ion-input type="text"[(ngModel)]="djuser.firstname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input type="text"[(ngModel)]="djuser.lastname"></ion-input>
+    </ion-item>
+
+  <br>
+  <button id="register" ion-button secondary block (click)="register(djuser)" color="green">
+    Register
+  </button>
+  <button ion-button secondary block (click)="existinglogin()" color="green">
+    Login with an existing account
+  </button>
+
+
+</ion-content>
