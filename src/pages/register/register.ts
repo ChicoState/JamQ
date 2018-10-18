@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase} from 'angularfire2/database';
 import 'rxjs/add/operator/take';
 import {PartyPage } from '../party/party';
+import {LoginPage } from '../login/login';
 import { DjregisterPage } from '../djregister/djregister';
 
 /**
