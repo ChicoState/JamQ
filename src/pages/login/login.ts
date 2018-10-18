@@ -4,6 +4,7 @@ import { Platform } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { PartyPage } from "../party/party";
+import { RegisterPage } from "../register/register";
 
 /**
  * Generated class for the LoginPage page.
@@ -94,6 +95,8 @@ export class LoginPage {
       document.getElementById("login").style.visibility = "hidden";
       document.getElementById("hide").style.visibility = "visible";
   }
+
+  register() { this.navCtrl.push(RegisterPage, {}, { animate: false }) }
 
   goHome() { this.navCtrl.setRoot(PartyPage) }
 

@@ -4,7 +4,6 @@ import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase} from 'angularfire2/database';
 import 'rxjs/add/operator/take';
-import { LoginPage } from '../login/login';
 import {PartyPage } from '../party/party';
 import { DjregisterPage } from '../djregister/djregister';
 
@@ -48,7 +47,7 @@ export class RegisterPage {
         alert(error)
         // console.log(error)
       }
-      this.navCtrl.push(PartyPage, {}, { animate: false });
+      this.navCtrl.setRoot(PartyPage)
     }
 
   }

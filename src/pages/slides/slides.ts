@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { ProfilePage } from "../profile/profile";
-import { RegisterPage } from '../register/register';
+import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
@@ -23,7 +23,7 @@ export class SlidesPage {
   }
 
   login() {
-    this.navCtrl.push(RegisterPage, {}, { animate: false });
+    this.navCtrl.push(LoginPage, {}, { animate: false });
   }
 
 }
