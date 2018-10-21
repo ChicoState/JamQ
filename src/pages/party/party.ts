@@ -263,4 +263,10 @@ console.log("ionViewDidLoad ProfilePage");
     this.menuCtrl.enable(true, "host");
   }
 
+  myParty(){
+    sessionStorage["partyCookie"] = this.partyKey;
+    this.menuCtrl.enable(false, "user");
+    this.menuCtrl.enable(true, "host");
+    this.navCtrl.setRoot(NowplayingPage);
+  }
 }

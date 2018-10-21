@@ -112,4 +112,7 @@ export class NowplayingPage {
     console.log('ionViewDidLoad NowplayingPage');
   }
 
+
+
+  
 }
