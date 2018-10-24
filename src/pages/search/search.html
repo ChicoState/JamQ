@@ -4,114 +4,78 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+
+  <!--Side Nav bar items-->
   <ion-navbar>
     <button ion-button menuToggle>
-  <ion-icon name="menu"></ion-icon>
-</button>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Search</ion-title>
   </ion-navbar>
+
+  <!--Toolbar for each tab-->
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="searchlist" (ionChange)="getItems($event)">
+      <ion-segment-button value="songs">
+        Songs
+      </ion-segment-button>
+      <ion-segment-button value="artists">
+        Artists
+      </ion-segment-button>
+      <ion-segment-button value="genres">
+        Genres
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <!--Seach Bar, getItems triggered when any letter typed-->
+  <ion-searchbar [(ngModel)]="searchcontents" (ionInput)="getItems($event)">
+  </ion-searchbar>
+
 </ion-header>
-<ion-content padding>
-  <div id="searchpage">
-    <div id="everything">
-      <ion-searchbar item-input (ionInput)="getItems($event)" >
-      </ion-searchbar>
-      <ion-list id="list" style="visibility:hidden;">
-        <ion-navbar>
-          <ion-title>Songs</ion-title>
-        </ion-navbar>
-        <ion-item  clear ion-item  >
-          <ion-thumbnail item-start>
-            <img id="img0" src=""/>
-          </ion-thumbnail>
-          <h2 id="title0" data-songid></h2>
-          <p id="artist0"></p>
-          <button ion-button clear item-end (click)="itemTapped(0)">
-            <ion-icon name="add"></ion-icon>
-          </button>
-        </ion-item>
 
-        <ion-item clear ion-item >
-          <ion-thumbnail item-start>
-            <img id="img1" src=""/>
-          </ion-thumbnail>
-          <h2 id="title1" data-songid></h2>
-          <p id="artist1"></p>
-          <button ion-button clear item-end (click)="itemTapped(1)">
-            <ion-icon name="add"></ion-icon>
-          </button>
-        </ion-item>
+<!--Main Content of Page-->
+<ion-content>
 
-        <ion-item clear ion-item >
-          <ion-thumbnail item-start>
-            <img id="img2" src=""/>
-          </ion-thumbnail>
-          <h2 id="title2" data-songid></h2>
-          <p id="artist2"></p>
-          <button ion-button clear item-end (click)="itemTapped(2)">
-            <ion-icon name="add"></ion-icon>
-          </button>
-        </ion-item>
+  <!--Current song list is determined by selected ion segment above-->
+  <div id="searchlist" [ngSwitch]="searchlist" style="visibility:hidden;">
 
-        <ion-item clear ion-item >
-          <ion-thumbnail item-start>
-            <img id="img3" src=""/>
-          </ion-thumbnail>
-          <h2 id="title3" data-songid></h2>
-          <p id="artist3"></p>
-          <button ion-button clear item-end (click)="itemTapped(3)">
-            <ion-icon name="add"></ion-icon>
-          </button>
-        </ion-item>
+    <!--Songs Search Page-->
+    <ion-list *ngSwitchCase="'songs'">
+      <ion-item clear ion-item *ngFor="let song of songslist">
+        <ion-thumbnail item-start>
+          <img src="{{song.image}}" />
+        </ion-thumbnail>
+        <h2>
+          {{song.title}}
+        </h2>
+        <p>
+          {{song.artist}}
+        </p>
+        <button ion-button clear item-end (click)="itemTapped(song.id)">
+          <ion-icon name="add-circle"></ion-icon>
+        </button>
+      </ion-item>
+    </ion-list>
 
-        <ion-item id="item4" clear ion-item >
-          <ion-thumbnail item-start>
-            <img id="img4" src=""/>
-          </ion-thumbnail>
-          <h2 id="title4" data-songid></h2>
-          <p id="artist4"></p>
-          <button ion-button clear item-end (click)="itemTapped(4)">
-            <ion-icon name="add"></ion-icon>
-          </button>
-        </ion-item>
-        <ion-navbar>
-          <ion-title>Artists</ion-title>
-        </ion-navbar>
-        <ion-item clear ion-item >
-          <ion-thumbnail item-start>
-            <img id="imag0" src=""/>
-          </ion-thumbnail>
-          <p id="artistname0" ></p>
-        </ion-item>
+    <!--Artists Search Page-->
+    <ion-list *ngSwitchCase="'artists'">
+      <ion-item clear ion-item *ngFor="let artist of artistslist">
+        <ion-thumbnail item-start>
+          <img src="{{artist.image}}"/>
+        </ion-thumbnail>
+        <p>{{artist.name}}</p>
+      </ion-item>
+    </ion-list>
 
-        <ion-item clear ion-item >
-          <ion-thumbnail item-start>
-            <img id="imag1" src=""/>
-          </ion-thumbnail>
-          <p id="artistname1" ></p>
-        </ion-item>
+    <!--Generes Search Page-->
+    <ion-list *ngSwitchCase="'genres'">
+      <ion-item>
+        <p> Genre 1 </p>
+        <p> Genre 2 </p>
+        <p> Genre 3 </p>
+      </ion-item>
+    </ion-list>
+  </div>
 
-        <ion-item clear ion-item >
-          <ion-thumbnail item-start>
-            <img id="imag2" src=""/>
-          </ion-thumbnail>
-          <p id="artistname2" ></p>
-        </ion-item>
-
-        <ion-item clear ion-item >
-          <ion-thumbnail item-start>
-            <img id="imag3" src=""/>
-          </ion-thumbnail>
-          <p id="artistname3" ></p>
-        </ion-item>
-
-        <ion-item clear ion-item >
-          <ion-thumbnail item-start>
-            <img id="imag4" src=""/>
-          </ion-thumbnail>
-          <p id="artistname4" ></p>
-        </ion-item>
-  </ion-list>
-</div>
-</div>
 </ion-content>
