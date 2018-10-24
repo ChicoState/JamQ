@@ -27,6 +27,9 @@ export class NowplayingPage {
   host: any;
   username: any;
 
+  // Model for currently selected tab
+  list: any;
+
   constructor(
     public platform: Platform,
     public navCtrl: NavController,
@@ -91,6 +94,10 @@ export class NowplayingPage {
     //  this.afAuth.auth.signInAnonymously().catch(function(error) {
     //    var errorMessage = error.message;
     //  });
+
+
+    //Set default tab 
+    this.list = "Songs";
   }
 
   remove(songid) {
