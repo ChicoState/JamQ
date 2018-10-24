@@ -8,8 +8,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { ProfilePage } from '../profile/profile';
 import { HttpClient } from '@angular/common/http';
 
-
-
 /**
  * Generated class for the SearchPage page.
  *
@@ -33,7 +31,12 @@ export class SearchPage {
   that: this;
   spotify: any;
   searchbar: any;
+  searchlist: any;
 
+  //Store current song and artist list
+  songslist: any;
+  artistslist: any;
+  searchcontents: any;
 
   constructor(
     public platform: Platform, public navCtrl: NavController,
@@ -71,113 +74,57 @@ export class SearchPage {
       console.log("is Web");
     }
 
-    this.http.get('/api',  {responseType: 'text'} ).subscribe(data => {
+
+    //Get our spotify web token
+    this.http.get('/api', { responseType: 'text' }).subscribe(data => {
       console.log("The auth token is " + data.toString());
       this.spotifyApi.setAccessToken(data);
     });
+
+
+    // Set's the default tab to be songs
+    this.searchlist = "songs";
+
+    this.songslist = [];
+
+    console.log(this.songslist);
   }
 
-  getItems(ev: any, that) {
-    document.getElementById("list").style.visibility = "visible";
-    //gets the list that displays songs
-    var temparr = [];
-    var songname = [];
-    // set val to the value of the searchbar
-    let queryTerm = ev.target.value;
-    // if the value is an empty string don't filter the items
-    if (queryTerm && queryTerm.trim() != '') {
-      //search track titles and return top 10 results
-      var prev = this.spotifyApi.searchTracks(queryTerm, { limit: 6 })
-        .then(function (data, that) {
-          //song object for easier calls
-          let song = data.body.tracks;
-          // clean the promise so it doesn't call abort
-          prev = null;
-          //for loop that iterates through the 10 songs returned from api
-          //sends html for each one to page
-          for (var i = 0; i < 6; i++) {
-            //checks if element exists
-            if (!song.items[i]) {
-              continue;
-            }
-            i.toString();
-            //artist name
-            //document.getElementById('artist' + i ).innerHTML = song.items[i].artists['0'].name;
-            var nameartist = song.items[i].artists['0'].name;
-            temparr.push(nameartist);
-            //album cover
-            //document.getElementById('img' + i ).setAttribute('src', song.items[i].album.images[0].url);
-            //song title
-            // if(){
-            //var title = document.getElementById('title' + i );
-            // }
-            //title.innerHTML = song.items[i].name;
-            songname.push(song.items[i].name);
-            //pass track id to page
-            // title.setAttribute("data-songid", song.items[i].id);
-          }
-          /******************
-          Search by songs, no duplicates
-          ****************/
-          songname = songname.filter(function (elem, index, self) {
-            return index == self.indexOf(elem);
-          })
-          var ns = songname.length;
-          //if no duplicates only 5 songs are shown
-          if (ns > 5) {
-            ns = 5;
-          }
-          for (var x = 0; x < ns; x++) {
-            var title = document.getElementById('title' + x);
-            var ind = x.toString();
-            document.getElementById('artist' + ind).innerHTML = song.items[ind].artists['0'].name;
-            document.getElementById('img' + ind).setAttribute('src', song.items[ind].album.images[0].url);
-            title.innerHTML = songname[x];
-            title.setAttribute("data-songid", song.items[ind].id);
-          }
+  getItems(event) {
+    
+    // Get the value in the serach bar
+    let queryTerm = this.searchcontents;
 
-        }, function (err) { //some error checking
-          console.error(err);
-        })
-      //document.getElementById('Artists').innerHTML='Artists'
-      var pre = this.spotifyApi.searchArtists(queryTerm, { limit: 5 })
-        .then(function (data, that) {
-          let artist = data.body.artists;
-          // clean the promise so it doesn't call abort
-          pre = null;
-          //for loop that iterates through the 10 songs returned from api
-          //sends html for each one to page
-          for (var index = 0; index < 5; index++) {
-            //checks if element exists
-            if (!artist.items[index]) {
-              continue;
-            } else {
-              var ie = index.toString();
-              var artistn = document.getElementById('artistname' + ie);
-              if (artist.items[index].images[0]) {
-                document.getElementById('imag' + ie).setAttribute('src', artist.items[index].images[0].url);
-                artistn.innerHTML = artist.items[ie].name;
-              } else {
-                document.getElementById('imag' + ie).setAttribute('src', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87NixlNcf6A52z5o0v8Lx-wcwdQlxOTjc4AwWzEALPSQk0VuStw");
-              }
-            }
-          }
-        }, function (err) { //some error checking
-          console.error(err);
-        })
-    } else {
-      /**************
-      If search bar is empty, delete elements
-      ***************/
-      document.getElementById('list').style.visibility = "hidden"; //hide song's list
-      for (var i = 0; i < 5; i++) {
-        i.toString();
-        document.getElementById('title' + i).innerHTML = " ";
-        document.getElementById('artist' + i).innerHTML = " ";
-        document.getElementById('img' + i).setAttribute('src', " ");
-        document.getElementById('artistname' + i).innerHTML = " ";
-        document.getElementById('imag' + i).setAttribute('src', " ");
-      }
+    //Set our list to be visible
+    document.getElementById("searchlist").style.visibility = "visible";
+
+    // If the seach box is empty or only spaces were typed in
+    if (queryTerm == null || queryTerm.trim() == "") {
+      document.getElementById("searchlist").style.visibility = "hidden";
+      return;
+    }
+
+    switch (this.searchlist) {
+      case "songs":
+        {
+          this.searchSongs(queryTerm);
+        }
+        break;
+      case "artists":
+        {
+          this.searchArtists(queryTerm);
+        }
+        break;
+      case "generes":
+        {
+          this.searchGenres(queryTerm);
+        }
+        break;
+      default:
+        {
+          console.log("Error! No tab selected!");
+          return;
+        }
     }
   }
 
@@ -314,6 +261,82 @@ export class SearchPage {
         alert("Error with spotify login");
       });
     }
+
+  }
+
+
+  //Search for and populate list of songs
+  searchSongs(queryTerm: String) {
+
+    //Each query should have a new list
+    this.songslist = [];
+
+    //This magically lets you use songlist inside a promise
+    var songslist = this.songslist;
+
+    this.spotifyApi.searchTracks(queryTerm, { limit: 50 })
+      .then(function (data) {
+
+        //Get all returned songs from search
+        let songs = data.body.tracks.items;
+
+        for (let i = 0; i < songs.length; i++) {
+          //Get data from each song and update the html with it
+
+          let title = songs[i].name;
+          let artist = songs[i].artists[0].name;
+          let songid = songs[i].id;
+
+          //Image may be absent
+          let image;
+          if (songs[i].album.images.length != 0) {
+            image = songs[i].album.images[0].url;
+          } else {
+            //Use temp image
+            image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87NixlNcf6A52z5o0v8Lx-wcwdQlxOTjc4AwWzEALPSQk0VuStw"
+          }
+
+          //Add the song the the list, html will be updated dyanmcally automagically
+          songslist.push({"title": title, "artist": artist, "image": image, "id": songid});
+        }
+      })
+  }
+
+  //Search for and populate list of artists
+  searchArtists(queryTerm: String) {
+
+    //Each query should have a new list
+    this.artistslist = [];
+
+    //This magically lets you use songlist inside a promise
+    var artistslist = this.artistslist;
+
+    this.spotifyApi.searchArtists(queryTerm, { limit: 50 })
+      .then(function (data) {
+        //Get all returned artists from search
+        let artists = data.body.artists.items;
+
+        for (let i = 0; i < artists.length; i++) {
+          //Get data from each artist and update the html with it
+          let name = artists[i].name;
+
+          //Image may be absent
+          let image;
+          if (artists[i].images.length != 0) {  
+            image = artists[i].images[0].url;
+          } else {
+            //Use temp image
+            image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87NixlNcf6A52z5o0v8Lx-wcwdQlxOTjc4AwWzEALPSQk0VuStw"
+          }
+
+          //Add the artist the the list, html will be updated dyanmcally automagically
+          artistslist.push({"name": name, "image": image});
+        }
+      })
+  }
+
+  //Search for and populate list of generes
+  searchGenres(queryTerm: String) {
 
   }
 

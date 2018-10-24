@@ -100,4 +100,6 @@ export class LoginPage {
 
   goHome() { this.navCtrl.setRoot(PartyPage) }
 
+  skip() { this.navCtrl.setRoot(PartyPage) }
+
 }
