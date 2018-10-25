@@ -172,7 +172,8 @@ export class SearchPage {
 
   itemTapped(index) {
     //get songid from song clicked
-    var id = document.getElementById('title' + index).getAttribute("data-songid");
+    // var id = document.getElementById('title' + index).getAttribute("data-songid");
+    let id = index;
     //move songlist to loval variable
     var db = this.songs;
     var ul = this.user_list
