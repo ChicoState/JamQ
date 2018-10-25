@@ -76,7 +76,7 @@ export class SearchPage {
 
 
     //Get our spotify web token
-    this.http.get('/api', { responseType: 'text' }).subscribe(data => {
+    this.http.get('https://us-central1-jamq-b015a.cloudfunctions.net/getspotifytoken', { responseType: 'text' }).subscribe(data => {
       console.log("The auth token is " + data.toString());
       this.spotifyApi.setAccessToken(data);
     });

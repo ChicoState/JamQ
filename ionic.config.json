@@ -2,9 +2,5 @@
   "name": "SpotiJamQ",
   "integrations": {},
   "type": "ionic-angular",
-  "pro_id": "864504d6",
-  "proxies": [{
-    "path": "/api",
-    "proxyUrl": "http://localhost:8080"
-  }]
+  "pro_id": "864504d6"
 }
