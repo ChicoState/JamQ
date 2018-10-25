@@ -17,8 +17,9 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import { AlertController } from 'ionic-angular';
-import {FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database';
 import { ProfilePage } from '../profile/profile';
+
 
 /**
  * Generated class for the PartyPage page.
@@ -55,18 +56,41 @@ export class PartyPage {
     public navParams: NavParams,
     public alertCtrl: AlertController
   ) {
-    this.afAuth.authState.subscribe(auth => {
-      this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
-        console.log(data)
-        this.userHost = data;
-      });
-      this.userJoin = this.afDatabase.list(`users/${auth.uid}`);
-      console.log(this.userHost);
-      this.afDatabase.object(`users/${auth.uid}`).take(1).subscribe(userdata => {
-        // console.log(userdata.username);
-        this.user.username = userdata.username;
-      });
-    })
+
+
+    // this.afAuth.authState.subscribe(auth => {
+    //   this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
+    //     console.log(data)
+    //     this.userHost = data;
+    //   });
+    //   this.userJoin = this.afDatabase.list(`users/${auth.uid}`);
+    //   console.log(this.userHost);
+    //   this.afDatabase.object(`users/${auth.uid}`).take(1).subscribe(userdata => {
+    //     // console.log(userdata.username);
+    //     this.user.username = userdata.username;
+    //   });
+    // })
+
+    // this.afAuth.authState.subscribe(auth => {
+
+    //   let userid = auth.uid;
+
+    //   this.afDatabase.database.ref('users/' + userid).once('value').then(() => {
+    //     this.user.username;
+
+    //   })
+    // })
+
+    this.afAuth.auth.onAuthStateChanged((user) => {
+      if (user) {
+        var user_ = this.user;
+        this.afDatabase.database.ref('users/' + user.uid + '/username').once('value').then(function (snapshot) {
+          user_.username = snapshot.val();
+          console.log(user_);
+        })
+      }
+    }
+    );
 
     console.log("username is " + this.user.username)
     //checks if device is mobile or Web
@@ -110,11 +134,11 @@ export class PartyPage {
       spotifyfull.style.visibility = "hidden";
       page.replaceChild(spotify, spotifyfull);
     }
-        // this.afAuth.authState.subscribe(data => {
+    // this.afAuth.authState.subscribe(data => {
     //   this.userHost = this.afDatabase.list(`users/${data.uid}/hosted`);
     //   this.userJoin = this.afDatabase.list(`users/${data.uid}/joined`);
     // });
-console.log("ionViewDidLoad ProfilePage");
+    console.log("ionViewDidLoad ProfilePage");
   }
 
   mobileAuth() {
@@ -155,7 +179,7 @@ console.log("ionViewDidLoad ProfilePage");
           alert("Error with spotify login");
         });
     }
-}
+  }
 
   goQueue() {
     // this.partyKey = document.getElementById('party').innerHTML
@@ -263,7 +287,7 @@ console.log("ionViewDidLoad ProfilePage");
     this.menuCtrl.enable(true, "host");
   }
 
-  myParty(){
+  myParty() {
     sessionStorage["partyCookie"] = this.partyKey;
     this.menuCtrl.enable(false, "user");
     this.menuCtrl.enable(true, "host");

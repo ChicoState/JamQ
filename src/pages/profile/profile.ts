@@ -50,18 +50,19 @@ export class ProfilePage {
 
 
   ) {
-    this.afAuth.authState.subscribe(auth => {
-      this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
-        console.log(data)
-        this.userHost = data;
-      });
-      this.userJoin = this.afDatabase.list(`users/${auth.uid}`);
-      console.log(this.userHost);
-      this.afDatabase.object(`users/${auth.uid}`).take(1).subscribe(userdata => {
-        // console.log(userdata.username);
-        this.user.username = userdata.username;
-      });
-    })
+    
+    // this.afAuth.authState.subscribe(auth => {
+    //   this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
+    //     console.log(data)
+    //     this.userHost = data;
+    //   });
+    //   this.userJoin = this.afDatabase.list(`users/${auth.uid}`);
+    //   console.log(this.userHost);
+    //   this.afDatabase.object(`users/${auth.uid}`).take(1).subscribe(userdata => {
+    //     // console.log(userdata.username);
+    //     this.user.username = userdata.username;
+    //   });
+    // })
 
     console.log("username is " + this.user.username)
     //checks if device is mobile or Web

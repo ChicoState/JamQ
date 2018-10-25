@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFireDatabase } from 'angularfire2/database';
 import { PartyPage } from "../party/party";
 import { RegisterPage } from "../register/register";
 
@@ -24,10 +25,43 @@ export class LoginPage {
 
   constructor(
     private afAuth: AngularFireAuth,
-    public navCtrl: NavController, public navParams: NavParams, public platform: Platform) {
+    public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public afDatabase: AngularFireDatabase) {
 
     if (platform.is('cordova')) { this.isMobile = true; }
     else { this.isMobile = false; }
+
+
+    // If we are loggin in ensure we a logged out first
+    this.logout();
+
+
+    //Listen for changes to authentication
+    this.afAuth.auth.onAuthStateChanged(function (user) {
+      if (user) {
+
+        console.log(user);
+        // User is signed in.
+        var isAnonymous = user.isAnonymous;
+
+        if (isAnonymous) {
+          var uid = user.uid;
+
+          afDatabase.database.ref('users/' + uid).set({
+            username: "Guest"
+          })
+        }
+
+      }
+      // ...
+      else {
+        // User is signed out.
+        // ...
+      }
+      // ...
+    });
+
+
+
   }
   // //use for authentiating with mobile libraries
   // mobileAuth(){
@@ -68,6 +102,7 @@ export class LoginPage {
   // }
 
 
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
@@ -92,14 +127,34 @@ export class LoginPage {
   }
 
   show() {
-      document.getElementById("login").style.visibility = "hidden";
-      document.getElementById("hide").style.visibility = "visible";
+    document.getElementById("login").style.visibility = "hidden";
+    document.getElementById("hide").style.visibility = "visible";
   }
 
   register() { this.navCtrl.push(RegisterPage, {}, { animate: false }) }
 
   goHome() { this.navCtrl.setRoot(PartyPage) }
 
-  skip() { this.navCtrl.setRoot(PartyPage) }
+  guest() {
+    this.afAuth.auth.signInAnonymously().catch(function (error) {
+      console.log(error);
+    });
+
+    this.navCtrl.setRoot(PartyPage)
+  }
+
+  //If we are at the sign on page we had better be logged out
+  logout() {
+    //this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut().then(function () {
+      // Sign-out successful
+    }, function (error) {
+      // An error happened.
+      alert("// An error happened.");
+    });
+  }
 
 }
+
+
+
