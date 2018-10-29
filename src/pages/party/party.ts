@@ -291,6 +291,6 @@ export class PartyPage {
     sessionStorage["partyCookie"] = this.partyKey;
     this.menuCtrl.enable(false, "user");
     this.menuCtrl.enable(true, "host");
-    this.navCtrl.setRoot(NowplayingPage);
+    this.navCtrl.setRoot(ListPage);
   }
 }
