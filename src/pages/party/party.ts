@@ -196,8 +196,7 @@ export class PartyPage {
             this.menuCtrl.enable(false, "host");
 
             //takes user to queue with data containing party key
-            this.userJoin.push({ joined: this.partyKey });
-            this.navCtrl.setRoot(ListPage);
+            this.navCtrl.setRoot(NowplayingPage );
           }
         }
       ]
