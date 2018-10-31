@@ -38,8 +38,7 @@ export class PartyPage {
   spotifyApi: any;
   isMobile: any;
   user = {} as User;
-  userJoin: any;//FirebaseListObservable<any>;
-  // userHost: FirebaseListObservable<any>;
+  userJoin: any;
   userHost: any;
   authenticated: any;
   partyKey: any;
@@ -48,7 +47,6 @@ export class PartyPage {
   constructor(
     private afAuth: AngularFireAuth,
     private afDatabase: AngularFireDatabase,
-    //private toast: ToastController,
     private platform: Platform,
     public menuCtrl: MenuController,
     public af: AngularFireDatabase,
@@ -56,30 +54,6 @@ export class PartyPage {
     public navParams: NavParams,
     public alertCtrl: AlertController
   ) {
-
-
-    // this.afAuth.authState.subscribe(auth => {
-    //   this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
-    //     console.log(data)
-    //     this.userHost = data;
-    //   });
-    //   this.userJoin = this.afDatabase.list(`users/${auth.uid}`);
-    //   console.log(this.userHost);
-    //   this.afDatabase.object(`users/${auth.uid}`).take(1).subscribe(userdata => {
-    //     // console.log(userdata.username);
-    //     this.user.username = userdata.username;
-    //   });
-    // })
-
-    // this.afAuth.authState.subscribe(auth => {
-
-    //   let userid = auth.uid;
-
-    //   this.afDatabase.database.ref('users/' + userid).once('value').then(() => {
-    //     this.user.username;
-
-    //   })
-    // })
 
     this.afAuth.auth.onAuthStateChanged((user) => {
       if (user) {
@@ -134,10 +108,6 @@ export class PartyPage {
       spotifyfull.style.visibility = "hidden";
       page.replaceChild(spotify, spotifyfull);
     }
-    // this.afAuth.authState.subscribe(data => {
-    //   this.userHost = this.afDatabase.list(`users/${data.uid}/hosted`);
-    //   this.userJoin = this.afDatabase.list(`users/${data.uid}/joined`);
-    // });
     console.log("ionViewDidLoad ProfilePage");
   }
 
@@ -261,7 +231,6 @@ export class PartyPage {
     //eable host menu/disable user
     this.menuCtrl.enable(false, "user");
     this.menuCtrl.enable(true, "host");
-    this.userHost.push({ hosted: this.partyKey });
     this.navCtrl.setRoot(NowplayingPage);
   }
 
