@@ -3,10 +3,10 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NowplayingPage } from '../pages/nowplaying/nowplaying';
-import { ListPage } from '../pages/list/list';
 import { SearchPage } from '../pages/search/search';
 import { SlidesPage } from '../pages/slides/slides';
 import { ProfilePage } from '../pages/profile/profile';
+import { PartyPage } from '../pages/party/party';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,14 +25,14 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.userpages = [
-      //{ title: 'JamQ Home', component: HomePage },
-      { title: 'Queue', component: ListPage },
+      { title: 'Home', component: PartyPage },
+      { title: 'Now Playing', component: NowplayingPage },
       { title: 'Search', component: SearchPage },
       { title: 'Profile', component: ProfilePage }
     ];
     this.hostpages = [
-      //{ title: 'JamQ Home', component: HomePage },
-      { title: 'Host', component: NowplayingPage },
+      { title: 'Home', component: PartyPage },
+      { title: 'Now Playing', component: NowplayingPage },
       { title: 'Search', component: SearchPage },
       { title: 'Profile', component: ProfilePage }
     ];
@@ -50,7 +50,7 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.push(page.component);
+    this.nav.setRoot(page.component);
   }
 }
 
