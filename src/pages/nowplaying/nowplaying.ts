@@ -26,7 +26,12 @@ export class NowplayingPage {
   partyKey: any;
   host: any;
   username: any;
-
+  user_likes: FirebaseListObservable<any>;
+  user_dislikes: FirebaseListObservable<any>;
+  likeCheck: FirebaseListObservable<any>;
+  dislikeCheck: FirebaseListObservable<any>;
+  dislikeCount: FirebaseObjectObservable<any>;
+  items: Array<{ title: string; note: string; icon: string; id: number }>;
   // Model for currently selected tab
   list: any;
 
@@ -43,6 +48,9 @@ export class NowplayingPage {
     this.afAuth.authState.subscribe(auth => {
       this.af.object(`users/${auth.uid}`).take(1).subscribe(data => {
         this.username = data.username;
+        console.log(data.username);
+        this.user_likes = af.list("/" + this.partyKey + "/userlist/" + data.username + "/likes");
+        this.user_dislikes = af.list("/" + this.partyKey + "/userlist/" + data.username + "/dislikes");
       });
     });
 
@@ -96,7 +104,7 @@ export class NowplayingPage {
     //  });
 
 
-    //Set default tab 
+    //Set default tab
     this.list = "Songs";
   }
 
@@ -119,7 +127,70 @@ export class NowplayingPage {
     console.log('ionViewDidLoad NowplayingPage');
   }
 
+  like(song) {
+    var temp = [];
+    this.likeCheck = this.af.list("/" + this.partyKey + "/userlist/" + this.username + "/likes");
+    this.likeCheck.subscribe(data => {
+      data.forEach(item => {
+        // console.log(item.song)
+        temp.push(item.song)
+      })
+
+    })
+    //console.log(temp)
+    var check = false;
+    if (temp.length == 0) {
+      this.user_likes.push({ song: song.$key });
+      this.songs.update(song.$key, { likes: song.likes + 1 });
+      check = true;
+    } else {
+      for (var i = 0; i < temp.length; i++) {
+        console.log("checking songs")
+        if (temp[i] == song.$key) {
+          check = true;
+          break;
+        }
+      }
+    }
 
 
-  
+    if (check == false) {
+      this.user_likes.push({ song: song.$key });
+      this.songs.update(song.$key, { likes: song.likes + 1 });
+    }
+  }
+  dislike(song) {
+    var temp = [];
+    this.dislikeCheck = this.af.list("/" + this.partyKey + "/userlist/" + this.username + "/dislikes");
+    this.dislikeCheck.subscribe(data => {
+      data.forEach(item => {
+        // console.log(item.song)
+        temp.push(item.song)
+      })
+
+    })
+    //console.log(temp)
+    var check = false;
+    if (temp.length == 0) {
+      this.user_dislikes.push({ song: song.$key });
+      this.songs.update(song.$key, { likes: song.likes - 1 });
+      check = true;
+    } else {
+      for (var i = 0; i < temp.length; i++) {
+        console.log("checking songs")
+        if (temp[i] == song.$key) {
+          check = true;
+          break;
+        }
+      }
+    }
+
+    if (check == false) {
+      this.user_dislikes.push({ song: song.$key });
+      this.songs.update(song.$key, { likes: song.likes - 1 });
+    }
+  }
+
+
+
 }
