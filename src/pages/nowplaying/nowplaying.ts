@@ -48,6 +48,7 @@ export class NowplayingPage {
     this.afAuth.authState.subscribe(auth => {
       this.af.object(`users/${auth.uid}`).take(1).subscribe(data => {
         this.username = data.username;
+        console.log(data.username);
         this.user_likes = af.list("/" + this.partyKey + "/userlist/" + data.username + "/likes");
         this.user_dislikes = af.list("/" + this.partyKey + "/userlist/" + data.username + "/dislikes");
       });
