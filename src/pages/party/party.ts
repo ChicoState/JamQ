@@ -227,6 +227,8 @@ export class PartyPage {
 
     //create new table in db with corresponding key
 
+    this.alertCtrl.create({ title: "Your party number is " + this.partyKey}).present();
+
     //eable host menu/disable user
     this.menuCtrl.enable(false, "user");
     this.menuCtrl.enable(true, "host");
