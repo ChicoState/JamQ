@@ -7,6 +7,7 @@ import { SearchPage } from '../pages/search/search';
 import { SlidesPage } from '../pages/slides/slides';
 import { ProfilePage } from '../pages/profile/profile';
 import { PartyPage } from '../pages/party/party';
+import { ListPage } from '../pages/list/list';
 
 @Component({
   templateUrl: 'app.html'

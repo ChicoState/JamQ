@@ -108,13 +108,16 @@ export class LoginPage {
   }
 
   async login(user: User) {
-    try {
-      this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-    } catch (error) {
-      alert(error)
-      return;
-    }
-    this.navCtrl.setRoot(PartyPage);
+    var errorMessage = ""
+    this.afAuth.auth.signInWithEmailAndPassword(user.email,user.password).catch(function(error) {
+      errorMessage = error.message;
+      console.log(errorMessage);
+      alert(errorMessage);
+    }).then(function(){
+      if(errorMessage.length == 0){
+        this.navCtrl.setRoot(PartyPage);
+      }
+    }.bind(this))
   }
 
   show() {
