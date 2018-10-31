@@ -47,6 +47,7 @@ export class RegisterPage {
       } catch (error) {
         alert(error)
         // console.log(error)
+	return;
       }
       this.navCtrl.setRoot(PartyPage)
     }
