@@ -50,7 +50,7 @@ export class ProfilePage {
 
 
   ) {
-    
+
     // this.afAuth.authState.subscribe(auth => {
     //   this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
     //     console.log(data)
