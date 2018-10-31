@@ -110,20 +110,11 @@ export class LoginPage {
   async login(user: User) {
     try {
       this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-      // console.log(res);
-      this.navCtrl.setRoot(PartyPage);
     } catch (error) {
       alert(error)
-      console.log(error)
+      return;
     }
-
-    // if (this.isMobile == true) {
-    //     //is phone
-    //     this.mobileAuth();
-    //   } else {
-    //     //is web
-    //     this.webAuth();
-    //   }
+    this.navCtrl.setRoot(PartyPage);
   }
 
   show() {
@@ -139,7 +130,6 @@ export class LoginPage {
     this.afAuth.auth.signInAnonymously().catch(function (error) {
       console.log(error);
     });
-
     this.navCtrl.setRoot(PartyPage)
   }
 
@@ -153,7 +143,6 @@ export class LoginPage {
       alert("// An error happened.");
     });
   }
-
 }
 
 
