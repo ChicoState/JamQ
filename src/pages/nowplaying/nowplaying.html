@@ -12,25 +12,33 @@
     <ion-title>{{host}}'s Party
       <i>#{{ partyKey }}</i>
     </ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)=openSearch()>
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
   <ion-toolbar no-border-top>
-      <ion-segment [(ngModel)]="list">
-        <ion-segment-button value = "Songs">
-          Songs
-        </ion-segment-button>
-        <ion-segment-button value = "Artists">
-          Artists
-        </ion-segment-button>
-        <ion-segment-button value = "Genres">
-          Genres
-        </ion-segment-button>
-      </ion-segment>
+    <ion-segment [(ngModel)]="list">
+      <ion-segment-button value="Songs">
+        Songs
+      </ion-segment-button>
+      <ion-segment-button value="Artists">
+        Artists
+      </ion-segment-button>
+      <ion-segment-button value="Genres">
+        Genres
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
   <div [ngSwitch]="list">
-    <ion-list *ngSwitchCase = "'Songs'" >
+    <ion-list *ngSwitchCase="'Songs'">
       <ion-item clear ion-item *ngFor="let song of (songs | async)?.slice().reverse()">
         <ion-thumbnail item-start>
           <img src="{{song.img}}">
@@ -46,18 +54,18 @@
           <ion-icon ios="ios-thumbs-up" md="md-thumbs-up"></ion-icon>
         </button>
         <button ion-button clear item-end (click)=dislike(song)>
-            <ion-icon ios="ios-thumbs-down" md="md-thumbs-down"></ion-icon>
+          <ion-icon ios="ios-thumbs-down" md="md-thumbs-down"></ion-icon>
         </button>
       </ion-item>
     </ion-list>
-    <ion-list *ngSwitchCase = "'Artists'" >
+    <ion-list *ngSwitchCase="'Artists'">
       <ion-item>
         <p> Artist 1 </p>
         <p> Artist 2 </p>
         <p> Artist 3 </p>
       </ion-item>
     </ion-list>
-    <ion-list *ngSwitchCase = "'Genres'" >
+    <ion-list *ngSwitchCase="'Genres'">
       <ion-item>
         <p> Genre 1 </p>
         <p> Genre 2 </p>

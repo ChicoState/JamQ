@@ -9,6 +9,7 @@ import {
   FirebaseObjectObservable
 } from "angularfire2/database";
 import "rxjs/add/operator/map";
+import { SearchPage } from "../search/search";
 
 @IonicPage()
 @Component({
@@ -40,7 +41,7 @@ export class NowplayingPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public af: AngularFireDatabase,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
   ) {
     if (platform.is('cordova')) { this.isMobile = true; }
     else { this.isMobile = false; }
@@ -55,6 +56,7 @@ export class NowplayingPage {
     });
 
     this.partyKey = sessionStorage['partyCookie'];
+    console.log(this.partyKey);
     // this.songs = af.list("/" + this.partyKey + "/songlist", { query: { limitToLast: 10 } });
     this.songs = af.list("/" + this.partyKey + "/songlist", {
       //toString(parseInt('likes') - parseInt('dislikes'))
@@ -191,6 +193,9 @@ export class NowplayingPage {
     }
   }
 
+  openSearch() {
+    this.navCtrl.push(SearchPage);
+  }
 
 
 }
