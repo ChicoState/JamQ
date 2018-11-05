@@ -26,15 +26,11 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.userpages = [
-      { title: 'Home', component: PartyPage },
-      { title: 'Now Playing', component: NowplayingPage },
-      { title: 'Search', component: SearchPage },
+      { title: 'Party Page', component: PartyPage },
       { title: 'Profile', component: ProfilePage }
     ];
     this.hostpages = [
-      { title: 'Home', component: PartyPage },
-      { title: 'Now Playing', component: NowplayingPage },
-      { title: 'Search', component: SearchPage },
+      { title: 'Party Page', component: PartyPage },
       { title: 'Profile', component: ProfilePage }
     ];
   }
