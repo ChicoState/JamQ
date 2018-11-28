@@ -24,6 +24,7 @@ import { HttpClient } from '@angular/common/http';
 export class SearchPage {
   spotifyApi: any;
   songs: FirebaseListObservable<any>;
+  artists: FirebaseListObservable<any>;
   artist: FirebaseListObservable<any>;
   user_list: FirebaseListObservable<any>;
   key: any;
@@ -57,6 +58,7 @@ export class SearchPage {
     var partyKey = sessionStorage['partyCookie'];
     //console.log(partyKey);
     this.songs = af.list("/" + partyKey + "/songlist");
+    this.artists = af.list("/" + partyKey + "/artistlist");
     //getting spotify api library
     var SpotifyWebApi = require('spotify-web-api-node');
     //build api with no params
@@ -91,7 +93,7 @@ export class SearchPage {
   }
 
   getItems(event) {
-    
+
     // Get the value in the serach bar
     let queryTerm = this.searchcontents;
 
@@ -173,57 +175,29 @@ export class SearchPage {
   itemTapped(index) {
     //get songid from song clicked
     // var id = document.getElementById('title' + index).getAttribute("data-songid");
-    let id = index;
-    //move songlist to loval variable
-    var db = this.songs;
-    var ul = this.user_list
-    //call spotify api for song information
-    this.spotifyApi.getTrack(id)
-      .then(function (data) {
-        //shorten call
-        let track = data.body;
-        //send track information to firebase
-        var inqueue = false;
-        var index;
-        var key;
-        var song_likes;
-        //if song is in the queue, add one like
-        //otherwise add to queue
-        db.subscribe(songs => {
-          for (index = 0; index < songs.length; index++) { //for loop to search for songid
-            if (songs[index].songid == id) {
-              key = songs[index].$key;
-              song_likes = songs[index].likes;
-              inqueue = true;
-              break;
-            }
-          }
-        })
-        if (inqueue == false) {
-          db.push({
-            artist: track.artists['0'].name,
-            title: track.name,
-            songid: id,
-            img: track.album.images['0'].url,
 
-            //maybe make a new table with likes columns of users who liked it and new table of users who disliked it
-            likes: 1,// change to spotify users
-            //dislikes: 0 // change to spotify users
-          });
-          ul.push({
-            song: track.name,
-            likes: 1,
-          });
-
-        } else {
-
-
-          db.update(key, { likes: song_likes + 1 }); //likes update
+    switch (this.searchlist) {
+      case "songs":
+        {
+          this.addSong(index);
         }
-
-      }, function (err) { //error checking
-        console.log('Something went wrong!', err);
-      });
+        break;
+      case "artists":
+        {
+          this.addArtist(index);
+        }
+        break;
+      // case "generes":
+      //   {
+      //     this.searchGenres(queryTerm);
+      //   }
+      //   break;
+      default:
+        {
+          console.log("Error! No tab selected!");
+          return;
+        }
+    }
   }
 
   //use for authentiating with mobile libraries
@@ -298,7 +272,7 @@ export class SearchPage {
           }
 
           //Add the song the the list, html will be updated dyanmcally automagically
-          songslist.push({"title": title, "artist": artist, "image": image, "id": songid});
+          songslist.push({ "title": title, "artist": artist, "image": image, "id": songid });
         }
       })
   }
@@ -321,9 +295,11 @@ export class SearchPage {
           //Get data from each artist and update the html with it
           let name = artists[i].name;
 
+          let id = artists[i].id;
+
           //Image may be absent
           let image;
-          if (artists[i].images.length != 0) {  
+          if (artists[i].images.length != 0) {
             image = artists[i].images[0].url;
           } else {
             //Use temp image
@@ -331,7 +307,7 @@ export class SearchPage {
           }
 
           //Add the artist the the list, html will be updated dyanmcally automagically
-          artistslist.push({"name": name, "image": image});
+          artistslist.push({ "name": name, "image": image, "id": id });
         }
       })
   }
@@ -339,6 +315,111 @@ export class SearchPage {
   //Search for and populate list of generes
   searchGenres(queryTerm: String) {
 
+  }
+
+  addSong(id) {
+    //move songlist to loval variable
+    var db = this.songs;
+    var ul = this.user_list;
+    //call spotify api for song information
+    this.spotifyApi.getTrack(id)
+      .then(function (data) {
+        //shorten call
+        let track = data.body;
+        //send track information to firebase
+        var inqueue = false;
+        var index;
+        var key;
+        var song_likes;
+        //if song is in the queue, add one like
+        //otherwise add to queue
+        db.subscribe(songs => {
+          for (index = 0; index < songs.length; index++) { //for loop to search for songid
+            if (songs[index].songid == id) {
+              key = songs[index].$key;
+              song_likes = songs[index].likes;
+              inqueue = true;
+              break;
+            }
+          }
+        })
+        if (inqueue == false) {
+          db.push({
+            artist: track.artists['0'].name,
+            title: track.name,
+            songid: id,
+            img: track.album.images['0'].url,
+
+            //maybe make a new table with likes columns of users who liked it and new table of users who disliked it
+            likes: 1,// change to spotify users
+            //dislikes: 0 // change to spotify users
+          });
+          ul.push({
+            song: track.name,
+            likes: 1,
+          });
+
+        } else {
+
+
+          db.update(key, { likes: song_likes + 1 }); //likes update
+        }
+
+      }, function (err) { //error checking
+        console.log('Something went wrong!', err);
+      });
+  }
+
+  addArtist(id) {
+    //move songlist to loval variable
+    var db = this.artists;
+    var ul = this.user_list;
+    //call spotify api for song information
+    this.spotifyApi.getArtist(id)
+      .then(function (data) {
+        //shorten call
+        let track = data.body;
+        //send track information to firebase
+        var inqueue = false;
+        var index;
+        var key;
+        var song_likes;
+        //if song is in the queue, add one like
+        //otherwise add to queue
+        db.subscribe(songs => {
+          for (index = 0; index < songs.length; index++) { //for loop to search for songid
+            if (songs[index].songid == id) {
+              key = songs[index].$key;
+              song_likes = songs[index].likes;
+              inqueue = true;
+              break;
+            }
+          }
+        })
+        if (inqueue == false) {
+          db.push({
+            name: track.name,
+            id: track.id,
+            img: track.images['0'].url,
+
+            //maybe make a new table with likes columns of users who liked it and new table of users who disliked it
+            likes: 1,// change to spotify users
+            //dislikes: 0 // change to spotify users
+          });
+          ul.push({
+            song: track.name,
+            likes: 1,
+          });
+
+        } else {
+
+
+          db.update(key, { likes: song_likes + 1 }); //likes update
+        }
+
+      }, function (err) { //error checking
+        console.log('Something went wrong!', err);
+      });
   }
 
 }
