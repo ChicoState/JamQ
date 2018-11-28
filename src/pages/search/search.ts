@@ -397,10 +397,21 @@ export class SearchPage {
           }
         })
         if (inqueue == false) {
+
+          var image;
+
+          if (track.images.length != 0) {
+            image = track.images[0].url;
+          } else {
+            //Use temp image
+            image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87NixlNcf6A52z5o0v8Lx-wcwdQlxOTjc4AwWzEALPSQk0VuStw"
+          }
+
+
           db.push({
             name: track.name,
             id: track.id,
-            img: track.images['0'].url,
+            img: image,
 
             //maybe make a new table with likes columns of users who liked it and new table of users who disliked it
             likes: 1,// change to spotify users
