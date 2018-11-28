@@ -59,10 +59,21 @@
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="'Artists'">
-      <ion-item>
-        <p> Artist 1 </p>
-        <p> Artist 2 </p>
-        <p> Artist 3 </p>
+      <ion-item clear ion-item *ngFor="let artist of (artists | async)?.slice().reverse()">
+        <ion-thumbnail item-start>
+          <img src="{{artist.img}}">
+        </ion-thumbnail>
+        <h2> {{ artist.name }} </h2>
+        <p> {{artist.likes}} </p>
+        <button ion-button clear item-end (click)=removeArtist(artist.id)>
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <button ion-button clear item-end (click)=likeArtist(artist)>
+          <ion-icon ios="ios-thumbs-up" md="md-thumbs-up"></ion-icon>
+        </button>
+        <button ion-button clear item-end (click)=dislikeArtist(artist)>
+          <ion-icon ios="ios-thumbs-down" md="md-thumbs-down"></ion-icon>
+        </button>
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="'Genres'">

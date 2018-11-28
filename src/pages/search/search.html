@@ -62,9 +62,12 @@
     <ion-list *ngSwitchCase="'artists'">
       <ion-item clear ion-item *ngFor="let artist of artistslist">
         <ion-thumbnail item-start>
-          <img src="{{artist.image}}"/>
+          <img src="{{artist.image}}" />
         </ion-thumbnail>
         <p>{{artist.name}}</p>
+        <button ion-button clear item-end (click)="itemTapped(artist.id)">
+          <ion-icon name="add-circle"></ion-icon>
+        </button>
       </ion-item>
     </ion-list>
 
