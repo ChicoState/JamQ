@@ -22,9 +22,6 @@
       <ion-segment-button value="artists">
         Artists
       </ion-segment-button>
-      <ion-segment-button value="genres">
-        Genres
-      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 
@@ -68,15 +65,6 @@
         <button ion-button clear item-end (click)="itemTapped(artist.id)">
           <ion-icon name="add-circle"></ion-icon>
         </button>
-      </ion-item>
-    </ion-list>
-
-    <!--Generes Search Page-->
-    <ion-list *ngSwitchCase="'genres'">
-      <ion-item>
-        <p> Genre 1 </p>
-        <p> Genre 2 </p>
-        <p> Genre 3 </p>
       </ion-item>
     </ion-list>
   </div>

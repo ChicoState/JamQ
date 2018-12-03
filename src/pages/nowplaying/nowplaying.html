@@ -28,9 +28,6 @@
       <ion-segment-button value="Artists">
         Artists
       </ion-segment-button>
-      <ion-segment-button value="Genres">
-        Genres
-      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 
@@ -74,13 +71,6 @@
         <button ion-button clear item-end (click)=dislikeArtist(artist)>
           <ion-icon ios="ios-thumbs-down" md="md-thumbs-down"></ion-icon>
         </button>
-      </ion-item>
-    </ion-list>
-    <ion-list *ngSwitchCase="'Genres'">
-      <ion-item>
-        <p> Genre 1 </p>
-        <p> Genre 2 </p>
-        <p> Genre 3 </p>
       </ion-item>
     </ion-list>
   </div>
