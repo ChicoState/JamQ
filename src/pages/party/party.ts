@@ -111,6 +111,34 @@ export class PartyPage {
     console.log("ionViewDidLoad ProfilePage");
   }
 
+  spotifyLogin() {
+    if (this.isMobile == true) {  
+      //is phone
+      this.mobileAuth();
+      let spotify = document.getElementById("spotify");
+      let spotifyfull = document.getElementById("spotifyfull");
+      spotify.style.visibility = "visible";
+      spotify.innerHTML = "Spotify Signed In";
+      let page = document.getElementById("page");
+      spotifyfull.style.visibility = "hidden";
+      page.replaceChild(spotify, spotifyfull);
+    } else {
+      //is web
+      this.webAuth();
+      let spotify = document.getElementById("spotify");
+      let spotifyfull = document.getElementById("spotifyfull");
+      spotify.style.visibility = "visible";
+      spotify.innerHTML = "Spotify Signed In";
+      let page = document.getElementById("page");
+      spotifyfull.style.visibility = "hidden";
+      page.replaceChild(spotify, spotifyfull);
+    }
+  }
+
+  spotifyLogout() {
+    this.spotify 
+  }
+
   mobileAuth() {
     //initializes spotify auth
     OAuth.initialize("NJG7cpjPQHkVhSQgvpQi5MRoyM4");
@@ -196,7 +224,7 @@ export class PartyPage {
             this.menuCtrl.enable(false, "host");
 
             //takes user to queue with data containing party key
-            this.navCtrl.setRoot(NowplayingPage );
+            this.navCtrl.setRoot(NowplayingPage);
           }
         }
       ]
@@ -208,7 +236,7 @@ export class PartyPage {
   newParty() {
     //later we can check this and make sure that there is not already a party with that number
     //later we can check if the user is already hosting a party
-    var randomServerNum = Math.floor(1000 + Math.random() * 9000);
+    var randomServerNum = Math.floor(10000 + Math.random() * 90000);
     this.partyKey = randomServerNum.toString();
 
     sessionStorage["partyCookie"] = this.partyKey;
@@ -221,13 +249,14 @@ export class PartyPage {
     console.log(this.user.username);
     this.afAuth.authState.subscribe(data => {
       db.set({
-        owner: this.user.username
+        owner: this.user.username,
+        owenerid: data.uid
       });
     });
 
     //create new table in db with corresponding key
 
-    this.alertCtrl.create({ title: "Your party number is " + this.partyKey}).present();
+    this.alertCtrl.create({ title: "Your party number is " + this.partyKey }).present();
 
     //eable host menu/disable user
     this.menuCtrl.enable(false, "user");
