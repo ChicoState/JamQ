@@ -103,10 +103,9 @@ export class PartyPage {
       let spotify = document.getElementById("spotify");
       let spotifyfull = document.getElementById("spotifyfull");
       spotify.style.visibility = "visible";
-      spotify.innerHTML = "Spotify Signed In";
       let page = document.getElementById("page");
       spotifyfull.style.visibility = "hidden";
-      page.replaceChild(spotify, spotifyfull);
+      // page.replaceChild(spotify, spotifyfull);
     }
     console.log("ionViewDidLoad ProfilePage");
   }
@@ -118,25 +117,37 @@ export class PartyPage {
       let spotify = document.getElementById("spotify");
       let spotifyfull = document.getElementById("spotifyfull");
       spotify.style.visibility = "visible";
-      spotify.innerHTML = "Spotify Signed In";
       let page = document.getElementById("page");
       spotifyfull.style.visibility = "hidden";
-      page.replaceChild(spotify, spotifyfull);
+      // page.replaceChild(spotify, spotifyfull);
     } else {
       //is web
       this.webAuth();
       let spotify = document.getElementById("spotify");
       let spotifyfull = document.getElementById("spotifyfull");
       spotify.style.visibility = "visible";
-      spotify.innerHTML = "Spotify Signed In";
       let page = document.getElementById("page");
       spotifyfull.style.visibility = "hidden";
-      page.replaceChild(spotify, spotifyfull);
+      // page.replaceChild(spotify, spotifyfull);
     }
   }
 
   spotifyLogout() {
-    this.spotify 
+    if (this.isMobile == true) {  
+      OAuth.clearCache();
+      let spotify = document.getElementById("spotify");
+      let spotifyfull = document.getElementById("spotifyfull");
+      let page = document.getElementById("page");
+      page.replaceChild(spotifyfull, spotify);
+    } else {
+      OAuthWeb.clearCache();
+      let spotify = document.getElementById("spotify");
+      let spotifyfull = document.getElementById("spotifyfull");
+      spotify.style.visibility = "hidden";
+      let page = document.getElementById("page");
+      spotifyfull.style.visibility = "visible";
+      // page.replaceChild(spotifyfull, spotify);
+    }
   }
 
   mobileAuth() {
@@ -247,10 +258,12 @@ export class PartyPage {
     let db = this.party;
     console.log("user name in newpart is: ")
     console.log(this.user.username);
+    let token = this.spotify.access_token;
     this.afAuth.authState.subscribe(data => {
       db.set({
         owner: this.user.username,
-        owenerid: data.uid
+        owenerid: data.uid,
+        spotifytoken: token
       });
     });
 
