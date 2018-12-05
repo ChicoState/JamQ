@@ -51,15 +51,15 @@ export class NowplayingPage {
       this.af.object(`users/${auth.uid}`).take(1).subscribe(data => {
         this.username = data.username;
         console.log(data.username);
-        this.user_likes = af.list("/" + this.partyKey + "/userlist/" + data.username + "/likes");
-        this.user_dislikes = af.list("/" + this.partyKey + "/userlist/" + data.username + "/dislikes");
+        this.user_likes = af.list("/parties/" + this.partyKey + "/userlist/" + data.username + "/likes");
+        this.user_dislikes = af.list("/parties/" + this.partyKey + "/userlist/" + data.username + "/dislikes");
       });
     });
 
     this.partyKey = sessionStorage['partyCookie'];
     console.log(this.partyKey);
     // this.songs = af.list("/" + this.partyKey + "/songlist", { query: { limitToLast: 10 } });
-    this.songs = af.list("/" + this.partyKey + "/songlist", {
+    this.songs = af.list("/parties/" + this.partyKey + "/songlist", {
       //toString(parseInt('likes') - parseInt('dislikes'))
       query: {
         //orderByChild: toString( (parseInt('likes') - parseInt('dislikes'))  ,
@@ -68,7 +68,7 @@ export class NowplayingPage {
       }
     });
 
-    this.artists = af.list("/" + this.partyKey + "/artistlist", {
+    this.artists = af.list("/parties/" + this.partyKey + "/artistlist", {
       //toString(parseInt('likes') - parseInt('dislikes'))
       query: {
         //orderByChild: toString( (parseInt('likes') - parseInt('dislikes'))  ,
@@ -77,7 +77,7 @@ export class NowplayingPage {
       }
     });
 
-    this.owner = af.object("/" + this.partyKey);
+    this.owner = af.object("/parties/" + this.partyKey);
     this.owner.subscribe(snapshot => (this.host = snapshot.owner));
     //this.songs = af.list("/333/songlist", { query: { limitToLast: 10 } });
 
@@ -152,7 +152,7 @@ export class NowplayingPage {
 
   like(song) {
     var temp = [];
-    this.likeCheck = this.af.list("/" + this.partyKey + "/userlist/" + this.username + "/likes");
+    this.likeCheck = this.af.list("/parties/" + this.partyKey + "/userlist/" + this.username + "/likes");
     this.likeCheck.subscribe(data => {
       data.forEach(item => {
         // console.log(item.song)
@@ -185,7 +185,7 @@ export class NowplayingPage {
 
   likeArtist(song) {
     var temp = [];
-    this.likeCheck = this.af.list("/" + this.partyKey + "/userlist/" + this.username + "/likes");
+    this.likeCheck = this.af.list("/parties/" + this.partyKey + "/userlist/" + this.username + "/likes");
     this.likeCheck.subscribe(data => {
       data.forEach(item => {
         // console.log(item.song)
@@ -218,7 +218,7 @@ export class NowplayingPage {
 
   dislike(song) {
     var temp = [];
-    this.dislikeCheck = this.af.list("/" + this.partyKey + "/userlist/" + this.username + "/dislikes");
+    this.dislikeCheck = this.af.list("/parties/" + this.partyKey + "/userlist/" + this.username + "/dislikes");
     this.dislikeCheck.subscribe(data => {
       data.forEach(item => {
         // console.log(item.song)
@@ -250,7 +250,7 @@ export class NowplayingPage {
 
   dislikeArtist(song) {
     var temp = [];
-    this.dislikeCheck = this.af.list("/" + this.partyKey + "/userlist/" + this.username + "/dislikes");
+    this.dislikeCheck = this.af.list("/parties/" + this.partyKey + "/userlist/" + this.username + "/dislikes");
     this.dislikeCheck.subscribe(data => {
       data.forEach(item => {
         // console.log(item.song)

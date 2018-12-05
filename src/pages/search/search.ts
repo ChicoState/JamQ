@@ -47,7 +47,7 @@ export class SearchPage {
 
     this.afAuth.authState.subscribe(auth => {
       this.af.object(`users/${auth.uid}`).take(1).subscribe(data => {
-        this.user_list = af.list("/" + partyKey + "/userlist/" + data.username + "/likes");
+        this.user_list = af.list("/parties/" + partyKey + "/userlist/" + data.username + "/likes");
       });
     });
 
@@ -57,8 +57,8 @@ export class SearchPage {
 
     var partyKey = sessionStorage['partyCookie'];
     //console.log(partyKey);
-    this.songs = af.list("/" + partyKey + "/songlist");
-    this.artists = af.list("/" + partyKey + "/artistlist");
+    this.songs = af.list("/parties/" + partyKey + "/songlist");
+    this.artists = af.list("/parties/" + partyKey + "/artistlist");
     //getting spotify api library
     var SpotifyWebApi = require('spotify-web-api-node');
     //build api with no params

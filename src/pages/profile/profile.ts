@@ -268,7 +268,7 @@ export class ProfilePage {
     sessionStorage["role"] = "host"; //maybe later have it check if its your party or not
 
     //create the db observable to manipulate
-    this.party = this.af.object("/" + this.partyKey);
+    this.party = this.af.object("/parties/" + this.partyKey);
     let db = this.party;
     console.log("user name in newpart is: ")
     console.log(this.user.username);

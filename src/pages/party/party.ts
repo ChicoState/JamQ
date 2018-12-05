@@ -35,6 +35,7 @@ import { ProfilePage } from '../profile/profile';
 })
 export class PartyPage {
   spotify: any;
+  spotifyToken: any;
   spotifyApi: any;
   isMobile: any;
   user = {} as User;
@@ -94,6 +95,9 @@ export class PartyPage {
         this.partyKey = sessionStorage['partyCookie'];
       }
     }
+
+    this.spotifyToken = this.spotify.access_token;
+
     //sets access token of authenticated user
     this.spotifyApi.setAccessToken(this.spotify.access_token);
   }
@@ -111,7 +115,7 @@ export class PartyPage {
   }
 
   spotifyLogin() {
-    if (this.isMobile == true) {  
+    if (this.isMobile == true) {
       //is phone
       this.mobileAuth();
       let spotify = document.getElementById("spotify");
@@ -130,23 +134,27 @@ export class PartyPage {
       spotifyfull.style.visibility = "hidden";
       // page.replaceChild(spotify, spotifyfull);
     }
+
+    console.log("spotify token after login: " + this.spotifyToken);
   }
 
   spotifyLogout() {
-    if (this.isMobile == true) {  
-      OAuth.clearCache();
-      let spotify = document.getElementById("spotify");
-      let spotifyfull = document.getElementById("spotifyfull");
-      let page = document.getElementById("page");
-      page.replaceChild(spotifyfull, spotify);
-    } else {
-      OAuthWeb.clearCache();
+    if (this.isMobile == true) {
+      this.spotify = OAuth.clearCache();
       let spotify = document.getElementById("spotify");
       let spotifyfull = document.getElementById("spotifyfull");
       spotify.style.visibility = "hidden";
       let page = document.getElementById("page");
       spotifyfull.style.visibility = "visible";
-      // page.replaceChild(spotifyfull, spotify);
+      this.spotifyApi.resetCredentials();
+    } else {
+      this.spotify = OAuthWeb.clearCache();
+      let spotify = document.getElementById("spotify");
+      let spotifyfull = document.getElementById("spotifyfull");
+      spotify.style.visibility = "hidden";
+      let page = document.getElementById("page");
+      spotifyfull.style.visibility = "visible";
+      this.spotifyApi.resetCredentials();
     }
   }
 
@@ -158,7 +166,7 @@ export class PartyPage {
     //idealy this would be a loading feature to wait until popup closes with success
     //on error sends alert  to page for debbuging
     let spotifyApi = this.spotifyApi;
-    OAuth.popup("spotify", { cache: true })
+    OAuth.popup("spotify", { cache: false, authorize: {scope : "playlist-modify-public playlist-read-collaborative playlist-modify-private playlist-read-private"} })
       .done(function (spotify) {
         spotifyApi.setAccessToken(spotify.access_token);
       })
@@ -179,7 +187,7 @@ export class PartyPage {
       //idealy this would be a loading feature to wait until popup closes with success
       //on error sends alert  to page for debbuging
       let spotifyApi = this.spotifyApi;
-      OAuthWeb.popup("spotify", { cache: true })
+      OAuthWeb.popup("spotify", { cache: false, authorize: {scope : "playlist-modify-public playlist-read-collaborative playlist-modify-private playlist-read-private"} })
         .done(function (spotify) {
           spotifyApi.setAccessToken(spotify.access_token);
         })
@@ -218,7 +226,7 @@ export class PartyPage {
             if (isNaN(uniquePartyKey)) {
               alert("Please enter a party number");
               return;
-            } else if (uniquePartyKey < 1000 || uniquePartyKey > 9999) {
+            } else if (uniquePartyKey < 10000 || uniquePartyKey > 99999) {
               // later we should check if the party already exists in the db
               alert("Party number does not exist"); // later we should check if the party already exists in the db
               return;
@@ -254,18 +262,33 @@ export class PartyPage {
     sessionStorage["role"] = "host"; //maybe later have it check if its your party or not
 
     //create the db observable to manipulate
-    this.party = this.af.object("/" + this.partyKey);
+    this.party = this.af.object("/parties/" + this.partyKey);
     let db = this.party;
     console.log("user name in newpart is: ")
     console.log(this.user.username);
-    let token = this.spotify.access_token;
-    this.afAuth.authState.subscribe(data => {
-      db.set({
-        owner: this.user.username,
-        owenerid: data.uid,
-        spotifytoken: token
+
+    if (this.spotifyApi._credentials != null && this.spotifyApi._credentials.accessToken != undefined) {
+
+      let token = this.spotifyApi._credentials.accessToken;
+
+      this.afAuth.authState.subscribe(data => {
+        db.set({
+          owner: this.user.username,
+          owenerid: data.uid,
+          spotifytoken: token
+        });
+
       });
-    });
+
+    } else {
+      this.afAuth.authState.subscribe(data => {
+        db.set({
+          owner: this.user.username,
+          owenerid: data.uid
+        });
+
+      });
+    }
 
     //create new table in db with corresponding key
 
