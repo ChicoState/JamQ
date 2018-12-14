@@ -134,24 +134,6 @@ export class SearchPage {
     if (this.spotify.access_token) {
       //do something here? or dont.
     }
-    else {
-      // alert("You need to sign into Spotify to search!");
-      // this.navCtrl.setRoot(ProfilePage);
-      /* let searchpage = document.getElementById('searchpage');
-      let everything = document.getElementById('everything');
-      this.searchbar = everything;
-      // let addSpotify = document.getElementById('addSpotify');
-      everything.parentNode.removeChild(everything);
-      // searchpage.style.backgroundColor = 'grey';
-      let img = document.createElement('img');
-      img.setAttribute('src','https://static1.squarespace.com/static/551ed270e4b07f2b9a28489c/t/59848e13f7e0ab6f61df1b05/1501859351405/');
-      img.style.alignContent = 'center';
-      img.style.height = '50px';
-      img.style.width = '50px';
-      var spotifyauth = this.spotifyLogin.bind(this)
-      img.onclick = spotifyauth;
-      // img.setAttribute('onclick','this.spotifyLogin()');
-      searchpage.replaceChild(img,searchpage.childNodes[0]); */
     }
     console.log('ionViewDidLoad SearchPage');
   }
@@ -173,8 +155,6 @@ export class SearchPage {
   }
 
   itemTapped(index) {
-    //get songid from song clicked
-    // var id = document.getElementById('title' + index).getAttribute("data-songid");
 
     switch (this.searchlist) {
       case "songs":
@@ -187,11 +167,6 @@ export class SearchPage {
           this.addArtist(index);
         }
         break;
-      // case "generes":
-      //   {
-      //     this.searchGenres(queryTerm);
-      //   }
-      //   break;
       default:
         {
           console.log("Error! No tab selected!");

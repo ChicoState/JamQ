@@ -1,5 +1,3 @@
-
-
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DjUser } from '../../models/djuser';
@@ -13,7 +11,8 @@ import {PartyPage } from '../party/party';
 @Component({
   selector: 'page-djregister',
   templateUrl: 'djregister.html',
-})
+  })
+
 export class DjregisterPage {
   djuser = {} as DjUser;
 

@@ -63,45 +63,6 @@ export class LoginPage {
 
 
   }
-  // //use for authentiating with mobile libraries
-  // mobileAuth(){
-  //   //initializes spotify auth
-  //   OAuth.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
-  //   //popup for spotify login
-  //   //then resets html to wait for auth to complete
-  //     //idealy this would be a loading feature to wait until popup closes with success
-  //   //on error sends alert  to page for debbuging
-  //     OAuth.popup('spotify',{cache: true}).done(function(spotify) {
-  //
-  //     }).then( this.show()
-  //     ).fail(function(err) {
-  //       alert("Error with spotify login");
-  //     });
-  // }
-  //
-  // //use for authenticating with web libraries
-  // webAuth() {
-  //   var spotify = OAuthWeb.create('spotify');
-  //   if(spotify.access_token){
-  //     // console.log(spotify.access_token);
-  //     this.show();
-  //
-  //   } else {
-  //   OAuthWeb.initialize('NJG7cpjPQHkVhSQgvpQi5MRoyM4');
-  //     //popup for spotify login
-  //     //then resets html to wait for auth to complete
-  //       //idealy this would be a loading feature to wait until popup closes with success
-  //     //on error sends alert  to page for debbuging
-  //       OAuthWeb.popup('spotify',{cache: true}).done(function(spotify) {
-  //       }).then( this.show()
-  //       ).fail(function(err) {
-  //         alert("Error with spotify login");
-  //       });
-  //     }
-  //
-  // }
-
-
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');

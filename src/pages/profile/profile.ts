@@ -36,7 +36,6 @@ export class ProfilePage {
   partyKey: any;
   party: FirebaseObjectObservable<any>;
 
-
   constructor(
     private afAuth: AngularFireAuth,
     private afDatabase: AngularFireDatabase,
@@ -48,21 +47,7 @@ export class ProfilePage {
     public navParams: NavParams,
     public alertCtrl: AlertController
 
-
   ) {
-
-    // this.afAuth.authState.subscribe(auth => {
-    //   this.afDatabase.list(`users/${auth.uid}/hosted`).subscribe(data => {
-    //     console.log(data)
-    //     this.userHost = data;
-    //   });
-    //   this.userJoin = this.afDatabase.list(`users/${auth.uid}`);
-    //   console.log(this.userHost);
-    //   this.afDatabase.object(`users/${auth.uid}`).take(1).subscribe(userdata => {
-    //     // console.log(userdata.username);
-    //     this.user.username = userdata.username;
-    //   });
-    // })
 
     console.log("username is " + this.user.username)
     //checks if device is mobile or Web
@@ -118,18 +103,6 @@ export class ProfilePage {
       spotifyfull.style.visibility = "hidden";
       page.replaceChild(spotify, spotifyfull);
     }
-  }
-
-  soundcloudLogin() {
-    alert("Coming soon!");
-  }
-
-  youtubeLogin() {
-    alert("Coming soon!");
-  }
-
-  comingSoon() {
-    alert("Coming Soon!");
   }
 
   ionViewDidLoad() {
@@ -203,7 +176,6 @@ export class ProfilePage {
     this.navCtrl.setRoot(SlidesPage);
   }
 
-
   goQueue() {
     // this.partyKey = document.getElementById('party').innerHTML
     //create obj for passing key to next page
@@ -256,35 +228,6 @@ export class ProfilePage {
       ]
     });
     prompt.present();
-  }
-  //navigates to and sets root to host now playing page
-  newParty() {
-    //later we can check this and make sure that there is not already a party with that number
-    //later we can check if the user is already hosting a party
-    var randomServerNum = Math.floor(1000 + Math.random() * 9000);
-    this.partyKey = randomServerNum.toString();
-
-    sessionStorage["partyCookie"] = this.partyKey;
-    sessionStorage["role"] = "host"; //maybe later have it check if its your party or not
-
-    //create the db observable to manipulate
-    this.party = this.af.object("/parties/" + this.partyKey);
-    let db = this.party;
-    console.log("user name in newpart is: ")
-    console.log(this.user.username);
-    this.afAuth.authState.subscribe(data => {
-      db.set({
-        owner: this.user.username
-      });
-    });
-
-    //create new table in db with corresponding key
-
-    //eable host menu/disable user
-    this.menuCtrl.enable(false, "user");
-    this.menuCtrl.enable(true, "host");
-    this.userHost.push({ hosted: this.partyKey });
-    this.navCtrl.setRoot(NowplayingPage);
   }
 
   goParty() {

@@ -299,33 +299,4 @@ export class PartyPage {
     this.menuCtrl.enable(true, "host");
     this.navCtrl.setRoot(NowplayingPage);
   }
-
-  goParty() {
-    //create obj for passing key to next page
-    //var data = { hostKey: this.partyKey };
-    //var uniquePartyKey = data.toString();
-    var uniquePartyKey = parseInt(this.partyKey);
-    //console.log(uniquePartyKey);
-    if (isNaN(uniquePartyKey)) {
-      alert("Please enter a party number");
-      return;
-    } else if (uniquePartyKey < 1000 || uniquePartyKey > 9999) {
-      // later we should check if the party already exists in the db
-      alert("Party number does not exist");
-      return;
-    }
-
-    sessionStorage["partyCookie"] = this.partyKey;
-    sessionStorage["role"] = "host"; //maybe later have it check if its your party or not
-    this.navCtrl.setRoot(NowplayingPage);
-    this.menuCtrl.enable(false, "user");
-    this.menuCtrl.enable(true, "host");
-  }
-
-  myParty() {
-    sessionStorage["partyCookie"] = this.partyKey;
-    this.menuCtrl.enable(false, "user");
-    this.menuCtrl.enable(true, "host");
-    this.navCtrl.setRoot(NowplayingPage);
-  }
 }
