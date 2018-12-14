@@ -1,4 +1,5 @@
 # JamQ
+[![CodeFactor](https://www.codefactor.io/repository/github/chicostate/jamq/badge)](https://www.codefactor.io/repository/github/chicostate/jamq)
 
 An app that lets your guests create your music playlist.
 
@@ -15,20 +16,18 @@ To view testing branch please go to [https://github.com/cnolan3/JamQ](https://gi
 
 ## Setting up instructions
 - Install Node and NPM
-
-- Install [ionic]( https://ionicframework.com/docs/cli/) 
+- Install [ionic]( https://ionicframework.com/docs/cli/)
+- Run ionic serve
 
 ## Setting up Docker container(not recommended)
 See [Docker Instructions](docker.md)
-
-## General Flow
-![Alt text](Pageflow.jpg?raw=true "JamQ")
 
 ## Built By - [Group Discord](https://discord.gg/H8jbQ3R)
 - [Logan Markle](https://github.com/logm)
 - [Austin Smitherman](https://github.com/asmitherman)
 - [German Razo Rodriguez](https://github.com/german9304)
 - [Connor Nolan](https://github.com/cnolan3)
+- [Jasper Stubbe] (https://github.com/jasparigus)
 
 ## Spotify Login
 - Email - e143499@nwytg.net
