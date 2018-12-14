@@ -27,7 +27,7 @@ See [Docker Instructions](docker.md)
 - [Austin Smitherman](https://github.com/asmitherman)
 - [German Razo Rodriguez](https://github.com/german9304)
 - [Connor Nolan](https://github.com/cnolan3)
-- [Jasper Stubbe] (https://github.com/jasparigus)
+- [Jasper Stubbe](https://github.com/jasparigus)
 
 ## Spotify Login
 - Email - e143499@nwytg.net
