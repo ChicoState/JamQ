@@ -2,8 +2,8 @@ import { Attribute, Directive, NgZone } from '@angular/core';
 import { Platform } from '../../platform/platform';
 import { DisplayWhen } from './display-when';
 /**
- * \@name HideWhen
- * \@description
+ * @name HideWhen
+ * @description
  * The `hideWhen` attribute takes a string that represents a plaform or screen orientation.
  * The element the attribute is added to will only be hidden when that platform or screen orientation is active.
  *
@@ -15,7 +15,7 @@ import { DisplayWhen } from './display-when';
  * View the [Platform API docs](../../../platform/Platform) for more information on the different
  * platforms you can use.
  *
- * \@usage
+ * @usage
  * ```html
  * <div hideWhen="android">
  *  I am hidden on Android!
@@ -38,16 +38,11 @@ import { DisplayWhen } from './display-when';
  * </div>
  * ```
  *
- * \@demo /docs/demos/src/hide-when/
- * @see {\@link ../ShowWhen ShowWhen API Docs}
- * @see {\@link ../../../platform/Platform Platform API Docs}
- */
+ * @demo /docs/demos/src/hide-when/
+ * @see {@link ../ShowWhen ShowWhen API Docs}
+ * @see {@link ../../../platform/Platform Platform API Docs}
+*/
 export class HideWhen extends DisplayWhen {
-    /**
-     * @param {?} hideWhen
-     * @param {?} plt
-     * @param {?} zone
-     */
     constructor(hideWhen, plt, zone) {
         super(hideWhen, plt, zone);
     }
@@ -60,21 +55,10 @@ HideWhen.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 HideWhen.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Attribute, args: ['hideWhen',] },] },
     { type: Platform, },
     { type: NgZone, },
 ];
-function HideWhen_tsickle_Closure_declarations() {
-    /** @type {?} */
-    HideWhen.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    HideWhen.ctorParameters;
-}
 //# sourceMappingURL=hide-when.js.map

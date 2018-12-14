@@ -11,21 +11,6 @@ import { TransitionController } from '../../transitions/transition-controller';
  * @hidden
  */
 export class OverlayPortal extends NavControllerBase {
-    /**
-     * @param {?} app
-     * @param {?} config
-     * @param {?} plt
-     * @param {?} elementRef
-     * @param {?} zone
-     * @param {?} renderer
-     * @param {?} cfr
-     * @param {?} gestureCtrl
-     * @param {?} transCtrl
-     * @param {?} linker
-     * @param {?} viewPort
-     * @param {?} domCtrl
-     * @param {?} errHandler
-     */
     constructor(app, config, plt, elementRef, zone, renderer, cfr, gestureCtrl, transCtrl, linker, viewPort, domCtrl, errHandler) {
         super(null, app, config, plt, elementRef, zone, renderer, cfr, gestureCtrl, transCtrl, linker, domCtrl, errHandler);
         this._isPortal = true;
@@ -39,27 +24,20 @@ export class OverlayPortal extends NavControllerBase {
             }
         });
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set _overlayPortal(val) {
         this._zIndexOffset = (val || 0);
     }
-    /**
-     * @return {?}
-     */
     ngOnDestroy() {
         this.destroy();
     }
-    /**
-     * @return {?}
+    /*
+     * @private
      */
     getType() {
         return 'portal';
     }
-    /**
-     * @return {?}
+    /*
+     * @private
      */
     getSecondaryIdentifier() {
         return null;
@@ -70,9 +48,7 @@ OverlayPortal.decorators = [
                 selector: '[overlay-portal]',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 OverlayPortal.ctorParameters = () => [
     { type: App, decorators: [{ type: Inject, args: [forwardRef(() => App),] },] },
     { type: Config, },
@@ -91,15 +67,4 @@ OverlayPortal.ctorParameters = () => [
 OverlayPortal.propDecorators = {
     '_overlayPortal': [{ type: Input, args: ['overlay-portal',] },],
 };
-function OverlayPortal_tsickle_Closure_declarations() {
-    /** @type {?} */
-    OverlayPortal.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    OverlayPortal.ctorParameters;
-    /** @type {?} */
-    OverlayPortal.propDecorators;
-}
 //# sourceMappingURL=overlay-portal.js.map

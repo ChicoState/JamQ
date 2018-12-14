@@ -31,8 +31,8 @@ var __extends = (this && this.__extends) || (function () {
     var swiper_effects_1 = require("./swiper/swiper-effects");
     var view_controller_1 = require("../../navigation/view-controller");
     /**
-     * \@name Slides
-     * \@description
+     * @name Slides
+     * @description
      * The Slides component is a multi-section container. Each section can be swiped
      * or dragged between. It contains any number of [Slide](../Slide) components.
      *
@@ -55,9 +55,9 @@ var __extends = (this && this.__extends) || (function () {
      * navigating between slides.
      *
      *
-     * \@usage
+     * @usage
      *
-     * You can add slides to a `\@Component` using the following template:
+     * You can add slides to a `@Component` using the following template:
      *
      * ```html
      * <ion-slides>
@@ -81,11 +81,11 @@ var __extends = (this && this.__extends) || (function () {
      * navigates to the 3rd slide:
      *
      * ```ts
-     * import { ViewChild } from '\@angular/core';
+     * import { ViewChild } from '@angular/core';
      * import { Slides } from 'ionic-angular';
      *
      * class MyPage {
-     *   \@ViewChild(Slides) slides: Slides;
+     *   @ViewChild(Slides) slides: Slides;
      *
      *   goToSlide() {
      *     this.slides.slideTo(2, 500);
@@ -114,7 +114,35 @@ var __extends = (this && this.__extends) || (function () {
      * }
      * ```
      *
-     * \@advanced
+     * ### Zooming
+     * If your slides contain images, you can enable zooming on them by setting `zoom="true" and
+     * wrapping each image in a `div` with the class `swiper-zoom-container`. Zoom supports
+     * `img`, `svg`, `canvas`, and `ion-img`.
+     *
+     * ```html
+     * <ion-slides zoom="true">
+     *   <ion-slide>
+     *     <div class="swiper-zoom-container">
+     *       <img src="assets/img/dog.jpg">
+     *     </div>
+     *     <ion-label>Woof</ion-label>
+     *   </ion-slide>
+     *   <ion-slide>
+     *     <div class="swiper-zoom-container">
+     *       <img src="assets/img/cat.jpg">
+     *     </div>
+     *     <ion-label>Meow</ion-label>
+     *   </ion-slide>
+     *   <ion-slide>
+     *     <div class="swiper-zoom-container">
+     *       <img src="assets/img/fish.jpg">
+     *     </div>
+     *     <ion-label>Just keep swimming</ion-label>
+     *   </ion-slide>
+     * </ion-slides>
+     * ```
+     *
+     * @advanced
      *
      * There are several options available to create customized slides. Ionic exposes
      * the most commonly used options as [inputs](http://learnangular2.com/inputs/).
@@ -122,10 +150,11 @@ var __extends = (this && this.__extends) || (function () {
      * should be used, where `freeMode` is the option to change:
      *
      * ```ts
-     * import { ViewChild } from '\@angular/core';
+     * import { ViewChild } from '@angular/core';
      * import { Slides } from 'ionic-angular';
+    
      * class MyPage {
-     *   \@ViewChild(Slides) slides: Slides;
+     *   @ViewChild(Slides) slides: Slides;
      *
      *   ngAfterViewInit() {
      *     this.slides.freeMode = true;
@@ -137,8 +166,8 @@ var __extends = (this && this.__extends) || (function () {
      * To see all of the available options, take a look at the
      * [source for slides](https://github.com/ionic-team/ionic/blob/master/src/components/slides/slides.ts).
      *
-     * \@demo /docs/demos/src/slides/
-     * @see {\@link /docs/components#slides Slides Component Docs}
+     * @demo /docs/demos/src/slides/
+     * @see {@link /docs/components#slides Slides Component Docs}
      *
      * Adopted from Swiper.js:
      * The most modern mobile touch slider and framework with
@@ -154,14 +183,6 @@ var __extends = (this && this.__extends) || (function () {
      */
     var Slides = (function (_super) {
         __extends(Slides, _super);
-        /**
-         * @param {?} config
-         * @param {?} _plt
-         * @param {?} zone
-         * @param {?} viewCtrl
-         * @param {?} elementRef
-         * @param {?} renderer
-         */
         function Slides(config, _plt, zone, viewCtrl, elementRef, renderer) {
             var _this = _super.call(this, config, elementRef, renderer, 'slides') || this;
             _this._plt = _plt;
@@ -172,9 +193,7 @@ var __extends = (this && this.__extends) || (function () {
             _this._isLoop = false;
             _this._pager = false;
             _this._paginationType = 'bullets';
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this.paginationBulletRender = null;
             _this._isParallax = false;
             _this._speedMs = 300;
@@ -215,6 +234,7 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.slidesOffsetAfter = 0;
+            // autoplay
             /**
              * @hidden
              */
@@ -223,6 +243,7 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.autoplayStopOnLast = false;
+            // Free mode
             /**
              * @hidden
              */
@@ -255,14 +276,17 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.freeModeMinimumVelocity = 0.02;
+            // Autoheight
             /**
              * @hidden
              */
             _this.autoHeight = false;
+            // Set wrapper width
             /**
              * @hidden
              */
             _this.setWrapperSize = false;
+            // Zoom
             /**
              * @hidden
              */
@@ -275,6 +299,7 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.zoomToggle = true;
+            // Touches
             /**
              * @hidden
              */
@@ -323,6 +348,7 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.touchReleaseOnEdges = false;
+            // To support iOS's swipe-to-go-back gesture (when being used in-app, with UIWebView).
             /**
              * @hidden
              */
@@ -331,6 +357,7 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.iOSEdgeSwipeThreshold = 20;
+            // Pagination
             /**
              * @hidden
              */
@@ -339,22 +366,17 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.paginationHide = false;
-            /**
-             * @hidden
-             */
+            // Resistance
+            /** @hidden */
             _this.resistance = true;
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this.resistanceRatio = 0.85;
-            /**
-             * @hidden
-             */
+            // Progress
+            /** @hidden */
             _this.watchSlidesProgress = false;
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this.watchSlidesVisibility = false;
+            // Clicks
             /**
              * @hidden
              */
@@ -367,6 +389,7 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.slideToClickedSlide = false;
+            // loop
             /**
              * @hidden
              */
@@ -375,6 +398,7 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.loopedSlides = null;
+            // Swiping/no swiping
             /**
              * @hidden
              */
@@ -383,17 +407,18 @@ var __extends = (this && this.__extends) || (function () {
              * @hidden
              */
             _this.noSwiping = true;
-            /**
-             * @hidden
-             */
+            // Callbacks
+            /** @hidden */
             _this.runCallbacksOnInit = true;
             // Controller
             _this.controlBy = 'slide';
             _this.controlInverse = false;
+            // Keyboard
             /**
              * @hidden
              */
             _this.keyboardControl = true;
+            // Effects
             /**
              * @hidden
              */
@@ -426,6 +451,7 @@ var __extends = (this && this.__extends) || (function () {
             _this.fade = {
                 crossFade: false
             };
+            // Accessibility
             /**
              * @hidden
              */
@@ -443,89 +469,75 @@ var __extends = (this && this.__extends) || (function () {
              */
             _this.lastSlideMessage = 'This is the last slide';
             /**
-             * \@output {Slides} Emitted when a slide change starts.
+             * @output {Slides} Emitted when a slide change starts.
              */
             _this.ionSlideWillChange = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when a slide change ends.
+             * @output {Slides} Emitted when a slide change ends.
              */
             _this.ionSlideDidChange = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when a slide moves.
+             * @output {Slides} Emitted when a slide moves.
              */
             _this.ionSlideDrag = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when slides reaches its beginning (initial position).
+             * @output {Slides} Emitted when slides reaches its beginning (initial position).
              */
             _this.ionSlideReachStart = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when slides reaches its last slide.
+             * @output {Slides} Emitted when slides reaches its last slide.
              */
             _this.ionSlideReachEnd = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when a slide moves.
+             * @output {Slides} Emitted when a slide moves.
              */
             _this.ionSlideAutoplay = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when a autoplay starts.
+             * @output {Slides} Emitted when a autoplay starts.
              */
             _this.ionSlideAutoplayStart = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when a autoplay stops.
+             * @output {Slides} Emitted when a autoplay stops.
              */
             _this.ionSlideAutoplayStop = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when a slide change starts with the "forward" direction.
+             * @output {Slides} Emitted when a slide change starts with the "forward" direction.
              */
             _this.ionSlideNextStart = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when a slide change starts with the "backward" direction.
+             * @output {Slides} Emitted when a slide change starts with the "backward" direction.
              */
             _this.ionSlidePrevStart = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when a slide change ends with the "forward" direction.
+             * @output {Slides} Emitted when a slide change ends with the "forward" direction.
              */
             _this.ionSlideNextEnd = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when a slide change ends with the "backward" direction.
+             * @output {Slides} Emitted when a slide change ends with the "backward" direction.
              */
             _this.ionSlidePrevEnd = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when the user taps/clicks on the slide's container.
+             * @output {Slides} Emitted when the user taps/clicks on the slide's container.
              */
             _this.ionSlideTap = new core_1.EventEmitter();
             /**
-             * \@output {Slides} Emitted when the user double taps on the slide's container.
+             * @output {Slides} Emitted when the user double taps on the slide's container.
              */
             _this.ionSlideDoubleTap = new core_1.EventEmitter();
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this.ionSlideProgress = new core_1.EventEmitter();
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this.ionSlideTransitionStart = new core_1.EventEmitter();
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this.ionSlideTransitionEnd = new core_1.EventEmitter();
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this.ionSlideTouchStart = new core_1.EventEmitter();
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this.ionSlideTouchEnd = new core_1.EventEmitter();
             _this._unregs = [];
-            /**
-             * \@internal
-             */
+            /** @internal */
             _this._allowSwipeToNext = true;
-            /**
-             * \@internal
-             */
+            /** @internal */
             _this._allowSwipeToPrev = true;
             _this._zone = zone;
             _this.id = ++slidesId;
@@ -542,19 +554,14 @@ var __extends = (this && this.__extends) || (function () {
         }
         Object.defineProperty(Slides.prototype, "autoplay", {
             /**
-             * \@input {number} Delay between transitions (in milliseconds). If this
+             * @input {number} Delay between transitions (in milliseconds). If this
              * parameter is not passed, autoplay is disabled. Default does
              * not have a value and does not autoplay.
              * Default: `null`.
-             * @return {?}
              */
             get: function () {
                 return this._autoplayMs;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._autoplayMs = parseInt(val, 10);
             },
@@ -563,18 +570,13 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "control", {
             /**
-             * \@input {Slides} Pass another Slides instance or array of Slides instances
+             * @input {Slides} Pass another Slides instance or array of Slides instances
              * that should be controlled by this Slides instance.
              * Default: `null`.
-             * @return {?}
              */
             get: function () {
                 return this._control;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 if (val instanceof Slides || Array.isArray(val)) {
                     this._control = val;
@@ -585,18 +587,13 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "effect", {
             /**
-             * \@input {string} The animation effect of the slides.
+             * @input {string} The animation effect of the slides.
              * Possible values are: `slide`, `fade`, `cube`, `coverflow` or `flip`.
              * Default: `slide`.
-             * @return {?}
              */
             get: function () {
                 return this._effectName;
             },
-            /**
-             * @param {?} effectName
-             * @return {?}
-             */
             set: function (effectName) {
                 if (swiper_effects_1.SWIPER_EFFECTS[effectName]) {
                     this._effectName = effectName;
@@ -607,17 +604,12 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "direction", {
             /**
-             * \@input {string}  Swipe direction: 'horizontal' or 'vertical'.
+             * @input {string}  Swipe direction: 'horizontal' or 'vertical'.
              * Default: `horizontal`.
-             * @return {?}
              */
             get: function () {
                 return this._direction;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 if (val === 'horizontal' || val === 'vertical') {
                     this._direction = val;
@@ -628,16 +620,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "initialSlide", {
             /**
-             * \@input {number}  Index number of initial slide. Default: `0`.
-             * @return {?}
+             * @input {number}  Index number of initial slide. Default: `0`.
              */
             get: function () {
                 return this._initialSlide;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._initialSlide = parseInt(val, 10);
             },
@@ -646,17 +633,12 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "loop", {
             /**
-             * \@input {boolean} If true, continuously loop from the last slide to the
+             * @input {boolean} If true, continuously loop from the last slide to the
              * first slide.
-             * @return {?}
              */
             get: function () {
                 return this._isLoop;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._isLoop = util_1.isTrueProperty(val);
             },
@@ -665,16 +647,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "pager", {
             /**
-             * \@input {boolean}  If true, show the pager.
-             * @return {?}
+             * @input {boolean}  If true, show the pager.
              */
             get: function () {
                 return this._pager;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._pager = util_1.isTrueProperty(val);
             },
@@ -683,9 +660,7 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "dir", {
             /**
-             * \@input {string} If dir attribute is equal to rtl, set interal _rtl to true;
-             * @param {?} val
-             * @return {?}
+             * @input {string} If dir attribute is equal to rtl, set interal _rtl to true;
              */
             set: function (val) {
                 this._rtl = (val.toLowerCase() === 'rtl');
@@ -695,19 +670,14 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "paginationType", {
             /**
-             * \@input {string}  Type of pagination. Possible values are:
+             * @input {string}  Type of pagination. Possible values are:
              * `bullets`, `fraction`, `progress`. Default: `bullets`.
              * (Note that the pager will not show unless `pager` input
              * is set to true).
-             * @return {?}
              */
             get: function () {
                 return this._paginationType;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 if (val === 'bullets' || val === 'fraction' || val === 'progress') {
                     this._paginationType = val;
@@ -718,17 +688,12 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "parallax", {
             /**
-             * \@input {boolean} If true, allows you to use "parallaxed" elements inside of
+             * @input {boolean} If true, allows you to use "parallaxed" elements inside of
              * slider.
-             * @return {?}
              */
             get: function () {
                 return this._isParallax;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._isParallax = util_1.isTrueProperty(val);
             },
@@ -737,17 +702,12 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "speed", {
             /**
-             * \@input {number} Duration of transition between slides
+             * @input {number} Duration of transition between slides
              * (in milliseconds). Default: `300`.
-             * @return {?}
              */
             get: function () {
                 return this._speedMs;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._speedMs = parseInt(val, 10);
             },
@@ -756,16 +716,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "zoom", {
             /**
-             * \@input {boolean} If true, enables zooming functionality.
-             * @return {?}
+             * @input {boolean} If true, enables zooming functionality.
              */
             get: function () {
                 return this._isZoom;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._isZoom = util_1.isTrueProperty(val);
             },
@@ -773,17 +728,13 @@ var __extends = (this && this.__extends) || (function () {
             configurable: true
         });
         Object.defineProperty(Slides.prototype, "spaceBetween", {
+            // Slides grid
             /**
-             * \@input {number} Distance between slides in px. Default: `0`.
-             * @return {?}
+             * @input {number} Distance between slides in px. Default: `0`.
              */
             get: function () {
                 return this._spaceBetween;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._spaceBetween = parseInt(val, 10);
             },
@@ -792,16 +743,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "slidesPerView", {
             /**
-             * \@input {number} Slides per view. Slides visible at the same time. Default: `1`.
-             * @return {?}
+             * @input {number} Slides per view. Slides visible at the same time. Default: `1`.
              */
             get: function () {
                 return this._slidesPerView;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._slidesPerView = val === 'auto' ? 'auto' : parseFloat(val);
             },
@@ -810,30 +756,22 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Slides.prototype, "centeredSlides", {
             /**
-             * \@input {boolean} Center a slide in the middle of the screen.
-             * @return {?}
+             * @input {boolean} Center a slide in the middle of the screen.
              */
             get: function () {
                 return this._centeredSlides;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._centeredSlides = util_1.isTrueProperty(val);
             },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
         Slides.prototype._initSlides = function () {
             if (!this._init) {
                 (void 0) /* console.debug */;
-                var /** @type {?} */ s = this;
-                var /** @type {?} */ plt = s._plt;
+                var s = this;
+                var plt = s._plt;
                 s.container = this.getNativeElement().children[0];
                 // init swiper core
                 swiper_1.initSwiper(s, plt);
@@ -852,7 +790,6 @@ var __extends = (this && this.__extends) || (function () {
         };
         /**
          * @hidden
-         * @return {?}
          */
         Slides.prototype.ngAfterContentInit = function () {
             var _this = this;
@@ -863,8 +800,6 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Update the underlying slider implementation. Call this if you've added or removed
          * child slides.
-         * @param {?=} debounce
-         * @return {?}
          */
         Slides.prototype.update = function (debounce) {
             var _this = this;
@@ -880,9 +815,6 @@ var __extends = (this && this.__extends) || (function () {
                 }, debounce);
             }
         };
-        /**
-         * @return {?}
-         */
         Slides.prototype.resize = function () {
             if (this._init) {
             }
@@ -890,10 +822,9 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Transition to the specified slide.
          *
-         * @param {?} index
-         * @param {?=} speed
-         * @param {?=} runCallbacks
-         * @return {?}
+         * @param {number} index  The index number of the slide.
+         * @param {number} [speed]  Transition duration (in ms).
+         * @param {boolean} [runCallbacks] Whether or not to emit the `ionSlideWillChange`/`ionSlideDidChange` events. Default true.
          */
         Slides.prototype.slideTo = function (index, speed, runCallbacks) {
             swiper_1.slideTo(this, this._plt, index, speed, runCallbacks);
@@ -901,9 +832,8 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Transition to the next slide.
          *
-         * @param {?=} speed
-         * @param {?=} runCallbacks
-         * @return {?}
+         * @param {number} [speed]  Transition duration (in ms).
+         * @param {boolean} [runCallbacks]  Whether or not to emit the `ionSlideWillChange`/`ionSlideDidChange` events. Default true.
          */
         Slides.prototype.slideNext = function (speed, runCallbacks) {
             swiper_1.slideNext(this, this._plt, runCallbacks, speed, true);
@@ -911,9 +841,8 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Transition to the previous slide.
          *
-         * @param {?=} speed
-         * @param {?=} runCallbacks
-         * @return {?}
+         * @param {number} [speed]  Transition duration (in ms).
+         * @param {boolean} [runCallbacks]  Whether or not to emit the `ionSlideWillChange`/`ionSlideDidChange` events. Default true.
          */
         Slides.prototype.slidePrev = function (speed, runCallbacks) {
             swiper_1.slidePrev(this, this._plt, runCallbacks, speed, true);
@@ -921,7 +850,7 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Get the index of the active slide.
          *
-         * @return {?}
+         * @returns {number} The index number of the current slide.
          */
         Slides.prototype.getActiveIndex = function () {
             return this._activeIndex;
@@ -929,7 +858,7 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Get the index of the previous slide.
          *
-         * @return {?}
+         * @returns {number} The index number of the previous slide.
          */
         Slides.prototype.getPreviousIndex = function () {
             return this._previousIndex;
@@ -937,7 +866,7 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Get the total number of slides.
          *
-         * @return {?}
+         * @returns {number} The total number of slides.
          */
         Slides.prototype.length = function () {
             return this._slides.length;
@@ -945,7 +874,7 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Get whether or not the current slide is the last slide.
          *
-         * @return {?}
+         * @returns {boolean} If the slide is the last slide or not.
          */
         Slides.prototype.isEnd = function () {
             return this._isEnd;
@@ -953,63 +882,56 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Get whether or not the current slide is the first slide.
          *
-         * @return {?}
+         * @returns {boolean} If the slide is the first slide or not.
          */
         Slides.prototype.isBeginning = function () {
             return this._isBeginning;
         };
         /**
          * Start auto play.
-         * @return {?}
          */
         Slides.prototype.startAutoplay = function () {
             swiper_1.startAutoplay(this, this._plt);
         };
         /**
          * Stop auto play.
-         * @return {?}
          */
         Slides.prototype.stopAutoplay = function () {
             swiper_1.stopAutoplay(this);
         };
         /**
          * Lock or unlock the ability to slide to the next slides.
+         * @param {boolean} shouldLockSwipeToNext If set to true the user will not be able to swipe to the next slide.
          * Set to false to unlock this behaviour.
-         * @param {?} shouldLockSwipeToNext
-         * @return {?}
          */
         Slides.prototype.lockSwipeToNext = function (shouldLockSwipeToNext) {
             this._allowSwipeToNext = !shouldLockSwipeToNext;
         };
         /**
          * Lock or unlock the ability to slide to the previous slides.
+         * @param {boolean} shouldLockSwipeToPrev If set to true the user will not be able to swipe to the previous slide.
          * Set to false to unlock this behaviour.
-         * @param {?} shouldLockSwipeToPrev
-         * @return {?}
          */
         Slides.prototype.lockSwipeToPrev = function (shouldLockSwipeToPrev) {
             this._allowSwipeToPrev = !shouldLockSwipeToPrev;
         };
         /**
          * Lock or unlock the ability to slide to change slides.
+         * @param {boolean} shouldLockSwipes If set to true user can not swipe in either direction on slide.
          * False allows swiping in both directions.
-         * @param {?} shouldLockSwipes
-         * @return {?}
          */
         Slides.prototype.lockSwipes = function (shouldLockSwipes) {
             this._allowSwipeToNext = this._allowSwipeToPrev = !shouldLockSwipes;
         };
         /**
          * Enable or disable keyboard control.
-         * @param {?} shouldEnableKeyboard
-         * @return {?}
+         * @param {boolean} shouldEnableKeyboard If set to true the slider can be controled by a keyboard.
          */
         Slides.prototype.enableKeyboardControl = function (shouldEnableKeyboard) {
             swiper_keyboard_1.enableKeyboardControl(this, this._plt, shouldEnableKeyboard);
         };
         /**
          * @hidden
-         * @return {?}
          */
         Slides.prototype.ngOnDestroy = function () {
             this._init = false;
@@ -1020,776 +942,62 @@ var __extends = (this && this.__extends) || (function () {
             swiper_1.destroySwiper(this);
             this.enableKeyboardControl(false);
         };
+        Slides.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'ion-slides',
+                        template: '<div class="swiper-container" [attr.dir]="_rtl? \'rtl\' : null">' +
+                            '<div class="swiper-wrapper">' +
+                            '<ng-content></ng-content>' +
+                            '</div>' +
+                            '<div [class.hide]="!pager" class="swiper-pagination"></div>' +
+                            '</div>',
+                        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+                        encapsulation: core_1.ViewEncapsulation.None,
+                    },] },
+        ];
+        /** @nocollapse */
+        Slides.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: platform_1.Platform, },
+            { type: core_1.NgZone, },
+            { type: view_controller_1.ViewController, decorators: [{ type: core_1.Optional },] },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+        ]; };
+        Slides.propDecorators = {
+            'autoplay': [{ type: core_1.Input },],
+            'control': [{ type: core_1.Input },],
+            'effect': [{ type: core_1.Input },],
+            'direction': [{ type: core_1.Input },],
+            'initialSlide': [{ type: core_1.Input },],
+            'loop': [{ type: core_1.Input },],
+            'pager': [{ type: core_1.Input },],
+            'dir': [{ type: core_1.Input },],
+            'paginationType': [{ type: core_1.Input },],
+            'parallax': [{ type: core_1.Input },],
+            'speed': [{ type: core_1.Input },],
+            'zoom': [{ type: core_1.Input },],
+            'spaceBetween': [{ type: core_1.Input },],
+            'slidesPerView': [{ type: core_1.Input },],
+            'centeredSlides': [{ type: core_1.Input },],
+            'ionSlideWillChange': [{ type: core_1.Output },],
+            'ionSlideDidChange': [{ type: core_1.Output },],
+            'ionSlideDrag': [{ type: core_1.Output },],
+            'ionSlideReachStart': [{ type: core_1.Output },],
+            'ionSlideReachEnd': [{ type: core_1.Output },],
+            'ionSlideAutoplay': [{ type: core_1.Output },],
+            'ionSlideAutoplayStart': [{ type: core_1.Output },],
+            'ionSlideAutoplayStop': [{ type: core_1.Output },],
+            'ionSlideNextStart': [{ type: core_1.Output },],
+            'ionSlidePrevStart': [{ type: core_1.Output },],
+            'ionSlideNextEnd': [{ type: core_1.Output },],
+            'ionSlidePrevEnd': [{ type: core_1.Output },],
+            'ionSlideTap': [{ type: core_1.Output },],
+            'ionSlideDoubleTap': [{ type: core_1.Output },],
+        };
         return Slides;
     }(ion_1.Ion));
-    Slides.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'ion-slides',
-                    template: '<div class="swiper-container" [attr.dir]="_rtl? \'rtl\' : null">' +
-                        '<div class="swiper-wrapper">' +
-                        '<ng-content></ng-content>' +
-                        '</div>' +
-                        '<div [class.hide]="!pager" class="swiper-pagination"></div>' +
-                        '</div>',
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush,
-                    encapsulation: core_1.ViewEncapsulation.None,
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Slides.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: platform_1.Platform, },
-        { type: core_1.NgZone, },
-        { type: view_controller_1.ViewController, decorators: [{ type: core_1.Optional },] },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-    ]; };
-    Slides.propDecorators = {
-        'autoplay': [{ type: core_1.Input },],
-        'control': [{ type: core_1.Input },],
-        'effect': [{ type: core_1.Input },],
-        'direction': [{ type: core_1.Input },],
-        'initialSlide': [{ type: core_1.Input },],
-        'loop': [{ type: core_1.Input },],
-        'pager': [{ type: core_1.Input },],
-        'dir': [{ type: core_1.Input },],
-        'paginationType': [{ type: core_1.Input },],
-        'parallax': [{ type: core_1.Input },],
-        'speed': [{ type: core_1.Input },],
-        'zoom': [{ type: core_1.Input },],
-        'spaceBetween': [{ type: core_1.Input },],
-        'slidesPerView': [{ type: core_1.Input },],
-        'centeredSlides': [{ type: core_1.Input },],
-        'ionSlideWillChange': [{ type: core_1.Output },],
-        'ionSlideDidChange': [{ type: core_1.Output },],
-        'ionSlideDrag': [{ type: core_1.Output },],
-        'ionSlideReachStart': [{ type: core_1.Output },],
-        'ionSlideReachEnd': [{ type: core_1.Output },],
-        'ionSlideAutoplay': [{ type: core_1.Output },],
-        'ionSlideAutoplayStart': [{ type: core_1.Output },],
-        'ionSlideAutoplayStop': [{ type: core_1.Output },],
-        'ionSlideNextStart': [{ type: core_1.Output },],
-        'ionSlidePrevStart': [{ type: core_1.Output },],
-        'ionSlideNextEnd': [{ type: core_1.Output },],
-        'ionSlidePrevEnd': [{ type: core_1.Output },],
-        'ionSlideTap': [{ type: core_1.Output },],
-        'ionSlideDoubleTap': [{ type: core_1.Output },],
-    };
     exports.Slides = Slides;
-    function Slides_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Slides.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Slides.ctorParameters;
-        /** @type {?} */
-        Slides.propDecorators;
-        /** @type {?} */
-        Slides.prototype._autoplayMs;
-        /** @type {?} */
-        Slides.prototype._control;
-        /** @type {?} */
-        Slides.prototype._effectName;
-        /** @type {?} */
-        Slides.prototype._direction;
-        /** @type {?} */
-        Slides.prototype._initialSlide;
-        /** @type {?} */
-        Slides.prototype._isLoop;
-        /** @type {?} */
-        Slides.prototype._pager;
-        /** @type {?} */
-        Slides.prototype._paginationType;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.paginationBulletRender;
-        /** @type {?} */
-        Slides.prototype._isParallax;
-        /** @type {?} */
-        Slides.prototype._speedMs;
-        /** @type {?} */
-        Slides.prototype._isZoom;
-        /**
-         * @hidden
-         * Height of container.
-         * @type {?}
-         */
-        Slides.prototype.height;
-        /**
-         * @hidden
-         * Width of container.
-         * @type {?}
-         */
-        Slides.prototype.width;
-        /**
-         * @hidden
-         * Enabled this option and swiper will be operated as usual except it will
-         * not move, real translate values on wrapper will not be set. Useful when
-         * you may need to create custom slide transition.
-         * @type {?}
-         */
-        Slides.prototype.virtualTranslate;
-        /**
-         * @hidden
-         * Set to true to round values of slides width and height to prevent blurry
-         * texts on usual resolution screens (if you have such)
-         * @type {?}
-         */
-        Slides.prototype.roundLengths;
-        /** @type {?} */
-        Slides.prototype._spaceBetween;
-        /** @type {?} */
-        Slides.prototype._slidesPerView;
-        /** @type {?} */
-        Slides.prototype._centeredSlides;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.slidesPerColumn;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.slidesPerColumnFill;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.slidesPerGroup;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.slidesOffsetBefore;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.slidesOffsetAfter;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.touchEventsTarget;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.autoplayDisableOnInteraction;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.autoplayStopOnLast;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.freeMode;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.freeModeMomentum;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.freeModeMomentumRatio;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.freeModeMomentumBounce;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.freeModeMomentumBounceRatio;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.freeModeMomentumVelocityRatio;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.freeModeSticky;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.freeModeMinimumVelocity;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.autoHeight;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.setWrapperSize;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.zoomMax;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.zoomMin;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.zoomToggle;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.touchRatio;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.touchAngle;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.simulateTouch;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.shortSwipes;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.longSwipes;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.longSwipesRatio;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.longSwipesMs;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.followFinger;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.onlyExternal;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.threshold;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.touchMoveStopPropagation;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.touchReleaseOnEdges;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.iOSEdgeSwipeDetection;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.iOSEdgeSwipeThreshold;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.paginationClickable;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.paginationHide;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.resistance;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.resistanceRatio;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.watchSlidesProgress;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.watchSlidesVisibility;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.preventClicks;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.preventClicksPropagation;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.slideToClickedSlide;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.loopAdditionalSlides;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.loopedSlides;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.swipeHandler;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.noSwiping;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.runCallbacksOnInit;
-        /** @type {?} */
-        Slides.prototype.controlBy;
-        /** @type {?} */
-        Slides.prototype.controlInverse;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.keyboardControl;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.coverflow;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.flip;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.cube;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.fade;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.prevSlideMessage;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.nextSlideMessage;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.firstSlideMessage;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.lastSlideMessage;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.originalEvent;
-        /**
-         * \@output {Slides} Emitted when a slide change starts.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideWillChange;
-        /**
-         * \@output {Slides} Emitted when a slide change ends.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideDidChange;
-        /**
-         * \@output {Slides} Emitted when a slide moves.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideDrag;
-        /**
-         * \@output {Slides} Emitted when slides reaches its beginning (initial position).
-         * @type {?}
-         */
-        Slides.prototype.ionSlideReachStart;
-        /**
-         * \@output {Slides} Emitted when slides reaches its last slide.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideReachEnd;
-        /**
-         * \@output {Slides} Emitted when a slide moves.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideAutoplay;
-        /**
-         * \@output {Slides} Emitted when a autoplay starts.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideAutoplayStart;
-        /**
-         * \@output {Slides} Emitted when a autoplay stops.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideAutoplayStop;
-        /**
-         * \@output {Slides} Emitted when a slide change starts with the "forward" direction.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideNextStart;
-        /**
-         * \@output {Slides} Emitted when a slide change starts with the "backward" direction.
-         * @type {?}
-         */
-        Slides.prototype.ionSlidePrevStart;
-        /**
-         * \@output {Slides} Emitted when a slide change ends with the "forward" direction.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideNextEnd;
-        /**
-         * \@output {Slides} Emitted when a slide change ends with the "backward" direction.
-         * @type {?}
-         */
-        Slides.prototype.ionSlidePrevEnd;
-        /**
-         * \@output {Slides} Emitted when the user taps/clicks on the slide's container.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideTap;
-        /**
-         * \@output {Slides} Emitted when the user double taps on the slide's container.
-         * @type {?}
-         */
-        Slides.prototype.ionSlideDoubleTap;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.ionSlideProgress;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.ionSlideTransitionStart;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.ionSlideTransitionEnd;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.ionSlideTouchStart;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.ionSlideTouchEnd;
-        /**
-         * Private properties only useful to this class.
-         * ------------------------------------
-         * @type {?}
-         */
-        Slides.prototype._init;
-        /** @type {?} */
-        Slides.prototype._tmr;
-        /** @type {?} */
-        Slides.prototype._unregs;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.clickedIndex;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.clickedSlide;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.container;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.id;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.progress;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.realIndex;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.renderedHeight;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.renderedWidth;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.slideId;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.swipeDirection;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.velocity;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._activeIndex;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._allowClick;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._allowSwipeToNext;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._allowSwipeToPrev;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._animating;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._autoplaying;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._autoplayPaused;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._autoplayTimeoutId;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._bullets;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._classNames;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._isBeginning;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._isEnd;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._keyboardUnReg;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._liveRegion;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._paginationContainer;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._previousIndex;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._renderedSize;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._rtl;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._slides;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._snapGrid;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._slidesGrid;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._snapIndex;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._slidesSizesGrid;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._spline;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._supportTouch;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._supportGestures;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._touches;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._touchEvents;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._touchEventsDesktop;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._translate;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._virtualSize;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._wrapper;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._zone;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        Slides.prototype._zoom;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.nextButton;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Slides.prototype.prevButton;
-        /** @type {?} */
-        Slides.prototype._plt;
-    }
-    var /** @type {?} */ slidesId = -1;
+    var slidesId = -1;
 });
 //# sourceMappingURL=slides.js.map

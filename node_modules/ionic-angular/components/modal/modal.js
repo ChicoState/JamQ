@@ -15,14 +15,6 @@ import { ModalImpl } from './modal-impl';
  */
 var Modal = (function (_super) {
     __extends(Modal, _super);
-    /**
-     * @param {?} app
-     * @param {?} component
-     * @param {?} data
-     * @param {?=} opts
-     * @param {?=} config
-     * @param {?=} deepLinker
-     */
     function Modal(app, component, data, opts, config, deepLinker) {
         if (opts === void 0) { opts = {}; }
         var _this = _super.call(this, app, component, config, deepLinker) || this;
@@ -31,21 +23,10 @@ var Modal = (function (_super) {
         _this.isOverlay = true;
         return _this;
     }
-    /**
-     * @return {?}
-     */
     Modal.prototype.getImplementation = function () {
         return new ModalImpl(this._app, this._component, this.data, this.opts, this._config);
     };
     return Modal;
 }(OverlayProxy));
 export { Modal };
-function Modal_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Modal.prototype.isOverlay;
-    /** @type {?} */
-    Modal.prototype.data;
-    /** @type {?} */
-    Modal.prototype.opts;
-}
 //# sourceMappingURL=modal.js.map

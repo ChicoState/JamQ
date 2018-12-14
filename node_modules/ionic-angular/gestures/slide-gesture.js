@@ -16,21 +16,15 @@ import { pointerCoord } from '../util/dom';
  */
 var SlideGesture = (function (_super) {
     __extends(SlideGesture, _super);
-    /**
-     * @param {?} plt
-     * @param {?} element
-     * @param {?=} opts
-     */
     function SlideGesture(plt, element, opts) {
         if (opts === void 0) { opts = {}; }
         var _this = _super.call(this, plt, element, opts) || this;
         _this.slide = null;
         return _this;
     }
-    /**
-     * @param {?} _slide
-     * @param {?} _ev
-     * @return {?}
+    /*
+     * Get the min and max for the slide. pageX/pageY.
+     * Only called on dragstart.
      */
     SlideGesture.prototype.getSlideBoundaries = function (_slide, _ev) {
         return {
@@ -38,22 +32,18 @@ var SlideGesture = (function (_super) {
             max: this.getNativeElement().offsetWidth
         };
     };
-    /**
-     * @param {?} _slide
-     * @param {?} _ev
-     * @return {?}
+    /*
+     * Get the element's pos when the drag starts.
+     * For example, an open side menu starts at 100% and a closed
+     * sidemenu starts at 0%.
      */
     SlideGesture.prototype.getElementStartPos = function (_slide, _ev) {
         return 0;
     };
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     SlideGesture.prototype.onDragStart = function (ev) {
         this.onSlideBeforeStart(ev);
-        var /** @type {?} */ coord = (pointerCoord(ev));
-        var /** @type {?} */ pos = coord[this.direction];
+        var coord = pointerCoord(ev);
+        var pos = coord[this.direction];
         this.slide = {
             min: 0,
             max: 0,
@@ -73,17 +63,13 @@ var SlideGesture = (function (_super) {
         this.slide.elementStartPos = this.getElementStartPos(this.slide, ev);
         this.onSlideStart(this.slide, ev);
     };
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     SlideGesture.prototype.onDragMove = function (ev) {
-        var /** @type {?} */ slide = this.slide;
+        var slide = this.slide;
         (void 0) /* assert */;
-        var /** @type {?} */ coord = (pointerCoord(ev));
-        var /** @type {?} */ newPos = coord[this.direction];
-        var /** @type {?} */ newTimestamp = Date.now();
-        var /** @type {?} */ velocity = (this.plt.isRTL ? (slide.pos - newPos) : (newPos - slide.pos)) / (newTimestamp - slide.timestamp);
+        var coord = pointerCoord(ev);
+        var newPos = coord[this.direction];
+        var newTimestamp = Date.now();
+        var velocity = (this.plt.isRTL ? (slide.pos - newPos) : (newPos - slide.pos)) / (newTimestamp - slide.timestamp);
         slide.pos = newPos;
         slide.timestamp = newTimestamp;
         slide.distance = clamp(slide.min, (this.plt.isRTL ? slide.pointerStartPos - newPos : newPos - slide.pointerStartPos) + slide.elementStartPos, slide.max);
@@ -91,42 +77,15 @@ var SlideGesture = (function (_super) {
         slide.delta = (this.plt.isRTL ? slide.pointerStartPos - newPos : newPos - slide.pointerStartPos);
         this.onSlide(slide, ev);
     };
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     SlideGesture.prototype.onDragEnd = function (ev) {
         this.onSlideEnd(this.slide, ev);
         this.slide = null;
     };
-    /**
-     * @param {?=} _ev
-     * @return {?}
-     */
     SlideGesture.prototype.onSlideBeforeStart = function (_ev) { };
-    /**
-     * @param {?=} _slide
-     * @param {?=} _ev
-     * @return {?}
-     */
     SlideGesture.prototype.onSlideStart = function (_slide, _ev) { };
-    /**
-     * @param {?=} _slide
-     * @param {?=} _ev
-     * @return {?}
-     */
     SlideGesture.prototype.onSlide = function (_slide, _ev) { };
-    /**
-     * @param {?=} _slide
-     * @param {?=} _ev
-     * @return {?}
-     */
     SlideGesture.prototype.onSlideEnd = function (_slide, _ev) { };
     return SlideGesture;
 }(PanGesture));
 export { SlideGesture };
-function SlideGesture_tsickle_Closure_declarations() {
-    /** @type {?} */
-    SlideGesture.prototype.slide;
-}
 //# sourceMappingURL=slide-gesture.js.map

@@ -27,7 +27,7 @@ var __extends = (this && this.__extends) || (function () {
     var item_1 = require("../item/item");
     var radio_group_1 = require("./radio-group");
     /**
-     * \@description
+     * @description
      * A radio button is a button that can be either checked or unchecked. A user can tap
      * the button to check or uncheck it. It can also be checked from the template using
      * the `checked` property.
@@ -40,7 +40,7 @@ var __extends = (this && this.__extends) || (function () {
      * See the [Angular Forms Docs](https://angular.io/docs/ts/latest/guide/forms.html) for
      * more information on forms and input.
      *
-     * \@usage
+     * @usage
      * ```html
      * <ion-list radio-group [(ngModel)]="relationship">
      *   <ion-item>
@@ -57,39 +57,31 @@ var __extends = (this && this.__extends) || (function () {
      *   </ion-item>
      * </ion-list>
      * ```
-     * \@demo /docs/demos/src/radio/
-     * @see {\@link /docs/components#radio Radio Component Docs}
-     * @see {\@link ../RadioGroup RadioGroup API Docs}
+     * @demo /docs/demos/src/radio/
+     * @see {@link /docs/components#radio Radio Component Docs}
+     * @see {@link ../RadioGroup RadioGroup API Docs}
      */
     var RadioButton = (function (_super) {
         __extends(RadioButton, _super);
-        /**
-         * @param {?} _form
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         * @param {?} _item
-         * @param {?} _group
-         */
         function RadioButton(_form, config, elementRef, renderer, _item, _group) {
             var _this = _super.call(this, config, elementRef, renderer, 'radio') || this;
             _this._form = _form;
             _this._item = _item;
             _this._group = _group;
             /**
-             * \@internal
+             * @internal
              */
             _this._checked = false;
             /**
-             * \@internal
+             * @internal
              */
             _this._disabled = false;
             /**
-             * \@internal
+             * @internal
              */
             _this._value = null;
             /**
-             * \@output {any} Emitted when the radio button is selected.
+             * @output {any} Emitted when the radio button is selected.
              */
             _this.ionSelect = new core_1.EventEmitter();
             _form.register(_this);
@@ -108,11 +100,9 @@ var __extends = (this && this.__extends) || (function () {
         }
         Object.defineProperty(RadioButton.prototype, "color", {
             /**
-             * \@input {string} The color to use from your Sass `$colors` map.
+             * @input {string} The color to use from your Sass `$colors` map.
              * Default options are: `"primary"`, `"secondary"`, `"danger"`, `"light"`, and `"dark"`.
              * For more information, see [Theming your App](/docs/theming/theming-your-app).
-             * @param {?} val
-             * @return {?}
              */
             set: function (val) {
                 this._setColor(val);
@@ -125,17 +115,12 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(RadioButton.prototype, "value", {
             /**
-             * \@input {any} The value of the radio button. Defaults to the generated id.
-             * @return {?}
+             * @input {any} The value of the radio button. Defaults to the generated id.
              */
             get: function () {
                 // if the value is not defined then use it's unique id
                 return util_1.isBlank(this._value) ? this.id : this._value;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._value = val;
             },
@@ -144,16 +129,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(RadioButton.prototype, "checked", {
             /**
-             * \@input {boolean} If true, the element is selected, and other buttons in the group are unselected.
-             * @return {?}
+             * @input {boolean} If true, the element is selected, and other buttons in the group are unselected.
              */
             get: function () {
                 return this._checked;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._checked = util_1.isTrueProperty(val);
                 if (this._item) {
@@ -165,16 +145,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(RadioButton.prototype, "disabled", {
             /**
-             * \@input {boolean} If true, the user cannot interact with this element.
-             * @return {?}
+             * @input {boolean} If true, the user cannot interact with this element.
              */
             get: function () {
                 return this._disabled || (this._group != null && this._group.disabled);
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._disabled = util_1.isTrueProperty(val);
                 this._item && this._item.setElementClass('item-radio-disabled', this._disabled);
@@ -184,15 +159,12 @@ var __extends = (this && this.__extends) || (function () {
         });
         /**
          * @hidden
-         * @return {?}
          */
         RadioButton.prototype.initFocus = function () {
             this._elementRef.nativeElement.querySelector('button').focus();
         };
         /**
-         * \@internal
-         * @param {?} ev
-         * @return {?}
+         * @internal
          */
         RadioButton.prototype._click = function (ev) {
             (void 0) /* console.debug */;
@@ -202,8 +174,7 @@ var __extends = (this && this.__extends) || (function () {
             this.ionSelect.emit(this.value);
         };
         /**
-         * \@internal
-         * @return {?}
+         * @internal
          */
         RadioButton.prototype.ngOnInit = function () {
             if (this._group && util_1.isPresent(this._group.value)) {
@@ -214,102 +185,52 @@ var __extends = (this && this.__extends) || (function () {
             }
         };
         /**
-         * \@internal
-         * @return {?}
+         * @internal
          */
         RadioButton.prototype.ngOnDestroy = function () {
             this._form.deregister(this);
             this._group && this._group.remove(this);
         };
+        RadioButton.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'ion-radio',
+                        template: '<div class="radio-icon" [class.radio-checked]="_checked"> ' +
+                            '<div class="radio-inner"></div> ' +
+                            '</div> ' +
+                            '<button role="radio" ' +
+                            'type="button" ' +
+                            'ion-button="item-cover" ' +
+                            '[id]="id" ' +
+                            '[attr.aria-checked]="_checked" ' +
+                            '[attr.aria-labelledby]="_labelId" ' +
+                            '[attr.aria-disabled]="_disabled" ' +
+                            'class="item-cover"> ' +
+                            '</button>',
+                        host: {
+                            '[class.radio-disabled]': '_disabled'
+                        },
+                        encapsulation: core_1.ViewEncapsulation.None,
+                    },] },
+        ];
+        /** @nocollapse */
+        RadioButton.ctorParameters = function () { return [
+            { type: form_1.Form, },
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+            { type: item_1.Item, decorators: [{ type: core_1.Optional },] },
+            { type: radio_group_1.RadioGroup, decorators: [{ type: core_1.Optional },] },
+        ]; };
+        RadioButton.propDecorators = {
+            'color': [{ type: core_1.Input },],
+            'ionSelect': [{ type: core_1.Output },],
+            'value': [{ type: core_1.Input },],
+            'checked': [{ type: core_1.Input },],
+            'disabled': [{ type: core_1.Input },],
+            '_click': [{ type: core_1.HostListener, args: ['click', ['$event'],] },],
+        };
         return RadioButton;
     }(ion_1.Ion));
-    RadioButton.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'ion-radio',
-                    template: '<div class="radio-icon" [class.radio-checked]="_checked"> ' +
-                        '<div class="radio-inner"></div> ' +
-                        '</div> ' +
-                        '<button role="radio" ' +
-                        'type="button" ' +
-                        'ion-button="item-cover" ' +
-                        '[id]="id" ' +
-                        '[attr.aria-checked]="_checked" ' +
-                        '[attr.aria-labelledby]="_labelId" ' +
-                        '[attr.aria-disabled]="_disabled" ' +
-                        'class="item-cover"> ' +
-                        '</button>',
-                    host: {
-                        '[class.radio-disabled]': '_disabled'
-                    },
-                    encapsulation: core_1.ViewEncapsulation.None,
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    RadioButton.ctorParameters = function () { return [
-        { type: form_1.Form, },
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-        { type: item_1.Item, decorators: [{ type: core_1.Optional },] },
-        { type: radio_group_1.RadioGroup, decorators: [{ type: core_1.Optional },] },
-    ]; };
-    RadioButton.propDecorators = {
-        'color': [{ type: core_1.Input },],
-        'ionSelect': [{ type: core_1.Output },],
-        'value': [{ type: core_1.Input },],
-        'checked': [{ type: core_1.Input },],
-        'disabled': [{ type: core_1.Input },],
-        '_click': [{ type: core_1.HostListener, args: ['click', ['$event'],] },],
-    };
     exports.RadioButton = RadioButton;
-    function RadioButton_tsickle_Closure_declarations() {
-        /** @type {?} */
-        RadioButton.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        RadioButton.ctorParameters;
-        /** @type {?} */
-        RadioButton.propDecorators;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        RadioButton.prototype._checked;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        RadioButton.prototype._disabled;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        RadioButton.prototype._labelId;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        RadioButton.prototype._value;
-        /**
-         * \@internal
-         * @type {?}
-         */
-        RadioButton.prototype.id;
-        /**
-         * \@output {any} Emitted when the radio button is selected.
-         * @type {?}
-         */
-        RadioButton.prototype.ionSelect;
-        /** @type {?} */
-        RadioButton.prototype._form;
-        /** @type {?} */
-        RadioButton.prototype._item;
-        /** @type {?} */
-        RadioButton.prototype._group;
-    }
 });
 //# sourceMappingURL=radio-button.js.map

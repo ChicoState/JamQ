@@ -4,8 +4,8 @@ import { DomController } from '../../platform/dom-controller';
 import { isPresent, isTrueProperty } from '../../util/util';
 import { Platform } from '../../platform/platform';
 /**
- * \@name Img
- * \@description
+ * @name Img
+ * @description
  * Two of the biggest cuprits of scroll jank is starting up a new HTTP
  * request, and rendering images. These two reasons is largely why
  * `ion-img` was created. The standard HTML `img` element is often a large
@@ -87,41 +87,24 @@ import { Platform } from '../../platform/platform';
  *
  */
 var Img = (function () {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _renderer
-     * @param {?} _plt
-     * @param {?} _content
-     * @param {?} _dom
-     */
     function Img(_elementRef, _renderer, _plt, _content, _dom) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._plt = _plt;
         this._content = _content;
         this._dom = _dom;
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._cache = true;
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._w = '';
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._h = '';
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._wQ = '';
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._hQ = '';
         /**
-         * \@input {string}  Set the `alt` attribute which gets assigned to
+         * @input {string}  Set the `alt` attribute which gets assigned to
          * the inner `img` element.
          */
         this.alt = '';
@@ -135,16 +118,11 @@ var Img = (function () {
     }
     Object.defineProperty(Img.prototype, "src", {
         /**
-         * \@input {string} The source of the image.
-         * @return {?}
+         * @input {string} The source of the image.
          */
         get: function () {
             return this._src;
         },
-        /**
-         * @param {?} newSrc
-         * @return {?}
-         */
         set: function (newSrc) {
             // if the source hasn't changed, then um, let's not change it
             if (newSrc !== this._src) {
@@ -166,7 +144,6 @@ var Img = (function () {
     });
     /**
      * @hidden
-     * @return {?}
      */
     Img.prototype.reset = function () {
         if (this._requestingSrc) {
@@ -184,7 +161,6 @@ var Img = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     Img.prototype.update = function () {
         var _this = this;
@@ -217,24 +193,20 @@ var Img = (function () {
         }
     };
     /**
-     * \@internal
-     * @param {?} isLoaded
-     * @return {?}
+     * @internal
      */
     Img.prototype._isLoaded = function (isLoaded) {
-        var /** @type {?} */ renderer = this._renderer;
-        var /** @type {?} */ ele = this._elementRef.nativeElement;
+        var renderer = this._renderer;
+        var ele = this._elementRef.nativeElement;
         renderer.setElementClass(ele, 'img-loaded', isLoaded);
         renderer.setElementClass(ele, 'img-unloaded', !isLoaded);
     };
     /**
-     * \@internal
-     * @param {?} srcAttr
-     * @return {?}
+     * @internal
      */
     Img.prototype._srcAttr = function (srcAttr) {
-        var /** @type {?} */ imgEle = this._img;
-        var /** @type {?} */ renderer = this._renderer;
+        var imgEle = this._img;
+        var renderer = this._renderer;
         if (imgEle && imgEle.src !== srcAttr) {
             renderer.setElementAttribute(this._img, 'src', srcAttr);
             renderer.setElementAttribute(this._img, 'alt', this.alt);
@@ -243,10 +215,9 @@ var Img = (function () {
     Object.defineProperty(Img.prototype, "top", {
         /**
          * @hidden
-         * @return {?}
          */
         get: function () {
-            var /** @type {?} */ bounds = this._getBounds();
+            var bounds = this._getBounds();
             return bounds && bounds.top || 0;
         },
         enumerable: true,
@@ -255,18 +226,14 @@ var Img = (function () {
     Object.defineProperty(Img.prototype, "bottom", {
         /**
          * @hidden
-         * @return {?}
          */
         get: function () {
-            var /** @type {?} */ bounds = this._getBounds();
+            var bounds = this._getBounds();
             return bounds && bounds.bottom || 0;
         },
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
     Img.prototype._getBounds = function () {
         if (this._bounds) {
             // we've been manually passed bounds data
@@ -276,18 +243,16 @@ var Img = (function () {
         if (!this._rect) {
             // we don't have bounds from virtual scroll
             // so let's do the raw DOM lookup w/ getBoundingClientRect
-            this._rect = ((this._elementRef.nativeElement)).getBoundingClientRect();
+            this._rect = this._elementRef.nativeElement.getBoundingClientRect();
             (void 0) /* console.debug */;
         }
         return this._rect;
     };
     Object.defineProperty(Img.prototype, "bounds", {
         /**
-         * \@input {any}  Sets the bounding rectangle of the element relative to the viewport.
+         * @input {any}  Sets the bounding rectangle of the element relative to the viewport.
          * When using `VirtualScroll`, each virtual item should pass its bounds to each
          * `ion-img`. The passed in data object should include `top` and `bottom` properties.
-         * @param {?} b
-         * @return {?}
          */
         set: function (b) {
             if (isPresent(b)) {
@@ -299,19 +264,14 @@ var Img = (function () {
     });
     Object.defineProperty(Img.prototype, "cache", {
         /**
-         * \@input {boolean}  After an image has been successfully downloaded, it can be cached
+         * @input {boolean}  After an image has been successfully downloaded, it can be cached
          * in-memory. This is useful for `VirtualScroll` by allowing image responses to be
          * cached, and not rendered, until after scrolling has completed, which allows for
          * smoother scrolling.
-         * @return {?}
          */
         get: function () {
             return this._cache;
         },
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set: function (val) {
             this._cache = isTrueProperty(val);
         },
@@ -320,11 +280,9 @@ var Img = (function () {
     });
     Object.defineProperty(Img.prototype, "width", {
         /**
-         * \@input {string}  Image width. If this property is not set it's important that
+         * @input {string}  Image width. If this property is not set it's important that
          * the dimensions are still set using CSS. If the dimension is just a number it
          * will assume the `px` unit.
-         * @param {?} val
-         * @return {?}
          */
         set: function (val) {
             this._wQ = getUnitValue(val);
@@ -335,11 +293,9 @@ var Img = (function () {
     });
     Object.defineProperty(Img.prototype, "height", {
         /**
-         * \@input {string}  Image height. If this property is not set it's important that
+         * @input {string}  Image height. If this property is not set it's important that
          * the dimensions are still set using CSS. If the dimension is just a number it
          * will assume the `px` unit.
-         * @param {?} val
-         * @return {?}
          */
         set: function (val) {
             this._hQ = getUnitValue(val);
@@ -348,16 +304,13 @@ var Img = (function () {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
     Img.prototype._setDims = function () {
         var _this = this;
         // only set the dimensions if we can render
         // and only if the dimensions have changed from when we last set it
         if (this.canRender && (this._w !== this._wQ || this._h !== this._hQ)) {
-            var /** @type {?} */ wrapperEle = this._elementRef.nativeElement;
-            var /** @type {?} */ renderer = this._renderer;
+            var wrapperEle = this._elementRef.nativeElement;
+            var renderer = this._renderer;
             this._dom.write(function () {
                 if (_this._w !== _this._wQ) {
                     _this._w = _this._wQ;
@@ -372,7 +325,6 @@ var Img = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     Img.prototype.ngAfterContentInit = function () {
         var _this = this;
@@ -384,147 +336,38 @@ var Img = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     Img.prototype.ngOnDestroy = function () {
         this._unreg && this._unreg();
         this._content && this._content.removeImg(this);
     };
+    Img.decorators = [
+        { type: Component, args: [{
+                    selector: 'ion-img',
+                    template: '<img>',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                },] },
+    ];
+    /** @nocollapse */
+    Img.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: Renderer, },
+        { type: Platform, },
+        { type: Content, decorators: [{ type: Optional },] },
+        { type: DomController, },
+    ]; };
+    Img.propDecorators = {
+        'src': [{ type: Input },],
+        'bounds': [{ type: Input },],
+        'cache': [{ type: Input },],
+        'width': [{ type: Input },],
+        'height': [{ type: Input },],
+        'alt': [{ type: Input },],
+    };
     return Img;
 }());
 export { Img };
-Img.decorators = [
-    { type: Component, args: [{
-                selector: 'ion-img',
-                template: '<img>',
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-            },] },
-];
-/**
- * @nocollapse
- */
-Img.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: Renderer, },
-    { type: Platform, },
-    { type: Content, decorators: [{ type: Optional },] },
-    { type: DomController, },
-]; };
-Img.propDecorators = {
-    'src': [{ type: Input },],
-    'bounds': [{ type: Input },],
-    'cache': [{ type: Input },],
-    'width': [{ type: Input },],
-    'height': [{ type: Input },],
-    'alt': [{ type: Input },],
-};
-function Img_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Img.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Img.ctorParameters;
-    /** @type {?} */
-    Img.propDecorators;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._src;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._requestingSrc;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._renderedSrc;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._hasLoaded;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._cache;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._bounds;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._rect;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._w;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._h;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._wQ;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._hQ;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._img;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._unreg;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Img.prototype.canRequest;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Img.prototype.canRender;
-    /**
-     * \@input {string}  Set the `alt` attribute which gets assigned to
-     * the inner `img` element.
-     * @type {?}
-     */
-    Img.prototype.alt;
-    /** @type {?} */
-    Img.prototype._elementRef;
-    /** @type {?} */
-    Img.prototype._renderer;
-    /** @type {?} */
-    Img.prototype._plt;
-    /** @type {?} */
-    Img.prototype._content;
-    /** @type {?} */
-    Img.prototype._dom;
-}
-/**
- * @param {?} val
- * @return {?}
- */
 function getUnitValue(val) {
     if (isPresent(val)) {
         if (typeof val === 'string') {

@@ -1,27 +1,20 @@
 /**
  * @hidden
- * @param {?} element
- * @return {?}
  */
 export function indexForItem(element) {
     return element['$ionIndex'];
 }
 /**
  * @hidden
- * @param {?} element
- * @return {?}
  */
 export function reorderListForItem(element) {
     return element['$ionReorderList'];
 }
 /**
  * @hidden
- * @param {?} node
- * @param {?} listNode
- * @return {?}
  */
 export function findReorderItem(node, listNode) {
-    var /** @type {?} */ nested = 0;
+    var nested = 0;
     while (node && nested < 4) {
         if (indexForItem(node) !== undefined) {
             if (listNode && node.parentNode !== listNode) {

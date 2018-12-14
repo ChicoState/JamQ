@@ -1,36 +1,33 @@
 import { Animation } from '../animations/animation';
 import { isPresent } from '../util/util';
 import { PageTransition } from './page-transition';
-const /** @type {?} */ DURATION = 500;
-const /** @type {?} */ EASING = 'cubic-bezier(0.36,0.66,0.04,1)';
-const /** @type {?} */ OPACITY = 'opacity';
-const /** @type {?} */ TRANSFORM = 'transform';
-const /** @type {?} */ TRANSLATEX = 'translateX';
-const /** @type {?} */ CENTER = '0%';
-const /** @type {?} */ OFF_OPACITY = 0.8;
-const /** @type {?} */ SHOW_BACK_BTN_CSS = 'show-back-button';
+const DURATION = 500;
+const EASING = 'cubic-bezier(0.36,0.66,0.04,1)';
+const OPACITY = 'opacity';
+const TRANSFORM = 'transform';
+const TRANSLATEX = 'translateX';
+const CENTER = '0%';
+const OFF_OPACITY = 0.8;
+const SHOW_BACK_BTN_CSS = 'show-back-button';
 export class IOSTransition extends PageTransition {
-    /**
-     * @return {?}
-     */
     init() {
         super.init();
-        const /** @type {?} */ plt = this.plt;
-        const /** @type {?} */ OFF_RIGHT = plt.isRTL ? '-99.5%' : '99.5%';
-        const /** @type {?} */ OFF_LEFT = plt.isRTL ? '33%' : '-33%';
-        const /** @type {?} */ enteringView = this.enteringView;
-        const /** @type {?} */ leavingView = this.leavingView;
-        const /** @type {?} */ opts = this.opts;
+        const plt = this.plt;
+        const OFF_RIGHT = plt.isRTL ? '-99.5%' : '99.5%';
+        const OFF_LEFT = plt.isRTL ? '33%' : '-33%';
+        const enteringView = this.enteringView;
+        const leavingView = this.leavingView;
+        const opts = this.opts;
         this.duration(isPresent(opts.duration) ? opts.duration : DURATION);
         this.easing(isPresent(opts.easing) ? opts.easing : EASING);
-        const /** @type {?} */ backDirection = (opts.direction === 'back');
-        const /** @type {?} */ enteringHasNavbar = (enteringView && enteringView.hasNavbar());
-        const /** @type {?} */ leavingHasNavbar = (leavingView && leavingView.hasNavbar());
+        const backDirection = (opts.direction === 'back');
+        const enteringHasNavbar = (enteringView && enteringView.hasNavbar());
+        const leavingHasNavbar = (leavingView && leavingView.hasNavbar());
         if (enteringView) {
             // get the native element for the entering page
-            const /** @type {?} */ enteringPageEle = enteringView.pageRef().nativeElement;
+            const enteringPageEle = enteringView.pageRef().nativeElement;
             // entering content
-            const /** @type {?} */ enteringContent = new Animation(plt, enteringView.contentRef());
+            const enteringContent = new Animation(plt, enteringView.contentRef());
             enteringContent.element(enteringPageEle.querySelectorAll('ion-header > *:not(ion-navbar),ion-footer > *'));
             this.add(enteringContent);
             if (backDirection) {
@@ -47,13 +44,13 @@ export class IOSTransition extends PageTransition {
             }
             if (enteringHasNavbar) {
                 // entering page has a navbar
-                const /** @type {?} */ enteringNavbarEle = enteringPageEle.querySelector('ion-navbar');
-                const /** @type {?} */ enteringNavBar = new Animation(plt, enteringNavbarEle);
+                const enteringNavbarEle = enteringPageEle.querySelector('ion-navbar');
+                const enteringNavBar = new Animation(plt, enteringNavbarEle);
                 this.add(enteringNavBar);
-                const /** @type {?} */ enteringTitle = new Animation(plt, enteringNavbarEle.querySelector('ion-title'));
-                const /** @type {?} */ enteringNavbarItems = new Animation(plt, enteringNavbarEle.querySelectorAll('ion-buttons,[menuToggle]'));
-                const /** @type {?} */ enteringNavbarBg = new Animation(plt, enteringNavbarEle.querySelector('.toolbar-background'));
-                const /** @type {?} */ enteringBackButton = new Animation(plt, enteringNavbarEle.querySelector('.back-button'));
+                const enteringTitle = new Animation(plt, enteringNavbarEle.querySelector('ion-title'));
+                const enteringNavbarItems = new Animation(plt, enteringNavbarEle.querySelectorAll('ion-buttons,[menuToggle]'));
+                const enteringNavbarBg = new Animation(plt, enteringNavbarEle.querySelector('.toolbar-background'));
+                const enteringBackButton = new Animation(plt, enteringNavbarEle.querySelector('.back-button'));
                 enteringNavBar
                     .add(enteringTitle)
                     .add(enteringNavbarItems)
@@ -83,7 +80,7 @@ export class IOSTransition extends PageTransition {
                         enteringBackButton
                             .beforeAddClass(SHOW_BACK_BTN_CSS)
                             .fromTo(OPACITY, 0.01, 1, true);
-                        const /** @type {?} */ enteringBackBtnText = new Animation(plt, enteringNavbarEle.querySelector('.back-button-text'));
+                        const enteringBackBtnText = new Animation(plt, enteringNavbarEle.querySelector('.back-button-text'));
                         enteringBackBtnText.fromTo(TRANSLATEX, (plt.isRTL ? '-100px' : '100px'), '0px');
                         enteringNavBar.add(enteringBackBtnText);
                     }
@@ -96,8 +93,8 @@ export class IOSTransition extends PageTransition {
         // setup leaving view
         if (leavingView && leavingView.pageRef()) {
             // leaving content
-            const /** @type {?} */ leavingPageEle = leavingView.pageRef().nativeElement;
-            const /** @type {?} */ leavingContent = new Animation(plt, leavingView.contentRef());
+            const leavingPageEle = leavingView.pageRef().nativeElement;
+            const leavingContent = new Animation(plt, leavingView.contentRef());
             leavingContent.element(leavingPageEle.querySelectorAll('ion-header > *:not(ion-navbar),ion-footer > *'));
             this.add(leavingContent);
             if (backDirection) {
@@ -115,12 +112,12 @@ export class IOSTransition extends PageTransition {
             }
             if (leavingHasNavbar) {
                 // leaving page has a navbar
-                const /** @type {?} */ leavingNavbarEle = leavingPageEle.querySelector('ion-navbar');
-                const /** @type {?} */ leavingNavBar = new Animation(plt, leavingNavbarEle);
-                const /** @type {?} */ leavingTitle = new Animation(plt, leavingNavbarEle.querySelector('ion-title'));
-                const /** @type {?} */ leavingNavbarItems = new Animation(plt, leavingNavbarEle.querySelectorAll('ion-buttons,[menuToggle]'));
-                const /** @type {?} */ leavingNavbarBg = new Animation(plt, leavingNavbarEle.querySelector('.toolbar-background'));
-                const /** @type {?} */ leavingBackButton = new Animation(plt, leavingNavbarEle.querySelector('.back-button'));
+                const leavingNavbarEle = leavingPageEle.querySelector('ion-navbar');
+                const leavingNavBar = new Animation(plt, leavingNavbarEle);
+                const leavingTitle = new Animation(plt, leavingNavbarEle.querySelector('ion-title'));
+                const leavingNavbarItems = new Animation(plt, leavingNavbarEle.querySelectorAll('ion-buttons,[menuToggle]'));
+                const leavingNavbarBg = new Animation(plt, leavingNavbarEle.querySelector('.toolbar-background'));
+                const leavingBackButton = new Animation(plt, leavingNavbarEle.querySelector('.back-button'));
                 leavingNavBar
                     .add(leavingTitle)
                     .add(leavingNavbarItems)
@@ -139,7 +136,7 @@ export class IOSTransition extends PageTransition {
                     leavingNavbarBg
                         .beforeClearStyles([OPACITY])
                         .fromTo(TRANSLATEX, CENTER, (plt.isRTL ? '-100%' : '100%'));
-                    let /** @type {?} */ leavingBackBtnText = new Animation(plt, leavingNavbarEle.querySelector('.back-button-text'));
+                    let leavingBackBtnText = new Animation(plt, leavingNavbarEle.querySelector('.back-button-text'));
                     leavingBackBtnText.fromTo(TRANSLATEX, CENTER, (plt.isRTL ? -300 : 300) + 'px');
                     leavingNavBar.add(leavingBackBtnText);
                 }

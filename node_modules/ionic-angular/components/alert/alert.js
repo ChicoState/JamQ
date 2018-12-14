@@ -17,11 +17,6 @@ import { ViewController } from '../../navigation/view-controller';
  */
 var Alert = (function (_super) {
     __extends(Alert, _super);
-    /**
-     * @param {?} app
-     * @param {?=} opts
-     * @param {?=} config
-     */
     function Alert(app, opts, config) {
         if (opts === void 0) { opts = {}; }
         var _this = this;
@@ -40,65 +35,56 @@ var Alert = (function (_super) {
         return _this;
     }
     /**
-     * @hidden
-     * @param {?} direction
-     * @return {?}
-     */
+    * @hidden
+    */
     Alert.prototype.getTransitionName = function (direction) {
-        var /** @type {?} */ key = (direction === 'back' ? 'alertLeave' : 'alertEnter');
+        var key = (direction === 'back' ? 'alertLeave' : 'alertEnter');
         return this._nav && this._nav.config.get(key);
     };
     /**
-     * @param {?} title
-     * @return {?}
+     * @param {string} title Alert title
      */
     Alert.prototype.setTitle = function (title) {
         this.data.title = title;
         return this;
     };
     /**
-     * @param {?} subTitle
-     * @return {?}
+     * @param {string} subTitle Alert subtitle
      */
     Alert.prototype.setSubTitle = function (subTitle) {
         this.data.subTitle = subTitle;
         return this;
     };
     /**
-     * @param {?} message
-     * @return {?}
+     * @param {string} message  Alert message content
      */
     Alert.prototype.setMessage = function (message) {
         this.data.message = message;
         return this;
     };
     /**
-     * @param {?} input
-     * @return {?}
+     * @param {object} input Alert input
      */
     Alert.prototype.addInput = function (input) {
         this.data.inputs.push(input);
         return this;
     };
     /**
-     * @param {?} button
-     * @return {?}
+     * @param {any} button Alert button
      */
     Alert.prototype.addButton = function (button) {
         this.data.buttons.push(button);
         return this;
     };
     /**
-     * @param {?} cssClass
-     * @return {?}
+     * @param {string} cssClass Set the CSS class names on the alert's outer wrapper.
      */
     Alert.prototype.setCssClass = function (cssClass) {
         this.data.cssClass = cssClass;
         return this;
     };
     /**
-     * @param {?} mode
-     * @return {?}
+     * @param {string} mode Set the mode of the alert (ios, md, wp).
      */
     Alert.prototype.setMode = function (mode) {
         this.data.mode = mode;
@@ -106,8 +92,8 @@ var Alert = (function (_super) {
     /**
      * Present the alert instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     Alert.prototype.present = function (navOptions) {
         if (navOptions === void 0) { navOptions = {}; }
@@ -117,8 +103,4 @@ var Alert = (function (_super) {
     return Alert;
 }(ViewController));
 export { Alert };
-function Alert_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Alert.prototype._app;
-}
 //# sourceMappingURL=alert.js.map

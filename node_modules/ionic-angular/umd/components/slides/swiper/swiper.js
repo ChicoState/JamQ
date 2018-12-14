@@ -31,11 +31,6 @@
     var swiper_effects_1 = require("./swiper-effects");
     var swiper_pagination_1 = require("./swiper-pagination");
     var swiper_zoom_1 = require("./swiper-zoom");
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @return {?}
-     */
     function initSwiper(s, plt) {
         // Classname
         s._classNames = [];
@@ -47,7 +42,7 @@
         }
         // Save instance in container HTML Element and in data
         s.container.swiper = s;
-        var /** @type {?} */ containerModifierClass = swiper_utils_1.CLS.containerModifier;
+        var containerModifierClass = swiper_utils_1.CLS.containerModifier;
         s._classNames.push(containerModifierClass + s.direction);
         if (s.freeMode) {
             s._classNames.push(containerModifierClass + 'free-mode');
@@ -63,7 +58,7 @@
         if (s.touchReleaseOnEdges) {
             s.resistanceRatio = 0;
         }
-        var /** @type {?} */ effect = s.effect;
+        var effect = s.effect;
         // Coverflow / 3D
         if (['cube', 'coverflow', 'flip'].indexOf(effect) >= 0) {
             s.watchSlidesProgress = true;
@@ -92,10 +87,10 @@
             s.virtualTranslate = true;
         }
         // Wrapper
-        s._wrapper = (s.container.querySelector('.' + swiper_utils_1.CLS.wrapper));
+        s._wrapper = s.container.querySelector('.' + swiper_utils_1.CLS.wrapper);
         // Pagination
         if (s.paginationType) {
-            s._paginationContainer = (s.container.querySelector('.swiper-pagination'));
+            s._paginationContainer = s.container.querySelector('.swiper-pagination');
             if (s.paginationType === 'bullets') {
                 s._paginationContainer.classList.add(swiper_utils_1.CLS.paginationModifier + 'clickable');
             }
@@ -176,16 +171,14 @@
         }
     }
     exports.initSwiper = initSwiper;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @return {?}
-     */
+    /*=========================
+      Autoplay
+      ===========================*/
     function autoplay(s, plt) {
-        var /** @type {?} */ autoplayDelay = s.autoplay;
-        var /** @type {?} */ activeSlide = s._slides[s._activeIndex];
+        var autoplayDelay = s.autoplay;
+        var activeSlide = s._slides[s._activeIndex];
         if (activeSlide.hasAttribute('data-swiper-autoplay')) {
-            autoplayDelay = ((activeSlide.getAttribute('data-swiper-autoplay') || s.autoplay));
+            autoplayDelay = (activeSlide.getAttribute('data-swiper-autoplay') || s.autoplay);
         }
         s._autoplayTimeoutId = plt.timeout(function () {
             s._zone.run(function () {
@@ -212,11 +205,6 @@
             });
         }, autoplayDelay);
     }
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @return {?}
-     */
     function startAutoplay(s, plt) {
         if (typeof s._autoplayTimeoutId !== 'undefined')
             return false;
@@ -230,10 +218,6 @@
         autoplay(s, plt);
     }
     exports.startAutoplay = startAutoplay;
-    /**
-     * @param {?} s
-     * @return {?}
-     */
     function stopAutoplay(s) {
         if (!s._autoplayTimeoutId)
             return;
@@ -246,12 +230,6 @@
         });
     }
     exports.stopAutoplay = stopAutoplay;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @param {?=} speed
-     * @return {?}
-     */
     function pauseAutoplay(s, plt, speed) {
         if (s._autoplayPaused)
             return;
@@ -277,18 +255,17 @@
         }
     }
     exports.pauseAutoplay = pauseAutoplay;
-    /**
-     * @param {?} s
-     * @return {?}
-     */
+    /*=========================
+      Slider/slides sizes
+      ===========================*/
     function updateAutoHeight(s) {
-        var /** @type {?} */ activeSlides = [];
-        var /** @type {?} */ newHeight = 0;
-        var /** @type {?} */ i;
+        var activeSlides = [];
+        var newHeight = 0;
+        var i;
         // Find slides currently in view
         if (s.slidesPerView !== 'auto' && s.slidesPerView > 1) {
-            for (i = 0; i < Math.ceil(/** @type {?} */ (s.slidesPerView)); i++) {
-                var /** @type {?} */ index = s._activeIndex + i;
+            for (i = 0; i < Math.ceil(s.slidesPerView); i++) {
+                var index = s._activeIndex + i;
                 if (index > s._slides.length)
                     break;
                 activeSlides.push(s._slides[index]);
@@ -300,7 +277,7 @@
         // Find new height from heighest slide in view
         for (i = 0; i < activeSlides.length; i++) {
             if (typeof activeSlides[i] !== 'undefined') {
-                var /** @type {?} */ height = activeSlides[i].offsetHeight;
+                var height = activeSlides[i].offsetHeight;
                 newHeight = height > newHeight ? height : newHeight;
             }
         }
@@ -310,15 +287,10 @@
         }
     }
     exports.updateAutoHeight = updateAutoHeight;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @return {?}
-     */
     function updateContainerSize(s, plt) {
-        var /** @type {?} */ container = s.container;
-        var /** @type {?} */ width;
-        var /** @type {?} */ height;
+        var container = s.container;
+        var width;
+        var height;
         if (typeof s.width !== 'undefined') {
             // manually assign user width
             width = s.width;
@@ -337,7 +309,7 @@
             return;
         }
         // Subtract paddings
-        var /** @type {?} */ containerStyles = plt.getElementComputedStyle(container);
+        var containerStyles = plt.getElementComputedStyle(container);
         width = width - parseInt(containerStyles.paddingLeft, 10) - parseInt(containerStyles.paddingRight, 10);
         height = height - parseInt(containerStyles.paddingTop, 10) - parseInt(containerStyles.paddingBottom, 10);
         // Store values
@@ -346,21 +318,16 @@
         s._renderedSize = swiper_utils_1.isHorizontal(s) ? width : height;
     }
     exports.updateContainerSize = updateContainerSize;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @return {?}
-     */
     function updateSlidesSize(s, plt) {
-        s._slides = ((s._wrapper.querySelectorAll('.' + swiper_utils_1.CLS.slide)));
+        s._slides = s._wrapper.querySelectorAll('.' + swiper_utils_1.CLS.slide);
         s._snapGrid = [];
         s._slidesGrid = [];
         s._slidesSizesGrid = [];
-        var /** @type {?} */ spaceBetween = s.spaceBetween;
-        var /** @type {?} */ slidePosition = -s.slidesOffsetBefore;
-        var /** @type {?} */ i;
-        var /** @type {?} */ prevSlideSize = 0;
-        var /** @type {?} */ index = 0;
+        var spaceBetween = s.spaceBetween;
+        var slidePosition = -s.slidesOffsetBefore;
+        var i;
+        var prevSlideSize = 0;
+        var index = 0;
         if (typeof s._renderedSize === 'undefined')
             return;
         if (typeof spaceBetween === 'string' && spaceBetween.indexOf('%') >= 0) {
@@ -374,7 +341,7 @@
         else {
             swiper_utils_1.inlineStyle(s._slides, { marginRight: '', marginBottom: '' });
         }
-        var /** @type {?} */ slidesNumberEvenToRows;
+        var slidesNumberEvenToRows;
         if (s.slidesPerColumn > 1) {
             if (Math.floor(s._slides.length / s.slidesPerColumn) === s._slides.length / s.slidesPerColumn) {
                 slidesNumberEvenToRows = s._slides.length;
@@ -383,22 +350,22 @@
                 slidesNumberEvenToRows = Math.ceil(s._slides.length / s.slidesPerColumn) * s.slidesPerColumn;
             }
             if (s.slidesPerView !== 'auto' && s.slidesPerColumnFill === 'row') {
-                slidesNumberEvenToRows = Math.max(slidesNumberEvenToRows, /** @type {?} */ (s.slidesPerView) * s.slidesPerColumn);
+                slidesNumberEvenToRows = Math.max(slidesNumberEvenToRows, s.slidesPerView * s.slidesPerColumn);
             }
         }
         // Calc slides
-        var /** @type {?} */ slideSize;
-        var /** @type {?} */ slidesPerColumn = s.slidesPerColumn;
-        var /** @type {?} */ slidesPerRow = slidesNumberEvenToRows / slidesPerColumn;
-        var /** @type {?} */ numFullColumns = slidesPerRow - (s.slidesPerColumn * slidesPerRow - s._slides.length);
+        var slideSize;
+        var slidesPerColumn = s.slidesPerColumn;
+        var slidesPerRow = slidesNumberEvenToRows / slidesPerColumn;
+        var numFullColumns = slidesPerRow - (s.slidesPerColumn * slidesPerRow - s._slides.length);
         for (i = 0; i < s._slides.length; i++) {
             slideSize = 0;
-            var /** @type {?} */ slide = s._slides[i];
+            var slide = s._slides[i];
             if (s.slidesPerColumn > 1) {
                 // Set slides order
-                var /** @type {?} */ newSlideOrderIndex;
-                var /** @type {?} */ column;
-                var /** @type {?} */ row;
+                var newSlideOrderIndex;
+                var column;
+                var row;
                 if (s.slidesPerColumnFill === 'column') {
                     column = Math.floor(i / slidesPerColumn);
                     row = i - column * slidesPerColumn;
@@ -421,8 +388,8 @@
                     row = Math.floor(i / slidesPerRow);
                     column = i - row * slidesPerRow;
                 }
-                var /** @type {?} */ cssVal = (row !== 0 && s.spaceBetween) && (s.spaceBetween + 'px');
-                var /** @type {?} */ cssObj = {};
+                var cssVal = (row !== 0 && s.spaceBetween) && (s.spaceBetween + 'px');
+                var cssObj = {};
                 if (swiper_utils_1.isHorizontal(s)) {
                     cssObj['marginTop'] = cssVal;
                 }
@@ -430,14 +397,14 @@
                     cssObj['marginLeft'] = cssVal;
                 }
                 swiper_utils_1.inlineStyle(slide, cssObj);
-                slide.setAttribute('data-swiper-column', /** @type {?} */ (column));
-                slide.setAttribute('data-swiper-row', /** @type {?} */ (row));
+                slide.setAttribute('data-swiper-column', column);
+                slide.setAttribute('data-swiper-row', row);
             }
             if (slide.style.display === 'none') {
                 continue;
             }
             if (s.slidesPerView === 'auto') {
-                var /** @type {?} */ styles = plt.getElementComputedStyle(slide);
+                var styles = plt.getElementComputedStyle(slide);
                 if (swiper_utils_1.isHorizontal(s)) {
                     slideSize = slide.offsetWidth + parseFloat(styles.marginRight) + parseFloat(styles.marginLeft);
                 }
@@ -448,7 +415,7 @@
                     slideSize = swiper_utils_1.round(slideSize);
             }
             else {
-                slideSize = (s._renderedSize - ((s.slidesPerView) - 1) * spaceBetween) / (s.slidesPerView);
+                slideSize = (s._renderedSize - (s.slidesPerView - 1) * spaceBetween) / s.slidesPerView;
                 if (s.roundLengths)
                     slideSize = swiper_utils_1.round(slideSize);
                 if (swiper_utils_1.isHorizontal(s)) {
@@ -481,7 +448,7 @@
             index++;
         }
         s._virtualSize = Math.max(s._virtualSize, s._renderedSize) + s.slidesOffsetAfter;
-        var /** @type {?} */ newSlidesGrid;
+        var newSlidesGrid;
         if (s._rtl && (s.effect === 'slide' || s.effect === 'coverflow')) {
             swiper_utils_1.inlineStyle(s._wrapper, { width: s._virtualSize + s.spaceBetween + 'px' });
         }
@@ -544,17 +511,16 @@
         }
     }
     exports.updateSlidesSize = updateSlidesSize;
-    /**
-     * @param {?} s
-     * @return {?}
-     */
+    /*=========================
+      Dynamic Slides Per View
+      ===========================*/
     function currentSlidesPerView(s) {
-        var /** @type {?} */ spv = 1;
-        var /** @type {?} */ i;
-        var /** @type {?} */ j;
+        var spv = 1;
+        var i;
+        var j;
         if (s.centeredSlides) {
-            var /** @type {?} */ size = s._slides[s._activeIndex].swiperSlideSize;
-            var /** @type {?} */ breakLoop;
+            var size = s._slides[s._activeIndex].swiperSlideSize;
+            var breakLoop;
             for (i = s._activeIndex + 1; i < s._slides.length; i++) {
                 if (s._slides[i] && !breakLoop) {
                     size += s._slides[i].swiperSlideSize;
@@ -582,12 +548,9 @@
         return spv;
     }
     exports.currentSlidesPerView = currentSlidesPerView;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @param {?=} updateTranslate
-     * @return {?}
-     */
+    /*=========================
+      Common update method
+      ===========================*/
     function update(s, plt, updateTranslate) {
         if (!s)
             return;
@@ -599,11 +562,8 @@
         if (s.zoom) {
             swiper_zoom_1.resetZoomEvents(s, plt);
         }
-        var /** @type {?} */ translated;
-        var /** @type {?} */ newTranslate;
-        /**
-         * @return {?}
-         */
+        var translated;
+        var newTranslate;
         function forceSetTranslate() {
             newTranslate = Math.min(Math.max(s._translate, swiper_utils_1.maxTranslate(s)), swiper_utils_1.minTranslate(s));
             swiper_transition_1.setWrapperTranslate(s, plt, newTranslate);
@@ -637,73 +597,64 @@
         }
     }
     exports.update = update;
-    /**
-     * @param {?} s
-     * @return {?}
-     */
+    /*=========================
+      Loop
+      ===========================*/
+    // Create looped slides
     function createLoop(s) {
         // Remove duplicated slides
         swiper_utils_1.eachChild(s._wrapper, '.' + swiper_utils_1.CLS.slide + '.' + swiper_utils_1.CLS.slideDuplicate, function (ele) {
             ele.parentElement.removeChild(ele);
         });
-        var /** @type {?} */ slides = (s._wrapper.querySelectorAll('.' + swiper_utils_1.CLS.slide));
+        var slides = s._wrapper.querySelectorAll('.' + swiper_utils_1.CLS.slide);
         if (s.slidesPerView === 'auto' && !s.loopedSlides) {
             s.loopedSlides = slides.length;
         }
-        s.loopedSlides = parseInt(/** @type {?} */ ((s.loopedSlides || s.slidesPerView)), 10);
+        s.loopedSlides = parseInt((s.loopedSlides || s.slidesPerView), 10);
         s.loopedSlides = s.loopedSlides + s.loopAdditionalSlides;
         if (s.loopedSlides > slides.length) {
             s.loopedSlides = slides.length;
         }
-        var /** @type {?} */ prependSlides = [];
-        var /** @type {?} */ appendSlides = [];
-        for (var /** @type {?} */ i = 0; i < slides.length; i++) {
-            var /** @type {?} */ slide = slides[i];
+        var prependSlides = [];
+        var appendSlides = [];
+        for (var i = 0; i < slides.length; i++) {
+            var slide = slides[i];
             if (i < s.loopedSlides)
                 appendSlides.push(slide);
             if (i < slides.length && i >= slides.length - s.loopedSlides)
                 prependSlides.push(slide);
-            slide.setAttribute('data-swiper-slide-index', /** @type {?} */ (i));
+            slide.setAttribute('data-swiper-slide-index', i);
         }
         for (i = 0; i < appendSlides.length; i++) {
-            var /** @type {?} */ appendClone = appendSlides[i].cloneNode(true);
+            var appendClone = appendSlides[i].cloneNode(true);
             swiper_utils_1.addClass(appendClone, swiper_utils_1.CLS.slideDuplicate);
             s._wrapper.appendChild(appendClone);
         }
         for (i = prependSlides.length - 1; i >= 0; i--) {
-            var /** @type {?} */ prependClone = prependSlides[i].cloneNode(true);
+            var prependClone = prependSlides[i].cloneNode(true);
             swiper_utils_1.addClass(prependClone, swiper_utils_1.CLS.slideDuplicate);
             s._wrapper.insertBefore(prependClone, s._wrapper.firstElementChild);
         }
     }
-    /**
-     * @param {?} s
-     * @return {?}
-     */
     function destroyLoop(s) {
         swiper_utils_1.eachChild(s._wrapper, '.' + swiper_utils_1.CLS.slide + '.' + swiper_utils_1.CLS.slideDuplicate, function (ele) {
             ele.parentElement.removeChild(ele);
         });
         if (s._slides) {
-            for (var /** @type {?} */ i = 0; i < s._slides.length; i++) {
+            for (var i = 0; i < s._slides.length; i++) {
                 s._slides[i].removeAttribute('data-swiper-slide-index');
             }
         }
     }
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @return {?}
-     */
     function fixLoop(s, plt) {
-        var /** @type {?} */ newIndex;
+        var newIndex;
         if (s._activeIndex < s.loopedSlides) {
             // Fix For Negative Oversliding
             newIndex = s._slides.length - s.loopedSlides * 3 + s._activeIndex;
             newIndex = newIndex + s.loopedSlides;
             slideTo(s, plt, newIndex, 0, false, true);
         }
-        else if ((s.slidesPerView === 'auto' && s._activeIndex >= s.loopedSlides * 2) || (s._activeIndex > s._slides.length - (s.slidesPerView) * 2)) {
+        else if ((s.slidesPerView === 'auto' && s._activeIndex >= s.loopedSlides * 2) || (s._activeIndex > s._slides.length - s.slidesPerView * 2)) {
             // Fix For Positive Oversliding
             newIndex = -s._slides.length + s._activeIndex + s.loopedSlides;
             newIndex = newIndex + s.loopedSlides;
@@ -711,15 +662,9 @@
         }
     }
     exports.fixLoop = fixLoop;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @param {?=} slideIndex
-     * @param {?=} speed
-     * @param {?=} runCallbacks
-     * @param {?=} internal
-     * @return {?}
-     */
+    /*=========================
+      Transitions
+      ===========================*/
     function slideTo(s, plt, slideIndex, speed, runCallbacks, internal) {
         if (runCallbacks === void 0) { runCallbacks = true; }
         if (typeof slideIndex === 'undefined')
@@ -729,7 +674,7 @@
         s._snapIndex = Math.floor(slideIndex / s.slidesPerGroup);
         if (s._snapIndex >= s._snapGrid.length)
             s._snapIndex = s._snapGrid.length - 1;
-        var /** @type {?} */ translate = -s._snapGrid[s._snapIndex];
+        var translate = -s._snapGrid[s._snapIndex];
         // Stop autoplay
         if (s.autoplay && s._autoplaying) {
             if (internal || !s.autoplayDisableOnInteraction) {
@@ -788,11 +733,6 @@
         return true;
     }
     exports.slideTo = slideTo;
-    /**
-     * @param {?} s
-     * @param {?=} runCallbacks
-     * @return {?}
-     */
     function onTransitionStart(s, runCallbacks) {
         if (runCallbacks === void 0) { runCallbacks = true; }
         if (s.autoHeight) {
@@ -814,12 +754,6 @@
         }
     }
     exports.onTransitionStart = onTransitionStart;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @param {?=} runCallbacks
-     * @return {?}
-     */
     function onTransitionEnd(s, plt, runCallbacks) {
         if (runCallbacks === void 0) { runCallbacks = true; }
         s._animating = false;
@@ -840,14 +774,6 @@
         }
     }
     exports.onTransitionEnd = onTransitionEnd;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @param {?=} runCallbacks
-     * @param {?=} speed
-     * @param {?=} internal
-     * @return {?}
-     */
     function slideNext(s, plt, runCallbacks, speed, internal) {
         if (s.loop) {
             if (s._animating)
@@ -856,21 +782,13 @@
             s.container.clientLeft;
             return slideTo(s, plt, s._activeIndex + s.slidesPerGroup, speed, runCallbacks, internal);
         }
-        var /** @type {?} */ nextSlide = s._activeIndex + s.slidesPerGroup;
+        var nextSlide = s._activeIndex + s.slidesPerGroup;
         if (nextSlide < s._slides.length) {
             return slideTo(s, plt, nextSlide, speed, runCallbacks, internal);
         }
         return false;
     }
     exports.slideNext = slideNext;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @param {?=} runCallbacks
-     * @param {?=} speed
-     * @param {?=} internal
-     * @return {?}
-     */
     function slidePrev(s, plt, runCallbacks, speed, internal) {
         if (s.loop) {
             if (s._animating)
@@ -879,46 +797,31 @@
             s.container.clientLeft;
             return slideTo(s, plt, s._activeIndex - 1, speed, runCallbacks, internal);
         }
-        var /** @type {?} */ previousSlide = s._activeIndex - 1;
+        var previousSlide = s._activeIndex - 1;
         if (previousSlide >= 0) {
             return slideTo(s, plt, s._activeIndex - 1, speed, runCallbacks, internal);
         }
         return false;
     }
     exports.slidePrev = slidePrev;
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @param {?=} runCallbacks
-     * @param {?=} speed
-     * @return {?}
-     */
     function slideReset(s, plt, runCallbacks, speed) {
         return slideTo(s, plt, s._activeIndex, speed, runCallbacks, true);
     }
     exports.slideReset = slideReset;
-    /**
-     * @param {?} s
-     * @return {?}
-     */
     function disableTouchControl(s) {
         s.onlyExternal = true;
         return true;
     }
     exports.disableTouchControl = disableTouchControl;
-    /**
-     * @param {?} s
-     * @return {?}
-     */
     function enableTouchControl(s) {
         s.onlyExternal = false;
         return true;
     }
     exports.enableTouchControl = enableTouchControl;
-    /**
-     * @param {?} s
-     * @return {?}
-     */
+    /*=========================
+      Translate/transition helpers
+      ===========================*/
+    // Cleanup dynamic styles
     function cleanupStyles(s) {
         if (!s.container || !s._wrapper) {
             // fix #10830
@@ -939,8 +842,8 @@
                 swiper_utils_1.CLS.slideNext,
                 swiper_utils_1.CLS.slidePrev
             ]);
-            for (var /** @type {?} */ i = 0; i < s._slides.length; i++) {
-                var /** @type {?} */ slide = s._slides[i];
+            for (var i = 0; i < s._slides.length; i++) {
+                var slide = s._slides[i];
                 slide.removeAttribute('style');
                 slide.removeAttribute('data-swiper-column');
                 slide.removeAttribute('data-swiper-row');
@@ -952,10 +855,7 @@
         swiper_utils_1.removeClass(s.prevButton, swiper_utils_1.CLS.buttonDisabled);
         swiper_utils_1.removeClass(s.nextButton, swiper_utils_1.CLS.buttonDisabled);
     }
-    /**
-     * @param {?} s
-     * @return {?}
-     */
+    // Destroy
     function destroySwiper(s) {
         // Stop autoplay
         stopAutoplay(s);

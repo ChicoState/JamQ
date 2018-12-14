@@ -15,53 +15,32 @@
     var picker_1 = require("./picker");
     /**
      * @hidden
-     * \@name PickerController
-     * \@description
+     * @name PickerController
+     * @description
      *
      */
     var PickerController = (function () {
-        /**
-         * @param {?} _app
-         * @param {?} config
-         */
         function PickerController(_app, config) {
             this._app = _app;
             this.config = config;
         }
         /**
          * Open a picker.
-         * @param {?=} opts
-         * @return {?}
          */
         PickerController.prototype.create = function (opts) {
             if (opts === void 0) { opts = {}; }
             return new picker_1.Picker(this._app, opts, this.config);
         };
+        PickerController.decorators = [
+            { type: core_1.Injectable },
+        ];
+        /** @nocollapse */
+        PickerController.ctorParameters = function () { return [
+            { type: app_1.App, },
+            { type: config_1.Config, },
+        ]; };
         return PickerController;
     }());
-    PickerController.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    PickerController.ctorParameters = function () { return [
-        { type: app_1.App, },
-        { type: config_1.Config, },
-    ]; };
     exports.PickerController = PickerController;
-    function PickerController_tsickle_Closure_declarations() {
-        /** @type {?} */
-        PickerController.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        PickerController.ctorParameters;
-        /** @type {?} */
-        PickerController.prototype._app;
-        /** @type {?} */
-        PickerController.prototype.config;
-    }
 });
 //# sourceMappingURL=picker-controller.js.map

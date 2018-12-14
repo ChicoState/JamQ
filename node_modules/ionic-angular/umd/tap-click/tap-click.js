@@ -24,13 +24,6 @@
      * @hidden
      */
     var TapClick = (function () {
-        /**
-         * @param {?} config
-         * @param {?} plt
-         * @param {?} dom
-         * @param {?} app
-         * @param {?} gestureCtrl
-         */
         function TapClick(config, plt, dom, app, gestureCtrl) {
             this.plt = plt;
             this.app = app;
@@ -57,10 +50,6 @@
             });
             this.pointerEvents.mouseWait = DISABLE_NATIVE_CLICK_AMOUNT;
         }
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         TapClick.prototype.pointerStart = function (ev) {
             if (this.startCoord) {
                 return false;
@@ -74,29 +63,20 @@
                 this.startCoord = dom_1.pointerCoord(ev);
                 return true;
             }
-            var /** @type {?} */ activatableEle = getActivatableTarget(ev.target);
-            if (!activatableEle) {
+            this.activatableEle = getActivatableTarget(ev.target);
+            if (!this.activatableEle) {
                 this.startCoord = null;
                 return false;
             }
             this.startCoord = dom_1.pointerCoord(ev);
-            this.activator && this.activator.downAction(ev, activatableEle, this.startCoord);
+            this.activator && this.activator.downAction(ev, this.activatableEle, this.startCoord);
             return true;
         };
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         TapClick.prototype.pointerMove = function (ev) {
             if (this.startCoord && this.shouldCancelEvent(ev)) {
                 this.pointerCancel(ev);
             }
         };
-        /**
-         * @param {?} ev
-         * @param {?} pointerEventType
-         * @return {?}
-         */
         TapClick.prototype.pointerEnd = function (ev, pointerEventType) {
             if (!this.dispatchClick)
                 return;
@@ -105,7 +85,7 @@
                 return;
             }
             if (this.activator && ev.target !== this.plt.doc()) {
-                var /** @type {?} */ activatableEle = getActivatableTarget(ev.target);
+                var activatableEle = getActivatableTarget(ev.target) || this.activatableEle;
                 if (activatableEle) {
                     this.activator.upAction(ev, activatableEle, this.startCoord);
                 }
@@ -114,31 +94,21 @@
                 this.handleTapPolyfill(ev);
             }
             this.startCoord = null;
+            this.activatableEle = null;
         };
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         TapClick.prototype.pointerCancel = function (ev) {
             (void 0) /* console.debug */;
             this.startCoord = null;
+            this.activatableEle = null;
             this.dispatchClick = false;
             this.activator && this.activator.clearState(false);
             this.pointerEvents.stop();
         };
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         TapClick.prototype.shouldCancelEvent = function (ev) {
             return (this.app.isScrolling() ||
                 this.gestureCtrl.isCaptured() ||
                 dom_1.hasPointerMoved(POINTER_TOLERANCE, this.startCoord, dom_1.pointerCoord(ev)));
         };
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         TapClick.prototype.click = function (ev) {
             if (this.shouldCancelClick(ev)) {
                 ev.preventDefault();
@@ -148,17 +118,13 @@
             if (this.activator && this.plt.doc() !== ev.target) {
                 // cool, a click is gonna happen, let's tell the activator
                 // so the element can get the given "active" style
-                var /** @type {?} */ activatableEle = getActivatableTarget(ev.target);
+                var activatableEle = getActivatableTarget(ev.target);
                 if (activatableEle) {
                     this.activator.clickAction(ev, activatableEle, this.startCoord);
                 }
             }
             (void 0) /* runInDev */;
         };
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         TapClick.prototype.shouldCancelClick = function (ev) {
             if (this.usePolyfill) {
                 if (!ev.isIonicTap && this.isDisabledNativeClick()) {
@@ -180,13 +146,9 @@
             }
             return false;
         };
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         TapClick.prototype.profileClickDelay = function (ev) {
             if (this.lastTouchEnd) {
-                var /** @type {?} */ diff = Date.now() - this.lastTouchEnd;
+                var diff = Date.now() - this.lastTouchEnd;
                 if (diff < 100) {
                     (void 0) /* console.debug */;
                 }
@@ -199,16 +161,12 @@
                 (void 0) /* console.debug */;
             }
         };
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         TapClick.prototype.handleTapPolyfill = function (ev) {
             (void 0) /* assert */;
             // only dispatch mouse click events from a touchend event
             // when tapPolyfill config is true, and the startCoordand endCoord
             // are not too far off from each other
-            var /** @type {?} */ endCoord = dom_1.pointerCoord(ev);
+            var endCoord = dom_1.pointerCoord(ev);
             if (dom_1.hasPointerMoved(POINTER_TOLERANCE, this.startCoord, endCoord)) {
                 (void 0) /* console.debug */;
                 return;
@@ -222,72 +180,32 @@
             else {
                 // dispatch a mouse click event
                 (void 0) /* console.debug */;
-                var /** @type {?} */ clickEvent = this.plt.doc().createEvent('MouseEvents');
+                var clickEvent = this.plt.doc().createEvent('MouseEvents');
                 clickEvent.initMouseEvent('click', true, true, this.plt.win(), 1, 0, 0, endCoord.x, endCoord.y, false, false, false, false, 0, null);
                 clickEvent.isIonicTap = true;
                 ev.target.dispatchEvent(clickEvent);
             }
         };
-        /**
-         * @return {?}
-         */
         TapClick.prototype.isDisabledNativeClick = function () {
             return this.disableClick > Date.now();
         };
+        TapClick.decorators = [
+            { type: core_1.Injectable },
+        ];
+        /** @nocollapse */
+        TapClick.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: platform_1.Platform, },
+            { type: dom_controller_1.DomController, },
+            { type: app_1.App, },
+            { type: gesture_controller_1.GestureController, },
+        ]; };
         return TapClick;
     }());
-    TapClick.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    TapClick.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: platform_1.Platform, },
-        { type: dom_controller_1.DomController, },
-        { type: app_1.App, },
-        { type: gesture_controller_1.GestureController, },
-    ]; };
     exports.TapClick = TapClick;
-    function TapClick_tsickle_Closure_declarations() {
-        /** @type {?} */
-        TapClick.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        TapClick.ctorParameters;
-        /** @type {?} */
-        TapClick.prototype.disableClick;
-        /** @type {?} */
-        TapClick.prototype.usePolyfill;
-        /** @type {?} */
-        TapClick.prototype.activator;
-        /** @type {?} */
-        TapClick.prototype.startCoord;
-        /** @type {?} */
-        TapClick.prototype.events;
-        /** @type {?} */
-        TapClick.prototype.pointerEvents;
-        /** @type {?} */
-        TapClick.prototype.lastTouchEnd;
-        /** @type {?} */
-        TapClick.prototype.dispatchClick;
-        /** @type {?} */
-        TapClick.prototype.plt;
-        /** @type {?} */
-        TapClick.prototype.app;
-        /** @type {?} */
-        TapClick.prototype.gestureCtrl;
-    }
-    /**
-     * @param {?} ele
-     * @return {?}
-     */
     function getActivatableTarget(ele) {
-        var /** @type {?} */ targetEle = ele;
-        for (var /** @type {?} */ x = 0; x < 10; x++) {
+        var targetEle = ele;
+        for (var x = 0; x < 10; x++) {
             if (!targetEle)
                 break;
             if (isActivatable(targetEle)) {
@@ -299,14 +217,12 @@
     }
     /**
      * @hidden
-     * @param {?} ele
-     * @return {?}
      */
     function isActivatable(ele) {
         if (ACTIVATABLE_ELEMENTS.indexOf(ele.tagName) > -1) {
             return true;
         }
-        for (var /** @type {?} */ i = 0, /** @type {?} */ l = ACTIVATABLE_ATTRIBUTES.length; i < l; i++) {
+        for (var i = 0, l = ACTIVATABLE_ATTRIBUTES.length; i < l; i++) {
             if (ele.hasAttribute && ele.hasAttribute(ACTIVATABLE_ATTRIBUTES[i])) {
                 return true;
             }
@@ -314,18 +230,12 @@
         return false;
     }
     exports.isActivatable = isActivatable;
-    var /** @type {?} */ ACTIVATABLE_ELEMENTS = ['A', 'BUTTON'];
-    var /** @type {?} */ ACTIVATABLE_ATTRIBUTES = ['tappable', 'ion-button'];
-    var /** @type {?} */ POINTER_TOLERANCE = 100;
-    var /** @type {?} */ DISABLE_NATIVE_CLICK_AMOUNT = 2500;
+    var ACTIVATABLE_ELEMENTS = ['A', 'BUTTON'];
+    var ACTIVATABLE_ATTRIBUTES = ['tappable', 'ion-button'];
+    var POINTER_TOLERANCE = 100;
+    var DISABLE_NATIVE_CLICK_AMOUNT = 2500;
     /**
      * @hidden
-     * @param {?} config
-     * @param {?} plt
-     * @param {?} dom
-     * @param {?} app
-     * @param {?} gestureCtrl
-     * @return {?}
      */
     function setupTapClick(config, plt, dom, app, gestureCtrl) {
         return function () {

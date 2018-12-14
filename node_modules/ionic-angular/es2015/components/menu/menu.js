@@ -14,8 +14,8 @@ import { Platform } from '../../platform/platform';
 import { UIEventManager } from '../../gestures/ui-event-manager';
 import { RootNode } from '../split-pane/split-pane';
 /**
- * \@name Menu
- * \@description
+ * @name Menu
+ * @description
  * The Menu component is a navigation drawer that slides in from the side of the current
  * view. By default, it slides in from the left, but the side can be overridden. The menu
  * will be displayed differently based on the mode, however the display type can be changed
@@ -23,7 +23,7 @@ import { RootNode } from '../split-pane/split-pane';
  * to the app's content element. There can be any number of menus attached to the content.
  * These can be controlled from the templates, or programmatically using the [MenuController](../../app/MenuController).
  *
- * \@usage
+ * @usage
  *
  * ```html
  * <ion-menu [content]="mycontent">
@@ -153,10 +153,10 @@ import { RootNode } from '../split-pane/split-pane';
  * when it is called.
  *
  * ```ts
- * import { Component } from '\@angular/core';
+ * import { Component } from '@angular/core';
  * import { MenuController } from 'ionic-angular';
  *
- * \@Component({...})
+ * @Component({...})
  * export class MyPage {
  *  constructor(public menuCtrl: MenuController) {}
  *
@@ -170,25 +170,14 @@ import { RootNode } from '../split-pane/split-pane';
  * and usage information.
  *
  *
- * \@demo /docs/demos/src/menu/
+ * @demo /docs/demos/src/menu/
  *
- * @see {\@link /docs/components#menus Menu Component Docs}
- * @see {\@link ../../app/MenuController MenuController API Docs}
- * @see {\@link ../../nav/Nav Nav API Docs}
- * @see {\@link ../../nav/NavController NavController API Docs}
+ * @see {@link /docs/components#menus Menu Component Docs}
+ * @see {@link ../../app/MenuController MenuController API Docs}
+ * @see {@link ../../nav/Nav Nav API Docs}
+ * @see {@link ../../nav/NavController NavController API Docs}
  */
 export class Menu {
-    /**
-     * @param {?} _menuCtrl
-     * @param {?} _elementRef
-     * @param {?} _config
-     * @param {?} _plt
-     * @param {?} _renderer
-     * @param {?} _keyboard
-     * @param {?} _gestureCtrl
-     * @param {?} _domCtrl
-     * @param {?} _app
-     */
     constructor(_menuCtrl, _elementRef, _config, _plt, _renderer, _keyboard, _gestureCtrl, _domCtrl, _app) {
         this._menuCtrl = _menuCtrl;
         this._elementRef = _elementRef;
@@ -213,15 +202,15 @@ export class Menu {
          */
         this.isRightSide = false;
         /**
-         * \@output {event} Emitted when the menu is being dragged open.
+         * @output {event} Emitted when the menu is being dragged open.
          */
         this.ionDrag = new EventEmitter();
         /**
-         * \@output {event} Emitted when the menu has been opened.
+         * @output {event} Emitted when the menu has been opened.
          */
         this.ionOpen = new EventEmitter();
         /**
-         * \@output {event} Emitted when the menu has been closed.
+         * @output {event} Emitted when the menu has been closed.
          */
         this.ionClose = new EventEmitter();
         this._events = new UIEventManager(_plt);
@@ -231,31 +220,21 @@ export class Menu {
         this.side = 'start';
     }
     /**
-     * \@input {boolean} If true, the menu is enabled. Default `true`.
-     * @return {?}
+     * @input {boolean} If true, the menu is enabled. Default `true`.
      */
     get enabled() {
         return this._isEnabled;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set enabled(val) {
-        const /** @type {?} */ isEnabled = isTrueProperty(val);
+        const isEnabled = isTrueProperty(val);
         this.enable(isEnabled);
     }
     /**
-     * \@input {string} Which side of the view the menu should be placed. Default `"left"`.
-     * @return {?}
+     * @input {string} Which side of the view the menu should be placed. Default `"left"`.
      */
     get side() {
         return this._side;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set side(val) {
         this.isRightSide = isRightSide(val, this._plt.isRTL);
         if (this.isRightSide) {
@@ -266,41 +245,30 @@ export class Menu {
         }
     }
     /**
-     * \@input {boolean} If true, swiping the menu is enabled. Default `true`.
-     * @return {?}
+     * @input {boolean} If true, swiping the menu is enabled. Default `true`.
      */
     get swipeEnabled() {
         return this._isSwipeEnabled;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set swipeEnabled(val) {
-        const /** @type {?} */ isEnabled = isTrueProperty(val);
+        const isEnabled = isTrueProperty(val);
         this.swipeEnable(isEnabled);
     }
     /**
-     * \@input {boolean} If true, the menu will persist on child pages.
-     * @return {?}
+     * @input {boolean} If true, the menu will persist on child pages.
      */
     get persistent() {
         return this._isPersistent;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set persistent(val) {
         this._isPersistent = isTrueProperty(val);
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnInit() {
         this._init = true;
-        let /** @type {?} */ content = this.content;
+        let content = this.content;
         this._cntEle = (content instanceof Node) ? content : content && content.getNativeElement && content.getNativeElement();
         // requires content element
         if (!this._cntEle) {
@@ -317,7 +285,7 @@ export class Menu {
         // add menu's content classes
         this._cntEle.classList.add('menu-content');
         this._cntEle.classList.add('menu-content-' + this.type);
-        let /** @type {?} */ isEnabled = this._isEnabled;
+        let isEnabled = this._isEnabled;
         if (isEnabled === true || typeof isEnabled === 'undefined') {
             // check if more than one menu is on the same side
             isEnabled = !this._menuCtrl.getMenus().some(m => {
@@ -331,8 +299,6 @@ export class Menu {
     }
     /**
      * @hidden
-     * @param {?} ev
-     * @return {?}
      */
     onBackdropClick(ev) {
         ev.preventDefault();
@@ -341,7 +307,6 @@ export class Menu {
     }
     /**
      * @hidden
-     * @return {?}
      */
     _getType() {
         if (!this._type) {
@@ -354,9 +319,6 @@ export class Menu {
     }
     /**
      * @hidden
-     * @param {?} shouldOpen
-     * @param {?=} animated
-     * @return {?}
      */
     setOpen(shouldOpen, animated = true) {
         // If the menu is disabled or it is currenly being animated, let's do nothing
@@ -371,9 +333,6 @@ export class Menu {
             });
         });
     }
-    /**
-     * @return {?}
-     */
     _forceClosing() {
         (void 0) /* assert */;
         this._isAnimating = true;
@@ -383,7 +342,6 @@ export class Menu {
     }
     /**
      * @hidden
-     * @return {?}
      */
     canSwipe() {
         return this._isSwipeEnabled &&
@@ -393,14 +351,10 @@ export class Menu {
     }
     /**
      * @hidden
-     * @return {?}
      */
     isAnimating() {
         return this._isAnimating;
     }
-    /**
-     * @return {?}
-     */
     _swipeBeforeStart() {
         if (!this.canSwipe()) {
             (void 0) /* assert */;
@@ -408,9 +362,6 @@ export class Menu {
         }
         this._before();
     }
-    /**
-     * @return {?}
-     */
     _swipeStart() {
         if (!this._isAnimating) {
             (void 0) /* assert */;
@@ -418,38 +369,27 @@ export class Menu {
         }
         this._getType().setProgressStart(this.isOpen);
     }
-    /**
-     * @param {?} stepValue
-     * @return {?}
-     */
     _swipeProgress(stepValue) {
         if (!this._isAnimating) {
             (void 0) /* assert */;
             return;
         }
         this._getType().setProgessStep(stepValue);
-        const /** @type {?} */ ionDrag = this.ionDrag;
+        const ionDrag = this.ionDrag;
         if (ionDrag.observers.length > 0) {
             ionDrag.emit(stepValue);
         }
     }
-    /**
-     * @param {?} shouldCompleteLeft
-     * @param {?} shouldCompleteRight
-     * @param {?} stepValue
-     * @param {?} velocity
-     * @return {?}
-     */
     _swipeEnd(shouldCompleteLeft, shouldCompleteRight, stepValue, velocity) {
         if (!this._isAnimating) {
             (void 0) /* assert */;
             return;
         }
         // user has finished dragging the menu
-        const /** @type {?} */ isRightSide = this.isRightSide;
-        const /** @type {?} */ isRTL = this._plt.isRTL;
-        const /** @type {?} */ opening = !this.isOpen;
-        const /** @type {?} */ shouldComplete = (opening)
+        const isRightSide = this.isRightSide;
+        const isRTL = this._plt.isRTL;
+        const opening = !this.isOpen;
+        const shouldComplete = (opening)
             ? (isRightSide !== isRTL) ? shouldCompleteLeft : shouldCompleteRight
             : (isRightSide !== isRTL) ? shouldCompleteRight : shouldCompleteLeft;
         this._getType().setProgressEnd(shouldComplete, stepValue, velocity, (isOpen) => {
@@ -457,9 +397,6 @@ export class Menu {
             this._after(isOpen);
         });
     }
-    /**
-     * @return {?}
-     */
     _before() {
         (void 0) /* assert */;
         // this places the menu into the correct location before it animates in
@@ -470,10 +407,6 @@ export class Menu {
         this._keyboard.close();
         this._isAnimating = true;
     }
-    /**
-     * @param {?} isOpen
-     * @return {?}
-     */
     _after(isOpen) {
         (void 0) /* assert */;
         this._app.setEnabled(false, 100);
@@ -488,7 +421,7 @@ export class Menu {
             // Disable swipe to go back gesture
             this._gestureBlocker.block();
             this._cntEle.classList.add('menu-content-open');
-            let /** @type {?} */ callback = this.onBackdropClick.bind(this);
+            let callback = this.onBackdropClick.bind(this);
             this._events.listen(this._cntEle, 'click', callback, { capture: true });
             this._events.listen(this.backdrop.getNativeElement(), 'click', callback, { capture: true });
             this.ionOpen.emit(true);
@@ -504,47 +437,39 @@ export class Menu {
     }
     /**
      * @hidden
-     * @return {?}
      */
     open() {
         return this.setOpen(true);
     }
     /**
      * @hidden
-     * @return {?}
      */
     close() {
         return this.setOpen(false);
     }
     /**
      * @hidden
-     * @return {?}
      */
     resize() {
-        const /** @type {?} */ content = this.menuContent
+        const content = this.menuContent
             ? this.menuContent
             : this.menuNav;
         content && content.resize();
     }
     /**
      * @hidden
-     * @return {?}
      */
     toggle() {
         return this.setOpen(!this.isOpen);
     }
-    /**
-     * @return {?}
-     */
     _canOpen() {
         return this._isEnabled && !this._isPane;
     }
     /**
      * @hidden
-     * @return {?}
      */
     _updateState() {
-        const /** @type {?} */ canOpen = this._canOpen();
+        const canOpen = this._canOpen();
         // Close menu inmediately
         if (!canOpen && this.isOpen) {
             (void 0) /* assert */;
@@ -557,7 +482,7 @@ export class Menu {
         if (!this._init) {
             return;
         }
-        const /** @type {?} */ gesture = this._gesture;
+        const gesture = this._gesture;
         // only listen/unlisten if the menu has initialized
         if (canOpen && this._isSwipeEnabled && !gesture.isListening) {
             // should listen, but is not currently listening
@@ -576,8 +501,6 @@ export class Menu {
     }
     /**
      * @hidden
-     * @param {?} shouldEnable
-     * @return {?}
      */
     enable(shouldEnable) {
         this._isEnabled = shouldEnable;
@@ -586,16 +509,13 @@ export class Menu {
         return this;
     }
     /**
-     * \@internal
-     * @return {?}
+     * @internal
      */
     initPane() {
         return false;
     }
     /**
-     * \@internal
-     * @param {?} isPane
-     * @return {?}
+     * @internal
      */
     paneChanged(isPane) {
         this._isPane = isPane;
@@ -603,8 +523,6 @@ export class Menu {
     }
     /**
      * @hidden
-     * @param {?} shouldEnable
-     * @return {?}
      */
     swipeEnable(shouldEnable) {
         this._isSwipeEnabled = shouldEnable;
@@ -613,74 +531,60 @@ export class Menu {
     }
     /**
      * @hidden
-     * @return {?}
      */
     getNativeElement() {
         return this._elementRef.nativeElement;
     }
     /**
      * @hidden
-     * @return {?}
      */
     getMenuElement() {
-        return (this.getNativeElement().querySelector('.menu-inner'));
+        return this.getNativeElement().querySelector('.menu-inner');
     }
     /**
      * @hidden
-     * @return {?}
      */
     getContentElement() {
         return this._cntEle;
     }
     /**
      * @hidden
-     * @return {?}
      */
     getBackdropElement() {
         return this.backdrop.getNativeElement();
     }
     /**
      * @hidden
-     * @return {?}
      */
     width() {
         return this.getMenuElement().offsetWidth;
     }
     /**
      * @hidden
-     * @return {?}
      */
     getMenuController() {
         return this._menuCtrl;
     }
     /**
      * @hidden
-     * @param {?} className
-     * @param {?} add
-     * @return {?}
      */
     setElementClass(className, add) {
         this._renderer.setElementClass(this._elementRef.nativeElement, className, add);
     }
     /**
      * @hidden
-     * @param {?} attributeName
-     * @param {?} value
-     * @return {?}
      */
     setElementAttribute(attributeName, value) {
         this._renderer.setElementAttribute(this._elementRef.nativeElement, attributeName, value);
     }
     /**
      * @hidden
-     * @return {?}
      */
     getElementRef() {
         return this._elementRef;
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnDestroy() {
         this._menuCtrl._unregister(this);
@@ -705,9 +609,7 @@ Menu.decorators = [
                 providers: [{ provide: RootNode, useExisting: forwardRef(() => Menu) }]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Menu.ctorParameters = () => [
     { type: MenuController, },
     { type: ElementRef, },
@@ -735,119 +637,4 @@ Menu.propDecorators = {
     'ionOpen': [{ type: Output },],
     'ionClose': [{ type: Output },],
 };
-function Menu_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Menu.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Menu.ctorParameters;
-    /** @type {?} */
-    Menu.propDecorators;
-    /** @type {?} */
-    Menu.prototype._cntEle;
-    /** @type {?} */
-    Menu.prototype._gesture;
-    /** @type {?} */
-    Menu.prototype._type;
-    /** @type {?} */
-    Menu.prototype._isEnabled;
-    /** @type {?} */
-    Menu.prototype._isSwipeEnabled;
-    /** @type {?} */
-    Menu.prototype._isAnimating;
-    /** @type {?} */
-    Menu.prototype._isPersistent;
-    /** @type {?} */
-    Menu.prototype._init;
-    /** @type {?} */
-    Menu.prototype._events;
-    /** @type {?} */
-    Menu.prototype._gestureBlocker;
-    /** @type {?} */
-    Menu.prototype._isPane;
-    /** @type {?} */
-    Menu.prototype._side;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Menu.prototype.isOpen;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Menu.prototype.isRightSide;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Menu.prototype.backdrop;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Menu.prototype.menuContent;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Menu.prototype.menuNav;
-    /**
-     * \@input {any} A reference to the content element the menu should use.
-     * @type {?}
-     */
-    Menu.prototype.content;
-    /**
-     * \@input {string} An id for the menu.
-     * @type {?}
-     */
-    Menu.prototype.id;
-    /**
-     * \@input {string} The display type of the menu. Default varies based on the mode,
-     * see the `menuType` in the [config](../../config/Config). Available options:
-     * `"overlay"`, `"reveal"`, `"push"`.
-     * @type {?}
-     */
-    Menu.prototype.type;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Menu.prototype.maxEdgeStart;
-    /**
-     * \@output {event} Emitted when the menu is being dragged open.
-     * @type {?}
-     */
-    Menu.prototype.ionDrag;
-    /**
-     * \@output {event} Emitted when the menu has been opened.
-     * @type {?}
-     */
-    Menu.prototype.ionOpen;
-    /**
-     * \@output {event} Emitted when the menu has been closed.
-     * @type {?}
-     */
-    Menu.prototype.ionClose;
-    /** @type {?} */
-    Menu.prototype._menuCtrl;
-    /** @type {?} */
-    Menu.prototype._elementRef;
-    /** @type {?} */
-    Menu.prototype._config;
-    /** @type {?} */
-    Menu.prototype._plt;
-    /** @type {?} */
-    Menu.prototype._renderer;
-    /** @type {?} */
-    Menu.prototype._keyboard;
-    /** @type {?} */
-    Menu.prototype._gestureCtrl;
-    /** @type {?} */
-    Menu.prototype._domCtrl;
-    /** @type {?} */
-    Menu.prototype._app;
-}
 //# sourceMappingURL=menu.js.map

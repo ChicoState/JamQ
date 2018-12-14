@@ -1,39 +1,23 @@
 import { Component } from '@angular/core';
 import { NavParams } from '../../navigation/nav-params';
 import { ViewController } from '../../navigation/view-controller';
-/**
- * @hidden
- */
+/** @hidden */
 export class SelectPopover {
-    /**
-     * @param {?} navParams
-     * @param {?} viewController
-     */
     constructor(navParams, viewController) {
         this.navParams = navParams;
         this.viewController = viewController;
     }
-    /**
-     * @return {?}
-     */
     get value() {
-        let /** @type {?} */ checkedOption = this.options.find(option => option.checked);
+        let checkedOption = this.options.find(option => option.checked);
         return checkedOption ? checkedOption.value : undefined;
     }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
     set value(value) {
-        let /** @type {?} */ checkedOption = this.options.find(option => option.value === value);
+        let checkedOption = this.options.find(option => option.value === value);
         if (checkedOption && checkedOption.handler) {
             checkedOption.handler();
         }
         this.viewController.dismiss(value);
     }
-    /**
-     * @return {?}
-     */
     ngOnInit() {
         this.options = this.navParams.data.options;
     }
@@ -50,26 +34,9 @@ SelectPopover.decorators = [
   `
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 SelectPopover.ctorParameters = () => [
     { type: NavParams, },
     { type: ViewController, },
 ];
-function SelectPopover_tsickle_Closure_declarations() {
-    /** @type {?} */
-    SelectPopover.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    SelectPopover.ctorParameters;
-    /** @type {?} */
-    SelectPopover.prototype.options;
-    /** @type {?} */
-    SelectPopover.prototype.navParams;
-    /** @type {?} */
-    SelectPopover.prototype.viewController;
-}
 //# sourceMappingURL=select-popover-component.js.map

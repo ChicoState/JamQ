@@ -3,8 +3,8 @@ import { Alert } from './alert';
 import { App } from '../app/app';
 import { Config } from '../../config/config';
 /**
- * \@name AlertController
- * \@description
+ * @name AlertController
+ * @description
  * An Alert is a dialog that presents users with information or collects
  * information from the user using inputs. An alert appears on top
  * of the app's content, and must be manually dismissed by the user before
@@ -44,16 +44,14 @@ import { Config } from '../../config/config';
  * building the form within a modal instead.
  *
  *
- * \@usage
+ * @usage
  * ```ts
  * import { AlertController } from 'ionic-angular';
  *
- * constructor(private alertCtrl: AlertController) {
- *
- * }
+ * constructor(public alertCtrl: AlertController) { }
  *
  * presentAlert() {
- *   let alert = this.alertCtrl.create({
+ *   const alert = this.alertCtrl.create({
  *     title: 'Low battery',
  *     subTitle: '10% of battery remaining',
  *     buttons: ['Dismiss']
@@ -62,7 +60,7 @@ import { Config } from '../../config/config';
  * }
  *
  * presentConfirm() {
- *   let alert = this.alertCtrl.create({
+ *   const alert = this.alertCtrl.create({
  *     title: 'Confirm purchase',
  *     message: 'Do you want to buy this book?',
  *     buttons: [
@@ -85,7 +83,7 @@ import { Config } from '../../config/config';
  * }
  *
  * presentPrompt() {
- *   let alert = this.alertCtrl.create({
+ *   const alert = this.alertCtrl.create({
  *     title: 'Login',
  *     inputs: [
  *       {
@@ -122,7 +120,7 @@ import { Config } from '../../config/config';
  *   alert.present();
  * }
  * ```
- * \@advanced
+ * @advanced
  *
  *
  *  Alert options
@@ -178,14 +176,14 @@ import { Config } from '../../config/config';
  * out first, *then* start the next transition.
  *
  * ```ts
- * let alert = this.alertCtrl.create({
+ * const alert = this.alertCtrl.create({
  *   title: 'Hello',
  *   buttons: [{
  *     text: 'Ok',
  *     handler: () => {
  *       // user has clicked the alert button
  *       // begin the alert's dismiss transition
- *       let navTransition = alert.dismiss();
+ *       const navTransition = alert.dismiss();
  *
  *       // start some async method
  *       someAsyncOperation().then(() => {
@@ -214,50 +212,30 @@ import { Config } from '../../config/config';
  * out before starting a new transition.
  *
  *
- * \@demo /docs/demos/src/alert/
+ * @demo /docs/demos/src/alert/
  */
 var AlertController = (function () {
-    /**
-     * @param {?} _app
-     * @param {?} config
-     */
     function AlertController(_app, config) {
         this._app = _app;
         this.config = config;
     }
     /**
      * Display an alert with a title, inputs, and buttons
-     * @param {?=} opts
-     * @return {?}
+     * @param {AlertOptions} opts Alert. See the table below
      */
     AlertController.prototype.create = function (opts) {
         if (opts === void 0) { opts = {}; }
         return new Alert(this._app, opts, this.config);
     };
+    AlertController.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    AlertController.ctorParameters = function () { return [
+        { type: App, },
+        { type: Config, },
+    ]; };
     return AlertController;
 }());
 export { AlertController };
-AlertController.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-AlertController.ctorParameters = function () { return [
-    { type: App, },
-    { type: Config, },
-]; };
-function AlertController_tsickle_Closure_declarations() {
-    /** @type {?} */
-    AlertController.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    AlertController.ctorParameters;
-    /** @type {?} */
-    AlertController.prototype._app;
-    /** @type {?} */
-    AlertController.prototype.config;
-}
 //# sourceMappingURL=alert-controller.js.map

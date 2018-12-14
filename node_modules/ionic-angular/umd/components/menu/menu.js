@@ -25,8 +25,8 @@
     var ui_event_manager_1 = require("../../gestures/ui-event-manager");
     var split_pane_1 = require("../split-pane/split-pane");
     /**
-     * \@name Menu
-     * \@description
+     * @name Menu
+     * @description
      * The Menu component is a navigation drawer that slides in from the side of the current
      * view. By default, it slides in from the left, but the side can be overridden. The menu
      * will be displayed differently based on the mode, however the display type can be changed
@@ -34,7 +34,7 @@
      * to the app's content element. There can be any number of menus attached to the content.
      * These can be controlled from the templates, or programmatically using the [MenuController](../../app/MenuController).
      *
-     * \@usage
+     * @usage
      *
      * ```html
      * <ion-menu [content]="mycontent">
@@ -164,10 +164,10 @@
      * when it is called.
      *
      * ```ts
-     * import { Component } from '\@angular/core';
+     * import { Component } from '@angular/core';
      * import { MenuController } from 'ionic-angular';
      *
-     * \@Component({...})
+     * @Component({...})
      * export class MyPage {
      *  constructor(public menuCtrl: MenuController) {}
      *
@@ -181,25 +181,14 @@
      * and usage information.
      *
      *
-     * \@demo /docs/demos/src/menu/
+     * @demo /docs/demos/src/menu/
      *
-     * @see {\@link /docs/components#menus Menu Component Docs}
-     * @see {\@link ../../app/MenuController MenuController API Docs}
-     * @see {\@link ../../nav/Nav Nav API Docs}
-     * @see {\@link ../../nav/NavController NavController API Docs}
+     * @see {@link /docs/components#menus Menu Component Docs}
+     * @see {@link ../../app/MenuController MenuController API Docs}
+     * @see {@link ../../nav/Nav Nav API Docs}
+     * @see {@link ../../nav/NavController NavController API Docs}
      */
     var Menu = (function () {
-        /**
-         * @param {?} _menuCtrl
-         * @param {?} _elementRef
-         * @param {?} _config
-         * @param {?} _plt
-         * @param {?} _renderer
-         * @param {?} _keyboard
-         * @param {?} _gestureCtrl
-         * @param {?} _domCtrl
-         * @param {?} _app
-         */
         function Menu(_menuCtrl, _elementRef, _config, _plt, _renderer, _keyboard, _gestureCtrl, _domCtrl, _app) {
             this._menuCtrl = _menuCtrl;
             this._elementRef = _elementRef;
@@ -224,15 +213,15 @@
              */
             this.isRightSide = false;
             /**
-             * \@output {event} Emitted when the menu is being dragged open.
+             * @output {event} Emitted when the menu is being dragged open.
              */
             this.ionDrag = new core_1.EventEmitter();
             /**
-             * \@output {event} Emitted when the menu has been opened.
+             * @output {event} Emitted when the menu has been opened.
              */
             this.ionOpen = new core_1.EventEmitter();
             /**
-             * \@output {event} Emitted when the menu has been closed.
+             * @output {event} Emitted when the menu has been closed.
              */
             this.ionClose = new core_1.EventEmitter();
             this._events = new ui_event_manager_1.UIEventManager(_plt);
@@ -243,18 +232,13 @@
         }
         Object.defineProperty(Menu.prototype, "enabled", {
             /**
-             * \@input {boolean} If true, the menu is enabled. Default `true`.
-             * @return {?}
+             * @input {boolean} If true, the menu is enabled. Default `true`.
              */
             get: function () {
                 return this._isEnabled;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
-                var /** @type {?} */ isEnabled = util_1.isTrueProperty(val);
+                var isEnabled = util_1.isTrueProperty(val);
                 this.enable(isEnabled);
             },
             enumerable: true,
@@ -262,16 +246,11 @@
         });
         Object.defineProperty(Menu.prototype, "side", {
             /**
-             * \@input {string} Which side of the view the menu should be placed. Default `"left"`.
-             * @return {?}
+             * @input {string} Which side of the view the menu should be placed. Default `"left"`.
              */
             get: function () {
                 return this._side;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this.isRightSide = util_1.isRightSide(val, this._plt.isRTL);
                 if (this.isRightSide) {
@@ -286,18 +265,13 @@
         });
         Object.defineProperty(Menu.prototype, "swipeEnabled", {
             /**
-             * \@input {boolean} If true, swiping the menu is enabled. Default `true`.
-             * @return {?}
+             * @input {boolean} If true, swiping the menu is enabled. Default `true`.
              */
             get: function () {
                 return this._isSwipeEnabled;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
-                var /** @type {?} */ isEnabled = util_1.isTrueProperty(val);
+                var isEnabled = util_1.isTrueProperty(val);
                 this.swipeEnable(isEnabled);
             },
             enumerable: true,
@@ -305,16 +279,11 @@
         });
         Object.defineProperty(Menu.prototype, "persistent", {
             /**
-             * \@input {boolean} If true, the menu will persist on child pages.
-             * @return {?}
+             * @input {boolean} If true, the menu will persist on child pages.
              */
             get: function () {
                 return this._isPersistent;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._isPersistent = util_1.isTrueProperty(val);
             },
@@ -323,12 +292,11 @@
         });
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.ngOnInit = function () {
             var _this = this;
             this._init = true;
-            var /** @type {?} */ content = this.content;
+            var content = this.content;
             this._cntEle = (content instanceof Node) ? content : content && content.getNativeElement && content.getNativeElement();
             // requires content element
             if (!this._cntEle) {
@@ -345,7 +313,7 @@
             // add menu's content classes
             this._cntEle.classList.add('menu-content');
             this._cntEle.classList.add('menu-content-' + this.type);
-            var /** @type {?} */ isEnabled = this._isEnabled;
+            var isEnabled = this._isEnabled;
             if (isEnabled === true || typeof isEnabled === 'undefined') {
                 // check if more than one menu is on the same side
                 isEnabled = !this._menuCtrl.getMenus().some(function (m) {
@@ -359,8 +327,6 @@
         };
         /**
          * @hidden
-         * @param {?} ev
-         * @return {?}
          */
         Menu.prototype.onBackdropClick = function (ev) {
             ev.preventDefault();
@@ -369,7 +335,6 @@
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype._getType = function () {
             if (!this._type) {
@@ -382,9 +347,6 @@
         };
         /**
          * @hidden
-         * @param {?} shouldOpen
-         * @param {?=} animated
-         * @return {?}
          */
         Menu.prototype.setOpen = function (shouldOpen, animated) {
             var _this = this;
@@ -401,9 +363,6 @@
                 });
             });
         };
-        /**
-         * @return {?}
-         */
         Menu.prototype._forceClosing = function () {
             var _this = this;
             (void 0) /* assert */;
@@ -414,7 +373,6 @@
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.canSwipe = function () {
             return this._isSwipeEnabled &&
@@ -424,14 +382,10 @@
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.isAnimating = function () {
             return this._isAnimating;
         };
-        /**
-         * @return {?}
-         */
         Menu.prototype._swipeBeforeStart = function () {
             if (!this.canSwipe()) {
                 (void 0) /* assert */;
@@ -439,9 +393,6 @@
             }
             this._before();
         };
-        /**
-         * @return {?}
-         */
         Menu.prototype._swipeStart = function () {
             if (!this._isAnimating) {
                 (void 0) /* assert */;
@@ -449,28 +400,17 @@
             }
             this._getType().setProgressStart(this.isOpen);
         };
-        /**
-         * @param {?} stepValue
-         * @return {?}
-         */
         Menu.prototype._swipeProgress = function (stepValue) {
             if (!this._isAnimating) {
                 (void 0) /* assert */;
                 return;
             }
             this._getType().setProgessStep(stepValue);
-            var /** @type {?} */ ionDrag = this.ionDrag;
+            var ionDrag = this.ionDrag;
             if (ionDrag.observers.length > 0) {
                 ionDrag.emit(stepValue);
             }
         };
-        /**
-         * @param {?} shouldCompleteLeft
-         * @param {?} shouldCompleteRight
-         * @param {?} stepValue
-         * @param {?} velocity
-         * @return {?}
-         */
         Menu.prototype._swipeEnd = function (shouldCompleteLeft, shouldCompleteRight, stepValue, velocity) {
             var _this = this;
             if (!this._isAnimating) {
@@ -478,10 +418,10 @@
                 return;
             }
             // user has finished dragging the menu
-            var /** @type {?} */ isRightSide = this.isRightSide;
-            var /** @type {?} */ isRTL = this._plt.isRTL;
-            var /** @type {?} */ opening = !this.isOpen;
-            var /** @type {?} */ shouldComplete = (opening)
+            var isRightSide = this.isRightSide;
+            var isRTL = this._plt.isRTL;
+            var opening = !this.isOpen;
+            var shouldComplete = (opening)
                 ? (isRightSide !== isRTL) ? shouldCompleteLeft : shouldCompleteRight
                 : (isRightSide !== isRTL) ? shouldCompleteRight : shouldCompleteLeft;
             this._getType().setProgressEnd(shouldComplete, stepValue, velocity, function (isOpen) {
@@ -489,9 +429,6 @@
                 _this._after(isOpen);
             });
         };
-        /**
-         * @return {?}
-         */
         Menu.prototype._before = function () {
             (void 0) /* assert */;
             // this places the menu into the correct location before it animates in
@@ -502,10 +439,6 @@
             this._keyboard.close();
             this._isAnimating = true;
         };
-        /**
-         * @param {?} isOpen
-         * @return {?}
-         */
         Menu.prototype._after = function (isOpen) {
             (void 0) /* assert */;
             this._app.setEnabled(false, 100);
@@ -520,7 +453,7 @@
                 // Disable swipe to go back gesture
                 this._gestureBlocker.block();
                 this._cntEle.classList.add('menu-content-open');
-                var /** @type {?} */ callback = this.onBackdropClick.bind(this);
+                var callback = this.onBackdropClick.bind(this);
                 this._events.listen(this._cntEle, 'click', callback, { capture: true });
                 this._events.listen(this.backdrop.getNativeElement(), 'click', callback, { capture: true });
                 this.ionOpen.emit(true);
@@ -536,47 +469,39 @@
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.open = function () {
             return this.setOpen(true);
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.close = function () {
             return this.setOpen(false);
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.resize = function () {
-            var /** @type {?} */ content = this.menuContent
+            var content = this.menuContent
                 ? this.menuContent
                 : this.menuNav;
             content && content.resize();
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.toggle = function () {
             return this.setOpen(!this.isOpen);
         };
-        /**
-         * @return {?}
-         */
         Menu.prototype._canOpen = function () {
             return this._isEnabled && !this._isPane;
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype._updateState = function () {
-            var /** @type {?} */ canOpen = this._canOpen();
+            var canOpen = this._canOpen();
             // Close menu inmediately
             if (!canOpen && this.isOpen) {
                 (void 0) /* assert */;
@@ -589,7 +514,7 @@
             if (!this._init) {
                 return;
             }
-            var /** @type {?} */ gesture = this._gesture;
+            var gesture = this._gesture;
             // only listen/unlisten if the menu has initialized
             if (canOpen && this._isSwipeEnabled && !gesture.isListening) {
                 // should listen, but is not currently listening
@@ -608,8 +533,6 @@
         };
         /**
          * @hidden
-         * @param {?} shouldEnable
-         * @return {?}
          */
         Menu.prototype.enable = function (shouldEnable) {
             this._isEnabled = shouldEnable;
@@ -618,16 +541,13 @@
             return this;
         };
         /**
-         * \@internal
-         * @return {?}
+         * @internal
          */
         Menu.prototype.initPane = function () {
             return false;
         };
         /**
-         * \@internal
-         * @param {?} isPane
-         * @return {?}
+         * @internal
          */
         Menu.prototype.paneChanged = function (isPane) {
             this._isPane = isPane;
@@ -635,8 +555,6 @@
         };
         /**
          * @hidden
-         * @param {?} shouldEnable
-         * @return {?}
          */
         Menu.prototype.swipeEnable = function (shouldEnable) {
             this._isSwipeEnabled = shouldEnable;
@@ -645,74 +563,60 @@
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.getNativeElement = function () {
             return this._elementRef.nativeElement;
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.getMenuElement = function () {
-            return (this.getNativeElement().querySelector('.menu-inner'));
+            return this.getNativeElement().querySelector('.menu-inner');
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.getContentElement = function () {
             return this._cntEle;
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.getBackdropElement = function () {
             return this.backdrop.getNativeElement();
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.width = function () {
             return this.getMenuElement().offsetWidth;
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.getMenuController = function () {
             return this._menuCtrl;
         };
         /**
          * @hidden
-         * @param {?} className
-         * @param {?} add
-         * @return {?}
          */
         Menu.prototype.setElementClass = function (className, add) {
             this._renderer.setElementClass(this._elementRef.nativeElement, className, add);
         };
         /**
          * @hidden
-         * @param {?} attributeName
-         * @param {?} value
-         * @return {?}
          */
         Menu.prototype.setElementAttribute = function (attributeName, value) {
             this._renderer.setElementAttribute(this._elementRef.nativeElement, attributeName, value);
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.getElementRef = function () {
             return this._elementRef;
         };
         /**
          * @hidden
-         * @return {?}
          */
         Menu.prototype.ngOnDestroy = function () {
             this._menuCtrl._unregister(this);
@@ -723,166 +627,49 @@
             this._type = null;
             this._cntEle = null;
         };
+        Menu.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'ion-menu',
+                        template: '<div class="menu-inner"><ng-content></ng-content></div>' +
+                            '<ion-backdrop></ion-backdrop>',
+                        host: {
+                            'role': 'navigation'
+                        },
+                        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+                        encapsulation: core_1.ViewEncapsulation.None,
+                        providers: [{ provide: split_pane_1.RootNode, useExisting: core_1.forwardRef(function () { return Menu; }) }]
+                    },] },
+        ];
+        /** @nocollapse */
+        Menu.ctorParameters = function () { return [
+            { type: menu_controller_1.MenuController, },
+            { type: core_1.ElementRef, },
+            { type: config_1.Config, },
+            { type: platform_1.Platform, },
+            { type: core_1.Renderer, },
+            { type: keyboard_1.Keyboard, },
+            { type: gesture_controller_1.GestureController, },
+            { type: dom_controller_1.DomController, },
+            { type: app_1.App, },
+        ]; };
+        Menu.propDecorators = {
+            'backdrop': [{ type: core_1.ViewChild, args: [backdrop_1.Backdrop,] },],
+            'menuContent': [{ type: core_1.ContentChild, args: [content_1.Content,] },],
+            'menuNav': [{ type: core_1.ContentChild, args: [nav_1.Nav,] },],
+            'content': [{ type: core_1.Input },],
+            'id': [{ type: core_1.Input },],
+            'type': [{ type: core_1.Input },],
+            'enabled': [{ type: core_1.Input },],
+            'side': [{ type: core_1.Input },],
+            'swipeEnabled': [{ type: core_1.Input },],
+            'persistent': [{ type: core_1.Input },],
+            'maxEdgeStart': [{ type: core_1.Input },],
+            'ionDrag': [{ type: core_1.Output },],
+            'ionOpen': [{ type: core_1.Output },],
+            'ionClose': [{ type: core_1.Output },],
+        };
         return Menu;
     }());
-    Menu.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'ion-menu',
-                    template: '<div class="menu-inner"><ng-content></ng-content></div>' +
-                        '<ion-backdrop></ion-backdrop>',
-                    host: {
-                        'role': 'navigation'
-                    },
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush,
-                    encapsulation: core_1.ViewEncapsulation.None,
-                    providers: [{ provide: split_pane_1.RootNode, useExisting: core_1.forwardRef(function () { return Menu; }) }]
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Menu.ctorParameters = function () { return [
-        { type: menu_controller_1.MenuController, },
-        { type: core_1.ElementRef, },
-        { type: config_1.Config, },
-        { type: platform_1.Platform, },
-        { type: core_1.Renderer, },
-        { type: keyboard_1.Keyboard, },
-        { type: gesture_controller_1.GestureController, },
-        { type: dom_controller_1.DomController, },
-        { type: app_1.App, },
-    ]; };
-    Menu.propDecorators = {
-        'backdrop': [{ type: core_1.ViewChild, args: [backdrop_1.Backdrop,] },],
-        'menuContent': [{ type: core_1.ContentChild, args: [content_1.Content,] },],
-        'menuNav': [{ type: core_1.ContentChild, args: [nav_1.Nav,] },],
-        'content': [{ type: core_1.Input },],
-        'id': [{ type: core_1.Input },],
-        'type': [{ type: core_1.Input },],
-        'enabled': [{ type: core_1.Input },],
-        'side': [{ type: core_1.Input },],
-        'swipeEnabled': [{ type: core_1.Input },],
-        'persistent': [{ type: core_1.Input },],
-        'maxEdgeStart': [{ type: core_1.Input },],
-        'ionDrag': [{ type: core_1.Output },],
-        'ionOpen': [{ type: core_1.Output },],
-        'ionClose': [{ type: core_1.Output },],
-    };
     exports.Menu = Menu;
-    function Menu_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Menu.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Menu.ctorParameters;
-        /** @type {?} */
-        Menu.propDecorators;
-        /** @type {?} */
-        Menu.prototype._cntEle;
-        /** @type {?} */
-        Menu.prototype._gesture;
-        /** @type {?} */
-        Menu.prototype._type;
-        /** @type {?} */
-        Menu.prototype._isEnabled;
-        /** @type {?} */
-        Menu.prototype._isSwipeEnabled;
-        /** @type {?} */
-        Menu.prototype._isAnimating;
-        /** @type {?} */
-        Menu.prototype._isPersistent;
-        /** @type {?} */
-        Menu.prototype._init;
-        /** @type {?} */
-        Menu.prototype._events;
-        /** @type {?} */
-        Menu.prototype._gestureBlocker;
-        /** @type {?} */
-        Menu.prototype._isPane;
-        /** @type {?} */
-        Menu.prototype._side;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Menu.prototype.isOpen;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Menu.prototype.isRightSide;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Menu.prototype.backdrop;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Menu.prototype.menuContent;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Menu.prototype.menuNav;
-        /**
-         * \@input {any} A reference to the content element the menu should use.
-         * @type {?}
-         */
-        Menu.prototype.content;
-        /**
-         * \@input {string} An id for the menu.
-         * @type {?}
-         */
-        Menu.prototype.id;
-        /**
-         * \@input {string} The display type of the menu. Default varies based on the mode,
-         * see the `menuType` in the [config](../../config/Config). Available options:
-         * `"overlay"`, `"reveal"`, `"push"`.
-         * @type {?}
-         */
-        Menu.prototype.type;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Menu.prototype.maxEdgeStart;
-        /**
-         * \@output {event} Emitted when the menu is being dragged open.
-         * @type {?}
-         */
-        Menu.prototype.ionDrag;
-        /**
-         * \@output {event} Emitted when the menu has been opened.
-         * @type {?}
-         */
-        Menu.prototype.ionOpen;
-        /**
-         * \@output {event} Emitted when the menu has been closed.
-         * @type {?}
-         */
-        Menu.prototype.ionClose;
-        /** @type {?} */
-        Menu.prototype._menuCtrl;
-        /** @type {?} */
-        Menu.prototype._elementRef;
-        /** @type {?} */
-        Menu.prototype._config;
-        /** @type {?} */
-        Menu.prototype._plt;
-        /** @type {?} */
-        Menu.prototype._renderer;
-        /** @type {?} */
-        Menu.prototype._keyboard;
-        /** @type {?} */
-        Menu.prototype._gestureCtrl;
-        /** @type {?} */
-        Menu.prototype._domCtrl;
-        /** @type {?} */
-        Menu.prototype._app;
-    }
 });
 //# sourceMappingURL=menu.js.map

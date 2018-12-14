@@ -11,9 +11,9 @@ import { Platform } from './platform';
  * @usage
  * ```ts
  * export class MyClass {
- *   constructor(public keyboard: Keyboard) {
  *
- *   }
+ *   constructor(public keyboard: Keyboard) { }
+ *
  * }
  * ```
  */
@@ -22,9 +22,9 @@ export declare class Keyboard {
     private _zone;
     private _dom;
     _tmr: number;
-    willShow: EventEmitter<void>;
+    willShow: EventEmitter<number>;
     willHide: EventEmitter<void>;
-    didShow: EventEmitter<void>;
+    didShow: EventEmitter<number>;
     didHide: EventEmitter<void>;
     eventsAvailable: boolean;
     constructor(config: Config, _plt: Platform, _zone: NgZone, _dom: DomController);
@@ -77,4 +77,10 @@ export declare class Keyboard {
      */
     focusOutline(setting: any): void;
     hasFocusedTextInput(): boolean;
+    /**
+     * Set to true to hide the additional toolbar that is on top of the keyboard.
+     * This toolbar features the Prev, Next, and Done buttons.
+     * @param hidden
+     */
+    hideFormAccessoryBar(hidden: boolean): void;
 }

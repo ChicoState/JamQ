@@ -18,13 +18,6 @@ import { ViewController } from '../../navigation/view-controller';
  */
 var ModalImpl = (function (_super) {
     __extends(ModalImpl, _super);
-    /**
-     * @param {?} app
-     * @param {?} component
-     * @param {?} data
-     * @param {?=} opts
-     * @param {?=} config
-     */
     function ModalImpl(app, component, data, opts, config) {
         if (opts === void 0) { opts = {}; }
         var _this = this;
@@ -46,11 +39,9 @@ var ModalImpl = (function (_super) {
     }
     /**
      * @hidden
-     * @param {?} direction
-     * @return {?}
      */
     ModalImpl.prototype.getTransitionName = function (direction) {
-        var /** @type {?} */ key;
+        var key;
         if (direction === 'back') {
             if (this._leaveAnimation) {
                 return this._leaveAnimation;
@@ -68,8 +59,8 @@ var ModalImpl = (function (_super) {
     /**
      * Present the action sheet instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     ModalImpl.prototype.present = function (navOptions) {
         if (navOptions === void 0) { navOptions = {}; }
@@ -79,12 +70,4 @@ var ModalImpl = (function (_super) {
     return ModalImpl;
 }(ViewController));
 export { ModalImpl };
-function ModalImpl_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ModalImpl.prototype._app;
-    /** @type {?} */
-    ModalImpl.prototype._enterAnimation;
-    /** @type {?} */
-    ModalImpl.prototype._leaveAnimation;
-}
 //# sourceMappingURL=modal-impl.js.map

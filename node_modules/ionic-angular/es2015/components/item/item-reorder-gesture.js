@@ -5,10 +5,6 @@ import { UIEventManager } from '../../gestures/ui-event-manager';
  * @hidden
  */
 export class ItemReorderGesture {
-    /**
-     * @param {?} plt
-     * @param {?} reorderList
-     */
     constructor(plt, reorderList) {
         this.plt = plt;
         this.reorderList = reorderList;
@@ -22,25 +18,21 @@ export class ItemReorderGesture {
             zone: false
         });
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     onDragStart(ev) {
         if (this.selectedItemEle) {
             return false;
         }
-        let /** @type {?} */ reorderElement = ev.target;
+        let reorderElement = ev.target;
         if (reorderElement.nodeName !== 'ION-REORDER') {
             return false;
         }
-        let /** @type {?} */ reorderMark = reorderElement['$ionComponent'];
+        let reorderMark = reorderElement['$ionComponent'];
         if (!reorderMark) {
             console.error('ion-reorder does not contain $ionComponent');
             return false;
         }
         this.reorderList._reorderPrepare();
-        const /** @type {?} */ item = reorderMark.getReorderNode();
+        const item = reorderMark.getReorderNode();
         if (!item) {
             console.error('reorder node not found');
             return false;
@@ -59,28 +51,24 @@ export class ItemReorderGesture {
         this.reorderList._reorderStart();
         return true;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     onDragMove(ev) {
-        const /** @type {?} */ selectedItem = this.selectedItemEle;
+        const selectedItem = this.selectedItemEle;
         if (!selectedItem) {
             return;
         }
         ev.preventDefault();
         // Get coordinate
-        const /** @type {?} */ coord = pointerCoord(ev);
-        const /** @type {?} */ posY = coord.y;
+        const coord = pointerCoord(ev);
+        const posY = coord.y;
         // Scroll if we reach the scroll margins
-        const /** @type {?} */ scrollPosition = this.scroll(posY);
+        const scrollPosition = this.scroll(posY);
         // Only perform hit test if we moved at least 30px from previous position
         if (Math.abs(posY - this.lastYcoord) > 30) {
-            var /** @type {?} */ overItem = this.itemForCoord(coord);
+            var overItem = this.itemForCoord(coord);
             if (overItem) {
-                var /** @type {?} */ toIndex = indexForItem(overItem);
+                var toIndex = indexForItem(overItem);
                 if (toIndex !== undefined && (toIndex !== this.lastToIndex || this.emptyZone)) {
-                    var /** @type {?} */ fromIndex = indexForItem(selectedItem);
+                    var fromIndex = indexForItem(selectedItem);
                     this.lastToIndex = toIndex;
                     this.lastYcoord = posY;
                     this.emptyZone = false;
@@ -92,15 +80,11 @@ export class ItemReorderGesture {
             }
         }
         // Update selected item position
-        const /** @type {?} */ ydiff = Math.round(posY - this.offset.y + scrollPosition);
-        ((selectedItem.style))[this.plt.Css.transform] = `translateY(${ydiff}px)`;
+        const ydiff = Math.round(posY - this.offset.y + scrollPosition);
+        selectedItem.style[this.plt.Css.transform] = `translateY(${ydiff}px)`;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     onDragEnd(ev) {
-        const /** @type {?} */ selectedItem = this.selectedItemEle;
+        const selectedItem = this.selectedItemEle;
         if (!selectedItem) {
             return;
         }
@@ -108,9 +92,9 @@ export class ItemReorderGesture {
             ev.preventDefault();
             ev.stopPropagation();
         }
-        const /** @type {?} */ toIndex = this.lastToIndex;
-        const /** @type {?} */ fromIndex = indexForItem(selectedItem);
-        const /** @type {?} */ reorderInactive = () => {
+        const toIndex = this.lastToIndex;
+        const fromIndex = indexForItem(selectedItem);
+        const reorderInactive = () => {
             this.selectedItemEle.style.transition = '';
             this.selectedItemEle.classList.remove(ITEM_REORDER_ACTIVE);
             this.selectedItemEle = null;
@@ -124,21 +108,13 @@ export class ItemReorderGesture {
         }
         this.reorderList._reorderEmit(fromIndex, toIndex);
     }
-    /**
-     * @param {?} coord
-     * @return {?}
-     */
     itemForCoord(coord) {
-        const /** @type {?} */ sideOffset = this.reorderList._isStart === this.plt.isRTL ? -100 : 100;
-        const /** @type {?} */ x = this.offset.x + sideOffset;
-        const /** @type {?} */ y = coord.y;
-        const /** @type {?} */ element = this.plt.getElementFromPoint(x, y);
+        const sideOffset = this.reorderList._isStart === this.plt.isRTL ? -100 : 100;
+        const x = this.offset.x + sideOffset;
+        const y = coord.y;
+        const element = this.plt.getElementFromPoint(x, y);
         return findReorderItem(element, this.reorderList.getNativeElement());
     }
-    /**
-     * @param {?} posY
-     * @return {?}
-     */
     scroll(posY) {
         if (posY < AUTO_SCROLL_MARGIN) {
             this.lastScrollPosition = this.reorderList._scrollContent(-SCROLL_JUMP);
@@ -150,7 +126,6 @@ export class ItemReorderGesture {
     }
     /**
      * @hidden
-     * @return {?}
      */
     destroy() {
         this.onDragEnd(null);
@@ -159,31 +134,7 @@ export class ItemReorderGesture {
         this.reorderList = null;
     }
 }
-function ItemReorderGesture_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ItemReorderGesture.prototype.selectedItemEle;
-    /** @type {?} */
-    ItemReorderGesture.prototype.selectedItemHeight;
-    /** @type {?} */
-    ItemReorderGesture.prototype.offset;
-    /** @type {?} */
-    ItemReorderGesture.prototype.lastToIndex;
-    /** @type {?} */
-    ItemReorderGesture.prototype.lastYcoord;
-    /** @type {?} */
-    ItemReorderGesture.prototype.lastScrollPosition;
-    /** @type {?} */
-    ItemReorderGesture.prototype.emptyZone;
-    /** @type {?} */
-    ItemReorderGesture.prototype.windowHeight;
-    /** @type {?} */
-    ItemReorderGesture.prototype.events;
-    /** @type {?} */
-    ItemReorderGesture.prototype.plt;
-    /** @type {?} */
-    ItemReorderGesture.prototype.reorderList;
-}
-const /** @type {?} */ AUTO_SCROLL_MARGIN = 60;
-const /** @type {?} */ SCROLL_JUMP = 10;
-const /** @type {?} */ ITEM_REORDER_ACTIVE = 'reorder-active';
+const AUTO_SCROLL_MARGIN = 60;
+const SCROLL_JUMP = 10;
+const ITEM_REORDER_ACTIVE = 'reorder-active';
 //# sourceMappingURL=item-reorder-gesture.js.map

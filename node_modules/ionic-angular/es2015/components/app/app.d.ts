@@ -125,6 +125,10 @@ export declare class App {
      * @hidden
      */
     registerRootNav(nav: NavigationContainer): void;
+    /**
+     * @hidden
+     */
+    unregisterRootNav(nav: NavigationContainer): void;
     getActiveNavContainers(): NavigationContainer[];
     /**
      * @hidden

@@ -25,8 +25,8 @@ var __extends = (this && this.__extends) || (function () {
     var base_input_1 = require("../../util/base-input");
     var segment_button_1 = require("./segment-button");
     /**
-     * \@name Segment
-     * \@description
+     * @name Segment
+     * @description
      * A Segment is a group of buttons, sometimes known as Segmented Controls, that allow the user to interact with a compact group of a number of controls.
      * Segments provide functionality similar to tabs, selecting one will unselect all others. You should use a tab bar instead of a segmented control when you want to let the user move back and forth between distinct pages in your app.
      * You could use Angular's `ngModel` or `FormBuilder` API. For an overview on how `FormBuilder` works, checkout [Angular Forms](http://learnangular2.com/forms/), or [Angular FormBuilder](https://angular.io/docs/ts/latest/api/forms/index/FormBuilder-class.html)
@@ -76,87 +76,64 @@ var __extends = (this && this.__extends) || (function () {
      * ```
      *
      *
-     * \@demo /docs/demos/src/segment/
-     * @see {\@link /docs/components#segment Segment Component Docs}
+     * @demo /docs/demos/src/segment/
+     * @see {@link /docs/components#segment Segment Component Docs}
      * @see [Angular Forms](http://learnangular2.com/forms/)
      */
     var Segment = (function (_super) {
         __extends(Segment, _super);
-        /**
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         * @param {?} ngControl
-         */
         function Segment(config, elementRef, renderer, ngControl) {
             return _super.call(this, config, elementRef, renderer, 'segment', null, null, null, ngControl) || this;
         }
         /**
          * @hidden
-         * @return {?}
          */
         Segment.prototype.ngAfterContentInit = function () {
             var _this = this;
             this._initialize();
             this._buttons.forEach(function (button) {
-                button.ionSelect.subscribe(function (selectedButton) { return _this.value = selectedButton.value; });
+                button.ionSelect.subscribe(function (selectedButton) {
+                    _this.value = selectedButton.value;
+                    _this._fireTouched();
+                });
             });
         };
         /**
          * @hidden
          * Write a new value to the element.
-         * @return {?}
          */
         Segment.prototype._inputUpdated = function () {
             if (!this._buttons) {
                 (void 0) /* assert */;
                 return;
             }
-            var /** @type {?} */ buttons = this._buttons.toArray();
-            var /** @type {?} */ value = this.value;
+            var buttons = this._buttons.toArray();
+            var value = this.value;
             for (var _i = 0, buttons_1 = buttons; _i < buttons_1.length; _i++) {
                 var button = buttons_1[_i];
                 button.isActive = (button.value === value);
             }
         };
+        Segment.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: 'ion-segment',
+                        host: {
+                            '[class.segment-disabled]': '_disabled'
+                        }
+                    },] },
+        ];
+        /** @nocollapse */
+        Segment.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+            { type: forms_1.NgControl, decorators: [{ type: core_1.Optional },] },
+        ]; };
+        Segment.propDecorators = {
+            '_buttons': [{ type: core_1.ContentChildren, args: [segment_button_1.SegmentButton,] },],
+        };
         return Segment;
     }(base_input_1.BaseInput));
-    Segment.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: 'ion-segment',
-                    host: {
-                        '[class.segment-disabled]': '_disabled'
-                    }
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Segment.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-        { type: forms_1.NgControl, decorators: [{ type: core_1.Optional },] },
-    ]; };
-    Segment.propDecorators = {
-        '_buttons': [{ type: core_1.ContentChildren, args: [segment_button_1.SegmentButton,] },],
-    };
     exports.Segment = Segment;
-    function Segment_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Segment.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Segment.ctorParameters;
-        /** @type {?} */
-        Segment.propDecorators;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Segment.prototype._buttons;
-    }
 });
 //# sourceMappingURL=segment.js.map

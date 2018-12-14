@@ -8,14 +8,6 @@ import { ViewController } from '../../navigation/view-controller';
  * @hidden
  */
 export class ActionSheetCmp {
-    /**
-     * @param {?} _viewCtrl
-     * @param {?} config
-     * @param {?} _elementRef
-     * @param {?} gestureCtrl
-     * @param {?} params
-     * @param {?} renderer
-     */
     constructor(_viewCtrl, config, _elementRef, gestureCtrl, params, renderer) {
         this._viewCtrl = _viewCtrl;
         this._elementRef = _elementRef;
@@ -38,9 +30,6 @@ export class ActionSheetCmp {
             this.descId = 'acst-subhdr-' + this.id;
         }
     }
-    /**
-     * @return {?}
-     */
     ionViewDidLoad() {
         // normalize the data
         this.d.buttons = this.d.buttons.map(button => {
@@ -64,47 +53,30 @@ export class ActionSheetCmp {
             return button;
         }).filter(button => button !== null);
     }
-    /**
-     * @return {?}
-     */
     ionViewWillEnter() {
         this.gestureBlocker.block();
     }
-    /**
-     * @return {?}
-     */
     ionViewDidLeave() {
         this.gestureBlocker.unblock();
     }
-    /**
-     * @return {?}
-     */
     ionViewDidEnter() {
-        const /** @type {?} */ focusableEle = this._elementRef.nativeElement.querySelector('button');
+        const focusableEle = this._elementRef.nativeElement.querySelector('button');
         if (focusableEle) {
             focusableEle.focus();
         }
         this.enabled = true;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     keyUp(ev) {
         if (this.enabled && ev.keyCode === KEY_ESCAPE && this._viewCtrl.isLast()) {
             (void 0) /* console.debug */;
             this.bdClick();
         }
     }
-    /**
-     * @param {?} button
-     * @return {?}
-     */
     click(button) {
         if (!this.enabled) {
             return;
         }
-        let /** @type {?} */ shouldDismiss = true;
+        let shouldDismiss = true;
         if (button.handler) {
             // a handler has been provided, execute it
             if (button.handler() === false) {
@@ -116,9 +88,6 @@ export class ActionSheetCmp {
             this.dismiss(button.role);
         }
     }
-    /**
-     * @return {?}
-     */
     bdClick() {
         if (this.enabled && this.d.enableBackdropDismiss) {
             if (this.cancelButton) {
@@ -129,19 +98,12 @@ export class ActionSheetCmp {
             }
         }
     }
-    /**
-     * @param {?} role
-     * @return {?}
-     */
     dismiss(role) {
-        const /** @type {?} */ opts = {
+        const opts = {
             minClickBlockDuration: 400
         };
         return this._viewCtrl.dismiss(null, role, opts);
     }
-    /**
-     * @return {?}
-     */
     ngOnDestroy() {
         (void 0) /* assert */;
         this.d = this.cancelButton = null;
@@ -162,7 +124,7 @@ ActionSheetCmp.decorators = [
                     '{{b.text}}' +
                     '</button>' +
                     '</div>' +
-                    '<div class="action-sheet-group" *ngIf="cancelButton">' +
+                    '<div class="action-sheet-group action-sheet-group-cancel" *ngIf="cancelButton">' +
                     '<button ion-button="action-sheet-button" (click)="click(cancelButton)" class="action-sheet-cancel disable-hover" [attr.icon-start]="cancelButton.icon ? \'\' : null" [ngClass]="cancelButton.cssClass">' +
                     '<ion-icon [name]="cancelButton.icon" *ngIf="cancelButton.icon" class="action-sheet-icon"></ion-icon>' +
                     '{{cancelButton.text}}' +
@@ -178,9 +140,7 @@ ActionSheetCmp.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ActionSheetCmp.ctorParameters = () => [
     { type: ViewController, },
     { type: Config, },
@@ -192,36 +152,5 @@ ActionSheetCmp.ctorParameters = () => [
 ActionSheetCmp.propDecorators = {
     'keyUp': [{ type: HostListener, args: ['body:keyup', ['$event'],] },],
 };
-function ActionSheetCmp_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ActionSheetCmp.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ActionSheetCmp.ctorParameters;
-    /** @type {?} */
-    ActionSheetCmp.propDecorators;
-    /** @type {?} */
-    ActionSheetCmp.prototype.d;
-    /** @type {?} */
-    ActionSheetCmp.prototype.cancelButton;
-    /** @type {?} */
-    ActionSheetCmp.prototype.descId;
-    /** @type {?} */
-    ActionSheetCmp.prototype.enabled;
-    /** @type {?} */
-    ActionSheetCmp.prototype.hdrId;
-    /** @type {?} */
-    ActionSheetCmp.prototype.id;
-    /** @type {?} */
-    ActionSheetCmp.prototype.mode;
-    /** @type {?} */
-    ActionSheetCmp.prototype.gestureBlocker;
-    /** @type {?} */
-    ActionSheetCmp.prototype._viewCtrl;
-    /** @type {?} */
-    ActionSheetCmp.prototype._elementRef;
-}
-let /** @type {?} */ actionSheetIds = -1;
+let actionSheetIds = -1;
 //# sourceMappingURL=action-sheet-component.js.map

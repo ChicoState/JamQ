@@ -11,8 +11,6 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * @hidden
-     * @param {?} element
-     * @return {?}
      */
     function indexForItem(element) {
         return element['$ionIndex'];
@@ -20,8 +18,6 @@
     exports.indexForItem = indexForItem;
     /**
      * @hidden
-     * @param {?} element
-     * @return {?}
      */
     function reorderListForItem(element) {
         return element['$ionReorderList'];
@@ -29,12 +25,9 @@
     exports.reorderListForItem = reorderListForItem;
     /**
      * @hidden
-     * @param {?} node
-     * @param {?} listNode
-     * @return {?}
      */
     function findReorderItem(node, listNode) {
-        var /** @type {?} */ nested = 0;
+        var nested = 0;
         while (node && nested < 4) {
             if (indexForItem(node) !== undefined) {
                 if (listNode && node.parentNode !== listNode) {

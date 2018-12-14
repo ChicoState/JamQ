@@ -22,24 +22,21 @@ var __extends = (this && this.__extends) || (function () {
     var animation_1 = require("../animations/animation");
     var util_1 = require("../util/util");
     var page_transition_1 = require("./page-transition");
-    var /** @type {?} */ SHOW_BACK_BTN_CSS = 'show-back-button';
-    var /** @type {?} */ SCALE_SMALL = .95;
+    var SHOW_BACK_BTN_CSS = 'show-back-button';
+    var SCALE_SMALL = .95;
     var WPTransition = (function (_super) {
         __extends(WPTransition, _super);
         function WPTransition() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         WPTransition.prototype.init = function () {
             _super.prototype.init.call(this);
-            var /** @type {?} */ plt = this.plt;
-            var /** @type {?} */ enteringView = this.enteringView;
-            var /** @type {?} */ leavingView = this.leavingView;
-            var /** @type {?} */ opts = this.opts;
+            var plt = this.plt;
+            var enteringView = this.enteringView;
+            var leavingView = this.leavingView;
+            var opts = this.opts;
             // what direction is the transition going
-            var /** @type {?} */ backDirection = (opts.direction === 'back');
+            var backDirection = (opts.direction === 'back');
             if (enteringView) {
                 if (backDirection) {
                     this.duration(util_1.isPresent(opts.duration) ? opts.duration : 120).easing('cubic-bezier(0.47,0,0.745,0.715)');
@@ -52,11 +49,11 @@ var __extends = (this && this.__extends) || (function () {
                         .fromTo('opacity', 0.01, 1, true);
                 }
                 if (enteringView.hasNavbar()) {
-                    var /** @type {?} */ enteringPageEle = enteringView.pageRef().nativeElement;
-                    var /** @type {?} */ enteringNavbarEle = enteringPageEle.querySelector('ion-navbar');
-                    var /** @type {?} */ enteringNavBar = new animation_1.Animation(plt, enteringNavbarEle);
+                    var enteringPageEle = enteringView.pageRef().nativeElement;
+                    var enteringNavbarEle = enteringPageEle.querySelector('ion-navbar');
+                    var enteringNavBar = new animation_1.Animation(plt, enteringNavbarEle);
                     this.add(enteringNavBar);
-                    var /** @type {?} */ enteringBackButton = new animation_1.Animation(plt, enteringNavbarEle.querySelector('.back-button'));
+                    var enteringBackButton = new animation_1.Animation(plt, enteringNavbarEle.querySelector('.back-button'));
                     this.add(enteringBackButton);
                     if (enteringView.enableBack()) {
                         enteringBackButton.beforeAddClass(SHOW_BACK_BTN_CSS);
@@ -70,7 +67,7 @@ var __extends = (this && this.__extends) || (function () {
             if (leavingView && backDirection) {
                 // leaving content
                 this.duration(opts.duration || 200).easing('cubic-bezier(0.47,0,0.745,0.715)');
-                var /** @type {?} */ leavingPage = new animation_1.Animation(plt, leavingView.pageRef());
+                var leavingPage = new animation_1.Animation(plt, leavingView.pageRef());
                 this.add(leavingPage.fromTo('scale', 1, SCALE_SMALL).fromTo('opacity', 0.99, 0));
             }
         };

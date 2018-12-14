@@ -12,17 +12,6 @@ ItemContent.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ItemContent.ctorParameters = () => [];
-function ItemContent_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ItemContent.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ItemContent.ctorParameters;
-}
 //# sourceMappingURL=item-content.js.map

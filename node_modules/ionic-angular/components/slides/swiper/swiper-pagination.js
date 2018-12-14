@@ -1,15 +1,14 @@
 import { CLS, addClass, eachChild, isHorizontal, removeClass, transform, transition } from './swiper-utils';
-/**
- * @param {?} s
- * @return {?}
- */
+/*=========================
+  Pagination
+  ===========================*/
 export function updatePagination(s) {
     if (!s.paginationType || !s._paginationContainer)
         return;
-    var /** @type {?} */ paginationHTML = '';
+    var paginationHTML = '';
     if (s.paginationType === 'bullets') {
-        var /** @type {?} */ numberOfBullets = s.loop ? Math.ceil((s._slides.length - s.loopedSlides * 2) / s.slidesPerGroup) : s._snapGrid.length;
-        for (var /** @type {?} */ i = 0; i < numberOfBullets; i++) {
+        var numberOfBullets = s.loop ? Math.ceil((s._slides.length - s.loopedSlides * 2) / s.slidesPerGroup) : s._snapGrid.length;
+        for (var i = 0; i < numberOfBullets; i++) {
             if (s.paginationBulletRender) {
                 paginationHTML += s.paginationBulletRender(i, CLS.bullet);
             }
@@ -28,16 +27,12 @@ export function updatePagination(s) {
         paginationHTML = '<span class="' + CLS.paginationProgressbar + '"></span>';
     }
     s._paginationContainer.innerHTML = paginationHTML;
-    s._bullets = (s._paginationContainer.querySelectorAll('.' + CLS.bullet));
+    s._bullets = s._paginationContainer.querySelectorAll('.' + CLS.bullet);
 }
-/**
- * @param {?} s
- * @return {?}
- */
 export function updatePaginationClasses(s) {
     // Current/Total
-    var /** @type {?} */ current;
-    var /** @type {?} */ total = s.loop ? Math.ceil((s._slides.length - s.loopedSlides * 2) / s.slidesPerGroup) : s._snapGrid.length;
+    var current;
+    var total = s.loop ? Math.ceil((s._slides.length - s.loopedSlides * 2) / s.slidesPerGroup) : s._snapGrid.length;
     if (s.loop) {
         current = Math.ceil((s._activeIndex - s.loopedSlides) / s.slidesPerGroup);
         if (current > s._slides.length - 1 - s.loopedSlides * 2) {
@@ -60,8 +55,8 @@ export function updatePaginationClasses(s) {
     }
     // Types
     if (s.paginationType === 'bullets' && s._bullets) {
-        var /** @type {?} */ selector = current + (current < 0 ? s._bullets.length : 0);
-        for (var /** @type {?} */ i = 0; i < s._bullets.length; i++) {
+        var selector = current + (current < 0 ? s._bullets.length : 0);
+        for (var i = 0; i < s._bullets.length; i++) {
             if (i === selector) {
                 addClass(s._bullets[i], CLS.bulletActive);
             }
@@ -72,14 +67,14 @@ export function updatePaginationClasses(s) {
     }
     if (s.paginationType === 'fraction') {
         eachChild(s._paginationContainer, '.' + CLS.paginationCurrent, function (ele) {
-            ele.textContent = ((current + 1));
+            ele.textContent = (current + 1);
         });
         eachChild(s._paginationContainer, '.' + CLS.paginationTotal, function (ele) {
             ele.textContent = total;
         });
     }
     if (s.paginationType === 'progress') {
-        var /** @type {?} */ scale = (current + 1) / total, /** @type {?} */ scaleX = scale, /** @type {?} */ scaleY = 1;
+        var scale = (current + 1) / total, scaleX = scale, scaleY = 1;
         if (!isHorizontal(s)) {
             scaleY = scale;
             scaleX = 1;

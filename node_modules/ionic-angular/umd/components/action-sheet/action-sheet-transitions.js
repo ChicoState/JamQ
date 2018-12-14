@@ -26,13 +26,10 @@ var __extends = (this && this.__extends) || (function () {
         function ActionSheetSlideIn() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ActionSheetSlideIn.prototype.init = function () {
-            var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-            var /** @type {?} */ backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
+            var ele = this.enteringView.pageRef().nativeElement;
+            var backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
+            var wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
             backdrop.fromTo('opacity', 0.01, 0.4);
             wrapper.fromTo('translateY', '100%', '0%');
             this.easing('cubic-bezier(.36,.66,.04,1)').duration(400).add(backdrop).add(wrapper);
@@ -45,13 +42,10 @@ var __extends = (this && this.__extends) || (function () {
         function ActionSheetSlideOut() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ActionSheetSlideOut.prototype.init = function () {
-            var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-            var /** @type {?} */ backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
+            var ele = this.leavingView.pageRef().nativeElement;
+            var backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
+            var wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
             backdrop.fromTo('opacity', 0.4, 0);
             wrapper.fromTo('translateY', '0%', '100%');
             this.easing('cubic-bezier(.36,.66,.04,1)').duration(300).add(backdrop).add(wrapper);
@@ -64,13 +58,10 @@ var __extends = (this && this.__extends) || (function () {
         function ActionSheetMdSlideIn() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ActionSheetMdSlideIn.prototype.init = function () {
-            var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-            var /** @type {?} */ backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
+            var ele = this.enteringView.pageRef().nativeElement;
+            var backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
+            var wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
             backdrop.fromTo('opacity', 0.01, 0.26);
             wrapper.fromTo('translateY', '100%', '0%');
             this.easing('cubic-bezier(.36,.66,.04,1)').duration(400).add(backdrop).add(wrapper);
@@ -83,13 +74,10 @@ var __extends = (this && this.__extends) || (function () {
         function ActionSheetMdSlideOut() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ActionSheetMdSlideOut.prototype.init = function () {
-            var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-            var /** @type {?} */ backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
+            var ele = this.leavingView.pageRef().nativeElement;
+            var backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
+            var wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
             backdrop.fromTo('opacity', 0.26, 0);
             wrapper.fromTo('translateY', '0%', '100%');
             this.easing('cubic-bezier(.36,.66,.04,1)').duration(450).add(backdrop).add(wrapper);
@@ -102,13 +90,10 @@ var __extends = (this && this.__extends) || (function () {
         function ActionSheetWpSlideIn() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ActionSheetWpSlideIn.prototype.init = function () {
-            var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-            var /** @type {?} */ backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
+            var ele = this.enteringView.pageRef().nativeElement;
+            var backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
+            var wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
             backdrop.fromTo('opacity', 0.01, 0.16);
             wrapper.fromTo('translateY', '100%', '0%');
             this.easing('cubic-bezier(.36,.66,.04,1)').duration(400).add(backdrop).add(wrapper);
@@ -121,13 +106,10 @@ var __extends = (this && this.__extends) || (function () {
         function ActionSheetWpSlideOut() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ActionSheetWpSlideOut.prototype.init = function () {
-            var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-            var /** @type {?} */ backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
+            var ele = this.leavingView.pageRef().nativeElement;
+            var backdrop = new animation_1.Animation(this.plt, ele.querySelector('ion-backdrop'));
+            var wrapper = new animation_1.Animation(this.plt, ele.querySelector('.action-sheet-wrapper'));
             backdrop.fromTo('opacity', 0.1, 0);
             wrapper.fromTo('translateY', '0%', '100%');
             this.easing('cubic-bezier(.36,.66,.04,1)').duration(450).add(backdrop).add(wrapper);

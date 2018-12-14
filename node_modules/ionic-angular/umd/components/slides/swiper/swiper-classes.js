@@ -12,17 +12,16 @@
     var swiper_a11y_1 = require("./swiper-a11y");
     var swiper_utils_1 = require("./swiper-utils");
     var swiper_pagination_1 = require("./swiper-pagination");
-    /**
-     * @param {?} s
-     * @return {?}
-     */
+    /*=========================
+      Classes
+      ===========================*/
     function updateClasses(s) {
-        var /** @type {?} */ childElements;
+        var childElements;
         swiper_utils_1.removeClass(s._slides, [swiper_utils_1.CLS.slideActive, swiper_utils_1.CLS.slideNext, swiper_utils_1.CLS.slidePrev, swiper_utils_1.CLS.slideDuplicateActive, swiper_utils_1.CLS.slideDuplicateNext, swiper_utils_1.CLS.slideDuplicatePrev]);
-        for (var /** @type {?} */ i = 0; i < s._slides.length; i++) {
+        for (var i = 0; i < s._slides.length; i++) {
             swiper_a11y_1.ariaHidden(s._slides[i], true);
         }
-        var /** @type {?} */ activeSlide = s._slides[s._activeIndex];
+        var activeSlide = s._slides[s._activeIndex];
         if (!activeSlide) {
             return;
         }
@@ -40,13 +39,13 @@
             swiper_utils_1.addClass(childElements, swiper_utils_1.CLS.slideDuplicateActive);
         }
         // Next Slide
-        var /** @type {?} */ nextSlide = activeSlide.nextElementSibling;
+        var nextSlide = activeSlide.nextElementSibling;
         if (s.loop && !nextSlide) {
             nextSlide = s._slides[0];
         }
         nextSlide && nextSlide.classList.add(swiper_utils_1.CLS.slideNext);
         // Prev Slide
-        var /** @type {?} */ prevSlide = activeSlide.previousElementSibling;
+        var prevSlide = activeSlide.previousElementSibling;
         if (s.loop && !prevSlide) {
             prevSlide = s._slides[s._slides.length - 1];
         }

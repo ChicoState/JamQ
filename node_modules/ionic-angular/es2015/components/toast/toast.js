@@ -7,11 +7,6 @@ import { ViewController } from '../../navigation/view-controller';
  * @hidden
  */
 export class Toast extends ViewController {
-    /**
-     * @param {?} app
-     * @param {?=} opts
-     * @param {?=} config
-     */
     constructor(app, opts = {}, config) {
         opts.dismissOnPageChange = isPresent(opts.dismissOnPageChange) ? !!opts.dismissOnPageChange : false;
         super(ToastCmp, opts, null);
@@ -29,57 +24,48 @@ export class Toast extends ViewController {
         config.setTransition('toast-wp-slide-in', ToastWpPopIn);
     }
     /**
-     * @hidden
-     * @param {?} direction
-     * @return {?}
-     */
+    * @hidden
+    */
     getTransitionName(direction) {
-        let /** @type {?} */ key = 'toast' + (direction === 'back' ? 'Leave' : 'Enter');
+        let key = 'toast' + (direction === 'back' ? 'Leave' : 'Enter');
         return this._nav && this._nav.config.get(key);
     }
     /**
-     * @hidden
-     * @param {?} position
-     * @return {?}
-     */
+    * @hidden
+    */
     isValidPosition(position) {
         return position === TOAST_POSITION_TOP || position === TOAST_POSITION_MIDDLE || position === TOAST_POSITION_BOTTOM;
     }
     /**
-     * @param {?} message
-     * @return {?}
+     * @param {string} message  Toast message content
      */
     setMessage(message) {
         this.data.message = message;
         return this;
     }
     /**
-     * @param {?} dur
-     * @return {?}
+     * @param {number} dur  Toast message duration
      */
     setDuration(dur) {
         this.data.duration = dur;
         return this;
     }
     /**
-     * @param {?} pos
-     * @return {?}
+     * @param {'top'|'middle'|'bottom'} pos  Toast message position
      */
     setPosition(pos) {
         this.data.position = pos;
         return this;
     }
     /**
-     * @param {?} cssClass
-     * @return {?}
+     * @param {string} cssClass  Toast message CSS class
      */
     setCssClass(cssClass) {
         this.data.cssClass = cssClass;
         return this;
     }
     /**
-     * @param {?} closeButton
-     * @return {?}
+     * @param {boolean} closeButton  Toast message close button
      */
     setShowCloseButton(closeButton) {
         this.data.showCloseButton = closeButton;
@@ -88,8 +74,8 @@ export class Toast extends ViewController {
     /**
      * Present the toast instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     present(navOptions = {}) {
         navOptions.disableApp = false;
@@ -98,17 +84,12 @@ export class Toast extends ViewController {
     }
     /**
      * Dismiss all toast components which have been presented.
-     * @return {?}
      */
     dismissAll() {
         this._nav && this._nav.popAll();
     }
 }
-function Toast_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Toast.prototype._app;
-}
-const /** @type {?} */ TOAST_POSITION_TOP = 'top';
-const /** @type {?} */ TOAST_POSITION_MIDDLE = 'middle';
-const /** @type {?} */ TOAST_POSITION_BOTTOM = 'bottom';
+const TOAST_POSITION_TOP = 'top';
+const TOAST_POSITION_MIDDLE = 'middle';
+const TOAST_POSITION_BOTTOM = 'bottom';
 //# sourceMappingURL=toast.js.map

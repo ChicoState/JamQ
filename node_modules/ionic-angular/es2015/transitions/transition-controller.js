@@ -6,22 +6,14 @@ import { Platform } from '../platform/platform';
  * @hidden
  */
 export class TransitionController {
-    /**
-     * @param {?} plt
-     * @param {?} _config
-     */
     constructor(plt, _config) {
         this.plt = plt;
         this._config = _config;
         this._ids = 0;
         this._trns = {};
     }
-    /**
-     * @param {?} nav
-     * @return {?}
-     */
     getRootTrnsId(nav) {
-        nav = (nav.parent);
+        nav = nav.parent;
         while (nav) {
             if (isPresent(nav._trnsId)) {
                 return nav._trnsId;
@@ -30,26 +22,16 @@ export class TransitionController {
         }
         return null;
     }
-    /**
-     * @return {?}
-     */
     nextId() {
         return this._ids++;
     }
-    /**
-     * @param {?} trnsId
-     * @param {?} enteringView
-     * @param {?} leavingView
-     * @param {?} opts
-     * @return {?}
-     */
     get(trnsId, enteringView, leavingView, opts) {
-        let /** @type {?} */ TransitionClass = this._config.getTransition(opts.animation);
+        let TransitionClass = this._config.getTransition(opts.animation);
         if (!TransitionClass) {
             // didn't find a transition animation, default to ios-transition
             TransitionClass = this._config.getTransition('ios-transition');
         }
-        const /** @type {?} */ trns = new TransitionClass(this.plt, enteringView, leavingView, opts);
+        const trns = new TransitionClass(this.plt, enteringView, leavingView, opts);
         trns.trnsId = trnsId;
         if (!this._trns[trnsId]) {
             // we haven't created the root transition yet
@@ -62,12 +44,8 @@ export class TransitionController {
         }
         return trns;
     }
-    /**
-     * @param {?} trnsId
-     * @return {?}
-     */
     destroy(trnsId) {
-        const /** @type {?} */ trans = this._trns[trnsId];
+        const trans = this._trns[trnsId];
         if (trans) {
             trans.destroy();
             delete this._trns[trnsId];
@@ -77,28 +55,9 @@ export class TransitionController {
 TransitionController.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 TransitionController.ctorParameters = () => [
     { type: Platform, },
     { type: Config, },
 ];
-function TransitionController_tsickle_Closure_declarations() {
-    /** @type {?} */
-    TransitionController.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    TransitionController.ctorParameters;
-    /** @type {?} */
-    TransitionController.prototype._ids;
-    /** @type {?} */
-    TransitionController.prototype._trns;
-    /** @type {?} */
-    TransitionController.prototype.plt;
-    /** @type {?} */
-    TransitionController.prototype._config;
-}
 //# sourceMappingURL=transition-controller.js.map

@@ -1,14 +1,11 @@
 import { Input } from '@angular/core';
 /**
- * @hidden
+ * Base class for all Ionic components. Exposes some common functionality
+ * that all Ionic components need, such as accessing underlying native elements and
+ * sending/receiving app-level events.
  */
+/** @hidden */
 export class Ion {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?=} componentName
-     */
     constructor(config, elementRef, renderer, componentName) {
         this._config = config;
         this._elementRef = elementRef;
@@ -20,70 +17,40 @@ export class Ion {
         }
     }
     /**
-     * \@input {string} The color to use from your Sass `$colors` map.
+     * @input {string} The color to use from your Sass `$colors` map.
      * Default options are: `"primary"`, `"secondary"`, `"danger"`, `"light"`, and `"dark"`.
      * For more information, see [Theming your App](/docs/theming/theming-your-app).
-     * @param {?} val
-     * @return {?}
      */
     set color(val) {
         this._setColor(val);
     }
-    /**
-     * @return {?}
-     */
     get color() {
         return this._color;
     }
     /**
-     * \@input {string} The mode determines which platform styles to use.
+     * @input {string} The mode determines which platform styles to use.
      * Possible values are: `"ios"`, `"md"`, or `"wp"`.
      * For more information, see [Platform Styles](/docs/theming/platform-specific-styles).
-     * @param {?} val
-     * @return {?}
      */
     set mode(val) {
         this._setMode(val);
     }
-    /**
-     * @return {?}
-     */
     get mode() {
         return this._mode;
     }
-    /**
-     * @hidden
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */
+    /** @hidden */
     setElementClass(className, isAdd) {
         this._renderer.setElementClass(this._elementRef.nativeElement, className, isAdd);
     }
-    /**
-     * @hidden
-     * @param {?} attributeName
-     * @param {?} attributeValue
-     * @return {?}
-     */
+    /** @hidden */
     setElementAttribute(attributeName, attributeValue) {
         this._renderer.setElementAttribute(this._elementRef.nativeElement, attributeName, attributeValue);
     }
-    /**
-     * @hidden
-     * @param {?} property
-     * @param {?} value
-     * @return {?}
-     */
+    /** @hidden */
     setElementStyle(property, value) {
         this._renderer.setElementStyle(this._elementRef.nativeElement, property, value);
     }
-    /**
-     * @hidden
-     * @param {?} newColor
-     * @param {?=} componentName
-     * @return {?}
-     */
+    /** @hidden */
     _setColor(newColor, componentName) {
         if (componentName) {
             // This is needed for the item-radio
@@ -97,11 +64,7 @@ export class Ion {
             this._color = newColor;
         }
     }
-    /**
-     * @hidden
-     * @param {?} newMode
-     * @return {?}
-     */
+    /** @hidden */
     _setMode(newMode) {
         if (this._mode) {
             this.setElementClass(`${this._componentName}-${this._mode}`, false);
@@ -115,24 +78,15 @@ export class Ion {
             this._setColor(this._color);
         }
     }
-    /**
-     * @hidden
-     * @return {?}
-     */
+    /** @hidden */
     _setComponentName() {
         this.setElementClass(this._componentName, true);
     }
-    /**
-     * @hidden
-     * @return {?}
-     */
+    /** @hidden */
     getElementRef() {
         return this._elementRef;
     }
-    /**
-     * @hidden
-     * @return {?}
-     */
+    /** @hidden */
     getNativeElement() {
         return this._elementRef.nativeElement;
     }
@@ -141,38 +95,4 @@ Ion.propDecorators = {
     'color': [{ type: Input },],
     'mode': [{ type: Input },],
 };
-function Ion_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Ion.propDecorators;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Ion.prototype._config;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Ion.prototype._elementRef;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Ion.prototype._renderer;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Ion.prototype._color;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Ion.prototype._mode;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Ion.prototype._componentName;
-}
 //# sourceMappingURL=ion.js.map

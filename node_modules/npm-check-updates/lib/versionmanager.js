@@ -4,8 +4,7 @@ var cint = require('cint');
 var semverutils = require('semver-utils');
 var Promise = require('bluebird');
 var versionUtil = require('./version-util.js');
-var requireDir = require('require-dir');
-var packageManagers = requireDir('./package-managers');
+var packageManagers = require('./package-managers');
 
 // keep order for setPrecision
 var DEFAULT_WILDCARD = '^';
@@ -316,7 +315,7 @@ function getInstalledPackages(options) {
 /**
  * Get the latest or greatest versions from the NPM repository based on the version target
  * @param packageMap   an object whose keys are package name and values are current versions
- * @param options       Options. Default: { versionTarget: 'latest' }. You may also specify { versionTarge: 'greatest' }
+ * @param options       Options. Default: { versionTarget: 'latest' }. You may also specify { versionTarget: 'greatest' }
  * @returns             Promised {packageName: version} collection
  */
 function queryVersions(packageMap, options) {

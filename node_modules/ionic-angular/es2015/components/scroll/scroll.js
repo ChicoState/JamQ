@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { isTrueProperty } from '../../util/util';
 /**
- * \@name Scroll
- * \@description
+ * @name Scroll
+ * @description
  * Scroll is a non-flexboxed scroll area that can scroll horizontally or vertically. `ion-Scroll` Can be used in places where you may not need a full page scroller, but a highly customized one, such as image scubber or comment scroller.
- * \@usage
+ * @usage
  * ```html
  * <ion-scroll scrollX="true">
  * </ion-scroll>
@@ -15,7 +15,7 @@ import { isTrueProperty } from '../../util/util';
  * <ion-scroll scrollX="true" scrollY="true">
  * </ion-scroll>
  * ```
- * \@demo /docs/demos/src/scroll/
+ * @demo /docs/demos/src/scroll/
  */
 export class Scroll {
     constructor() {
@@ -33,71 +33,51 @@ export class Scroll {
         this.zoomDuration = 250;
     }
     /**
-     * \@input {boolean} If true, scrolling along the X axis is enabled.
-     * @return {?}
+     * @input {boolean} If true, scrolling along the X axis is enabled.
      */
     get scrollX() {
         return this._scrollX;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set scrollX(val) {
         this._scrollX = isTrueProperty(val);
     }
     /**
-     * \@input {boolean} If true, scrolling along the Y axis is enabled; requires the following CSS declaration: ion-scroll { white-space: nowrap; }
-     * @return {?}
+     * @input {boolean} If true, scrolling along the Y axis is enabled; requires the following CSS declaration: ion-scroll { white-space: nowrap; }
      */
     get scrollY() {
         return this._scrollY;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set scrollY(val) {
         this._scrollY = isTrueProperty(val);
     }
     /**
-     * \@input {boolean} If true, zooming is enabled.
-     * @return {?}
+     * @input {boolean} If true, zooming is enabled.
      */
     get zoom() {
         return this._zoom;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set zoom(val) {
         this._zoom = isTrueProperty(val);
     }
     /**
-     * \@input {number} Set the max zoom amount.
-     * @return {?}
+     * @input {number} Set the max zoom amount.
      */
     get maxZoom() {
         return this._maxZoom;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set maxZoom(val) {
         this._maxZoom = val;
     }
     /**
      * @hidden
      * Add a scroll event handler to the scroll element if it exists.
+     * @param {Function} handler  The scroll handler to add to the scroll element.
+     * @returns {?Function} a function to remove the specified handler, otherwise
      * undefined if the scroll element doesn't exist.
-     * @param {?} handler
-     * @return {?}
      */
     addScrollEventListener(handler) {
         (void 0) /* assert */;
-        const /** @type {?} */ ele = this._scrollContent.nativeElement;
+        const ele = this._scrollContent.nativeElement;
         ele.addEventListener('scroll', handler);
         return () => {
             ele.removeEventListener('scroll', handler);
@@ -120,9 +100,7 @@ Scroll.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Scroll.ctorParameters = () => [];
 Scroll.propDecorators = {
     'scrollX': [{ type: Input },],
@@ -131,38 +109,4 @@ Scroll.propDecorators = {
     'maxZoom': [{ type: Input },],
     '_scrollContent': [{ type: ViewChild, args: ['scrollContent', { read: ElementRef },] },],
 };
-function Scroll_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Scroll.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Scroll.ctorParameters;
-    /** @type {?} */
-    Scroll.propDecorators;
-    /** @type {?} */
-    Scroll.prototype._scrollX;
-    /** @type {?} */
-    Scroll.prototype._scrollY;
-    /** @type {?} */
-    Scroll.prototype._zoom;
-    /** @type {?} */
-    Scroll.prototype._maxZoom;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Scroll.prototype.maxScale;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Scroll.prototype.zoomDuration;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Scroll.prototype._scrollContent;
-}
 //# sourceMappingURL=scroll.js.map

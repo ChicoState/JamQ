@@ -25,18 +25,11 @@ var __extends = (this && this.__extends) || (function () {
      */
     var ToolbarBase = (function (_super) {
         __extends(ToolbarBase, _super);
-        /**
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         */
         function ToolbarBase(config, elementRef, renderer) {
             return _super.call(this, config, elementRef, renderer, 'toolbar') || this;
         }
         /**
          * @hidden
-         * @param {?} titleCmp
-         * @return {?}
          */
         ToolbarBase.prototype._setTitle = function (titleCmp) {
             this._title = titleCmp;
@@ -44,7 +37,6 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * @hidden
          * Returns the toolbar title text if it exists or an empty string
-         * @return {?}
          */
         ToolbarBase.prototype.getTitleText = function () {
             return (this._title && this._title.getTitleText()) || '';
@@ -52,9 +44,5 @@ var __extends = (this && this.__extends) || (function () {
         return ToolbarBase;
     }(ion_1.Ion));
     exports.ToolbarBase = ToolbarBase;
-    function ToolbarBase_tsickle_Closure_declarations() {
-        /** @type {?} */
-        ToolbarBase.prototype._title;
-    }
 });
 //# sourceMappingURL=toolbar-base.js.map

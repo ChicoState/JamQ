@@ -30,23 +30,12 @@ var __extends = (this && this.__extends) || (function () {
      */
     var ToolbarItem = (function (_super) {
         __extends(ToolbarItem, _super);
-        /**
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         * @param {?} toolbar
-         * @param {?} navbar
-         */
         function ToolbarItem(config, elementRef, renderer, toolbar, navbar) {
             var _this = _super.call(this, config, elementRef, renderer, 'bar-buttons') || this;
             _this.inToolbar = !!(toolbar || navbar);
             return _this;
         }
         Object.defineProperty(ToolbarItem.prototype, "_buttons", {
-            /**
-             * @param {?} buttons
-             * @return {?}
-             */
             set: function (buttons) {
                 if (this.inToolbar) {
                     buttons.forEach(function (button) {
@@ -57,39 +46,24 @@ var __extends = (this && this.__extends) || (function () {
             enumerable: true,
             configurable: true
         });
+        ToolbarItem.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: 'ion-buttons,[menuToggle]'
+                    },] },
+        ];
+        /** @nocollapse */
+        ToolbarItem.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+            { type: toolbar_1.Toolbar, decorators: [{ type: core_1.Optional },] },
+            { type: navbar_1.Navbar, decorators: [{ type: core_1.Optional }, { type: core_1.Inject, args: [core_1.forwardRef(function () { return navbar_1.Navbar; }),] },] },
+        ]; };
+        ToolbarItem.propDecorators = {
+            '_buttons': [{ type: core_1.ContentChildren, args: [button_1.Button,] },],
+        };
         return ToolbarItem;
     }(ion_1.Ion));
-    ToolbarItem.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: 'ion-buttons,[menuToggle]'
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    ToolbarItem.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-        { type: toolbar_1.Toolbar, decorators: [{ type: core_1.Optional },] },
-        { type: navbar_1.Navbar, decorators: [{ type: core_1.Optional }, { type: core_1.Inject, args: [core_1.forwardRef(function () { return navbar_1.Navbar; }),] },] },
-    ]; };
-    ToolbarItem.propDecorators = {
-        '_buttons': [{ type: core_1.ContentChildren, args: [button_1.Button,] },],
-    };
     exports.ToolbarItem = ToolbarItem;
-    function ToolbarItem_tsickle_Closure_declarations() {
-        /** @type {?} */
-        ToolbarItem.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        ToolbarItem.ctorParameters;
-        /** @type {?} */
-        ToolbarItem.propDecorators;
-        /** @type {?} */
-        ToolbarItem.prototype.inToolbar;
-    }
 });
 //# sourceMappingURL=toolbar-item.js.map

@@ -12,8 +12,8 @@ import { KEY_ENTER, KEY_SPACE } from '../../platform/key';
 import { Platform } from '../../platform/platform';
 import { ToggleGesture } from './toggle-gesture';
 /**
- * \@name Toggle
- * \@description
+ * @name Toggle
+ * @description
  * A toggle technically is the same thing as an HTML checkbox input,
  * except it looks different and is easier to use on a touch device.
  * Toggles can also have colors assigned to them, by adding any color
@@ -22,7 +22,7 @@ import { ToggleGesture } from './toggle-gesture';
  * See the [Angular Docs](https://angular.io/docs/ts/latest/guide/forms.html)
  * for more info on forms and inputs.
  *
- * \@usage
+ * @usage
  * ```html
  *
  *  <ion-list>
@@ -45,22 +45,10 @@ import { ToggleGesture } from './toggle-gesture';
  *  </ion-list>
  * ```
  *
- * \@demo /docs/demos/src/toggle/
- * @see {\@link /docs/components#toggle Toggle Component Docs}
+ * @demo /docs/demos/src/toggle/
+ * @see {@link /docs/components#toggle Toggle Component Docs}
  */
 export class Toggle extends BaseInput {
-    /**
-     * @param {?} form
-     * @param {?} config
-     * @param {?} _plt
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} _haptic
-     * @param {?} item
-     * @param {?} _gestureCtrl
-     * @param {?} _domCtrl
-     * @param {?} _zone
-     */
     constructor(form, config, _plt, elementRef, renderer, _haptic, item, _gestureCtrl, _domCtrl, _zone) {
         super(config, elementRef, renderer, 'toggle', false, form, item, null);
         this._plt = _plt;
@@ -71,22 +59,16 @@ export class Toggle extends BaseInput {
         this._activated = false;
     }
     /**
-     * \@input {boolean} If true, the element is selected.
-     * @return {?}
+     * @input {boolean} If true, the element is selected.
      */
     get checked() {
         return this.value;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set checked(val) {
         this.value = val;
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngAfterContentInit() {
         this._initialize();
@@ -95,21 +77,16 @@ export class Toggle extends BaseInput {
     }
     /**
      * @hidden
-     * @return {?}
      */
     _inputUpdated() { }
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     _inputNormalize(val) {
         return isTrueProperty(val);
     }
     /**
      * @hidden
-     * @param {?} startX
-     * @return {?}
      */
     _onDragStart(startX) {
         (void 0) /* assert */;
@@ -122,8 +99,6 @@ export class Toggle extends BaseInput {
     }
     /**
      * @hidden
-     * @param {?} currentX
-     * @return {?}
      */
     _onDragMove(currentX) {
         if (!this._startX) {
@@ -140,8 +115,6 @@ export class Toggle extends BaseInput {
     }
     /**
      * @hidden
-     * @param {?} endX
-     * @return {?}
      */
     _onDragEnd(endX) {
         if (!this._startX) {
@@ -161,13 +134,10 @@ export class Toggle extends BaseInput {
     }
     /**
      * @hidden
-     * @param {?} currentX
-     * @param {?} margin
-     * @return {?}
      */
     _shouldToggle(currentX, margin) {
-        const /** @type {?} */ isLTR = !this._plt.isRTL;
-        const /** @type {?} */ startX = this._startX;
+        const isLTR = !this._plt.isRTL;
+        const startX = this._startX;
         if (this._value) {
             return (isLTR && (startX + margin > currentX)) ||
                 (!isLTR && (startX - margin < currentX));
@@ -179,8 +149,6 @@ export class Toggle extends BaseInput {
     }
     /**
      * @hidden
-     * @param {?} ev
-     * @return {?}
      */
     _keyup(ev) {
         if (ev.keyCode === KEY_SPACE || ev.keyCode === KEY_ENTER) {
@@ -192,7 +160,6 @@ export class Toggle extends BaseInput {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnDestroy() {
         super.ngOnDestroy();
@@ -223,9 +190,7 @@ Toggle.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Toggle.ctorParameters = () => [
     { type: Form, },
     { type: Config, },
@@ -242,31 +207,4 @@ Toggle.propDecorators = {
     'checked': [{ type: Input },],
     '_keyup': [{ type: HostListener, args: ['keyup', ['$event'],] },],
 };
-function Toggle_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Toggle.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Toggle.ctorParameters;
-    /** @type {?} */
-    Toggle.propDecorators;
-    /** @type {?} */
-    Toggle.prototype._activated;
-    /** @type {?} */
-    Toggle.prototype._startX;
-    /** @type {?} */
-    Toggle.prototype._gesture;
-    /** @type {?} */
-    Toggle.prototype._plt;
-    /** @type {?} */
-    Toggle.prototype._haptic;
-    /** @type {?} */
-    Toggle.prototype._gestureCtrl;
-    /** @type {?} */
-    Toggle.prototype._domCtrl;
-    /** @type {?} */
-    Toggle.prototype._zone;
-}
 //# sourceMappingURL=toggle.js.map

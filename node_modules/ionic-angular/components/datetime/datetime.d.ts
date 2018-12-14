@@ -280,6 +280,13 @@ export declare class DateTime extends BaseInput<DateTimeData> implements AfterCo
      */
     displayFormat: string;
     /**
+     * @input {string} The default datetime selected in picker modal if field value is empty.
+     * Value must be a date string following the
+     * [ISO 8601 datetime format standard](https://www.w3.org/TR/NOTE-datetime),
+     * `1996-12-19`.
+     */
+    initialValue: string;
+    /**
      * @input {string} The format of the date and time picker columns the user selects.
      * A datetime input can have one or many datetime parts, each getting their
      * own column which allow individual selection of that particular datetime part. For
@@ -427,6 +434,15 @@ export declare class DateTime extends BaseInput<DateTimeData> implements AfterCo
      * @hidden
      */
     getValue(): DateTimeData;
+    /**
+     * @hidden
+     */
+    getValueOrDefault(): DateTimeData;
+    /**
+     * Get the default value as a date string
+     * @hidden
+     */
+    getDefaultValueDateString(): string;
     /**
      * @hidden
      */

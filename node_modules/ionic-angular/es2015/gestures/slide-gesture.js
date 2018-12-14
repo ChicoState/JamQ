@@ -5,19 +5,13 @@ import { pointerCoord } from '../util/dom';
  * @hidden
  */
 export class SlideGesture extends PanGesture {
-    /**
-     * @param {?} plt
-     * @param {?} element
-     * @param {?=} opts
-     */
     constructor(plt, element, opts = {}) {
         super(plt, element, opts);
         this.slide = null;
     }
-    /**
-     * @param {?} _slide
-     * @param {?} _ev
-     * @return {?}
+    /*
+     * Get the min and max for the slide. pageX/pageY.
+     * Only called on dragstart.
      */
     getSlideBoundaries(_slide, _ev) {
         return {
@@ -25,22 +19,18 @@ export class SlideGesture extends PanGesture {
             max: this.getNativeElement().offsetWidth
         };
     }
-    /**
-     * @param {?} _slide
-     * @param {?} _ev
-     * @return {?}
+    /*
+     * Get the element's pos when the drag starts.
+     * For example, an open side menu starts at 100% and a closed
+     * sidemenu starts at 0%.
      */
     getElementStartPos(_slide, _ev) {
         return 0;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     onDragStart(ev) {
         this.onSlideBeforeStart(ev);
-        let /** @type {?} */ coord = (pointerCoord(ev));
-        let /** @type {?} */ pos = coord[this.direction];
+        let coord = pointerCoord(ev);
+        let pos = coord[this.direction];
         this.slide = {
             min: 0,
             max: 0,
@@ -60,17 +50,13 @@ export class SlideGesture extends PanGesture {
         this.slide.elementStartPos = this.getElementStartPos(this.slide, ev);
         this.onSlideStart(this.slide, ev);
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     onDragMove(ev) {
-        let /** @type {?} */ slide = this.slide;
+        let slide = this.slide;
         (void 0) /* assert */;
-        let /** @type {?} */ coord = (pointerCoord(ev));
-        let /** @type {?} */ newPos = coord[this.direction];
-        let /** @type {?} */ newTimestamp = Date.now();
-        let /** @type {?} */ velocity = (this.plt.isRTL ? (slide.pos - newPos) : (newPos - slide.pos)) / (newTimestamp - slide.timestamp);
+        let coord = pointerCoord(ev);
+        let newPos = coord[this.direction];
+        let newTimestamp = Date.now();
+        let velocity = (this.plt.isRTL ? (slide.pos - newPos) : (newPos - slide.pos)) / (newTimestamp - slide.timestamp);
         slide.pos = newPos;
         slide.timestamp = newTimestamp;
         slide.distance = clamp(slide.min, (this.plt.isRTL ? slide.pointerStartPos - newPos : newPos - slide.pointerStartPos) + slide.elementStartPos, slide.max);
@@ -78,40 +64,13 @@ export class SlideGesture extends PanGesture {
         slide.delta = (this.plt.isRTL ? slide.pointerStartPos - newPos : newPos - slide.pointerStartPos);
         this.onSlide(slide, ev);
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     onDragEnd(ev) {
         this.onSlideEnd(this.slide, ev);
         this.slide = null;
     }
-    /**
-     * @param {?=} _ev
-     * @return {?}
-     */
     onSlideBeforeStart(_ev) { }
-    /**
-     * @param {?=} _slide
-     * @param {?=} _ev
-     * @return {?}
-     */
     onSlideStart(_slide, _ev) { }
-    /**
-     * @param {?=} _slide
-     * @param {?=} _ev
-     * @return {?}
-     */
     onSlide(_slide, _ev) { }
-    /**
-     * @param {?=} _slide
-     * @param {?=} _ev
-     * @return {?}
-     */
     onSlideEnd(_slide, _ev) { }
-}
-function SlideGesture_tsickle_Closure_declarations() {
-    /** @type {?} */
-    SlideGesture.prototype.slide;
 }
 //# sourceMappingURL=slide-gesture.js.map

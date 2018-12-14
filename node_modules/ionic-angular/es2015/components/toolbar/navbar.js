@@ -6,8 +6,8 @@ import { NavController } from '../../navigation/nav-controller';
 import { ToolbarBase } from './toolbar-base';
 import { ViewController } from '../../navigation/view-controller';
 /**
- * \@name Navbar
- * \@description
+ * @name Navbar
+ * @description
  * Navbar acts as the navigational toolbar, which also comes with a back
  * button. A navbar can contain a `ion-title`, any number of buttons,
  * a segment, or a searchbar. Navbars must be placed within an
@@ -15,7 +15,7 @@ import { ViewController } from '../../navigation/view-controller';
  * It's important to note that navbar's are part of the dynamic navigation
  * stack. If you need a static toolbar, use ion-toolbar.
  *
- * \@usage
+ * @usage
  * ```html
  * <ion-header>
  *
@@ -38,18 +38,10 @@ import { ViewController } from '../../navigation/view-controller';
  * </ion-header>
  * ```
  *
- * \@demo /docs/demos/src/navbar/
- * @see {\@link ../../toolbar/Toolbar/ Toolbar API Docs}
+ * @demo /docs/demos/src/navbar/
+ * @see {@link ../../toolbar/Toolbar/ Toolbar API Docs}
  */
 export class Navbar extends ToolbarBase {
-    /**
-     * @param {?} _app
-     * @param {?} viewCtrl
-     * @param {?} navCtrl
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     constructor(_app, viewCtrl, navCtrl, config, elementRef, renderer) {
         super(config, elementRef, renderer);
         this._app = _app;
@@ -68,23 +60,14 @@ export class Navbar extends ToolbarBase {
         this._backText = config.get('backButtonText', 'Back');
     }
     /**
-     * \@input {boolean} If true, the back button will be hidden.
-     * @return {?}
+     * @input {boolean} If true, the back button will be hidden.
      */
     get hideBackButton() {
         return this._hideBb;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set hideBackButton(val) {
         this._hideBb = isTrueProperty(val);
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     backButtonClick(ev) {
         ev.preventDefault();
         ev.stopPropagation();
@@ -92,15 +75,12 @@ export class Navbar extends ToolbarBase {
     }
     /**
      * Set the text of the Back Button in the Nav Bar. Defaults to "Back".
-     * @param {?} text
-     * @return {?}
      */
     setBackButtonText(text) {
         this._backText = text;
     }
     /**
      * @hidden
-     * @return {?}
      */
     didEnter() {
         try {
@@ -112,8 +92,6 @@ export class Navbar extends ToolbarBase {
     }
     /**
      * @hidden
-     * @param {?} isHidden
-     * @return {?}
      */
     setHidden(isHidden) {
         // used to display none/block the navbar
@@ -141,9 +119,7 @@ Navbar.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Navbar.ctorParameters = () => [
     { type: App, },
     { type: ViewController, decorators: [{ type: Optional },] },
@@ -155,44 +131,4 @@ Navbar.ctorParameters = () => [
 Navbar.propDecorators = {
     'hideBackButton': [{ type: Input },],
 };
-function Navbar_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Navbar.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Navbar.ctorParameters;
-    /** @type {?} */
-    Navbar.propDecorators;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Navbar.prototype._backText;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Navbar.prototype._bbIcon;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Navbar.prototype._hidden;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Navbar.prototype._hideBb;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Navbar.prototype._sbPadding;
-    /** @type {?} */
-    Navbar.prototype._app;
-    /** @type {?} */
-    Navbar.prototype.navCtrl;
-}
 //# sourceMappingURL=navbar.js.map

@@ -1,15 +1,12 @@
 import { eachChild, isHorizontal, transform, transition } from './swiper-utils';
-/**
- * @param {?} s
- * @param {?} el
- * @param {?} progress
- * @return {?}
- */
+/*=========================
+  Parallax
+  ===========================*/
 function setParallaxTransform(s, el, progress) {
-    var /** @type {?} */ p;
-    var /** @type {?} */ pX;
-    var /** @type {?} */ pY;
-    var /** @type {?} */ rtlFactor = s._rtl ? -1 : 1;
+    var p;
+    var pX;
+    var pY;
+    var rtlFactor = s._rtl ? -1 : 1;
     p = el.getAttribute('data-swiper-parallax') || '0';
     pX = el.getAttribute('data-swiper-parallax-x');
     pY = el.getAttribute('data-swiper-parallax-y');
@@ -31,42 +28,33 @@ function setParallaxTransform(s, el, progress) {
         pX = parseInt(pX, 10) * progress * rtlFactor + '%';
     }
     else {
-        pX = (pX) * progress * rtlFactor + 'px';
+        pX = pX * progress * rtlFactor + 'px';
     }
     if ((pY).indexOf('%') >= 0) {
         pY = parseInt(pY, 10) * progress + '%';
     }
     else {
-        pY = (pY) * progress + 'px';
+        pY = pY * progress + 'px';
     }
     transform(el, 'translate3d(' + pX + ', ' + pY + ',0px)');
 }
-/**
- * @param {?} s
- * @return {?}
- */
 export function parallaxSetTranslate(s) {
     eachChild(s.container, '[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y]', (el) => {
         setParallaxTransform(s, el, s.progress);
     });
-    for (var /** @type {?} */ i = 0; i < s._slides.length; i++) {
-        var /** @type {?} */ slide = s._slides[i];
+    for (var i = 0; i < s._slides.length; i++) {
+        var slide = s._slides[i];
         eachChild(slide, '[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y]', () => {
-            var /** @type {?} */ progress = Math.min(Math.max(slide.progress, -1), 1);
+            var progress = Math.min(Math.max(slide.progress, -1), 1);
             setParallaxTransform(s, slide, progress);
         });
     }
 }
-/**
- * @param {?} s
- * @param {?} duration
- * @return {?}
- */
 export function parallaxSetTransition(s, duration) {
     if (typeof duration === 'undefined')
         duration = s.speed;
     eachChild(s.container, '[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y]', (el) => {
-        var /** @type {?} */ parallaxDuration = parseInt(el.getAttribute('data-swiper-parallax-duration'), 10) || duration;
+        var parallaxDuration = parseInt(el.getAttribute('data-swiper-parallax-duration'), 10) || duration;
         if (duration === 0)
             parallaxDuration = 0;
         transition(el, parallaxDuration);

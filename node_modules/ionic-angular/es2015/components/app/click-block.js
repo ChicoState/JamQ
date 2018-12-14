@@ -6,13 +6,6 @@ import { Platform } from '../../platform/platform';
  * @hidden
  */
 export class ClickBlock {
-    /**
-     * @param {?} app
-     * @param {?} config
-     * @param {?} plt
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     constructor(app, config, plt, elementRef, renderer) {
         this.plt = plt;
         this.elementRef = elementRef;
@@ -24,12 +17,6 @@ export class ClickBlock {
             this._setElementClass('click-block-enabled', true);
         }
     }
-    /**
-     * @param {?} shouldShow
-     * @param {?=} expire
-     * @param {?=} minDuration
-     * @return {?}
-     */
     activate(shouldShow, expire = 100, minDuration = 0) {
         if (this.isEnabled) {
             this.plt.cancelTimeout(this._tmr);
@@ -44,17 +31,13 @@ export class ClickBlock {
             this._tmr = this.plt.timeout(this._activate.bind(this, false), expire);
         }
     }
-    /**
-     * \@internal
-     * @param {?} shouldShow
-     * @return {?}
-     */
+    /** @internal */
     _activate(shouldShow) {
         if (this._showing !== shouldShow) {
             if (!shouldShow) {
                 // check if it was enabled before the minimum duration
                 // this is useful for transitions that are less than 300ms
-                var /** @type {?} */ now = Date.now();
+                var now = Date.now();
                 if (now < this._minEnd) {
                     this._tmr = this.plt.timeout(this._activate.bind(this, false), this._minEnd - now);
                     return;
@@ -64,11 +47,6 @@ export class ClickBlock {
             this._showing = shouldShow;
         }
     }
-    /**
-     * @param {?} className
-     * @param {?} add
-     * @return {?}
-     */
     _setElementClass(className, add) {
         this.renderer.setElementClass(this.elementRef.nativeElement, className, add);
     }
@@ -78,9 +56,7 @@ ClickBlock.decorators = [
                 selector: '.click-block'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ClickBlock.ctorParameters = () => [
     { type: App, decorators: [{ type: Inject, args: [forwardRef(() => App),] },] },
     { type: Config, },
@@ -88,29 +64,4 @@ ClickBlock.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer, },
 ];
-function ClickBlock_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ClickBlock.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ClickBlock.ctorParameters;
-    /** @type {?} */
-    ClickBlock.prototype._tmr;
-    /** @type {?} */
-    ClickBlock.prototype._showing;
-    /** @type {?} */
-    ClickBlock.prototype._start;
-    /** @type {?} */
-    ClickBlock.prototype._minEnd;
-    /** @type {?} */
-    ClickBlock.prototype.isEnabled;
-    /** @type {?} */
-    ClickBlock.prototype.plt;
-    /** @type {?} */
-    ClickBlock.prototype.elementRef;
-    /** @type {?} */
-    ClickBlock.prototype.renderer;
-}
 //# sourceMappingURL=click-block.js.map

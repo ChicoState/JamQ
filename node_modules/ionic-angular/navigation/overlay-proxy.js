@@ -1,34 +1,25 @@
 import { isString } from '../util/util';
 var OverlayProxy = (function () {
-    /**
-     * @param {?} _app
-     * @param {?} _component
-     * @param {?} _config
-     * @param {?} _deepLinker
-     */
     function OverlayProxy(_app, _component, _config, _deepLinker) {
         this._app = _app;
         this._component = _component;
         this._config = _config;
         this._deepLinker = _deepLinker;
     }
-    /**
-     * @return {?}
-     */
     OverlayProxy.prototype.getImplementation = function () {
         throw new Error('Child class must implement "getImplementation" method');
     };
     /**
      * Present the modal instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     OverlayProxy.prototype.present = function (navOptions) {
         var _this = this;
         if (navOptions === void 0) { navOptions = {}; }
         // check if it's a lazy loaded component, or not
-        var /** @type {?} */ isLazyLoaded = isString(this._component);
+        var isLazyLoaded = isString(this._component);
         if (isLazyLoaded) {
             return this._deepLinker.getComponentFromName(this._component).then(function (loadedComponent) {
                 _this._component = loadedComponent;
@@ -39,12 +30,6 @@ var OverlayProxy = (function () {
             return this.createAndPresentOverlay(navOptions);
         }
     };
-    /**
-     * @param {?=} data
-     * @param {?=} role
-     * @param {?=} navOptions
-     * @return {?}
-     */
     OverlayProxy.prototype.dismiss = function (data, role, navOptions) {
         if (this.overlay) {
             return this.overlay.dismiss(data, role, navOptions);
@@ -52,8 +37,6 @@ var OverlayProxy = (function () {
     };
     /**
      * Called when the current viewController has be successfully dismissed
-     * @param {?} callback
-     * @return {?}
      */
     OverlayProxy.prototype.onDidDismiss = function (callback) {
         this._onDidDismiss = callback;
@@ -61,10 +44,6 @@ var OverlayProxy = (function () {
             this.overlay.onDidDismiss(this._onDidDismiss);
         }
     };
-    /**
-     * @param {?} navOptions
-     * @return {?}
-     */
     OverlayProxy.prototype.createAndPresentOverlay = function (navOptions) {
         this.overlay = this.getImplementation();
         this.overlay.onWillDismiss(this._onWillDismiss);
@@ -73,8 +52,6 @@ var OverlayProxy = (function () {
     };
     /**
      * Called when the current viewController will be dismissed
-     * @param {?} callback
-     * @return {?}
      */
     OverlayProxy.prototype.onWillDismiss = function (callback) {
         this._onWillDismiss = callback;
@@ -85,20 +62,4 @@ var OverlayProxy = (function () {
     return OverlayProxy;
 }());
 export { OverlayProxy };
-function OverlayProxy_tsickle_Closure_declarations() {
-    /** @type {?} */
-    OverlayProxy.prototype.overlay;
-    /** @type {?} */
-    OverlayProxy.prototype._onWillDismiss;
-    /** @type {?} */
-    OverlayProxy.prototype._onDidDismiss;
-    /** @type {?} */
-    OverlayProxy.prototype._app;
-    /** @type {?} */
-    OverlayProxy.prototype._component;
-    /** @type {?} */
-    OverlayProxy.prototype._config;
-    /** @type {?} */
-    OverlayProxy.prototype._deepLinker;
-}
 //# sourceMappingURL=overlay-proxy.js.map

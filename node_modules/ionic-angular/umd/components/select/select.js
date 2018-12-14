@@ -34,8 +34,8 @@ var __extends = (this && this.__extends) || (function () {
     var option_1 = require("../option/option");
     var select_popover_component_1 = require("./select-popover-component");
     /**
-     * \@name Select
-     * \@description
+     * @name Select
+     * @description
      * The `ion-select` component is similar to an HTML `<select>` element, however,
      * Ionic's select component makes it easier for users to sort through and select
      * the preferred option or options. When users tap the select component, a
@@ -51,10 +51,10 @@ var __extends = (this && this.__extends) || (function () {
      *
      * ### Interfaces
      *
-     * By default, the `ion-select` uses the {\@link ../../alert/AlertController AlertController API}
+     * By default, the `ion-select` uses the {@link ../../alert/AlertController AlertController API}
      * to open up the overlay of options in an alert. The interface can be changed to use the
-     * {\@link ../../action-sheet/ActionSheetController ActionSheetController API} or
-     * {\@link ../../popover/PopoverController PopoverController API} by passing `action-sheet` or `popover`,
+     * {@link ../../action-sheet/ActionSheetController ActionSheetController API} or
+     * {@link ../../popover/PopoverController PopoverController API} by passing `action-sheet` or `popover`,
      * respectively, to the `interface` property. Read on to the other sections for the limitations
      * of the different interfaces.
      *
@@ -121,9 +121,9 @@ var __extends = (this && this.__extends) || (function () {
      * Since `ion-select` uses the `Alert`, `Action Sheet` and `Popover` interfaces, options can be
      * passed to these components through the `selectOptions` property. This can be used
      * to pass a custom title, subtitle, css class, and more. See the
-     * {\@link ../../alert/AlertController/#create AlertController API docs},
-     * {\@link ../../action-sheet/ActionSheetController/#create ActionSheetController API docs}, and
-     * {\@link ../../popover/PopoverController/#create PopoverController API docs}
+     * {@link ../../alert/AlertController/#create AlertController API docs},
+     * {@link ../../action-sheet/ActionSheetController/#create ActionSheetController API docs}, and
+     * {@link ../../popover/PopoverController/#create PopoverController API docs}
      * for the properties that each interface accepts.
      *
      * For example, to change the `mode` of the overlay, pass it into `selectOptions`.
@@ -167,19 +167,10 @@ var __extends = (this && this.__extends) || (function () {
      * }
      * ```
      *
-     * \@demo /docs/demos/src/select/
+     * @demo /docs/demos/src/select/
      */
     var Select = (function (_super) {
         __extends(Select, _super);
-        /**
-         * @param {?} _app
-         * @param {?} form
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         * @param {?} item
-         * @param {?} deepLinker
-         */
         function Select(_app, form, config, elementRef, renderer, item, deepLinker) {
             var _this = _super.call(this, config, elementRef, renderer, 'select', [], form, item, null) || this;
             _this._app = _app;
@@ -190,39 +181,37 @@ var __extends = (this && this.__extends) || (function () {
             _this._text = '';
             _this._compareWith = util_1.isCheckedProperty;
             /**
-             * \@input {string} The text to display on the cancel button. Default: `Cancel`.
+             * @input {string} The text to display on the cancel button. Default: `Cancel`.
              */
             _this.cancelText = 'Cancel';
             /**
-             * \@input {string} The text to display on the ok button. Default: `OK`.
+             * @input {string} The text to display on the ok button. Default: `OK`.
              */
             _this.okText = 'OK';
             /**
-             * \@input {any} Any additional options that the `alert` or `action-sheet` interface can take.
+             * @input {any} Any additional options that the `alert` or `action-sheet` interface can take.
              * See the [AlertController API docs](../../alert/AlertController/#create) and the
              * [ActionSheetController API docs](../../action-sheet/ActionSheetController/#create) for the
              * create options for each interface.
              */
             _this.selectOptions = {};
             /**
-             * \@input {string} The interface the select should use: `action-sheet`, `popover` or `alert`. Default: `alert`.
+             * @input {string} The interface the select should use: `action-sheet`, `popover` or `alert`. Default: `alert`.
              */
             _this.interface = '';
             /**
-             * \@input {string} The text to display instead of the selected option's value.
+             * @input {string} The text to display instead of the selected option's value.
              */
             _this.selectedText = '';
             /**
-             * \@output {any} Emitted when the selection was cancelled.
+             * @output {any} Emitted when the selection was cancelled.
              */
             _this.ionCancel = new core_1.EventEmitter();
             return _this;
         }
         Object.defineProperty(Select.prototype, "compareWith", {
             /**
-             * \@input {Function} The function that will be called to compare object values
-             * @param {?} fn
-             * @return {?}
+             * @input {Function} The function that will be called to compare object values
              */
             set: function (fn) {
                 if (typeof fn !== 'function') {
@@ -233,34 +222,24 @@ var __extends = (this && this.__extends) || (function () {
             enumerable: true,
             configurable: true
         });
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         Select.prototype._click = function (ev) {
             ev.preventDefault();
             ev.stopPropagation();
             this.open(ev);
         };
-        /**
-         * @return {?}
-         */
         Select.prototype._keyup = function () {
             this.open();
         };
         /**
          * @hidden
-         * @return {?}
          */
         Select.prototype.getValues = function () {
-            var /** @type {?} */ values = Array.isArray(this._value) ? this._value : [this._value];
+            var values = Array.isArray(this._value) ? this._value : [this._value];
             (void 0) /* assert */;
             return values;
         };
         /**
          * Open the select interface.
-         * @param {?=} ev
-         * @return {?}
          */
         Select.prototype.open = function (ev) {
             var _this = this;
@@ -269,7 +248,7 @@ var __extends = (this && this.__extends) || (function () {
             }
             (void 0) /* console.debug */;
             // the user may have assigned some options specifically for the alert
-            var /** @type {?} */ selectOptions = util_1.deepCopy(this.selectOptions);
+            var selectOptions = util_1.deepCopy(this.selectOptions);
             // make sure their buttons array is removed from the options
             // and we create a new array for the alert's two buttons
             selectOptions.buttons = [{
@@ -283,11 +262,7 @@ var __extends = (this && this.__extends) || (function () {
             if (!selectOptions.title && this._item) {
                 selectOptions.title = this._item.getLabelText();
             }
-            var /** @type {?} */ options = this._options.toArray();
-            if (this.interface === 'action-sheet' && options.length > 6) {
-                console.warn('Interface cannot be "action-sheet" with more than 6 options. Using the "alert" interface.');
-                this.interface = 'alert';
-            }
+            var options = this._options.toArray();
             if ((this.interface === 'action-sheet' || this.interface === 'popover') && this._multi) {
                 console.warn('Interface cannot be "' + this.interface + '" with a multi-value select. Using the "alert" interface.');
                 this.interface = 'alert';
@@ -296,7 +271,7 @@ var __extends = (this && this.__extends) || (function () {
                 console.warn('Interface cannot be "popover" without UIEvent.');
                 this.interface = 'alert';
             }
-            var /** @type {?} */ overlay;
+            var overlay;
             if (this.interface === 'action-sheet') {
                 selectOptions.buttons = selectOptions.buttons.concat(options.map(function (input) {
                     return {
@@ -308,14 +283,14 @@ var __extends = (this && this.__extends) || (function () {
                         }
                     };
                 }));
-                var /** @type {?} */ selectCssClass = 'select-action-sheet';
+                var selectCssClass = 'select-action-sheet';
                 // If the user passed a cssClass for the select, add it
                 selectCssClass += selectOptions.cssClass ? ' ' + selectOptions.cssClass : '';
                 selectOptions.cssClass = selectCssClass;
                 overlay = new action_sheet_1.ActionSheet(this._app, selectOptions, this.config);
             }
             else if (this.interface === 'popover') {
-                var /** @type {?} */ popoverOptions = options.map(function (input) { return ({
+                var popoverOptions = options.map(function (input) { return ({
                     text: input.text,
                     checked: input.selected,
                     disabled: input.disabled,
@@ -325,7 +300,7 @@ var __extends = (this && this.__extends) || (function () {
                         input.ionSelect.emit(input.value);
                     }
                 }); });
-                var /** @type {?} */ popoverCssClass = 'select-popover';
+                var popoverCssClass = 'select-popover';
                 // If the user passed a cssClass for the select, add it
                 popoverCssClass += selectOptions.cssClass ? ' ' + selectOptions.cssClass : '';
                 overlay = new popover_1.Popover(this._app, select_popover_component_1.SelectPopover, {
@@ -359,7 +334,7 @@ var __extends = (this && this.__extends) || (function () {
                         }
                     };
                 });
-                var /** @type {?} */ selectCssClass_1 = 'select-alert';
+                var selectCssClass_1 = 'select-alert';
                 // create the alert instance from our built up selectOptions
                 overlay = new alert_1.Alert(this._app, selectOptions, this.config);
                 if (this._multi) {
@@ -388,7 +363,6 @@ var __extends = (this && this.__extends) || (function () {
         };
         /**
          * Close the select interface.
-         * @return {?}
          */
         Select.prototype.close = function () {
             if (!this._overlay || !this.isFocus()) {
@@ -398,16 +372,11 @@ var __extends = (this && this.__extends) || (function () {
         };
         Object.defineProperty(Select.prototype, "multiple", {
             /**
-             * \@input {boolean} If true, the element can accept multiple values.
-             * @return {?}
+             * @input {boolean} If true, the element can accept multiple values.
              */
             get: function () {
                 return this._multi;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._multi = util_1.isTrueProperty(val);
             },
@@ -417,7 +386,6 @@ var __extends = (this && this.__extends) || (function () {
         Object.defineProperty(Select.prototype, "text", {
             /**
              * @hidden
-             * @return {?}
              */
             get: function () {
                 return (this._multi ? this._texts : this._texts.join());
@@ -427,12 +395,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Select.prototype, "options", {
             /**
-             * @param {?} val
-             * @return {?}
+             * @private
              */
             set: function (val) {
                 this._options = val;
-                var /** @type {?} */ values = this.getValues();
+                var values = this.getValues();
                 if (values.length === 0) {
                     // there are no values set at this point
                     // so check to see who should be selected
@@ -446,24 +413,18 @@ var __extends = (this && this.__extends) || (function () {
             enumerable: true,
             configurable: true
         });
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         Select.prototype._inputShouldChange = function (val) {
             return !util_1.deepEqual(this._value, val);
         };
         /**
          * TODO: REMOVE THIS
          * @hidden
-         * @return {?}
          */
         Select.prototype._inputChangeEvent = function () {
             return this.value;
         };
         /**
          * @hidden
-         * @return {?}
          */
         Select.prototype._updateText = function () {
             var _this = this;
@@ -483,130 +444,60 @@ var __extends = (this && this.__extends) || (function () {
         };
         /**
          * @hidden
-         * @return {?}
          */
         Select.prototype._inputUpdated = function () {
             this._updateText();
             _super.prototype._inputUpdated.call(this);
         };
+        Select.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'ion-select',
+                        template: '<div *ngIf="!_text" class="select-placeholder select-text">{{placeholder}}</div>' +
+                            '<div *ngIf="_text" class="select-text">{{selectedText || _text}}</div>' +
+                            '<div class="select-icon">' +
+                            '<div class="select-icon-inner"></div>' +
+                            '</div>' +
+                            '<button aria-haspopup="true" ' +
+                            'type="button" ' +
+                            '[id]="id" ' +
+                            'ion-button="item-cover" ' +
+                            '[attr.aria-labelledby]="_labelId" ' +
+                            '[attr.aria-disabled]="_disabled" ' +
+                            'class="item-cover">' +
+                            '</button>',
+                        host: {
+                            '[class.select-disabled]': '_disabled'
+                        },
+                        providers: [{ provide: forms_1.NG_VALUE_ACCESSOR, useExisting: Select, multi: true }],
+                        encapsulation: core_1.ViewEncapsulation.None,
+                    },] },
+        ];
+        /** @nocollapse */
+        Select.ctorParameters = function () { return [
+            { type: app_1.App, },
+            { type: form_1.Form, },
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+            { type: item_1.Item, decorators: [{ type: core_1.Optional },] },
+            { type: deep_linker_1.DeepLinker, },
+        ]; };
+        Select.propDecorators = {
+            'cancelText': [{ type: core_1.Input },],
+            'okText': [{ type: core_1.Input },],
+            'placeholder': [{ type: core_1.Input },],
+            'selectOptions': [{ type: core_1.Input },],
+            'interface': [{ type: core_1.Input },],
+            'selectedText': [{ type: core_1.Input },],
+            'compareWith': [{ type: core_1.Input },],
+            'ionCancel': [{ type: core_1.Output },],
+            '_click': [{ type: core_1.HostListener, args: ['click', ['$event'],] },],
+            '_keyup': [{ type: core_1.HostListener, args: ['keyup.space',] },],
+            'multiple': [{ type: core_1.Input },],
+            'options': [{ type: core_1.ContentChildren, args: [option_1.Option,] },],
+        };
         return Select;
     }(base_input_1.BaseInput));
-    Select.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'ion-select',
-                    template: '<div *ngIf="!_text" class="select-placeholder select-text">{{placeholder}}</div>' +
-                        '<div *ngIf="_text" class="select-text">{{selectedText || _text}}</div>' +
-                        '<div class="select-icon">' +
-                        '<div class="select-icon-inner"></div>' +
-                        '</div>' +
-                        '<button aria-haspopup="true" ' +
-                        'type="button" ' +
-                        '[id]="id" ' +
-                        'ion-button="item-cover" ' +
-                        '[attr.aria-labelledby]="_labelId" ' +
-                        '[attr.aria-disabled]="_disabled" ' +
-                        'class="item-cover">' +
-                        '</button>',
-                    host: {
-                        '[class.select-disabled]': '_disabled'
-                    },
-                    providers: [{ provide: forms_1.NG_VALUE_ACCESSOR, useExisting: Select, multi: true }],
-                    encapsulation: core_1.ViewEncapsulation.None,
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Select.ctorParameters = function () { return [
-        { type: app_1.App, },
-        { type: form_1.Form, },
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-        { type: item_1.Item, decorators: [{ type: core_1.Optional },] },
-        { type: deep_linker_1.DeepLinker, },
-    ]; };
-    Select.propDecorators = {
-        'cancelText': [{ type: core_1.Input },],
-        'okText': [{ type: core_1.Input },],
-        'placeholder': [{ type: core_1.Input },],
-        'selectOptions': [{ type: core_1.Input },],
-        'interface': [{ type: core_1.Input },],
-        'selectedText': [{ type: core_1.Input },],
-        'compareWith': [{ type: core_1.Input },],
-        'ionCancel': [{ type: core_1.Output },],
-        '_click': [{ type: core_1.HostListener, args: ['click', ['$event'],] },],
-        '_keyup': [{ type: core_1.HostListener, args: ['keyup.space',] },],
-        'multiple': [{ type: core_1.Input },],
-        'options': [{ type: core_1.ContentChildren, args: [option_1.Option,] },],
-    };
     exports.Select = Select;
-    function Select_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Select.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Select.ctorParameters;
-        /** @type {?} */
-        Select.propDecorators;
-        /** @type {?} */
-        Select.prototype._multi;
-        /** @type {?} */
-        Select.prototype._options;
-        /** @type {?} */
-        Select.prototype._overlay;
-        /** @type {?} */
-        Select.prototype._texts;
-        /** @type {?} */
-        Select.prototype._text;
-        /** @type {?} */
-        Select.prototype._compareWith;
-        /**
-         * \@input {string} The text to display on the cancel button. Default: `Cancel`.
-         * @type {?}
-         */
-        Select.prototype.cancelText;
-        /**
-         * \@input {string} The text to display on the ok button. Default: `OK`.
-         * @type {?}
-         */
-        Select.prototype.okText;
-        /**
-         * \@input {string} The text to display when the select is empty.
-         * @type {?}
-         */
-        Select.prototype.placeholder;
-        /**
-         * \@input {any} Any additional options that the `alert` or `action-sheet` interface can take.
-         * See the [AlertController API docs](../../alert/AlertController/#create) and the
-         * [ActionSheetController API docs](../../action-sheet/ActionSheetController/#create) for the
-         * create options for each interface.
-         * @type {?}
-         */
-        Select.prototype.selectOptions;
-        /**
-         * \@input {string} The interface the select should use: `action-sheet`, `popover` or `alert`. Default: `alert`.
-         * @type {?}
-         */
-        Select.prototype.interface;
-        /**
-         * \@input {string} The text to display instead of the selected option's value.
-         * @type {?}
-         */
-        Select.prototype.selectedText;
-        /**
-         * \@output {any} Emitted when the selection was cancelled.
-         * @type {?}
-         */
-        Select.prototype.ionCancel;
-        /** @type {?} */
-        Select.prototype._app;
-        /** @type {?} */
-        Select.prototype.config;
-        /** @type {?} */
-        Select.prototype.deepLinker;
-    }
 });
 //# sourceMappingURL=select.js.map

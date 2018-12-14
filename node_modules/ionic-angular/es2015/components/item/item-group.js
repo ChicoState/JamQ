@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 /**
- * @hidden
- */
+  * @hidden
+  */
 export class ItemGroup {
 }
 ItemGroup.decorators = [
@@ -9,17 +9,6 @@ ItemGroup.decorators = [
                 selector: 'ion-item-group'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ItemGroup.ctorParameters = () => [];
-function ItemGroup_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ItemGroup.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ItemGroup.ctorParameters;
-}
 //# sourceMappingURL=item-group.js.map

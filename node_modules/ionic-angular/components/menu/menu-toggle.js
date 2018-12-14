@@ -4,15 +4,15 @@ import { MenuController } from '../app/menu-controller';
 import { Navbar } from '../toolbar/navbar';
 import { ViewController } from '../../navigation/view-controller';
 /**
- * \@name MenuToggle
- * \@description
+ * @name MenuToggle
+ * @description
  * The `menuToggle` directive can be placed on any button to toggle a menu open or closed.
- * If it is added to the [NavBar](../../navbar/NavBar) of a page, the button will only appear
+ * If it is added to the [NavBar](../../toolbar/Navbar) of a page, the button will only appear
  * when the page it's in is currently a root page. See the [Menu Navigation Bar Behavior](../Menu#navigation-bar-behavior)
  * docs for more information.
  *
  *
- * \@usage
+ * @usage
  *
  * A simple `menuToggle` button can be added using the following markup:
  *
@@ -78,17 +78,11 @@ import { ViewController } from '../../navigation/view-controller';
  * See the [Toolbar API docs](../../toolbar/Toolbar) for more information
  * on the different positions.
  *
- * \@demo /docs/demos/src/menu/
- * @see {\@link /docs/components#menus Menu Component Docs}
- * @see {\@link ../../menu/Menu Menu API Docs}
+ * @demo /docs/demos/src/menu/
+ * @see {@link /docs/components#menus Menu Component Docs}
+ * @see {@link ../../menu/Menu Menu API Docs}
  */
 var MenuToggle = (function () {
-    /**
-     * @param {?} _menu
-     * @param {?} _viewCtrl
-     * @param {?} _button
-     * @param {?} _navbar
-     */
     function MenuToggle(_menu, _viewCtrl, _button, _navbar) {
         this._menu = _menu;
         this._viewCtrl = _viewCtrl;
@@ -96,9 +90,6 @@ var MenuToggle = (function () {
         this._isButton = !!_button;
         this._inNavbar = !!_navbar;
     }
-    /**
-     * @return {?}
-     */
     MenuToggle.prototype.ngAfterContentInit = function () {
         // Add the bar-button-menutoggle / button-menutoggle class
         if (this._isButton) {
@@ -106,20 +97,18 @@ var MenuToggle = (function () {
         }
     };
     /**
-     * @hidden
-     * @return {?}
-     */
+    * @hidden
+    */
     MenuToggle.prototype.toggle = function () {
-        var /** @type {?} */ menu = this._menu.get(this.menuToggle);
+        var menu = this._menu.get(this.menuToggle);
         menu && menu.toggle();
     };
     Object.defineProperty(MenuToggle.prototype, "isHidden", {
         /**
-         * @hidden
-         * @return {?}
-         */
+        * @hidden
+        */
         get: function () {
-            var /** @type {?} */ menu = this._menu.get(this.menuToggle);
+            var menu = this._menu.get(this.menuToggle);
             if (this._inNavbar && this._viewCtrl) {
                 if (!menu || !menu._canOpen()) {
                     return true;
@@ -139,60 +128,26 @@ var MenuToggle = (function () {
         enumerable: true,
         configurable: true
     });
+    MenuToggle.decorators = [
+        { type: Directive, args: [{
+                    selector: '[menuToggle]',
+                    host: {
+                        '[hidden]': 'isHidden'
+                    }
+                },] },
+    ];
+    /** @nocollapse */
+    MenuToggle.ctorParameters = function () { return [
+        { type: MenuController, },
+        { type: ViewController, decorators: [{ type: Optional },] },
+        { type: Button, decorators: [{ type: Optional },] },
+        { type: Navbar, decorators: [{ type: Optional },] },
+    ]; };
+    MenuToggle.propDecorators = {
+        'menuToggle': [{ type: Input },],
+        'toggle': [{ type: HostListener, args: ['click',] },],
+    };
     return MenuToggle;
 }());
 export { MenuToggle };
-MenuToggle.decorators = [
-    { type: Directive, args: [{
-                selector: '[menuToggle]',
-                host: {
-                    '[hidden]': 'isHidden'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MenuToggle.ctorParameters = function () { return [
-    { type: MenuController, },
-    { type: ViewController, decorators: [{ type: Optional },] },
-    { type: Button, decorators: [{ type: Optional },] },
-    { type: Navbar, decorators: [{ type: Optional },] },
-]; };
-MenuToggle.propDecorators = {
-    'menuToggle': [{ type: Input },],
-    'toggle': [{ type: HostListener, args: ['click',] },],
-};
-function MenuToggle_tsickle_Closure_declarations() {
-    /** @type {?} */
-    MenuToggle.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    MenuToggle.ctorParameters;
-    /** @type {?} */
-    MenuToggle.propDecorators;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    MenuToggle.prototype.menuToggle;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    MenuToggle.prototype._isButton;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    MenuToggle.prototype._inNavbar;
-    /** @type {?} */
-    MenuToggle.prototype._menu;
-    /** @type {?} */
-    MenuToggle.prototype._viewCtrl;
-    /** @type {?} */
-    MenuToggle.prototype._button;
-}
 //# sourceMappingURL=menu-toggle.js.map

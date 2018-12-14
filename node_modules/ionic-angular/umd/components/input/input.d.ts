@@ -207,7 +207,7 @@ export declare class TextInput extends BaseInput<string> implements IonicFormInp
     _relocateInput(shouldRelocate: boolean): void;
     _enableScrollPadding(): void;
     _enableHideCaretOnScroll(): void;
-    _enableResizeAssist(): void;
+    _enableScrollMove(): void;
     _pointerStart(ev: UIEvent): void;
     _pointerEnd(ev: UIEvent): void;
     _jsSetFocus(): void;

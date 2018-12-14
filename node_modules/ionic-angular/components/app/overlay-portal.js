@@ -22,21 +22,6 @@ import { TransitionController } from '../../transitions/transition-controller';
  */
 var OverlayPortal = (function (_super) {
     __extends(OverlayPortal, _super);
-    /**
-     * @param {?} app
-     * @param {?} config
-     * @param {?} plt
-     * @param {?} elementRef
-     * @param {?} zone
-     * @param {?} renderer
-     * @param {?} cfr
-     * @param {?} gestureCtrl
-     * @param {?} transCtrl
-     * @param {?} linker
-     * @param {?} viewPort
-     * @param {?} domCtrl
-     * @param {?} errHandler
-     */
     function OverlayPortal(app, config, plt, elementRef, zone, renderer, cfr, gestureCtrl, transCtrl, linker, viewPort, domCtrl, errHandler) {
         var _this = _super.call(this, null, app, config, plt, elementRef, zone, renderer, cfr, gestureCtrl, transCtrl, linker, domCtrl, errHandler) || this;
         _this._isPortal = true;
@@ -52,72 +37,52 @@ var OverlayPortal = (function (_super) {
         return _this;
     }
     Object.defineProperty(OverlayPortal.prototype, "_overlayPortal", {
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set: function (val) {
             this._zIndexOffset = (val || 0);
         },
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
     OverlayPortal.prototype.ngOnDestroy = function () {
         this.destroy();
     };
-    /**
-     * @return {?}
+    /*
+     * @private
      */
     OverlayPortal.prototype.getType = function () {
         return 'portal';
     };
-    /**
-     * @return {?}
+    /*
+     * @private
      */
     OverlayPortal.prototype.getSecondaryIdentifier = function () {
         return null;
     };
+    OverlayPortal.decorators = [
+        { type: Directive, args: [{
+                    selector: '[overlay-portal]',
+                },] },
+    ];
+    /** @nocollapse */
+    OverlayPortal.ctorParameters = function () { return [
+        { type: App, decorators: [{ type: Inject, args: [forwardRef(function () { return App; }),] },] },
+        { type: Config, },
+        { type: Platform, },
+        { type: ElementRef, },
+        { type: NgZone, },
+        { type: Renderer, },
+        { type: ComponentFactoryResolver, },
+        { type: GestureController, },
+        { type: TransitionController, },
+        { type: DeepLinker, decorators: [{ type: Optional },] },
+        { type: ViewContainerRef, },
+        { type: DomController, },
+        { type: ErrorHandler, },
+    ]; };
+    OverlayPortal.propDecorators = {
+        '_overlayPortal': [{ type: Input, args: ['overlay-portal',] },],
+    };
     return OverlayPortal;
 }(NavControllerBase));
 export { OverlayPortal };
-OverlayPortal.decorators = [
-    { type: Directive, args: [{
-                selector: '[overlay-portal]',
-            },] },
-];
-/**
- * @nocollapse
- */
-OverlayPortal.ctorParameters = function () { return [
-    { type: App, decorators: [{ type: Inject, args: [forwardRef(function () { return App; }),] },] },
-    { type: Config, },
-    { type: Platform, },
-    { type: ElementRef, },
-    { type: NgZone, },
-    { type: Renderer, },
-    { type: ComponentFactoryResolver, },
-    { type: GestureController, },
-    { type: TransitionController, },
-    { type: DeepLinker, decorators: [{ type: Optional },] },
-    { type: ViewContainerRef, },
-    { type: DomController, },
-    { type: ErrorHandler, },
-]; };
-OverlayPortal.propDecorators = {
-    '_overlayPortal': [{ type: Input, args: ['overlay-portal',] },],
-};
-function OverlayPortal_tsickle_Closure_declarations() {
-    /** @type {?} */
-    OverlayPortal.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    OverlayPortal.ctorParameters;
-    /** @type {?} */
-    OverlayPortal.propDecorators;
-}
 //# sourceMappingURL=overlay-portal.js.map

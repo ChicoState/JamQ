@@ -5,20 +5,12 @@ import { Ion } from '../ion';
  * @hidden
  */
 export class TabButton extends Ion {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     constructor(config, elementRef, renderer) {
         super(config, elementRef, renderer);
         this.ionSelect = new EventEmitter();
         this.disHover = (config.get('hoverCSS') === false);
         this.layout = config.get('tabsLayout');
     }
-    /**
-     * @return {?}
-     */
     ngOnInit() {
         this.tab.btn = this;
         this.layout = this.tab.parent.tabsLayout || this.layout;
@@ -28,17 +20,10 @@ export class TabButton extends Ion {
         this.hasIconOnly = (this.hasIcon && !this.hasTitle);
         this.hasBadge = !!this.tab.tabBadge;
     }
-    /**
-     * @return {?}
-     */
     onClick() {
         this.ionSelect.emit(this.tab);
         return false;
     }
-    /**
-     * @param {?} href
-     * @return {?}
-     */
     updateHref(href) {
         this.setElementAttribute('href', href);
     }
@@ -65,9 +50,7 @@ TabButton.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 TabButton.ctorParameters = () => [
     { type: Config, },
     { type: ElementRef, },
@@ -78,33 +61,4 @@ TabButton.propDecorators = {
     'ionSelect': [{ type: Output },],
     'onClick': [{ type: HostListener, args: ['click',] },],
 };
-function TabButton_tsickle_Closure_declarations() {
-    /** @type {?} */
-    TabButton.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    TabButton.ctorParameters;
-    /** @type {?} */
-    TabButton.propDecorators;
-    /** @type {?} */
-    TabButton.prototype.disHover;
-    /** @type {?} */
-    TabButton.prototype.hasTitle;
-    /** @type {?} */
-    TabButton.prototype.hasIcon;
-    /** @type {?} */
-    TabButton.prototype.hasTitleOnly;
-    /** @type {?} */
-    TabButton.prototype.hasIconOnly;
-    /** @type {?} */
-    TabButton.prototype.hasBadge;
-    /** @type {?} */
-    TabButton.prototype.layout;
-    /** @type {?} */
-    TabButton.prototype.tab;
-    /** @type {?} */
-    TabButton.prototype.ionSelect;
-}
 //# sourceMappingURL=tab-button.js.map

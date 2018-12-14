@@ -26,41 +26,22 @@ import { Animation } from '../animations/animation';
  */
 var Transition = (function (_super) {
     __extends(Transition, _super);
-    /**
-     * @param {?} plt
-     * @param {?} enteringView
-     * @param {?} leavingView
-     * @param {?} opts
-     */
     function Transition(plt, enteringView, leavingView, opts) {
         var _this = _super.call(this, plt, null, opts) || this;
         _this.enteringView = enteringView;
         _this.leavingView = leavingView;
         return _this;
     }
-    /**
-     * @return {?}
-     */
     Transition.prototype.init = function () { };
-    /**
-     * @param {?} trnsStart
-     * @return {?}
-     */
     Transition.prototype.registerStart = function (trnsStart) {
         this._trnsStart = trnsStart;
     };
-    /**
-     * @return {?}
-     */
     Transition.prototype.start = function () {
         this._trnsStart && this._trnsStart();
         this._trnsStart = null;
         // bubble up start
         this.parent && this.parent.start();
     };
-    /**
-     * @return {?}
-     */
     Transition.prototype.destroy = function () {
         _super.prototype.destroy.call(this);
         this.parent = this.enteringView = this.leavingView = this._trnsStart = null;
@@ -68,16 +49,4 @@ var Transition = (function (_super) {
     return Transition;
 }(Animation));
 export { Transition };
-function Transition_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Transition.prototype._trnsStart;
-    /** @type {?} */
-    Transition.prototype.parent;
-    /** @type {?} */
-    Transition.prototype.trnsId;
-    /** @type {?} */
-    Transition.prototype.enteringView;
-    /** @type {?} */
-    Transition.prototype.leavingView;
-}
 //# sourceMappingURL=transition.js.map

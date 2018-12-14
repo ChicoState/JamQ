@@ -3,8 +3,8 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ListHeader } from '../list/list-header';
 import { isCheckedProperty, isTrueProperty } from '../../util/util';
 /**
- * \@name RadioGroup
- * \@description
+ * @name RadioGroup
+ * @description
  * A radio group is a group of [radio buttons](../RadioButton). It allows
  * a user to select at most one radio button from a set. Checking one radio
  * button that belongs to a radio group unchecks any previous checked
@@ -13,7 +13,7 @@ import { isCheckedProperty, isTrueProperty } from '../../util/util';
  * See the [Angular Forms Docs](https://angular.io/docs/ts/latest/guide/forms.html)
  * for more information on forms and inputs.
  *
- * \@usage
+ * @usage
  * ```html
  * <ion-list radio-group [(ngModel)]="autoManufacturers">
  *
@@ -49,22 +49,17 @@ import { isCheckedProperty, isTrueProperty } from '../../util/util';
  * </ion-list>
  * ```
  *
- * \@demo /docs/demos/src/radio/
- * @see {\@link /docs/components#radio Radio Component Docs}
- * @see {\@link ../RadioButton RadioButton API Docs}
- */
+ * @demo /docs/demos/src/radio/
+ * @see {@link /docs/components#radio Radio Component Docs}
+ * @see {@link ../RadioButton RadioButton API Docs}
+*/
 var RadioGroup = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     * @param {?} _cd
-     */
     function RadioGroup(_renderer, _elementRef, _cd) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._cd = _cd;
         /**
-         * \@internal
+         * @internal
          */
         this._disabled = false;
         /**
@@ -80,23 +75,18 @@ var RadioGroup = (function () {
          */
         this._init = false;
         /**
-         * \@output {any} Emitted when the selected button has changed.
+         * @output {any} Emitted when the selected button has changed.
          */
         this.ionChange = new EventEmitter();
         this.id = ++radioGroupIds;
     }
     Object.defineProperty(RadioGroup.prototype, "disabled", {
         /**
-         * \@input {boolean} If true, the user cannot interact with any of the buttons in the group.
-         * @return {?}
+         * @input {boolean} If true, the user cannot interact with any of the buttons in the group.
          */
         get: function () {
             return this._disabled;
         },
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set: function (val) {
             this._disabled = isTrueProperty(val);
         },
@@ -105,18 +95,15 @@ var RadioGroup = (function () {
     });
     /**
      * @hidden
-     * @return {?}
      */
     RadioGroup.prototype.ngAfterContentInit = function () {
-        var /** @type {?} */ activeButton = this._btns.find(function (b) { return b.checked; });
+        var activeButton = this._btns.find(function (b) { return b.checked; });
         if (activeButton) {
             this._setActive(activeButton);
         }
     };
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     RadioGroup.prototype.writeValue = function (val) {
         (void 0) /* console.debug */;
@@ -130,8 +117,6 @@ var RadioGroup = (function () {
     };
     /**
      * @hidden
-     * @param {?} fn
-     * @return {?}
      */
     RadioGroup.prototype.registerOnChange = function (fn) {
         var _this = this;
@@ -148,18 +133,15 @@ var RadioGroup = (function () {
     };
     /**
      * @hidden
-     * @param {?} fn
-     * @return {?}
      */
     RadioGroup.prototype.registerOnTouched = function (fn) { this.onTouched = fn; };
     /**
      * @hidden
-     * @return {?}
      */
     RadioGroup.prototype._update = function () {
         var _this = this;
         // loop through each of the radiobuttons
-        var /** @type {?} */ hasChecked = false;
+        var hasChecked = false;
         this._btns.forEach(function (radioButton) {
             // check this radiobutton if its value is
             // the same as the radiogroups value
@@ -174,16 +156,12 @@ var RadioGroup = (function () {
     };
     /**
      * @hidden
-     * @param {?} radioButton
-     * @return {?}
      */
     RadioGroup.prototype._setActive = function (radioButton) {
         this._renderer.setElementAttribute(this._elementRef.nativeElement, 'aria-activedescendant', radioButton.id);
     };
     /**
      * @hidden
-     * @param {?} button
-     * @return {?}
      */
     RadioGroup.prototype.add = function (button) {
         var _this = this;
@@ -197,11 +175,9 @@ var RadioGroup = (function () {
     };
     /**
      * @hidden
-     * @param {?} button
-     * @return {?}
      */
     RadioGroup.prototype.remove = function (button) {
-        var /** @type {?} */ index = this._btns.indexOf(button);
+        var index = this._btns.indexOf(button);
         if (index > -1) {
             if (button.value === this.value) {
                 this.value = null;
@@ -212,8 +188,6 @@ var RadioGroup = (function () {
     Object.defineProperty(RadioGroup.prototype, "_header", {
         /**
          * @hidden
-         * @param {?} header
-         * @return {?}
          */
         set: function (header) {
             if (header) {
@@ -228,8 +202,6 @@ var RadioGroup = (function () {
     });
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     RadioGroup.prototype.onChange = function (val) {
         // onChange used when there is not an formControlName
@@ -242,98 +214,36 @@ var RadioGroup = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     RadioGroup.prototype.onTouched = function () { };
     /**
      * @hidden
-     * @param {?} isDisabled
-     * @return {?}
      */
     RadioGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
+    RadioGroup.decorators = [
+        { type: Directive, args: [{
+                    selector: '[radio-group]',
+                    host: {
+                        'role': 'radiogroup'
+                    },
+                    providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: RadioGroup, multi: true }],
+                },] },
+    ];
+    /** @nocollapse */
+    RadioGroup.ctorParameters = function () { return [
+        { type: Renderer, },
+        { type: ElementRef, },
+        { type: ChangeDetectorRef, },
+    ]; };
+    RadioGroup.propDecorators = {
+        'disabled': [{ type: Input },],
+        'ionChange': [{ type: Output },],
+        '_header': [{ type: ContentChild, args: [ListHeader,] },],
+    };
     return RadioGroup;
 }());
 export { RadioGroup };
-RadioGroup.decorators = [
-    { type: Directive, args: [{
-                selector: '[radio-group]',
-                host: {
-                    'role': 'radiogroup'
-                },
-                providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: RadioGroup, multi: true }],
-            },] },
-];
-/**
- * @nocollapse
- */
-RadioGroup.ctorParameters = function () { return [
-    { type: Renderer, },
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-]; };
-RadioGroup.propDecorators = {
-    'disabled': [{ type: Input },],
-    'ionChange': [{ type: Output },],
-    '_header': [{ type: ContentChild, args: [ListHeader,] },],
-};
-function RadioGroup_tsickle_Closure_declarations() {
-    /** @type {?} */
-    RadioGroup.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    RadioGroup.ctorParameters;
-    /** @type {?} */
-    RadioGroup.propDecorators;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    RadioGroup.prototype._disabled;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    RadioGroup.prototype._btns;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    RadioGroup.prototype._fn;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    RadioGroup.prototype._ids;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    RadioGroup.prototype._init;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    RadioGroup.prototype.value;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    RadioGroup.prototype.id;
-    /**
-     * \@output {any} Emitted when the selected button has changed.
-     * @type {?}
-     */
-    RadioGroup.prototype.ionChange;
-    /** @type {?} */
-    RadioGroup.prototype._renderer;
-    /** @type {?} */
-    RadioGroup.prototype._elementRef;
-    /** @type {?} */
-    RadioGroup.prototype._cd;
-}
-var /** @type {?} */ radioGroupIds = -1;
+var radioGroupIds = -1;
 //# sourceMappingURL=radio-group.js.map

@@ -86,6 +86,7 @@ export declare class ViewController {
     /** @hidden */
     private _emitter;
     constructor(component?: any, data?: any, rootCssClass?: string);
+    handleOrientationChange(): void;
     /**
      * @hidden
      */

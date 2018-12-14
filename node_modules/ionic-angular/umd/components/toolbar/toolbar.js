@@ -23,8 +23,8 @@ var __extends = (this && this.__extends) || (function () {
     var config_1 = require("../../config/config");
     var toolbar_base_1 = require("./toolbar-base");
     /**
-     * \@name Toolbar
-     * \@description
+     * @name Toolbar
+     * @description
      * A Toolbar is a generic bar that is positioned above or below content.
      * Unlike a [Navbar](../Navbar/), a toolbar can be used as a subheader.
      * When toolbars are placed within an `<ion-header>` or `<ion-footer>`,
@@ -72,7 +72,7 @@ var __extends = (this && this.__extends) || (function () {
      * </ion-footer>
      * ```
      *
-     * \@usage
+     * @usage
      *
      * ```html
      *
@@ -107,62 +107,41 @@ var __extends = (this && this.__extends) || (function () {
      * </ion-footer>
      *  ```
      *
-     * \@demo /docs/demos/src/toolbar/
-     * @see {\@link ../Navbar/ Navbar API Docs}
+     * @demo /docs/demos/src/toolbar/
+     * @see {@link ../Navbar/ Navbar API Docs}
      */
     var Toolbar = (function (_super) {
         __extends(Toolbar, _super);
-        /**
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         */
         function Toolbar(config, elementRef, renderer) {
             var _this = _super.call(this, config, elementRef, renderer) || this;
             _this._sbPadding = config.getBoolean('statusbarPadding');
             return _this;
         }
+        Toolbar.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'ion-toolbar',
+                        template: '<div class="toolbar-background" [ngClass]="\'toolbar-background-\' + _mode"></div>' +
+                            '<ng-content select="[menuToggle],ion-buttons[left]"></ng-content>' +
+                            '<ng-content select="ion-buttons[start]"></ng-content>' +
+                            '<ng-content select="ion-buttons[end],ion-buttons[right]"></ng-content>' +
+                            '<div class="toolbar-content" [ngClass]="\'toolbar-content-\' + _mode">' +
+                            '<ng-content></ng-content>' +
+                            '</div>',
+                        host: {
+                            'class': 'toolbar',
+                            '[class.statusbar-padding]': '_sbPadding'
+                        },
+                        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+                    },] },
+        ];
+        /** @nocollapse */
+        Toolbar.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+        ]; };
         return Toolbar;
     }(toolbar_base_1.ToolbarBase));
-    Toolbar.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'ion-toolbar',
-                    template: '<div class="toolbar-background" [ngClass]="\'toolbar-background-\' + _mode"></div>' +
-                        '<ng-content select="[menuToggle],ion-buttons[left]"></ng-content>' +
-                        '<ng-content select="ion-buttons[start]"></ng-content>' +
-                        '<ng-content select="ion-buttons[end],ion-buttons[right]"></ng-content>' +
-                        '<div class="toolbar-content" [ngClass]="\'toolbar-content-\' + _mode">' +
-                        '<ng-content></ng-content>' +
-                        '</div>',
-                    host: {
-                        'class': 'toolbar',
-                        '[class.statusbar-padding]': '_sbPadding'
-                    },
-                    changeDetection: core_1.ChangeDetectionStrategy.OnPush,
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Toolbar.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-    ]; };
     exports.Toolbar = Toolbar;
-    function Toolbar_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Toolbar.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Toolbar.ctorParameters;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Toolbar.prototype._sbPadding;
-    }
 });
 //# sourceMappingURL=toolbar.js.map

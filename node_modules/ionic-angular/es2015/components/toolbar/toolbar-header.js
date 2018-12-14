@@ -3,12 +3,12 @@ import { Config } from '../../config/config';
 import { Ion } from '../ion';
 import { ViewController } from '../../navigation/view-controller';
 /**
- * \@name Header
- * \@description
+ * @name Header
+ * @description
  * Header is a parent component that holds the navbar and toolbar component.
  * It's important to note that `ion-header` needs to be one of the three root elements of a page
  *
- * \@usage
+ * @usage
  *
  * ```html
  * <ion-header>
@@ -26,12 +26,6 @@ import { ViewController } from '../../navigation/view-controller';
  *
  */
 export class Header extends Ion {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} viewCtrl
-     */
     constructor(config, elementRef, renderer, viewCtrl) {
         super(config, elementRef, renderer, 'header');
         viewCtrl && viewCtrl._setHeader(this);
@@ -42,22 +36,11 @@ Header.decorators = [
                 selector: 'ion-header'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Header.ctorParameters = () => [
     { type: Config, },
     { type: ElementRef, },
     { type: Renderer, },
     { type: ViewController, decorators: [{ type: Optional },] },
 ];
-function Header_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Header.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Header.ctorParameters;
-}
 //# sourceMappingURL=toolbar-header.js.map

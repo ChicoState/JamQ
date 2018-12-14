@@ -4,8 +4,8 @@ import { Config } from '../../config/config';
 import { Popover } from './popover';
 import { DeepLinker } from '../../navigation/deep-linker';
 /**
- * \@name PopoverController
- * \@description
+ * @name PopoverController
+ * @description
  * A Popover is a dialog that appears on top of the current page.
  * It can be used for anything, but generally it is used for overflow
  * actions that don't fit in the navigation bar.
@@ -40,7 +40,7 @@ import { DeepLinker } from '../../navigation/deep-linker';
  * presentation of the component in a reusable function as shown in the [usage](#usage)
  * section below.
  *
- * \@usage
+ * @usage
  *
  * To open a popover on the click of a button, pass `$event` to the method
  * which creates and presents the popover:
@@ -54,7 +54,7 @@ import { DeepLinker } from '../../navigation/deep-linker';
  * ```ts
  * import { PopoverController } from 'ionic-angular';
  *
- * \@Component({})
+ * @Component({})
  * class MyPage {
  *   constructor(public popoverCtrl: PopoverController) {}
  *
@@ -72,7 +72,7 @@ import { DeepLinker } from '../../navigation/deep-linker';
  * that close the popover on click.
  *
  * ```ts
- * \@Component({
+ * @Component({
  *   template: `
  *     <ion-list>
  *       <ion-list-header>Ionic</ion-list-header>
@@ -91,7 +91,7 @@ import { DeepLinker } from '../../navigation/deep-linker';
  *   }
  * }
  * ```
- * \@advanced
+ * @advanced
  * Popover Options
  *
  * | Option                | Type       | Description                                                                                                      |
@@ -102,14 +102,9 @@ import { DeepLinker } from '../../navigation/deep-linker';
  *
  *
  *
- * \@demo /docs/demos/src/popover/
+ * @demo /docs/demos/src/popover/
  */
 export class PopoverController {
-    /**
-     * @param {?} _app
-     * @param {?} config
-     * @param {?} _deepLinker
-     */
     constructor(_app, config, _deepLinker) {
         this._app = _app;
         this.config = config;
@@ -117,10 +112,9 @@ export class PopoverController {
     }
     /**
      * Present a popover. See below for options
-     * @param {?} component
-     * @param {?=} data
-     * @param {?=} opts
-     * @return {?}
+     * @param {object} component The Popover
+     * @param {object} data Any data to pass to the Popover view
+     * @param {PopoverOptions} opts Popover options
      */
     create(component, data = {}, opts = {}) {
         return new Popover(this._app, component, data, opts, this.config, this._deepLinker);
@@ -129,27 +123,10 @@ export class PopoverController {
 PopoverController.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 PopoverController.ctorParameters = () => [
     { type: App, },
     { type: Config, },
     { type: DeepLinker, },
 ];
-function PopoverController_tsickle_Closure_declarations() {
-    /** @type {?} */
-    PopoverController.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    PopoverController.ctorParameters;
-    /** @type {?} */
-    PopoverController.prototype._app;
-    /** @type {?} */
-    PopoverController.prototype.config;
-    /** @type {?} */
-    PopoverController.prototype._deepLinker;
-}
 //# sourceMappingURL=popover-controller.js.map

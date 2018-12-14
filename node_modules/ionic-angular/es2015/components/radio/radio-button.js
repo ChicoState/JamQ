@@ -6,7 +6,7 @@ import { isBlank, isCheckedProperty, isPresent, isTrueProperty } from '../../uti
 import { Item } from '../item/item';
 import { RadioGroup } from './radio-group';
 /**
- * \@description
+ * @description
  * A radio button is a button that can be either checked or unchecked. A user can tap
  * the button to check or uncheck it. It can also be checked from the template using
  * the `checked` property.
@@ -19,7 +19,7 @@ import { RadioGroup } from './radio-group';
  * See the [Angular Forms Docs](https://angular.io/docs/ts/latest/guide/forms.html) for
  * more information on forms and input.
  *
- * \@usage
+ * @usage
  * ```html
  * <ion-list radio-group [(ngModel)]="relationship">
  *   <ion-item>
@@ -36,38 +36,30 @@ import { RadioGroup } from './radio-group';
  *   </ion-item>
  * </ion-list>
  * ```
- * \@demo /docs/demos/src/radio/
- * @see {\@link /docs/components#radio Radio Component Docs}
- * @see {\@link ../RadioGroup RadioGroup API Docs}
+ * @demo /docs/demos/src/radio/
+ * @see {@link /docs/components#radio Radio Component Docs}
+ * @see {@link ../RadioGroup RadioGroup API Docs}
  */
 export class RadioButton extends Ion {
-    /**
-     * @param {?} _form
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} _item
-     * @param {?} _group
-     */
     constructor(_form, config, elementRef, renderer, _item, _group) {
         super(config, elementRef, renderer, 'radio');
         this._form = _form;
         this._item = _item;
         this._group = _group;
         /**
-         * \@internal
+         * @internal
          */
         this._checked = false;
         /**
-         * \@internal
+         * @internal
          */
         this._disabled = false;
         /**
-         * \@internal
+         * @internal
          */
         this._value = null;
         /**
-         * \@output {any} Emitted when the radio button is selected.
+         * @output {any} Emitted when the radio button is selected.
          */
         this.ionSelect = new EventEmitter();
         _form.register(this);
@@ -84,11 +76,9 @@ export class RadioButton extends Ion {
         }
     }
     /**
-     * \@input {string} The color to use from your Sass `$colors` map.
+     * @input {string} The color to use from your Sass `$colors` map.
      * Default options are: `"primary"`, `"secondary"`, `"danger"`, `"light"`, and `"dark"`.
      * For more information, see [Theming your App](/docs/theming/theming-your-app).
-     * @param {?} val
-     * @return {?}
      */
     set color(val) {
         this._setColor(val);
@@ -97,31 +87,21 @@ export class RadioButton extends Ion {
         }
     }
     /**
-     * \@input {any} The value of the radio button. Defaults to the generated id.
-     * @return {?}
+     * @input {any} The value of the radio button. Defaults to the generated id.
      */
     get value() {
         // if the value is not defined then use it's unique id
         return isBlank(this._value) ? this.id : this._value;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set value(val) {
         this._value = val;
     }
     /**
-     * \@input {boolean} If true, the element is selected, and other buttons in the group are unselected.
-     * @return {?}
+     * @input {boolean} If true, the element is selected, and other buttons in the group are unselected.
      */
     get checked() {
         return this._checked;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set checked(val) {
         this._checked = isTrueProperty(val);
         if (this._item) {
@@ -129,31 +109,23 @@ export class RadioButton extends Ion {
         }
     }
     /**
-     * \@input {boolean} If true, the user cannot interact with this element.
-     * @return {?}
+     * @input {boolean} If true, the user cannot interact with this element.
      */
     get disabled() {
         return this._disabled || (this._group != null && this._group.disabled);
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set disabled(val) {
         this._disabled = isTrueProperty(val);
         this._item && this._item.setElementClass('item-radio-disabled', this._disabled);
     }
     /**
      * @hidden
-     * @return {?}
      */
     initFocus() {
         this._elementRef.nativeElement.querySelector('button').focus();
     }
     /**
-     * \@internal
-     * @param {?} ev
-     * @return {?}
+     * @internal
      */
     _click(ev) {
         (void 0) /* console.debug */;
@@ -163,8 +135,7 @@ export class RadioButton extends Ion {
         this.ionSelect.emit(this.value);
     }
     /**
-     * \@internal
-     * @return {?}
+     * @internal
      */
     ngOnInit() {
         if (this._group && isPresent(this._group.value)) {
@@ -175,8 +146,7 @@ export class RadioButton extends Ion {
         }
     }
     /**
-     * \@internal
-     * @return {?}
+     * @internal
      */
     ngOnDestroy() {
         this._form.deregister(this);
@@ -204,9 +174,7 @@ RadioButton.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 RadioButton.ctorParameters = () => [
     { type: Form, },
     { type: Config, },
@@ -223,51 +191,4 @@ RadioButton.propDecorators = {
     'disabled': [{ type: Input },],
     '_click': [{ type: HostListener, args: ['click', ['$event'],] },],
 };
-function RadioButton_tsickle_Closure_declarations() {
-    /** @type {?} */
-    RadioButton.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    RadioButton.ctorParameters;
-    /** @type {?} */
-    RadioButton.propDecorators;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    RadioButton.prototype._checked;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    RadioButton.prototype._disabled;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    RadioButton.prototype._labelId;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    RadioButton.prototype._value;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    RadioButton.prototype.id;
-    /**
-     * \@output {any} Emitted when the radio button is selected.
-     * @type {?}
-     */
-    RadioButton.prototype.ionSelect;
-    /** @type {?} */
-    RadioButton.prototype._form;
-    /** @type {?} */
-    RadioButton.prototype._item;
-    /** @type {?} */
-    RadioButton.prototype._group;
-}
 //# sourceMappingURL=radio-button.js.map

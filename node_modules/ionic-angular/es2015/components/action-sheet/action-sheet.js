@@ -6,11 +6,6 @@ import { ViewController } from '../../navigation/view-controller';
  * @hidden
  */
 export class ActionSheet extends ViewController {
-    /**
-     * @param {?} app
-     * @param {?} opts
-     * @param {?} config
-     */
     constructor(app, opts, config) {
         opts.buttons = opts.buttons || [];
         opts.enableBackdropDismiss = isPresent(opts.enableBackdropDismiss) ? !!opts.enableBackdropDismiss : true;
@@ -26,32 +21,27 @@ export class ActionSheet extends ViewController {
     }
     /**
      * @hidden
-     * @param {?} direction
-     * @return {?}
      */
     getTransitionName(direction) {
-        const /** @type {?} */ key = 'actionSheet' + (direction === 'back' ? 'Leave' : 'Enter');
+        const key = 'actionSheet' + (direction === 'back' ? 'Leave' : 'Enter');
         return this._nav && this._nav.config.get(key);
     }
     /**
-     * @param {?} title
-     * @return {?}
+     * @param {string} title Action sheet title
      */
     setTitle(title) {
         this.data.title = title;
         return this;
     }
     /**
-     * @param {?} subTitle
-     * @return {?}
+     * @param {string} subTitle Action sheet subtitle
      */
     setSubTitle(subTitle) {
         this.data.subTitle = subTitle;
         return this;
     }
     /**
-     * @param {?} button
-     * @return {?}
+     * @param {object} button Action sheet button
      */
     addButton(button) {
         this.data.buttons.push(button);
@@ -60,16 +50,12 @@ export class ActionSheet extends ViewController {
     /**
      * Present the action sheet instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     present(navOptions = {}) {
         navOptions.minClickBlockDuration = navOptions.minClickBlockDuration || 400;
         return this._app.present(this, navOptions);
     }
-}
-function ActionSheet_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ActionSheet.prototype._app;
 }
 //# sourceMappingURL=action-sheet.js.map

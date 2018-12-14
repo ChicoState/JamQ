@@ -10,8 +10,8 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
-     * \@name NavController
-     * \@description
+     * @name NavController
+     * @description
      *
      * NavController is the base class for navigation controller components like
      * [`Nav`](../../components/nav/Nav/) and [`Tab`](../../components/tabs/Tab/). You use navigation controllers
@@ -36,10 +36,10 @@
      * class.
      *
      * ```typescript
-     * import { Component } from `\@angular/core`;
+     * import { Component } from `@angular/core`;
      * import { StartPage } from './start-page';
      *
-     * \@Component(
+     * @Component(
      *   template: `<ion-nav [root]="rootPage"></ion-nav>`
      * })
      * class MyApp {
@@ -81,20 +81,20 @@
      * controllers are _children_ of the root component so they aren't available
      * to be injected.
      *
-     * By adding a reference variable to the `ion-nav`, you can use `\@ViewChild` to
+     * By adding a reference variable to the `ion-nav`, you can use `@ViewChild` to
      * get an instance of the `Nav` component, which is a navigation controller
      * (it extends `NavController`):
      *
      * ```typescript
      *
-     * import { Component, ViewChild } from '\@angular/core';
+     * import { Component, ViewChild } from '@angular/core';
      * import { NavController } from 'ionic-angular';
      *
-     * \@Component({
+     * @Component({
      *    template: '<ion-nav #myNav [root]="rootPage"></ion-nav>'
      * })
      * export class MyApp {
-     *    \@ViewChild('myNav') nav: NavController
+     *    @ViewChild('myNav') nav: NavController
      *    public rootPage: any = TabsPage;
      *
      *    // Wait for the components in MyApp's template to be initialized
@@ -113,10 +113,10 @@
      *
      *
      * ```typescript
-     * import { Component } from '\@angular/core';
+     * import { Component } from '@angular/core';
      * import { App, ViewController } from 'ionic-angular';
      *
-     * \@Component({
+     * @Component({
      *     template: `
      *     <ion-content>
      *       <h1>My PopoverPage</h1>
@@ -135,13 +135,13 @@
      *       this.appCtrl.getRootNav().push(SecondPage);
      *     }
      *   }
-     * ```
+     *```
      *
      *
      * ## View creation
      * Views are created when they are added to the navigation stack.  For methods
      * like [push()](#push), the NavController takes any component class that is
-     * decorated with `\@Component` as its first argument.  The NavController then
+     * decorated with `@Component` as its first argument.  The NavController then
      * compiles that component, adds it to the app and animates it into view.
      *
      * By default, pages are cached and left in the DOM if they are navigated away
@@ -159,10 +159,10 @@
      * class.
      *
      * ```typescript
-     * import { Component } from '\@angular/core';
+     * import { Component } from '@angular/core';
      * import { NavController } from 'ionic-angular';
      * import { OtherPage } from './other-page';
-     * \@Component({
+     * @Component({
      *    template: `
      *    <ion-header>
      *      <ion-navbar>
@@ -194,7 +194,7 @@
      *
      * import { NavParams } from 'ionic-angular';
      *
-     * \@Component({
+     * @Component({
      *   template: `
      *   <ion-header>
      *     <ion-navbar>
@@ -216,10 +216,10 @@
      * Popping a view will transition to the previous view.
      *
      * ```ts
-     * import { Component } from '\@angular/core';
+     * import { Component } from '@angular/core';
      * import { NavController } from 'ionic-angular';
      *
-     * \@Component({
+     * @Component({
      *   template: `
      *   <ion-header>
      *     <ion-navbar>
@@ -243,9 +243,9 @@
      * defined in any component type which is pushed/popped from a `NavController`.
      *
      * ```ts
-     * import { Component } from '\@angular/core';
+     * import { Component } from '@angular/core';
      *
-     * \@Component({
+     * @Component({
      *   template: 'Hello World'
      * })
      * class HelloWorld {
@@ -318,7 +318,7 @@
      *   ){}
      *   ionViewCanEnter(): boolean{
      *    // here we can either return true or false
-     *    // depending on if we want to leave this view
+     *    // depending on if we want to enter this view
      *    if(isValid(randomValue)){
      *       return true;
      *     } else {
@@ -347,328 +347,13 @@
      *
      * The property 'animation' understands the following values: `md-transition`, `ios-transition` and `wp-transition`.
      *
-     * @see {\@link /docs/components#navigation Navigation Component Docs}
-     * @abstract
+     * @see {@link /docs/components#navigation Navigation Component Docs}
      */
     var NavController = (function () {
         function NavController() {
         }
-        /**
-         * Push a new component onto the current navigation stack. Pass any aditional information
-         * along as an object. This additional information is accessible through NavParams
-         *
-         * @abstract
-         * @param {?} page
-         * @param {?=} params
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.push = function (page, params, opts, done) { };
-        /**
-         * Inserts a component into the nav stack at the specified index. This is useful if
-         * you need to add a component at any point in your navigation stack.
-         *
-         *
-         * @abstract
-         * @param {?} insertIndex
-         * @param {?} page
-         * @param {?=} params
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.insert = function (insertIndex, page, params, opts, done) { };
-        /**
-         * Inserts an array of components into the nav stack at the specified index.
-         * The last component in the array will become instantiated as a view,
-         * and animate in to become the active view.
-         *
-         * @abstract
-         * @param {?} insertIndex
-         * @param {?} insertPages
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.insertPages = function (insertIndex, insertPages, opts, done) { };
-        /**
-         * Call to navigate back from a current component. Similar to `push()`, you
-         * can also pass navigation options.
-         *
-         * @abstract
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.pop = function (opts, done) { };
-        /**
-         * Navigate back to the root of the stack, no matter how far back that is.
-         *
-         * @abstract
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.popToRoot = function (opts, done) { };
-        /**
-         * @hidden
-         * Pop to a specific view in the history stack. If an already created
-         * instance of the page is not found in the stack, then it'll `setRoot`
-         * to the nav stack by removing all current pages and pushing on a
-         * new instance of the given page. Note that any params passed to
-         * this method are not used when an existing page instance has already
-         * been found in the stack. Nav params are only used by this method
-         * when a new instance needs to be created.
-         *
-         * @abstract
-         * @param {?} page
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.popTo = function (page, opts, done) { };
-        /**
-         * @hidden
-         * Pop sequently all the pages in the stack.
-         *
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.popAll = function () { };
-        /**
-         * Removes a page from the nav stack at the specified index.
-         *
-         * @abstract
-         * @param {?} startIndex
-         * @param {?=} removeCount
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.remove = function (startIndex, removeCount, opts, done) { };
-        /**
-         * Removes the specified view controller from the nav stack.
-         *
-         * @abstract
-         * @param {?} viewController
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.removeView = function (viewController, opts, done) { };
-        /**
-         * Set the root for the current navigation stack.
-         * @abstract
-         * @param {?} pageOrViewCtrl
-         * @param {?=} params
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.setRoot = function (pageOrViewCtrl, params, opts, done) { };
-        /**
-         * @abstract
-         * @param {?} options
-         * @return {?}
-         */
-        NavController.prototype.goToRoot = function (options) { };
-        /**
-         * Set the views of the current navigation stack and navigate to the
-         * last view. By default animations are disabled, but they can be enabled
-         * by passing options to the navigation controller.You can also pass any
-         * navigation params to the individual pages in the array.
-         *
-         * @abstract
-         * @param {?} pages
-         * @param {?=} opts
-         * @param {?=} done
-         * @return {?}
-         */
-        NavController.prototype.setPages = function (pages, opts, done) { };
-        /**
-         * @abstract
-         * @param {?} index
-         * @return {?}
-         */
-        NavController.prototype.getByIndex = function (index) { };
-        /**
-         * @abstract
-         * @param {?=} includeEntering
-         * @return {?}
-         */
-        NavController.prototype.getActive = function (includeEntering) { };
-        /**
-         * Returns if the given view is the active view or not.
-         * @abstract
-         * @param {?} view
-         * @return {?}
-         */
-        NavController.prototype.isActive = function (view) { };
-        /**
-         * Returns the view controller which is before the given view controller.
-         * If no view controller is passed in, then it'll default to the active view.
-         * @abstract
-         * @param {?=} view
-         * @return {?}
-         */
-        NavController.prototype.getPrevious = function (view) { };
-        /**
-         * Returns the first view controller in this nav controller's stack.
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.first = function () { };
-        /**
-         * Returns the last page in this nav controller's stack.
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.last = function () { };
-        /**
-         * Returns the index number of the given view controller.
-         * @abstract
-         * @param {?} view
-         * @return {?}
-         */
-        NavController.prototype.indexOf = function (view) { };
-        /**
-         * Returns the number of views in this nav controller.
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.length = function () { };
-        /**
-         * Returns the current stack of views in this nav controller.
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.getViews = function () { };
-        /**
-         * Returns a list of the active child navigation.
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.getActiveChildNavs = function () { };
-        /**
-         * Returns the active child navigation.
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.getActiveChildNav = function () { };
-        /**
-         * Returns a list of all child navigation containers
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.getAllChildNavs = function () { };
-        /**
-         * Returns if the nav controller is actively transitioning or not.
-         * @abstract
-         * @param {?=} includeAncestors
-         * @return {?}
-         */
-        NavController.prototype.isTransitioning = function (includeAncestors) { };
-        /**
-         * If it's possible to use swipe back or not. If it's not possible
-         * to go back, or swipe back is not enabled, then this will return `false`.
-         * If it is possible to go back, and swipe back is enabled, then this
-         * will return `true`.
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.canSwipeBack = function () { };
-        /**
-         * Returns `true` if there's a valid previous page that we can pop
-         * back to. Otherwise returns `false`.
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.canGoBack = function () { };
-        /**
-         * @hidden
-         * @abstract
-         * @param {?} nav
-         * @return {?}
-         */
-        NavController.prototype.registerChildNav = function (nav) { };
-        /**
-         * @hidden
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.resize = function () { };
-        /**
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.getType = function () { };
-        /**
-         * @abstract
-         * @return {?}
-         */
-        NavController.prototype.getSecondaryIdentifier = function () { };
         return NavController;
     }());
     exports.NavController = NavController;
-    function NavController_tsickle_Closure_declarations() {
-        /**
-         * Observable to be subscribed to when a component is loaded.
-         * @type {?}
-         */
-        NavController.prototype.viewDidLoad;
-        /**
-         * Observable to be subscribed to when a component is about to be loaded.
-         * @type {?}
-         */
-        NavController.prototype.viewWillEnter;
-        /**
-         * Observable to be subscribed to when a component has fully become the active component.
-         * @type {?}
-         */
-        NavController.prototype.viewDidEnter;
-        /**
-         * Observable to be subscribed to when a component is about to leave, and no longer active.
-         * @type {?}
-         */
-        NavController.prototype.viewWillLeave;
-        /**
-         * Observable to be subscribed to when a component has fully left and is no longer active.
-         * @type {?}
-         */
-        NavController.prototype.viewDidLeave;
-        /**
-         * Observable to be subscribed to when a component is about to be unloaded and destroyed.
-         * @type {?}
-         */
-        NavController.prototype.viewWillUnload;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        NavController.prototype.id;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        NavController.prototype.name;
-        /**
-         * The parent navigation instance. If this is the root nav, then
-         * it'll be `null`. A `Tab` instance's parent is `Tabs`, otherwise
-         * the parent would be another nav, if it's not already the root nav.
-         * @type {?}
-         */
-        NavController.prototype.parent;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        NavController.prototype.config;
-        /**
-         * \@input {boolean} If true, swipe to go back is enabled.
-         * @type {?}
-         */
-        NavController.prototype.swipeBackEnabled;
-    }
 });
 //# sourceMappingURL=nav-controller.js.map

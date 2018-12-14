@@ -7,8 +7,8 @@ import { Ion } from '../ion';
 import { Label } from '../label/label';
 import { ItemReorder } from './item-reorder';
 /**
- * \@name Item
- * \@description
+ * @name Item
+ * @description
  * An item can contain text, images, and anything else. Generally it is placed in a list with other
  * items. It can easily be swiped, deleted, reordered, edited, and more. An item is only required to
  * be in a [List](../../list/List) if manipulating the item via gestures is required. It requires an
@@ -126,7 +126,7 @@ import { ItemReorder } from './item-reorder';
  * See the [Utility Attributes Documentation](../../../../theming/css-utilities/) for attributes that can
  * be added to `ion-item` to transform the text.
  *
- * \@usage
+ * @usage
  *
  * ```html
  * <ion-list>
@@ -172,7 +172,7 @@ import { ItemReorder } from './item-reorder';
  * ```
  *
  *
- * \@advanced
+ * @advanced
  *
  * ```html
  * <ion-list>
@@ -263,19 +263,12 @@ import { ItemReorder } from './item-reorder';
  * ```
  *
  *
- * \@demo /docs/demos/src/item/
- * @see {\@link /docs/components#lists List Component Docs}
- * @see {\@link ../../list/List List API Docs}
- * @see {\@link ../ItemSliding ItemSliding API Docs}
+ * @demo /docs/demos/src/item/
+ * @see {@link /docs/components#lists List Component Docs}
+ * @see {@link ../../list/List List API Docs}
+ * @see {@link ../ItemSliding ItemSliding API Docs}
  */
 export class Item extends Ion {
-    /**
-     * @param {?} form
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} reorder
-     */
     constructor(form, config, elementRef, renderer, reorder) {
         super(config, elementRef, renderer, 'item');
         this._ids = -1;
@@ -303,8 +296,6 @@ export class Item extends Ion {
     }
     /**
      * @hidden
-     * @param {?} type
-     * @return {?}
      */
     registerInput(type) {
         this._inputs.push(type);
@@ -312,11 +303,10 @@ export class Item extends Ion {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngAfterContentInit() {
         if (this._viewLabel && this._inputs.length) {
-            let /** @type {?} */ labelText = this.getLabelText().trim();
+            let labelText = this.getLabelText().trim();
             this._viewLabel = (labelText.length > 0);
         }
         if (this._inputs.length > 1) {
@@ -325,9 +315,6 @@ export class Item extends Ion {
     }
     /**
      * @hidden
-     * @param {?} newColor
-     * @param {?=} componentName
-     * @return {?}
      */
     _updateColor(newColor, componentName) {
         componentName = componentName || 'item'; // item-radio
@@ -335,26 +322,21 @@ export class Item extends Ion {
     }
     /**
      * @hidden
-     * @param {?} elementRef
-     * @return {?}
      */
     _setName(elementRef) {
-        let /** @type {?} */ nodeName = elementRef.nativeElement.nodeName.replace('ION-', '');
+        let nodeName = elementRef.nativeElement.nodeName.replace('ION-', '');
         if (nodeName === 'LIST-HEADER' || nodeName === 'ITEM-DIVIDER') {
             this._name = nodeName;
         }
     }
     /**
      * @hidden
-     * @return {?}
      */
     getLabelText() {
         return this._label ? this._label.text : '';
     }
     /**
      * @hidden
-     * @param {?} label
-     * @return {?}
      */
     set contentLabel(label) {
         if (label) {
@@ -368,8 +350,6 @@ export class Item extends Ion {
     }
     /**
      * @hidden
-     * @param {?} label
-     * @return {?}
      */
     set viewLabel(label) {
         if (!this._label) {
@@ -378,8 +358,6 @@ export class Item extends Ion {
     }
     /**
      * @hidden
-     * @param {?} buttons
-     * @return {?}
      */
     set _buttons(buttons) {
         buttons.forEach(button => {
@@ -390,8 +368,6 @@ export class Item extends Ion {
     }
     /**
      * @hidden
-     * @param {?} icons
-     * @return {?}
      */
     set _icons(icons) {
         icons.forEach(icon => {
@@ -422,9 +398,7 @@ Item.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Item.ctorParameters = () => [
     { type: Form, },
     { type: Config, },
@@ -438,37 +412,4 @@ Item.propDecorators = {
     '_buttons': [{ type: ContentChildren, args: [Button,] },],
     '_icons': [{ type: ContentChildren, args: [Icon,] },],
 };
-function Item_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Item.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Item.ctorParameters;
-    /** @type {?} */
-    Item.propDecorators;
-    /** @type {?} */
-    Item.prototype._ids;
-    /** @type {?} */
-    Item.prototype._inputs;
-    /** @type {?} */
-    Item.prototype._label;
-    /** @type {?} */
-    Item.prototype._viewLabel;
-    /** @type {?} */
-    Item.prototype._name;
-    /** @type {?} */
-    Item.prototype._hasReorder;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Item.prototype.id;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Item.prototype.labelId;
-}
 //# sourceMappingURL=item.js.map

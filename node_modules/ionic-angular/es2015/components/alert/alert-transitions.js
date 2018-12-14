@@ -4,13 +4,10 @@ import { Transition } from '../../transitions/transition';
  * Animations for alerts
  */
 export class AlertPopIn extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
-        const /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        const /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        const /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        const ele = this.enteringView.pageRef().nativeElement;
+        const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        const wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.01, 1).fromTo('scale', 1.1, 1);
         backdrop.fromTo('opacity', 0.01, 0.3);
         this
@@ -21,13 +18,10 @@ export class AlertPopIn extends Transition {
     }
 }
 export class AlertPopOut extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
-        const /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        const /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        const /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        const ele = this.leavingView.pageRef().nativeElement;
+        const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        const wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.99, 0).fromTo('scale', 1, 0.9);
         backdrop.fromTo('opacity', 0.3, 0);
         this
@@ -38,13 +32,10 @@ export class AlertPopOut extends Transition {
     }
 }
 export class AlertMdPopIn extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
-        const /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        const /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        const /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        const ele = this.enteringView.pageRef().nativeElement;
+        const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        const wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.01, 1).fromTo('scale', 1.1, 1);
         backdrop.fromTo('opacity', 0.01, 0.5);
         this
@@ -55,13 +46,10 @@ export class AlertMdPopIn extends Transition {
     }
 }
 export class AlertMdPopOut extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
-        const /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        const /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        const /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        const ele = this.leavingView.pageRef().nativeElement;
+        const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        const wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.99, 0).fromTo('scale', 1, 0.9);
         backdrop.fromTo('opacity', 0.5, 0);
         this
@@ -72,13 +60,10 @@ export class AlertMdPopOut extends Transition {
     }
 }
 export class AlertWpPopIn extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
-        const /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        const /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        const /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        const ele = this.enteringView.pageRef().nativeElement;
+        const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        const wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.01, 1).fromTo('scale', 1.3, 1);
         backdrop.fromTo('opacity', 0.01, 0.5);
         this
@@ -89,13 +74,10 @@ export class AlertWpPopIn extends Transition {
     }
 }
 export class AlertWpPopOut extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
-        const /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        const /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        const /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        const ele = this.leavingView.pageRef().nativeElement;
+        const backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        const wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.99, 0).fromTo('scale', 1, 1.3);
         backdrop.fromTo('opacity', 0.5, 0);
         this

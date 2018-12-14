@@ -27,10 +27,10 @@ var __extends = (this && this.__extends) || (function () {
     var base_input_1 = require("../../util/base-input");
     var item_1 = require("../item/item");
     /**
-     * \@name Checkbox
-     * \@module ionic
+     * @name Checkbox
+     * @module ionic
      *
-     * \@description
+     * @description
      * The Checkbox is a simple component styled based on the mode. It can be
      * placed in an `ion-item` or used as a stand-alone checkbox.
      *
@@ -38,7 +38,7 @@ var __extends = (this && this.__extends) || (function () {
      * for more info on forms and inputs.
      *
      *
-     * \@usage
+     * @usage
      * ```html
      *
      *  <ion-list>
@@ -61,7 +61,7 @@ var __extends = (this && this.__extends) || (function () {
      *  </ion-list>
      * ```
      *
-     * \@advanced
+     * @advanced
      *
      * ```html
      *
@@ -77,7 +77,7 @@ var __extends = (this && this.__extends) || (function () {
      * ```
      *
      * ```ts
-     * \@Component({
+     * @Component({
      *   templateUrl: 'main.html'
      * })
      * class SaladPage {
@@ -89,33 +89,21 @@ var __extends = (this && this.__extends) || (function () {
      * }
      * ```
      *
-     * \@demo /docs/demos/src/checkbox/
-     * @see {\@link /docs/components#checkbox Checkbox Component Docs}
+     * @demo /docs/demos/src/checkbox/
+     * @see {@link /docs/components#checkbox Checkbox Component Docs}
      */
     var Checkbox = (function (_super) {
         __extends(Checkbox, _super);
-        /**
-         * @param {?} config
-         * @param {?} form
-         * @param {?} item
-         * @param {?} elementRef
-         * @param {?} renderer
-         */
         function Checkbox(config, form, item, elementRef, renderer) {
             return _super.call(this, config, elementRef, renderer, 'checkbox', false, form, item, null) || this;
         }
         Object.defineProperty(Checkbox.prototype, "checked", {
             /**
-             * \@input {boolean} If true, the element is selected.
-             * @return {?}
+             * @input {boolean} If true, the element is selected.
              */
             get: function () {
                 return this.value;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this.value = val;
             },
@@ -124,78 +112,61 @@ var __extends = (this && this.__extends) || (function () {
         });
         /**
          * @hidden
-         * @param {?} ev
-         * @return {?}
          */
         Checkbox.prototype._click = function (ev) {
             ev.preventDefault();
             ev.stopPropagation();
             this.value = !this.value;
+            this._fireTouched();
         };
         /**
          * @hidden
-         * @param {?} val
-         * @return {?}
          */
         Checkbox.prototype._inputNormalize = function (val) {
             return util_1.isTrueProperty(val);
         };
         /**
          * @hidden
-         * @return {?}
          */
         Checkbox.prototype._inputUpdated = function () {
             this._item && this._item.setElementClass('item-checkbox-checked', this._value);
         };
+        Checkbox.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'ion-checkbox',
+                        template: '<div class="checkbox-icon" [class.checkbox-checked]="_value">' +
+                            '<div class="checkbox-inner"></div>' +
+                            '</div>' +
+                            '<button role="checkbox" ' +
+                            'type="button" ' +
+                            'ion-button="item-cover" ' +
+                            '[id]="id" ' +
+                            '[attr.aria-checked]="_value" ' +
+                            '[attr.aria-labelledby]="_labelId" ' +
+                            '[attr.aria-disabled]="_disabled" ' +
+                            'class="item-cover"> ' +
+                            '</button>',
+                        host: {
+                            '[class.checkbox-disabled]': '_disabled'
+                        },
+                        providers: [{ provide: forms_1.NG_VALUE_ACCESSOR, useExisting: Checkbox, multi: true }],
+                        encapsulation: core_1.ViewEncapsulation.None,
+                    },] },
+        ];
+        /** @nocollapse */
+        Checkbox.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: form_1.Form, },
+            { type: item_1.Item, decorators: [{ type: core_1.Optional },] },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+        ]; };
+        Checkbox.propDecorators = {
+            'checked': [{ type: core_1.Input },],
+            '_click': [{ type: core_1.HostListener, args: ['click', ['$event'],] },],
+        };
         return Checkbox;
     }(base_input_1.BaseInput));
-    Checkbox.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'ion-checkbox',
-                    template: '<div class="checkbox-icon" [class.checkbox-checked]="_value">' +
-                        '<div class="checkbox-inner"></div>' +
-                        '</div>' +
-                        '<button role="checkbox" ' +
-                        'type="button" ' +
-                        'ion-button="item-cover" ' +
-                        '[id]="id" ' +
-                        '[attr.aria-checked]="_value" ' +
-                        '[attr.aria-labelledby]="_labelId" ' +
-                        '[attr.aria-disabled]="_disabled" ' +
-                        'class="item-cover"> ' +
-                        '</button>',
-                    host: {
-                        '[class.checkbox-disabled]': '_disabled'
-                    },
-                    providers: [{ provide: forms_1.NG_VALUE_ACCESSOR, useExisting: Checkbox, multi: true }],
-                    encapsulation: core_1.ViewEncapsulation.None,
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Checkbox.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: form_1.Form, },
-        { type: item_1.Item, decorators: [{ type: core_1.Optional },] },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-    ]; };
-    Checkbox.propDecorators = {
-        'checked': [{ type: core_1.Input },],
-        '_click': [{ type: core_1.HostListener, args: ['click', ['$event'],] },],
-    };
     exports.Checkbox = Checkbox;
-    function Checkbox_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Checkbox.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Checkbox.ctorParameters;
-        /** @type {?} */
-        Checkbox.propDecorators;
-    }
 });
 //# sourceMappingURL=checkbox.js.map

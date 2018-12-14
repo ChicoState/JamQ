@@ -10,8 +10,8 @@ import { VirtualItem } from './virtual-item';
 import { VirtualFooter } from './virtual-footer';
 import { VirtualHeader } from './virtual-header';
 /**
- * \@name VirtualScroll
- * \@description
+ * @name VirtualScroll
+ * @description
  * Virtual Scroll displays a virtual, "infinite" list. An array of records
  * is passed to the virtual scroll containing the data to create templates
  * for. The template created for each record, referred to as a cell, can
@@ -84,7 +84,7 @@ import { VirtualHeader } from './virtual-header';
  * ### Approximate Widths and Heights
  *
  * If the height of items in the virtual scroll are not close to the
- * default size of 40px, it is extremely important to provide an value for
+ * default size of 40px, it is extremely important to provide a value for
  * approxItemHeight height. An exact pixel-perfect size is not necessary,
  * but without an estimate the virtual scroll will not render correctly.
  *
@@ -208,18 +208,6 @@ import { VirtualHeader } from './virtual-header';
  *
  */
 var VirtualScroll = (function () {
-    /**
-     * @param {?} _iterableDiffers
-     * @param {?} _elementRef
-     * @param {?} _renderer
-     * @param {?} _zone
-     * @param {?} _cd
-     * @param {?} _content
-     * @param {?} _plt
-     * @param {?} _ctrl
-     * @param {?} _config
-     * @param {?} _dom
-     */
     function VirtualScroll(_iterableDiffers, _elementRef, _renderer, _zone, _cd, _content, _plt, _ctrl, _config, _dom) {
         var _this = this;
         this._iterableDiffers = _iterableDiffers;
@@ -243,9 +231,9 @@ var VirtualScroll = (function () {
         this._data = {
             scrollTop: 0,
         };
-        this._queue = SCROLL_QUEUE_NO_CHANGES;
+        this._queue = 1 /* NoChanges */;
         /**
-         * \@input {number} The buffer ratio is used to decide how many cells
+         * @input {number} The buffer ratio is used to decide how many cells
          * should get created when initially rendered. The number is a
          * multiplier against the viewable area's height. For example, if it
          * takes `20` cells to fill up the height of the viewable area, then
@@ -256,7 +244,7 @@ var VirtualScroll = (function () {
          */
         this.bufferRatio = 3;
         /**
-         * \@input {string} The approximate width of each item template's cell.
+         * @input {string} The approximate width of each item template's cell.
          * This dimension is used to help determine how many cells should
          * be created when initialized, and to help calculate the height of
          * the scrollable area. This value can use either `px` or `%` units.
@@ -267,7 +255,7 @@ var VirtualScroll = (function () {
          */
         this.approxItemWidth = '100%';
         /**
-         * \@input {string} The approximate width of each header template's cell.
+         * @input {string} The approximate width of each header template's cell.
          * This dimension is used to help determine how many cells should
          * be created when initialized, and to help calculate the height of
          * the scrollable area. This value can use either `px` or `%` units.
@@ -277,7 +265,7 @@ var VirtualScroll = (function () {
          */
         this.approxHeaderWidth = '100%';
         /**
-         * \@input {string} The approximate height of each header template's cell.
+         * @input {string} The approximate height of each header template's cell.
          * This dimension is used to help determine how many cells should
          * be created when initialized, and to help calculate the height of
          * the scrollable area. This height value can only use `px` units.
@@ -287,7 +275,7 @@ var VirtualScroll = (function () {
          */
         this.approxHeaderHeight = '40px';
         /**
-         * \@input {string} The approximate width of each footer template's cell.
+         * @input {string} The approximate width of each footer template's cell.
          * This dimension is used to help determine how many cells should
          * be created when initialized, and to help calculate the height of
          * the scrollable area. This value can use either `px` or `%` units.
@@ -297,7 +285,7 @@ var VirtualScroll = (function () {
          */
         this.approxFooterWidth = '100%';
         /**
-         * \@input {string} The approximate height of each footer template's cell.
+         * @input {string} The approximate height of each footer template's cell.
          * This dimension is used to help determine how many cells should
          * be created when initialized, and to help calculate the height of
          * the scrollable area. This height value can only use `px` units.
@@ -324,24 +312,24 @@ var VirtualScroll = (function () {
         });
     }
     Object.defineProperty(VirtualScroll.prototype, "virtualScroll", {
+        get: function () {
+            return this._records;
+        },
         /**
-         * \@input {array} The data that builds the templates within the virtual scroll.
+         * @input {array} The data that builds the templates within the virtual scroll.
          * This is the same data that you'd pass to `*ngFor`. It's important to note
          * that when this data has changed, then the entire virtual scroll is reset,
          * which is an expensive operation and should be avoided if possible.
-         * @param {?} val
-         * @return {?}
          */
         set: function (val) {
             this._records = val;
-            this._updateDiffer();
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(VirtualScroll.prototype, "headerFn", {
         /**
-         * \@input {function} Section headers and the data used within its given
+         * @input {function} Section headers and the data used within its given
          * template can be dynamically created by passing a function to `headerFn`.
          * For example, a large list of contacts usually has dividers between each
          * letter in the alphabet. App's can provide their own custom `headerFn`
@@ -349,8 +337,6 @@ var VirtualScroll = (function () {
          * the header function can decide if the header template should be used,
          * and what data to give to the header template. The function must return
          * `null` if a header cell shouldn't be created.
-         * @param {?} val
-         * @return {?}
          */
         set: function (val) {
             if (isFunction(val)) {
@@ -362,13 +348,11 @@ var VirtualScroll = (function () {
     });
     Object.defineProperty(VirtualScroll.prototype, "footerFn", {
         /**
-         * \@input {function} Section footers and the data used within its given
+         * @input {function} Section footers and the data used within its given
          * template can be dynamically created by passing a function to `footerFn`.
          * The logic within the footer function can decide if the footer template
          * should be used, and what data to give to the footer template. The function
          * must return `null` if a footer cell shouldn't be created.
-         * @param {?} val
-         * @return {?}
          */
         set: function (val) {
             if (isFunction(val)) {
@@ -378,46 +362,39 @@ var VirtualScroll = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(VirtualScroll.prototype, "virtualTrackBy", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._virtualTrackBy;
-        },
-        /**
-         * \@input {function} Same as `ngForTrackBy` which can be used on `ngFor`.
-         * @param {?} val
-         * @return {?}
-         */
-        set: function (val) {
-            if (isPresent(val)) {
-                this._virtualTrackBy = val;
-                this._updateDiffer();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype.firstRecord = function () {
-        var /** @type {?} */ cells = this._cells;
+        var cells = this._cells;
         return (cells.length > 0) ? cells[0].record : 0;
     };
     /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype.lastRecord = function () {
-        var /** @type {?} */ cells = this._cells;
+        var cells = this._cells;
         return (cells.length > 0) ? cells[cells.length - 1].record : 0;
     };
     /**
+    * @hidden
+    */
+    VirtualScroll.prototype.ngOnChanges = function (changes) {
+        if ('virtualScroll' in changes) {
+            // React on virtualScroll changes only once all inputs have been initialized
+            var value = changes['virtualScroll'].currentValue;
+            if (!isPresent(this._differ) && isPresent(value)) {
+                try {
+                    this._differ = this._iterableDiffers.find(value).create(this.virtualTrackBy);
+                }
+                catch (e) {
+                    throw new Error("Cannot find a differ supporting object '" + value + "'. VirtualScroll only supports binding to Iterables such as Arrays.");
+                }
+            }
+        }
+    };
+    /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype.ngDoCheck = function () {
         // only continue if we've already initialized
@@ -425,47 +402,40 @@ var VirtualScroll = (function () {
             return;
         }
         // and if there actually are changes
-        var /** @type {?} */ changes = this._changes();
+        var changes = isPresent(this._differ) ? this._differ.diff(this.virtualScroll) : null;
         if (!isPresent(changes)) {
             return;
         }
-        var /** @type {?} */ needClean = false;
-        if (changes) {
-            var /** @type {?} */ lastRecord = this._recordSize;
-            changes.forEachOperation(function (_, pindex, cindex) {
-                // add new record after current position
-                if (pindex === null && (cindex < lastRecord)) {
-                    (void 0) /* console.debug */;
-                    needClean = true;
-                    return;
-                }
-                // remove record after current position
-                if (pindex < lastRecord && cindex === null) {
-                    (void 0) /* console.debug */;
-                    needClean = true;
-                    return;
-                }
-            });
-        }
-        else {
-            needClean = true;
-        }
-        this._recordSize = this._records.length;
+        var needClean = false;
+        var lastRecord = this._recordSize;
+        changes.forEachOperation(function (_, pindex, cindex) {
+            // add new record after current position
+            if (pindex === null && (cindex < lastRecord)) {
+                (void 0) /* console.debug */;
+                needClean = true;
+                return;
+            }
+            // remove record after current position
+            if (pindex < lastRecord && cindex === null) {
+                (void 0) /* console.debug */;
+                needClean = true;
+                return;
+            }
+        });
+        this._recordSize = this._records ? this._records.length : 0;
         this.readUpdate(needClean);
         this.writeUpdate(needClean);
     };
     /**
      * @hidden
-     * @param {?} needClean
-     * @return {?}
      */
     VirtualScroll.prototype.readUpdate = function (needClean) {
         if (needClean) {
             // reset everything
             (void 0) /* console.debug */;
             this._cells.length = 0;
-            this._nodes.length = 0;
-            this._itmTmp.viewContainer.clear();
+            // this._nodes.length = 0;
+            // this._itmTmp.viewContainer.clear();
             // ******** DOM READ ****************
             this.calcDimensions();
         }
@@ -475,13 +445,11 @@ var VirtualScroll = (function () {
     };
     /**
      * @hidden
-     * @param {?} needClean
-     * @return {?}
      */
     VirtualScroll.prototype.writeUpdate = function (needClean) {
         (void 0) /* console.debug */;
-        var /** @type {?} */ data = this._data;
-        var /** @type {?} */ stopAtHeight = (data.scrollTop + data.renderHeight);
+        var data = this._data;
+        var stopAtHeight = (data.scrollTop + data.renderHeight);
         data.scrollDiff = SCROLL_DIFFERENCE_MINIMUM + 1;
         processRecords(stopAtHeight, this._records, this._cells, this._hdrFn, this._ftrFn, this._data);
         // ******** DOM WRITE ****************
@@ -489,41 +457,21 @@ var VirtualScroll = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype.calcDimensions = function () {
         calcDimensions(this._data, this._elementRef.nativeElement, this.approxItemWidth, this.approxItemHeight, this.approxHeaderWidth, this.approxHeaderHeight, this.approxFooterWidth, this.approxFooterHeight, this.bufferRatio);
     };
     /**
-     * @return {?}
-     */
-    VirtualScroll.prototype._changes = function () {
-        if (isPresent(this._records) && isPresent(this._differ)) {
-            return this._differ.diff(this._records);
-        }
-        return null;
-    };
-    /**
-     * @return {?}
-     */
-    VirtualScroll.prototype._updateDiffer = function () {
-        if (isPresent(this._records)) {
-            this._differ = this._iterableDiffers.find(this._records).create(this._virtualTrackBy);
-        }
-    };
-    /**
      * @hidden
      * DOM WRITE
-     * @param {?} needClean
-     * @return {?}
      */
     VirtualScroll.prototype.renderVirtual = function (needClean) {
         var _this = this;
         this._plt.raf(function () {
-            var /** @type {?} */ nodes = _this._nodes;
-            var /** @type {?} */ cells = _this._cells;
-            var /** @type {?} */ data = _this._data;
-            var /** @type {?} */ records = _this._records;
+            var nodes = _this._nodes;
+            var cells = _this._cells;
+            var data = _this._data;
+            var records = _this._records;
             if (needClean) {
                 // ******** DOM WRITE ****************
                 updateDimensions(_this._plt, nodes, cells, data, true);
@@ -532,7 +480,7 @@ var VirtualScroll = (function () {
             }
             adjustRendered(cells, data);
             _this._zone.run(function () {
-                populateNodeData(data.topCell, data.bottomCell, true, cells, records, nodes, _this._itmTmp.viewContainer, _this._itmTmp.templateRef, _this._hdrTmp && _this._hdrTmp.templateRef, _this._ftrTmp && _this._ftrTmp.templateRef, needClean);
+                populateNodeData(data.topCell, data.bottomCell, true, cells, records, nodes, _this._itmTmp.viewContainer, _this._itmTmp.templateRef, _this._hdrTmp && _this._hdrTmp.templateRef, _this._ftrTmp && _this._ftrTmp.templateRef);
             });
             if (needClean) {
                 _this._cd.detectChanges();
@@ -555,8 +503,8 @@ var VirtualScroll = (function () {
                 if (!_this._lastEle) {
                     // add an element at the end so :last-child css doesn't get messed up
                     // ******** DOM WRITE ****************
-                    var /** @type {?} */ ele = _this._elementRef.nativeElement;
-                    var /** @type {?} */ lastEle = _this._renderer.createElement(ele, 'div');
+                    var ele = _this._elementRef.nativeElement;
+                    var lastEle = _this._renderer.createElement(ele, 'div');
                     lastEle.className = 'virtual-last';
                     _this._lastEle = true;
                     // ******** DOM WRITE ****************
@@ -570,11 +518,14 @@ var VirtualScroll = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype.resize = function () {
         // only continue if we've already initialized
         if (!this._init) {
+            return;
+        }
+        // check if component is rendered in the dom currently
+        if (this._elementRef.nativeElement.offsetParent === null) {
             return;
         }
         (void 0) /* console.debug */;
@@ -583,73 +534,67 @@ var VirtualScroll = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype._stepDOMWrite = function () {
-        var /** @type {?} */ cells = this._cells;
-        var /** @type {?} */ nodes = this._nodes;
-        var /** @type {?} */ recordsLength = this._records.length;
+        var cells = this._cells;
+        var nodes = this._nodes;
         // ******** DOM WRITE ****************
-        writeToNodes(this._plt, nodes, cells, recordsLength);
+        writeToNodes(this._plt, nodes, cells, this._recordSize);
         // ******** DOM WRITE ****************
-        this._setHeight(estimateHeight(recordsLength, cells[cells.length - 1], this._vHeight, 0.25));
+        this._setHeight(estimateHeight(this._recordSize, cells[cells.length - 1], this._vHeight, 0.25));
         // we're done here, good work
-        this._queue = SCROLL_QUEUE_NO_CHANGES;
+        this._queue = 1 /* NoChanges */;
     };
     /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype._stepChangeDetection = function () {
         // we need to do some change detection in this frame
         // we've got work painting do, let's throw it in the
         // domWrite callback so everyone plays nice
         // ******** DOM WRITE ****************
-        var /** @type {?} */ nodes = this._nodes;
-        for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
+        var nodes = this._nodes;
+        for (var i = 0; i < nodes.length; i++) {
             if (nodes[i].hasChanges) {
-                ((nodes[i].view)).detectChanges();
+                nodes[i].view.detectChanges();
             }
         }
         // on the next frame we need write to the dom nodes manually
-        this._queue = SCROLL_QUEUE_DOM_WRITE;
+        this._queue = 3 /* DomWrite */;
     };
     /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype._stepNoChanges = function () {
-        var /** @type {?} */ data = this._data;
+        var data = this._data;
         // let's see if we've scroll far enough to require another check
-        var /** @type {?} */ diff = data.scrollDiff = (data.scrollTop - this._lastCheck);
+        var diff = data.scrollDiff = (data.scrollTop - this._lastCheck);
         if (Math.abs(diff) < SCROLL_DIFFERENCE_MINIMUM) {
             return;
         }
-        var /** @type {?} */ cells = this._cells;
-        var /** @type {?} */ nodes = this._nodes;
-        var /** @type {?} */ records = this._records;
+        var cells = this._cells;
+        var nodes = this._nodes;
+        var records = this._records;
         // don't bother updating if the scrollTop hasn't changed much
         this._lastCheck = data.scrollTop;
         if (diff > 0) {
             // load data we may not have processed yet
-            var /** @type {?} */ stopAtHeight = (data.scrollTop + data.renderHeight);
+            var stopAtHeight = (data.scrollTop + data.renderHeight);
             processRecords(stopAtHeight, records, cells, this._hdrFn, this._ftrFn, data);
         }
         // ******** DOM READ ****************
         updateDimensions(this._plt, nodes, cells, data, false);
         adjustRendered(cells, data);
-        var /** @type {?} */ hasChanges = populateNodeData(data.topCell, data.bottomCell, diff > 0, cells, records, nodes, this._itmTmp.viewContainer, this._itmTmp.templateRef, this._hdrTmp && this._hdrTmp.templateRef, this._ftrTmp && this._ftrTmp.templateRef, false);
+        var hasChanges = populateNodeData(data.topCell, data.bottomCell, diff > 0, cells, records, nodes, this._itmTmp.viewContainer, this._itmTmp.templateRef, this._hdrTmp && this._hdrTmp.templateRef, this._ftrTmp && this._ftrTmp.templateRef);
         if (hasChanges) {
             // queue making updates in the next frame
-            this._queue = SCROLL_QUEUE_CHANGE_DETECTION;
+            this._queue = 2 /* ChangeDetection */;
             // update the bound context for each node
             updateNodeContext(nodes, cells, data);
         }
     };
     /**
      * @hidden
-     * @param {?} ev
-     * @return {?}
      */
     VirtualScroll.prototype.scrollUpdate = function (ev) {
         var _this = this;
@@ -657,12 +602,12 @@ var VirtualScroll = (function () {
         this._data.scrollTop = ev.scrollTop;
         // there is a queue system so that we can
         // spread out the work over multiple frames
-        var /** @type {?} */ queue = this._queue;
-        if (queue === SCROLL_QUEUE_NO_CHANGES) {
+        var queue = this._queue;
+        if (queue === 1 /* NoChanges */) {
             // no dom writes or change detection to take care of
             this._stepNoChanges();
         }
-        else if (queue === SCROLL_QUEUE_CHANGE_DETECTION) {
+        else if (queue === 2 /* ChangeDetection */) {
             this._dom.write(function () { return _this._stepChangeDetection(); });
         }
         else {
@@ -674,13 +619,13 @@ var VirtualScroll = (function () {
     /**
      * @hidden
      * DOM WRITE
-     * @return {?}
      */
     VirtualScroll.prototype.scrollEnd = function () {
         var _this = this;
         // ******** DOM READ ****************
         updateDimensions(this._plt, this._nodes, this._cells, this._data, false);
         adjustRendered(this._cells, this._data);
+        populateNodeData(this._data.topCell, this._data.bottomCell, true, this._cells, this._records, this._nodes, this._itmTmp.viewContainer, this._itmTmp.templateRef, this._hdrTmp && this._hdrTmp.templateRef, this._ftrTmp && this._ftrTmp.templateRef);
         // ******** DOM WRITE ***************
         this._dom.write(function () {
             // update the bound context for each node
@@ -694,7 +639,6 @@ var VirtualScroll = (function () {
     /**
      * @hidden
      * NO DOM
-     * @return {?}
      */
     VirtualScroll.prototype._listeners = function () {
         (void 0) /* assert */;
@@ -714,8 +658,6 @@ var VirtualScroll = (function () {
     /**
      * @hidden
      * DOM WRITE
-     * @param {?} newVirtualHeight
-     * @return {?}
      */
     VirtualScroll.prototype._setHeight = function (newVirtualHeight) {
         if (newVirtualHeight !== this._vHeight) {
@@ -727,7 +669,6 @@ var VirtualScroll = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype.ngAfterContentInit = function () {
         (void 0) /* assert */;
@@ -738,16 +679,12 @@ var VirtualScroll = (function () {
     };
     /**
      * @hidden
-     * @param {?} className
-     * @param {?} add
-     * @return {?}
      */
     VirtualScroll.prototype.setElementClass = function (className, add) {
         this._renderer.setElementClass(this._elementRef.nativeElement, className, add);
     };
     /**
      * @hidden
-     * @return {?}
      */
     VirtualScroll.prototype.ngOnDestroy = function () {
         this._resizeSub && this._resizeSub.unsubscribe();
@@ -756,200 +693,42 @@ var VirtualScroll = (function () {
         this._resizeSub = this._scrollEndSub = this._scrollSub = null;
         this._hdrFn = this._ftrFn = this._records = this._cells = this._nodes = this._data = null;
     };
+    VirtualScroll.decorators = [
+        { type: Directive, args: [{
+                    selector: '[virtualScroll]'
+                },] },
+    ];
+    /** @nocollapse */
+    VirtualScroll.ctorParameters = function () { return [
+        { type: IterableDiffers, },
+        { type: ElementRef, },
+        { type: Renderer, },
+        { type: NgZone, },
+        { type: ChangeDetectorRef, },
+        { type: Content, },
+        { type: Platform, },
+        { type: ViewController, },
+        { type: Config, },
+        { type: DomController, },
+    ]; };
+    VirtualScroll.propDecorators = {
+        '_itmTmp': [{ type: ContentChild, args: [VirtualItem,] },],
+        '_hdrTmp': [{ type: ContentChild, args: [VirtualHeader,] },],
+        '_ftrTmp': [{ type: ContentChild, args: [VirtualFooter,] },],
+        'virtualScroll': [{ type: Input },],
+        'bufferRatio': [{ type: Input },],
+        'approxItemWidth': [{ type: Input },],
+        'approxItemHeight': [{ type: Input },],
+        'approxHeaderWidth': [{ type: Input },],
+        'approxHeaderHeight': [{ type: Input },],
+        'approxFooterWidth': [{ type: Input },],
+        'approxFooterHeight': [{ type: Input },],
+        'headerFn': [{ type: Input },],
+        'footerFn': [{ type: Input },],
+        'virtualTrackBy': [{ type: Input },],
+    };
     return VirtualScroll;
 }());
 export { VirtualScroll };
-VirtualScroll.decorators = [
-    { type: Directive, args: [{
-                selector: '[virtualScroll]'
-            },] },
-];
-/**
- * @nocollapse
- */
-VirtualScroll.ctorParameters = function () { return [
-    { type: IterableDiffers, },
-    { type: ElementRef, },
-    { type: Renderer, },
-    { type: NgZone, },
-    { type: ChangeDetectorRef, },
-    { type: Content, },
-    { type: Platform, },
-    { type: ViewController, },
-    { type: Config, },
-    { type: DomController, },
-]; };
-VirtualScroll.propDecorators = {
-    '_itmTmp': [{ type: ContentChild, args: [VirtualItem,] },],
-    '_hdrTmp': [{ type: ContentChild, args: [VirtualHeader,] },],
-    '_ftrTmp': [{ type: ContentChild, args: [VirtualFooter,] },],
-    'virtualScroll': [{ type: Input },],
-    'bufferRatio': [{ type: Input },],
-    'approxItemWidth': [{ type: Input },],
-    'approxItemHeight': [{ type: Input },],
-    'approxHeaderWidth': [{ type: Input },],
-    'approxHeaderHeight': [{ type: Input },],
-    'approxFooterWidth': [{ type: Input },],
-    'approxFooterHeight': [{ type: Input },],
-    'headerFn': [{ type: Input },],
-    'footerFn': [{ type: Input },],
-    'virtualTrackBy': [{ type: Input },],
-};
-function VirtualScroll_tsickle_Closure_declarations() {
-    /** @type {?} */
-    VirtualScroll.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    VirtualScroll.ctorParameters;
-    /** @type {?} */
-    VirtualScroll.propDecorators;
-    /** @type {?} */
-    VirtualScroll.prototype._differ;
-    /** @type {?} */
-    VirtualScroll.prototype._scrollSub;
-    /** @type {?} */
-    VirtualScroll.prototype._scrollEndSub;
-    /** @type {?} */
-    VirtualScroll.prototype._resizeSub;
-    /** @type {?} */
-    VirtualScroll.prototype._init;
-    /** @type {?} */
-    VirtualScroll.prototype._lastEle;
-    /** @type {?} */
-    VirtualScroll.prototype._hdrFn;
-    /** @type {?} */
-    VirtualScroll.prototype._ftrFn;
-    /** @type {?} */
-    VirtualScroll.prototype._records;
-    /** @type {?} */
-    VirtualScroll.prototype._cells;
-    /** @type {?} */
-    VirtualScroll.prototype._nodes;
-    /** @type {?} */
-    VirtualScroll.prototype._vHeight;
-    /** @type {?} */
-    VirtualScroll.prototype._lastCheck;
-    /** @type {?} */
-    VirtualScroll.prototype._recordSize;
-    /** @type {?} */
-    VirtualScroll.prototype._data;
-    /** @type {?} */
-    VirtualScroll.prototype._queue;
-    /** @type {?} */
-    VirtualScroll.prototype._virtualTrackBy;
-    /** @type {?} */
-    VirtualScroll.prototype._itmTmp;
-    /** @type {?} */
-    VirtualScroll.prototype._hdrTmp;
-    /** @type {?} */
-    VirtualScroll.prototype._ftrTmp;
-    /**
-     * \@input {number} The buffer ratio is used to decide how many cells
-     * should get created when initially rendered. The number is a
-     * multiplier against the viewable area's height. For example, if it
-     * takes `20` cells to fill up the height of the viewable area, then
-     * with a buffer ratio of `3` it will create `60` cells that are
-     * available for reuse while scrolling. For better performance, it's
-     * better to have more cells than what are required to fill the
-     * viewable area. Default is `3`.
-     * @type {?}
-     */
-    VirtualScroll.prototype.bufferRatio;
-    /**
-     * \@input {string} The approximate width of each item template's cell.
-     * This dimension is used to help determine how many cells should
-     * be created when initialized, and to help calculate the height of
-     * the scrollable area. This value can use either `px` or `%` units.
-     * Note that the actual rendered size of each cell comes from the
-     * app's CSS, whereas this approximation is used to help calculate
-     * initial dimensions before the item has been rendered. Default is
-     * `100%`.
-     * @type {?}
-     */
-    VirtualScroll.prototype.approxItemWidth;
-    /**
-     * \@input {string} It is important to provide this
-     * if virtual item height will be significantly larger than the default
-     * The approximate height of each virtual item template's cell.
-     * This dimension is used to help determine how many cells should
-     * be created when initialized, and to help calculate the height of
-     * the scrollable area. This height value can only use `px` units.
-     * Note that the actual rendered size of each cell comes from the
-     * app's CSS, whereas this approximation is used to help calculate
-     * initial dimensions before the item has been rendered. Default is
-     * `40px`.
-     * @type {?}
-     */
-    VirtualScroll.prototype.approxItemHeight;
-    /**
-     * \@input {string} The approximate width of each header template's cell.
-     * This dimension is used to help determine how many cells should
-     * be created when initialized, and to help calculate the height of
-     * the scrollable area. This value can use either `px` or `%` units.
-     * Note that the actual rendered size of each cell comes from the
-     * app's CSS, whereas this approximation is used to help calculate
-     * initial dimensions. Default is `100%`.
-     * @type {?}
-     */
-    VirtualScroll.prototype.approxHeaderWidth;
-    /**
-     * \@input {string} The approximate height of each header template's cell.
-     * This dimension is used to help determine how many cells should
-     * be created when initialized, and to help calculate the height of
-     * the scrollable area. This height value can only use `px` units.
-     * Note that the actual rendered size of each cell comes from the
-     * app's CSS, whereas this approximation is used to help calculate
-     * initial dimensions before the item has been rendered. Default is `40px`.
-     * @type {?}
-     */
-    VirtualScroll.prototype.approxHeaderHeight;
-    /**
-     * \@input {string} The approximate width of each footer template's cell.
-     * This dimension is used to help determine how many cells should
-     * be created when initialized, and to help calculate the height of
-     * the scrollable area. This value can use either `px` or `%` units.
-     * Note that the actual rendered size of each cell comes from the
-     * app's CSS, whereas this approximation is used to help calculate
-     * initial dimensions before the item has been rendered. Default is `100%`.
-     * @type {?}
-     */
-    VirtualScroll.prototype.approxFooterWidth;
-    /**
-     * \@input {string} The approximate height of each footer template's cell.
-     * This dimension is used to help determine how many cells should
-     * be created when initialized, and to help calculate the height of
-     * the scrollable area. This height value can only use `px` units.
-     * Note that the actual rendered size of each cell comes from the
-     * app's CSS, whereas this approximation is used to help calculate
-     * initial dimensions before the item has been rendered. Default is `40px`.
-     * @type {?}
-     */
-    VirtualScroll.prototype.approxFooterHeight;
-    /** @type {?} */
-    VirtualScroll.prototype._iterableDiffers;
-    /** @type {?} */
-    VirtualScroll.prototype._elementRef;
-    /** @type {?} */
-    VirtualScroll.prototype._renderer;
-    /** @type {?} */
-    VirtualScroll.prototype._zone;
-    /** @type {?} */
-    VirtualScroll.prototype._cd;
-    /** @type {?} */
-    VirtualScroll.prototype._content;
-    /** @type {?} */
-    VirtualScroll.prototype._plt;
-    /** @type {?} */
-    VirtualScroll.prototype._ctrl;
-    /** @type {?} */
-    VirtualScroll.prototype._config;
-    /** @type {?} */
-    VirtualScroll.prototype._dom;
-}
-var /** @type {?} */ SCROLL_DIFFERENCE_MINIMUM = 40;
-var /** @type {?} */ SCROLL_QUEUE_NO_CHANGES = 1;
-var /** @type {?} */ SCROLL_QUEUE_CHANGE_DETECTION = 2;
-var /** @type {?} */ SCROLL_QUEUE_DOM_WRITE = 3;
+var SCROLL_DIFFERENCE_MINIMUM = 40;
 //# sourceMappingURL=virtual-scroll.js.map

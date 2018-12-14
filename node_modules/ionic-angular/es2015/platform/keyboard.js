@@ -5,27 +5,21 @@ import { isTextInput } from '../util/dom';
 import { KEY_TAB } from './key';
 import { Platform } from './platform';
 /**
- * \@name Keyboard
- * \@description
+ * @name Keyboard
+ * @description
  * The `Keyboard` class allows you to work with the keyboard events provided
  * by the Ionic keyboard plugin.
  *
- * \@usage
+ * @usage
  * ```ts
  * export class MyClass {
- *   constructor(public keyboard: Keyboard) {
  *
- *   }
+ *   constructor(public keyboard: Keyboard) { }
+ *
  * }
  * ```
  */
 export class Keyboard {
-    /**
-     * @param {?} config
-     * @param {?} _plt
-     * @param {?} _zone
-     * @param {?} _dom
-     */
     constructor(config, _plt, _zone, _dom) {
         this._plt = _plt;
         this._zone = _zone;
@@ -37,22 +31,18 @@ export class Keyboard {
         this.eventsAvailable = false;
         this.focusOutline(config.get('focusOutline'));
         const win = _plt.win();
-        if (config.getBoolean('keyboardResizes', false)) {
+        if (win.Ionic && win.Ionic.keyboardPlugin) {
             this.listenV2(win);
         }
         else {
             this.listenV1(win);
         }
     }
-    /**
-     * @param {?} win
-     * @return {?}
-     */
     listenV2(win) {
-        const /** @type {?} */ platform = this._plt;
-        platform.registerListener(win, 'keyboardWillShow', () => {
+        const platform = this._plt;
+        platform.registerListener(win, 'keyboardWillShow', (ev) => {
             this._zone.run(() => {
-                this.willShow.emit();
+                this.willShow.emit(ev.keyboardHeight);
             });
         }, { zone: false, passive: true });
         platform.registerListener(win, 'keyboardWillHide', () => {
@@ -60,9 +50,9 @@ export class Keyboard {
                 this.willHide.emit();
             });
         }, { zone: false, passive: true });
-        platform.registerListener(win, 'keyboardDidShow', () => {
+        platform.registerListener(win, 'keyboardDidShow', (ev) => {
             this._zone.run(() => {
-                this.didShow.emit();
+                this.didShow.emit(ev.keyboardHeight);
             });
         }, { zone: false, passive: true });
         platform.registerListener(win, 'keyboardDidHide', () => {
@@ -72,12 +62,8 @@ export class Keyboard {
         }, { zone: false, passive: true });
         this.eventsAvailable = true;
     }
-    /**
-     * @param {?} win
-     * @return {?}
-     */
     listenV1(win) {
-        const /** @type {?} */ platform = this._plt;
+        const platform = this._plt;
         platform.registerListener(win, 'native.keyboardhide', () => {
             this.blurActiveInput(true);
         }, { zone: false, passive: true });
@@ -85,12 +71,8 @@ export class Keyboard {
             this.blurActiveInput(false);
         }, { zone: false, passive: true });
     }
-    /**
-     * @param {?} shouldBlur
-     * @return {?}
-     */
     blurActiveInput(shouldBlur) {
-        const /** @type {?} */ platform = this._plt;
+        const platform = this._plt;
         platform.cancelTimeout(this._tmr);
         if (shouldBlur) {
             this._tmr = platform.timeout(() => {
@@ -118,7 +100,7 @@ export class Keyboard {
      * }
      * ```
      *
-     * @return {?}
+     * @return {boolean} returns a true or false value if the keyboard is open or not.
      */
     isOpen() {
         return this.hasFocusedTextInput();
@@ -138,23 +120,18 @@ export class Keyboard {
      * }
      * ```
      *
-     * @param {?} callback
-     * @param {?=} pollingInternval
-     * @param {?=} pollingChecksMax
-     * @return {?}
+     * @param {function} callback method you want to call when the keyboard has been closed.
+     * @return {function} returns a callback that gets fired when the keyboard is closed.
      */
     onClose(callback, pollingInternval = KEYBOARD_CLOSE_POLLING, pollingChecksMax = KEYBOARD_POLLING_CHECKS_MAX) {
         (void 0) /* console.debug */;
-        const /** @type {?} */ self = this;
-        let /** @type {?} */ checks = 0;
-        let /** @type {?} */ promise = null;
+        const self = this;
+        let checks = 0;
+        let promise = null;
         if (!callback) {
             // a callback wasn't provided, so let's return a promise instead
             promise = new Promise(resolve => { callback = resolve; });
         }
-        /**
-         * @return {?}
-         */
         function checkKeyboard() {
             (void 0) /* console.debug */;
             if (!self.isOpen() || checks > pollingChecksMax) {
@@ -175,7 +152,6 @@ export class Keyboard {
     }
     /**
      * Programmatically close the keyboard.
-     * @return {?}
      */
     close() {
         this._dom.read(() => {
@@ -190,8 +166,6 @@ export class Keyboard {
     }
     /**
      * @hidden
-     * @param {?} setting
-     * @return {?}
      */
     focusOutline(setting) {
         /* Focus Outline
@@ -205,19 +179,16 @@ export class Keyboard {
          * focusOutline: true     - Always add the focus-outline
          * focusOutline: false    - Do not add the focus-outline
          */
-        const /** @type {?} */ self = this;
-        const /** @type {?} */ platform = self._plt;
-        const /** @type {?} */ doc = platform.doc();
-        let /** @type {?} */ isKeyInputEnabled = false;
-        let /** @type {?} */ unRegMouse;
-        let /** @type {?} */ unRegTouch;
-        const /** @type {?} */ evOpts = { passive: true, zone: false };
-        /**
-         * @return {?}
-         */
+        const self = this;
+        const platform = self._plt;
+        const doc = platform.doc();
+        let isKeyInputEnabled = false;
+        let unRegMouse;
+        let unRegTouch;
+        const evOpts = { passive: true, zone: false };
         function cssClass() {
             self._dom.write(() => {
-                ((platform.doc().body.classList))[isKeyInputEnabled ? 'add' : 'remove']('focus-outline');
+                platform.doc().body.classList[isKeyInputEnabled ? 'add' : 'remove']('focus-outline');
             });
         }
         if (setting === true) {
@@ -227,26 +198,17 @@ export class Keyboard {
         else if (setting === false) {
             return;
         }
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
+        // default is to add the focus-outline when the tab key is used
         function keyDown(ev) {
             if (!isKeyInputEnabled && ev.keyCode === KEY_TAB) {
                 isKeyInputEnabled = true;
                 enableKeyInput();
             }
         }
-        /**
-         * @return {?}
-         */
         function pointerDown() {
             isKeyInputEnabled = false;
             enableKeyInput();
         }
-        /**
-         * @return {?}
-         */
         function enableKeyInput() {
             cssClass();
             unRegMouse && unRegMouse();
@@ -260,56 +222,35 @@ export class Keyboard {
         // always listen for tab keydown events
         platform.registerListener(platform.doc(), 'keydown', keyDown, evOpts);
     }
-    /**
-     * @return {?}
-     */
     hasFocusedTextInput() {
-        const /** @type {?} */ activeEle = this._plt.getActiveElement();
+        const activeEle = this._plt.getActiveElement();
         if (isTextInput(activeEle)) {
             return (activeEle.parentElement.querySelector(':focus') === activeEle);
         }
         return false;
     }
+    /**
+     * Set to true to hide the additional toolbar that is on top of the keyboard.
+     * This toolbar features the Prev, Next, and Done buttons.
+     * @param hidden
+     */
+    hideFormAccessoryBar(hidden) {
+        const win = this._plt.win();
+        if (win && win.Keyboard && win.Keyboard.hideFormAccessoryBar) {
+            win.Keyboard.hideFormAccessoryBar(hidden);
+        }
+    }
 }
 Keyboard.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Keyboard.ctorParameters = () => [
     { type: Config, },
     { type: Platform, },
     { type: NgZone, },
     { type: DomController, },
 ];
-function Keyboard_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Keyboard.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Keyboard.ctorParameters;
-    /** @type {?} */
-    Keyboard.prototype._tmr;
-    /** @type {?} */
-    Keyboard.prototype.willShow;
-    /** @type {?} */
-    Keyboard.prototype.willHide;
-    /** @type {?} */
-    Keyboard.prototype.didShow;
-    /** @type {?} */
-    Keyboard.prototype.didHide;
-    /** @type {?} */
-    Keyboard.prototype.eventsAvailable;
-    /** @type {?} */
-    Keyboard.prototype._plt;
-    /** @type {?} */
-    Keyboard.prototype._zone;
-    /** @type {?} */
-    Keyboard.prototype._dom;
-}
-const /** @type {?} */ KEYBOARD_CLOSE_POLLING = 150;
-const /** @type {?} */ KEYBOARD_POLLING_CHECKS_MAX = 100;
+const KEYBOARD_CLOSE_POLLING = 150;
+const KEYBOARD_POLLING_CHECKS_MAX = 100;
 //# sourceMappingURL=keyboard.js.map

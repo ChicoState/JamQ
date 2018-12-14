@@ -24,7 +24,7 @@
             // Given an x value (x2), return the expected y2 value:
             // (x1,y1) is the known point before given value,
             // (x3,y3) is the known point after given value.
-            var /** @type {?} */ i1, /** @type {?} */ i3;
+            var i1, i3;
             this.interpolate = function (x2) {
                 if (!x2)
                     return 0;
@@ -35,8 +35,8 @@
                 // y2 := ((x2−x1) × (y3−y1)) ÷ (x3−x1) + y1
                 return ((x2 - this.x[i1]) * (this.y[i3] - this.y[i1])) / (this.x[i3] - this.x[i1]) + this.y[i1];
             };
-            var /** @type {?} */ binarySearch = (function () {
-                var /** @type {?} */ maxIndex, /** @type {?} */ minIndex, /** @type {?} */ guess;
+            var binarySearch = (function () {
+                var maxIndex, minIndex, guess;
                 return function (array, val) {
                     minIndex = -1;
                     maxIndex = array.length;
@@ -55,16 +55,12 @@
         getInterpolateFunction: function (s, plt, c) {
             if (!s._spline)
                 s._spline = s.loop ?
-                    new ((exports.SWIPER_CONTROLLER)).LinearSpline(s, plt, s._slidesGrid, c._slidesGrid) :
-                    new ((exports.SWIPER_CONTROLLER)).LinearSpline(s, plt, s._snapGrid, c._snapGrid);
+                    new exports.SWIPER_CONTROLLER.LinearSpline(s, plt, s._slidesGrid, c._slidesGrid) :
+                    new exports.SWIPER_CONTROLLER.LinearSpline(s, plt, s._snapGrid, c._snapGrid);
         },
         setTranslate: function (s, plt, translate, byController, setWrapperTranslate) {
-            var /** @type {?} */ controlled = s.control;
-            var /** @type {?} */ multiplier, /** @type {?} */ controlledTranslate;
-            /**
-             * @param {?} c
-             * @return {?}
-             */
+            var controlled = s.control;
+            var multiplier, controlledTranslate;
             function setControlledTranslate(c) {
                 // this will create an Interpolate function based on the snapGrids
                 // x is the Grid of the scrolled scroller and y will be the controlled scroller
@@ -89,7 +85,7 @@
                 swiper_index_1.updateActiveIndex(c);
             }
             if (Array.isArray(controlled)) {
-                for (var /** @type {?} */ i = 0; i < controlled.length; i++) {
+                for (var i = 0; i < controlled.length; i++) {
                     if (controlled[i] !== byController) {
                         setControlledTranslate(controlled[i]);
                     }
@@ -100,12 +96,8 @@
             }
         },
         setTransition: function (s, plt, duration, byController, setWrapperTransition) {
-            var /** @type {?} */ controlled = s.control;
-            var /** @type {?} */ i;
-            /**
-             * @param {?} c
-             * @return {?}
-             */
+            var controlled = s.control;
+            var i;
             function setControlledTransition(c) {
                 setWrapperTransition(c, plt, duration, s);
                 if (duration !== 0) {

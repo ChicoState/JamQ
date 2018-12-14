@@ -1,0 +1,13 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.formatError = formatError;
+
+var _assertionErrorFormatter = require('assertion-error-formatter');
+
+function formatError(error, colorFns) {
+  return (0, _assertionErrorFormatter.format)(error, { colorFns: colorFns });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9mb3JtYXR0ZXIvaGVscGVycy9lcnJvcl9oZWxwZXJzLmpzIl0sIm5hbWVzIjpbImZvcm1hdEVycm9yIiwiZXJyb3IiLCJjb2xvckZucyJdLCJtYXBwaW5ncyI6Ijs7Ozs7UUFFZ0JBLFcsR0FBQUEsVzs7QUFGaEI7O0FBRU8sU0FBU0EsV0FBVCxDQUFxQkMsS0FBckIsRUFBNEJDLFFBQTVCLEVBQXNDO0FBQzNDLFNBQU8scUNBQU9ELEtBQVAsRUFBYyxFQUFFQyxrQkFBRixFQUFkLENBQVA7QUFDRCIsImZpbGUiOiJlcnJvcl9oZWxwZXJzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZm9ybWF0IH0gZnJvbSAnYXNzZXJ0aW9uLWVycm9yLWZvcm1hdHRlcidcblxuZXhwb3J0IGZ1bmN0aW9uIGZvcm1hdEVycm9yKGVycm9yLCBjb2xvckZucykge1xuICByZXR1cm4gZm9ybWF0KGVycm9yLCB7IGNvbG9yRm5zIH0pXG59XG4iXX0=

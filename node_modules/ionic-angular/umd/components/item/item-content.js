@@ -16,29 +16,18 @@
     var ItemContent = (function () {
         function ItemContent() {
         }
+        ItemContent.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: 'ion-item,[ion-item]',
+                        host: {
+                            'class': 'item-block'
+                        }
+                    },] },
+        ];
+        /** @nocollapse */
+        ItemContent.ctorParameters = function () { return []; };
         return ItemContent;
     }());
-    ItemContent.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: 'ion-item,[ion-item]',
-                    host: {
-                        'class': 'item-block'
-                    }
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    ItemContent.ctorParameters = function () { return []; };
     exports.ItemContent = ItemContent;
-    function ItemContent_tsickle_Closure_declarations() {
-        /** @type {?} */
-        ItemContent.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        ItemContent.ctorParameters;
-    }
 });
 //# sourceMappingURL=item-content.js.map

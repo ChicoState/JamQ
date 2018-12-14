@@ -13,8 +13,8 @@ import { Config } from '../../config/config';
 import { Ion } from '../ion';
 import { isTrueProperty } from '../../util/util';
 /**
- * \@name Spinner
- * \@description
+ * @name Spinner
+ * @description
  * The `ion-spinner` component provides a variety of animated SVG spinners.
  * Spinners enables you to give users feedback that the app is actively
  * processing/thinking/waiting/chillin’ out, or whatever you’d like it to indicate.
@@ -75,7 +75,7 @@ import { isTrueProperty } from '../../util/util';
  *  </tr>
  * </table>
  *
- * \@usage
+ * @usage
  * The following code would use the default spinner for the platform it's
  * running from. If it's neither iOS or Android, it'll default to use `ios`.
  *
@@ -107,11 +107,6 @@ import { isTrueProperty } from '../../util/util';
  */
 var Spinner = (function (_super) {
     __extends(Spinner, _super);
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     function Spinner(config, elementRef, renderer) {
         var _this = _super.call(this, config, elementRef, renderer, 'spinner') || this;
         _this._dur = null;
@@ -120,16 +115,11 @@ var Spinner = (function (_super) {
     }
     Object.defineProperty(Spinner.prototype, "name", {
         /**
-         * \@input {string} SVG spinner name.
-         * @return {?}
+         * @input {string} SVG spinner name.
          */
         get: function () {
             return this._name;
         },
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set: function (val) {
             this._name = val;
             this.load();
@@ -139,16 +129,11 @@ var Spinner = (function (_super) {
     });
     Object.defineProperty(Spinner.prototype, "duration", {
         /**
-         * \@input {string} How long it takes it to do one loop.
-         * @return {?}
+         * @input {string} How long it takes it to do one loop.
          */
         get: function () {
             return this._dur;
         },
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set: function (val) {
             this._dur = val;
             this.load();
@@ -158,16 +143,11 @@ var Spinner = (function (_super) {
     });
     Object.defineProperty(Spinner.prototype, "paused", {
         /**
-         * \@input {boolean} If true, pause the animation.
-         * @return {?}
+         * @input {boolean} If true, pause the animation.
          */
         get: function () {
             return this._paused;
         },
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set: function (val) {
             this._paused = isTrueProperty(val);
         },
@@ -176,7 +156,6 @@ var Spinner = (function (_super) {
     });
     /**
      * @hidden
-     * @return {?}
      */
     Spinner.prototype.ngOnInit = function () {
         this._init = true;
@@ -184,22 +163,21 @@ var Spinner = (function (_super) {
     };
     /**
      * @hidden
-     * @return {?}
      */
     Spinner.prototype.load = function () {
         if (this._init) {
             this._l = [];
             this._c = [];
-            var /** @type {?} */ name = this._name || this._config.get('spinner', 'ios');
-            var /** @type {?} */ spinner = SPINNERS[name];
+            var name = this._name || this._config.get('spinner', 'ios');
+            var spinner = SPINNERS[name];
             if (spinner) {
                 if (spinner.lines) {
-                    for (var /** @type {?} */ i = 0, /** @type {?} */ l = spinner.lines; i < l; i++) {
+                    for (var i = 0, l = spinner.lines; i < l; i++) {
                         this._l.push(this._loadEle(spinner, i, l));
                     }
                 }
                 else if (spinner.circles) {
-                    for (var /** @type {?} */ i = 0, /** @type {?} */ l = spinner.circles; i < l; i++) {
+                    for (var i = 0, l = spinner.circles; i < l; i++) {
                         this._c.push(this._loadEle(spinner, i, l));
                     }
                 }
@@ -208,80 +186,49 @@ var Spinner = (function (_super) {
             }
         }
     };
-    /**
-     * @param {?} spinner
-     * @param {?} index
-     * @param {?} total
-     * @return {?}
-     */
     Spinner.prototype._loadEle = function (spinner, index, total) {
-        var /** @type {?} */ duration = this._dur || spinner.dur;
-        var /** @type {?} */ data = spinner.fn(duration, index, total);
+        var duration = this._dur || spinner.dur;
+        var data = spinner.fn(duration, index, total);
         data.style.animationDuration = duration + 'ms';
         return data;
+    };
+    Spinner.decorators = [
+        { type: Component, args: [{
+                    selector: 'ion-spinner',
+                    template: '<svg viewBox="0 0 64 64" *ngFor="let i of _c" [ngStyle]="i.style">' +
+                        '<circle [attr.r]="i.r" transform="translate(32,32)"></circle>' +
+                        '</svg>' +
+                        '<svg viewBox="0 0 64 64" *ngFor="let i of _l" [ngStyle]="i.style">' +
+                        '<line [attr.y1]="i.y1" [attr.y2]="i.y2" transform="translate(32,32)"></line>' +
+                        '</svg>',
+                    host: {
+                        '[class.spinner-paused]': '_paused'
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                },] },
+    ];
+    /** @nocollapse */
+    Spinner.ctorParameters = function () { return [
+        { type: Config, },
+        { type: ElementRef, },
+        { type: Renderer, },
+    ]; };
+    Spinner.propDecorators = {
+        'name': [{ type: Input },],
+        'duration': [{ type: Input },],
+        'paused': [{ type: Input },],
     };
     return Spinner;
 }(Ion));
 export { Spinner };
-Spinner.decorators = [
-    { type: Component, args: [{
-                selector: 'ion-spinner',
-                template: '<svg viewBox="0 0 64 64" *ngFor="let i of _c" [ngStyle]="i.style">' +
-                    '<circle [attr.r]="i.r" transform="translate(32,32)"></circle>' +
-                    '</svg>' +
-                    '<svg viewBox="0 0 64 64" *ngFor="let i of _l" [ngStyle]="i.style">' +
-                    '<line [attr.y1]="i.y1" [attr.y2]="i.y2" transform="translate(32,32)"></line>' +
-                    '</svg>',
-                host: {
-                    '[class.spinner-paused]': '_paused'
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-            },] },
-];
-/**
- * @nocollapse
- */
-Spinner.ctorParameters = function () { return [
-    { type: Config, },
-    { type: ElementRef, },
-    { type: Renderer, },
-]; };
-Spinner.propDecorators = {
-    'name': [{ type: Input },],
-    'duration': [{ type: Input },],
-    'paused': [{ type: Input },],
-};
-function Spinner_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Spinner.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Spinner.ctorParameters;
-    /** @type {?} */
-    Spinner.propDecorators;
-    /** @type {?} */
-    Spinner.prototype._c;
-    /** @type {?} */
-    Spinner.prototype._l;
-    /** @type {?} */
-    Spinner.prototype._name;
-    /** @type {?} */
-    Spinner.prototype._dur;
-    /** @type {?} */
-    Spinner.prototype._init;
-    /** @type {?} */
-    Spinner.prototype._paused;
-}
-var /** @type {?} */ SPINNERS = {
+var SPINNERS = {
     ios: {
         dur: 1000,
         lines: 12,
         fn: function (dur, index, total) {
-            var /** @type {?} */ transform = 'rotate(' + (30 * index + (index < 6 ? 180 : -180)) + 'deg)';
-            var /** @type {?} */ animationDelay = -(dur - ((dur / total) * index)) + 'ms';
+            var transform = 'rotate(' + (30 * index + (index < 6 ? 180 : -180)) + 'deg)';
+            var animationDelay = -(dur - ((dur / total) * index)) + 'ms';
             return {
                 y1: 17,
                 y2: 29,
@@ -298,8 +245,8 @@ var /** @type {?} */ SPINNERS = {
         dur: 1000,
         lines: 12,
         fn: function (dur, index, total) {
-            var /** @type {?} */ transform = 'rotate(' + (30 * index + (index < 6 ? 180 : -180)) + 'deg)';
-            var /** @type {?} */ animationDelay = -(dur - ((dur / total) * index)) + 'ms';
+            var transform = 'rotate(' + (30 * index + (index < 6 ? 180 : -180)) + 'deg)';
+            var animationDelay = -(dur - ((dur / total) * index)) + 'ms';
             return {
                 y1: 12,
                 y2: 20,
@@ -316,7 +263,7 @@ var /** @type {?} */ SPINNERS = {
         dur: 1000,
         circles: 9,
         fn: function (dur, index, total) {
-            var /** @type {?} */ animationDelay = -(dur - ((dur / total) * index)) + 'ms';
+            var animationDelay = -(dur - ((dur / total) * index)) + 'ms';
             return {
                 r: 5,
                 style: {
@@ -332,7 +279,7 @@ var /** @type {?} */ SPINNERS = {
         dur: 1000,
         circles: 8,
         fn: function (dur, index, total) {
-            var /** @type {?} */ animationDelay = -(dur - ((dur / total) * index)) + 'ms';
+            var animationDelay = -(dur - ((dur / total) * index)) + 'ms';
             return {
                 r: 5,
                 style: {
@@ -358,7 +305,7 @@ var /** @type {?} */ SPINNERS = {
         dur: 750,
         circles: 3,
         fn: function (_dur, index) {
-            var /** @type {?} */ animationDelay = -(110 * index) + 'ms';
+            var animationDelay = -(110 * index) + 'ms';
             return {
                 r: 6,
                 style: {

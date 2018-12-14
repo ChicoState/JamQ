@@ -18,19 +18,19 @@ import { Platform } from '../../platform/platform';
  * interaction modes such as swipe to edit, drag to reorder, and
  * removing items.
  *
- * \@demo /docs/demos/src/list/
- * @see {\@link /docs/components#lists List Component Docs}
- * \@advanced
+ * @demo /docs/demos/src/list/
+ * @see {@link /docs/components#lists List Component Docs}
+ * @advanced
  *
  * Enable the sliding items.
  *
  * ```ts
- * import { Component, ViewChild } from '\@angular/core';
+ * import { Component, ViewChild } from '@angular/core';
  * import { List } from 'ionic-angular';
  *
- * \@Component({...})
+ * @Component({...})
  * export class MyClass {
- *   \@ViewChild(List) list: List;
+ *   @ViewChild(List) list: List;
  *
  *   constructor() { }
  *
@@ -42,14 +42,6 @@ import { Platform } from '../../platform/platform';
  *
  */
 export class List extends Ion {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} _plt
-     * @param {?} _gestureCtrl
-     * @param {?} _domCtrl
-     */
     constructor(config, elementRef, renderer, _plt, _gestureCtrl, _domCtrl) {
         super(config, elementRef, renderer, 'list');
         this._plt = _plt;
@@ -59,34 +51,24 @@ export class List extends Ion {
         this._containsSlidingItems = false;
     }
     /**
-     * \@input {boolean} If true, the sliding items will be enabled.
-     * @return {?}
+     * @input {boolean} If true, the sliding items will be enabled.
      */
     get sliding() {
         return this._enableSliding;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set sliding(val) {
         this._enableSliding = isTrueProperty(val);
         this._updateSlidingState();
     }
     /**
      * @hidden
-     * @param {?} contains
-     * @return {?}
      */
     containsSlidingItem(contains) {
         this._containsSlidingItems = contains;
         this._updateSlidingState();
     }
-    /**
-     * @return {?}
-     */
     _updateSlidingState() {
-        let /** @type {?} */ shouldSlide = this._enableSliding && this._containsSlidingItems;
+        let shouldSlide = this._enableSliding && this._containsSlidingItems;
         if (!shouldSlide) {
             this._slidingGesture && this._slidingGesture.destroy();
             this._slidingGesture = null;
@@ -99,14 +81,12 @@ export class List extends Ion {
     }
     /**
      * Close any sliding items that are open.
-     * @return {?}
      */
     closeSlidingItems() {
         this._slidingGesture && this._slidingGesture.closeOpened();
     }
     /**
      * @hidden
-     * @return {?}
      */
     destroy() {
         this._slidingGesture && this._slidingGesture.destroy();
@@ -117,9 +97,7 @@ List.decorators = [
                 selector: 'ion-list',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 List.ctorParameters = () => [
     { type: Config, },
     { type: ElementRef, },
@@ -131,27 +109,4 @@ List.ctorParameters = () => [
 List.propDecorators = {
     'sliding': [{ type: Input },],
 };
-function List_tsickle_Closure_declarations() {
-    /** @type {?} */
-    List.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    List.ctorParameters;
-    /** @type {?} */
-    List.propDecorators;
-    /** @type {?} */
-    List.prototype._enableSliding;
-    /** @type {?} */
-    List.prototype._containsSlidingItems;
-    /** @type {?} */
-    List.prototype._slidingGesture;
-    /** @type {?} */
-    List.prototype._plt;
-    /** @type {?} */
-    List.prototype._gestureCtrl;
-    /** @type {?} */
-    List.prototype._domCtrl;
-}
 //# sourceMappingURL=list.js.map

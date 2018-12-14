@@ -1,12 +1,12 @@
 import { Directive, HostListener, Optional } from '@angular/core';
 import { NavController } from '../../navigation/nav-controller';
 /**
- * \@name NavPop
- * \@description
+ * @name NavPop
+ * @description
  * Directive to declaratively pop the current page off from the
  * navigation stack.
  *
- * \@usage
+ * @usage
  * ```html
  * <ion-content>
  *
@@ -15,15 +15,12 @@ import { NavController } from '../../navigation/nav-controller';
  * </ion-content>
  * ```
  *
- * Similar to {\@link /docs/api/components/nav/NavPush/ `NavPush` }
- * \@demo /docs/demos/src/navigation/
- * @see {\@link /docs/components#navigation Navigation Component Docs}
- * @see {\@link ../NavPush NavPush API Docs}
+ * Similar to {@link /docs/api/components/nav/NavPush/ `NavPush` }
+ * @demo /docs/demos/src/navigation/
+ * @see {@link /docs/components#navigation Navigation Component Docs}
+ * @see {@link ../NavPush NavPush API Docs}
  */
 export class NavPop {
-    /**
-     * @param {?} _nav
-     */
     constructor(_nav) {
         this._nav = _nav;
         if (!_nav) {
@@ -32,7 +29,6 @@ export class NavPop {
     }
     /**
      * @hidden
-     * @return {?}
      */
     onClick() {
         // If no target, or if target is _self, prevent default browser behavior
@@ -50,26 +46,11 @@ NavPop.decorators = [
                 selector: '[navPop]'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 NavPop.ctorParameters = () => [
     { type: NavController, decorators: [{ type: Optional },] },
 ];
 NavPop.propDecorators = {
     'onClick': [{ type: HostListener, args: ['click',] },],
 };
-function NavPop_tsickle_Closure_declarations() {
-    /** @type {?} */
-    NavPop.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    NavPop.ctorParameters;
-    /** @type {?} */
-    NavPop.propDecorators;
-    /** @type {?} */
-    NavPop.prototype._nav;
-}
 //# sourceMappingURL=nav-pop.js.map

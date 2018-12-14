@@ -9,6 +9,9 @@ module.exports = function (template, args) {
 };
 
 function interpolate(template, args) {
+  if (typeof args === 'undefined') {
+    args = {};
+  }
   return template.replace(/{([^}]*)}/g, function (match, key) {
     return key in args ? args[key] : match;
   });

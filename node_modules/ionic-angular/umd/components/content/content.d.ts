@@ -204,6 +204,7 @@ export declare class Content extends Ion implements OnDestroy, AfterViewInit, IC
     _viewCtrlWriteSub: any;
     /** @internal */
     _scrollDownOnLoad: boolean;
+    _viewCtrl: any;
     private _imgReqBfr;
     private _imgRndBfr;
     private _imgVelMax;

@@ -93,6 +93,10 @@ export declare class BaseInput<T> extends Ion implements CommonInput<T> {
     /**
      * @hidden
      */
+    _fireTouched(): void;
+    /**
+     * @hidden
+     */
     private _setFocus(isFocused);
     /**
      * @hidden

@@ -1,8 +1,8 @@
-import { ComponentFactoryResolver, Injector, NgModuleFactory, NgZone, OpaqueToken, Type } from '@angular/core';
+import { ComponentFactoryResolver, InjectionToken, Injector, NgModuleFactory, NgZone, Type } from '@angular/core';
 import { Config } from '../config/config';
 import { DeepLinkConfig } from '../navigation/nav-util';
 import { NgModuleLoader } from './ng-module-loader';
-export declare const LAZY_LOADED_TOKEN: OpaqueToken;
+export declare const LAZY_LOADED_TOKEN: InjectionToken<any>;
 /**
  * @hidden
  */

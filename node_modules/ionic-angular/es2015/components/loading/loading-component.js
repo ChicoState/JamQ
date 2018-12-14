@@ -6,17 +6,9 @@ import { KEY_ESCAPE } from '../../platform/key';
 import { NavParams } from '../../navigation/nav-params';
 import { ViewController } from '../../navigation/view-controller';
 /**
- * @hidden
- */
+* @hidden
+*/
 export class LoadingCmp {
-    /**
-     * @param {?} _viewCtrl
-     * @param {?} _config
-     * @param {?} _elementRef
-     * @param {?} gestureCtrl
-     * @param {?} params
-     * @param {?} renderer
-     */
     constructor(_viewCtrl, _config, _elementRef, gestureCtrl, params, renderer) {
         this._viewCtrl = _viewCtrl;
         this._config = _config;
@@ -33,9 +25,6 @@ export class LoadingCmp {
         }
         this.id = (++loadingIds);
     }
-    /**
-     * @return {?}
-     */
     ngOnInit() {
         // If no spinner was passed in loading options we need to fall back
         // to the loadingSpinner in the app's config, then the mode spinner
@@ -45,57 +34,34 @@ export class LoadingCmp {
         // If the user passed hide to the spinner we don't want to show it
         this.showSpinner = isDefined(this.d.spinner) && this.d.spinner !== 'hide';
     }
-    /**
-     * @return {?}
-     */
     ionViewWillEnter() {
         this.gestureBlocker.block();
     }
-    /**
-     * @return {?}
-     */
     ionViewDidLeave() {
         this.gestureBlocker.unblock();
     }
-    /**
-     * @return {?}
-     */
     ionViewDidEnter() {
         // If there is a duration, dismiss after that amount of time
         if (this.d && this.d.duration) {
             this.durationTimeout = setTimeout(() => this.dismiss('backdrop'), this.d.duration);
         }
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     keyUp(ev) {
         if (this._viewCtrl.isLast() && ev.keyCode === KEY_ESCAPE) {
             this.bdClick();
         }
     }
-    /**
-     * @return {?}
-     */
     bdClick() {
         if (this.d.enableBackdropDismiss) {
             this.dismiss('backdrop');
         }
     }
-    /**
-     * @param {?} role
-     * @return {?}
-     */
     dismiss(role) {
         if (this.durationTimeout) {
             clearTimeout(this.durationTimeout);
         }
         return this._viewCtrl.dismiss(null, role);
     }
-    /**
-     * @return {?}
-     */
     ngOnDestroy() {
         (void 0) /* assert */;
         this.gestureBlocker.destroy();
@@ -117,9 +83,7 @@ LoadingCmp.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 LoadingCmp.ctorParameters = () => [
     { type: ViewController, },
     { type: Config, },
@@ -131,30 +95,5 @@ LoadingCmp.ctorParameters = () => [
 LoadingCmp.propDecorators = {
     'keyUp': [{ type: HostListener, args: ['body:keyup', ['$event'],] },],
 };
-function LoadingCmp_tsickle_Closure_declarations() {
-    /** @type {?} */
-    LoadingCmp.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    LoadingCmp.ctorParameters;
-    /** @type {?} */
-    LoadingCmp.propDecorators;
-    /** @type {?} */
-    LoadingCmp.prototype.d;
-    /** @type {?} */
-    LoadingCmp.prototype.id;
-    /** @type {?} */
-    LoadingCmp.prototype.showSpinner;
-    /** @type {?} */
-    LoadingCmp.prototype.durationTimeout;
-    /** @type {?} */
-    LoadingCmp.prototype.gestureBlocker;
-    /** @type {?} */
-    LoadingCmp.prototype._viewCtrl;
-    /** @type {?} */
-    LoadingCmp.prototype._config;
-}
-let /** @type {?} */ loadingIds = -1;
+let loadingIds = -1;
 //# sourceMappingURL=loading-component.js.map

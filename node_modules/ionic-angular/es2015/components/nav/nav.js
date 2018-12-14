@@ -11,8 +11,8 @@ import { TransitionController } from '../../transitions/transition-controller';
 import { ViewController } from '../../navigation/view-controller';
 import { RootNode } from '../split-pane/split-pane';
 /**
- * \@name Nav
- * \@description
+ * @name Nav
+ * @description
  *
  * `ion-nav` is the declarative component for a [NavController](../../../navigation/NavController/).
  *
@@ -20,15 +20,15 @@ import { RootNode } from '../split-pane/split-pane';
  * take a look at the [NavController API Docs](../../../navigation/NavController/).
  *
  *
- * \@usage
+ * @usage
  * You must set a root page to be loaded initially by any Nav you create, using
  * the 'root' property:
  *
  * ```ts
- * import { Component } from '\@angular/core';
+ * import { Component } from '@angular/core';
  * import { GettingStartedPage } from './getting-started';
  *
- * \@Component({
+ * @Component({
  *   template: `<ion-nav [root]="root"></ion-nav>`
  * })
  * class MyApp {
@@ -39,26 +39,10 @@ import { RootNode } from '../split-pane/split-pane';
  * }
  * ```
  *
- * \@demo /docs/demos/src/navigation/
- * @see {\@link /docs/components#navigation Navigation Component Docs}
+ * @demo /docs/demos/src/navigation/
+ * @see {@link /docs/components#navigation Navigation Component Docs}
  */
 export class Nav extends NavControllerBase {
-    /**
-     * @param {?} viewCtrl
-     * @param {?} parent
-     * @param {?} app
-     * @param {?} config
-     * @param {?} plt
-     * @param {?} elementRef
-     * @param {?} zone
-     * @param {?} renderer
-     * @param {?} cfr
-     * @param {?} gestureCtrl
-     * @param {?} transCtrl
-     * @param {?} linker
-     * @param {?} domCtrl
-     * @param {?} errHandler
-     */
     constructor(viewCtrl, parent, app, config, plt, elementRef, zone, renderer, cfr, gestureCtrl, transCtrl, linker, domCtrl, errHandler) {
         super(parent, app, config, plt, elementRef, zone, renderer, cfr, gestureCtrl, transCtrl, linker, domCtrl, errHandler);
         this._hasInit = false;
@@ -84,18 +68,13 @@ export class Nav extends NavControllerBase {
     }
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     set _vp(val) {
         this.setViewport(val);
     }
-    /**
-     * @return {?}
-     */
     ngAfterViewInit() {
         this._hasInit = true;
-        const /** @type {?} */ segment = this._linker.getSegmentByNavIdOrName(this.id, this.name);
+        const segment = this._linker.getSegmentByNavIdOrName(this.id, this.name);
         if (segment && (segment.component || segment.loadChildren)) {
             return this._linker.initViews(segment).then(views => {
                 return this.setPages(views, null, null);
@@ -103,24 +82,19 @@ export class Nav extends NavControllerBase {
         }
         else if (this._root) {
             // no segment match, so use the root property but don't set the url I guess
-            const /** @type {?} */ setUrl = segment ? false : true;
+            const setUrl = segment ? false : true;
             return this.push(this._root, this.rootParams, {
-                isNavRoot: ((this._app.getRootNavById(this.id)) === this),
+                isNavRoot: (this._app.getRootNavById(this.id) === this),
                 updateUrl: setUrl
             }, null);
         }
     }
     /**
-     * \@input {Page} The Page component to load as the root page within this nav.
-     * @return {?}
+     * @input {Page} The Page component to load as the root page within this nav.
      */
     get root() {
         return this._root;
     }
-    /**
-     * @param {?} page
-     * @return {?}
-     */
     set root(page) {
         this._root = page;
         if (this._hasInit) {
@@ -129,42 +103,30 @@ export class Nav extends NavControllerBase {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnDestroy() {
         this.destroy();
     }
-    /**
-     * @return {?}
-     */
     initPane() {
-        const /** @type {?} */ isMain = this._elementRef.nativeElement.hasAttribute('main');
+        const isMain = this._elementRef.nativeElement.hasAttribute('main');
         return isMain;
     }
-    /**
-     * @param {?} isPane
-     * @return {?}
-     */
     paneChanged(isPane) {
         if (isPane) {
             this.resize();
         }
     }
-    /**
-     * @param {?} opts
-     * @return {?}
-     */
     goToRoot(opts) {
         return this.setRoot(this._root, this.rootParams, opts, null);
     }
-    /**
-     * @return {?}
+    /*
+     * @private
      */
     getType() {
         return 'nav';
     }
-    /**
-     * @return {?}
+    /*
+     * @private
      */
     getSecondaryIdentifier() {
         return null;
@@ -179,9 +141,7 @@ Nav.decorators = [
                 providers: [{ provide: RootNode, useExisting: forwardRef(() => Nav) }]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Nav.ctorParameters = () => [
     { type: ViewController, decorators: [{ type: Optional },] },
     { type: NavController, decorators: [{ type: Optional },] },
@@ -204,29 +164,4 @@ Nav.propDecorators = {
     'rootParams': [{ type: Input },],
     'name': [{ type: Input },],
 };
-function Nav_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Nav.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Nav.ctorParameters;
-    /** @type {?} */
-    Nav.propDecorators;
-    /** @type {?} */
-    Nav.prototype._root;
-    /** @type {?} */
-    Nav.prototype._hasInit;
-    /**
-     * \@input {object} Any nav-params to pass to the root page of this nav.
-     * @type {?}
-     */
-    Nav.prototype.rootParams;
-    /**
-     * \@input {string} a unique name for the nav element
-     * @type {?}
-     */
-    Nav.prototype.name;
-}
 //# sourceMappingURL=nav.js.map

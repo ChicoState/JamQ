@@ -13,8 +13,8 @@ import { isTrueProperty } from '../../util/util';
 import { Item } from '../item/item';
 import { Platform } from '../../platform/platform';
 /**
- * \@name Input
- * \@description
+ * @name Input
+ * @description
  *
  * `ion-input` is meant for text type inputs only, such as `text`,
  * `password`, `email`, `number`, `search`, `tel`, and `url`. Ionic
@@ -32,7 +32,7 @@ import { Platform } from '../../platform/platform';
  * events like `keyup`, `keydown`, `keypress`, `input`,etc. Any standard event
  * can be attached and will function as expected.
  *
- * \@usage
+ * @usage
  * ```html
  * <ion-list>
  *   <ion-item>
@@ -74,21 +74,9 @@ import { Platform } from '../../platform/platform';
  * </ion-list>
  * ```
  *
- * \@demo /docs/demos/src/input/
+ * @demo /docs/demos/src/input/
  */
 export class TextInput extends BaseInput {
-    /**
-     * @param {?} config
-     * @param {?} _plt
-     * @param {?} _form
-     * @param {?} _app
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} _content
-     * @param {?} _item
-     * @param {?} ngControl
-     * @param {?} _dom
-     */
     constructor(config, _plt, _form, _app, elementRef, renderer, _content, _item, ngControl, _dom) {
         super(config, elementRef, renderer, 'input', '', _form, _item, ngControl);
         this._plt = _plt;
@@ -104,27 +92,27 @@ export class TextInput extends BaseInput {
         this._useAssist = false;
         this._relocated = false;
         /**
-         * \@input {string} Set the input's autocomplete property. Values: `"on"`, `"off"`. Default `"off"`.
+         * @input {string} Set the input's autocomplete property. Values: `"on"`, `"off"`. Default `"off"`.
          */
         this.autocomplete = '';
         /**
-         * \@input {string} Set the input's autocorrect property. Values: `"on"`, `"off"`. Default `"off"`.
+         * @input {string} Set the input's autocorrect property. Values: `"on"`, `"off"`. Default `"off"`.
          */
         this.autocorrect = '';
         /**
-         * \@input {string} Instructional text that shows before the input has a value.
+         * @input {string} Instructional text that shows before the input has a value.
          */
         this.placeholder = '';
         /**
-         * \@input {any} The minimum value, which must not be greater than its maximum (max attribute) value.
+         * @input {any} The minimum value, which must not be greater than its maximum (max attribute) value.
          */
         this.min = null;
         /**
-         * \@input {any} The maximum value, which must not be less than its minimum (min attribute) value.
+         * @input {any} The maximum value, which must not be less than its minimum (min attribute) value.
          */
         this.max = null;
         /**
-         * \@input {any} Works with the min and max attributes to limit the increments at which a value can be set.
+         * @input {any} Works with the min and max attributes to limit the increments at which a value can be set.
          */
         this.step = null;
         /**
@@ -151,14 +139,22 @@ export class TextInput extends BaseInput {
         if (!_content) {
             return;
         }
-        const blurOnScroll = config.getBoolean('hideCaretOnScroll', false);
-        if (blurOnScroll) {
+        const hideCaretOnScroll = config.getBoolean('hideCaretOnScroll', false);
+        if (hideCaretOnScroll) {
             this._enableHideCaretOnScroll();
         }
-        const resizeAssist = config.getBoolean('resizeAssist', false);
-        if (resizeAssist) {
-            this._keyboardHeight = 60;
-            this._enableResizeAssist();
+        const win = _plt.win();
+        const keyboardPlugin = win.Ionic && win.Ionic.keyboardPlugin;
+        if (keyboardPlugin) {
+            const keyboardResizes = config.getBoolean('keyboardResizes', false);
+            if (keyboardResizes) {
+                this._keyboardHeight = config.getNumber('keyboardSafeArea', 60);
+                this._enableScrollMove();
+            }
+            else {
+                this._enableScrollPadding();
+                this._enableScrollMove();
+            }
         }
         else {
             this._useAssist = config.getBoolean('scrollAssist', false);
@@ -169,72 +165,48 @@ export class TextInput extends BaseInput {
         }
     }
     /**
-     * \@input {boolean} If true, a clear icon will appear in the input when there is a value. Clicking it clears the input.
-     * @return {?}
+     * @input {boolean} If true, a clear icon will appear in the input when there is a value. Clicking it clears the input.
      */
     get clearInput() {
         return this._clearInput;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set clearInput(val) {
         this._clearInput = (!this._isTextarea && isTrueProperty(val));
     }
     /**
-     * \@input {string} The type of control to display. The default type is text.
+     * @input {string} The type of control to display. The default type is text.
      * Possible values are: `"text"`, `"password"`, `"email"`, `"number"`, `"search"`, `"tel"`, or `"url"`.
-     * @return {?}
      */
     get type() {
         return (this._isTextarea)
             ? 'text'
             : this._type;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set type(val) {
         this._type = val;
     }
     /**
-     * \@input {boolean} If true, the user cannot modify the value.
-     * @return {?}
+     * @input {boolean} If true, the user cannot modify the value.
      */
     get readonly() {
         return this._readonly;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set readonly(val) {
         this._readonly = isTrueProperty(val);
     }
     /**
-     * \@input {boolean} If true, the value will be cleared after focus upon edit.
+     * @input {boolean} If true, the value will be cleared after focus upon edit.
      * Defaults to `true` when `type` is `"password"`, `false` for all other types.
-     * @return {?}
      */
     get clearOnEdit() {
         return this._clearOnEdit;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set clearOnEdit(val) {
         this._clearOnEdit = isTrueProperty(val);
     }
-    /**
-     * @return {?}
-     */
     ngAfterContentInit() { }
     /**
      * @hidden
-     * @return {?}
      */
     ngAfterViewInit() {
         (void 0) /* assert */;
@@ -242,8 +214,8 @@ export class TextInput extends BaseInput {
         if (this.clearOnEdit !== false && this.type === 'password') {
             this.clearOnEdit = true;
         }
-        const /** @type {?} */ ionInputEle = this._elementRef.nativeElement;
-        const /** @type {?} */ nativeInputEle = this._native.nativeElement;
+        const ionInputEle = this._elementRef.nativeElement;
+        const nativeInputEle = this._native.nativeElement;
         // Copy remaining attributes, not handled by ionic/angular
         copyInputAttributes(ionInputEle, nativeInputEle);
         // prevent having tabIndex duplicated
@@ -279,7 +251,6 @@ export class TextInput extends BaseInput {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnDestroy() {
         super.ngOnDestroy();
@@ -288,14 +259,12 @@ export class TextInput extends BaseInput {
     }
     /**
      * @hidden
-     * @return {?}
      */
     initFocus() {
         this.setFocus();
     }
     /**
      * @hidden
-     * @return {?}
      */
     setFocus() {
         // let's set focus to the element
@@ -306,7 +275,6 @@ export class TextInput extends BaseInput {
     }
     /**
      * @hidden
-     * @return {?}
      */
     setBlur() {
         if (this.isFocus()) {
@@ -315,8 +283,6 @@ export class TextInput extends BaseInput {
     }
     /**
      * @hidden
-     * @param {?} ev
-     * @return {?}
      */
     onInput(ev) {
         this.value = ev.target.value;
@@ -325,8 +291,6 @@ export class TextInput extends BaseInput {
     }
     /**
      * @hidden
-     * @param {?} ev
-     * @return {?}
      */
     onBlur(ev) {
         this._fireBlur();
@@ -339,8 +303,6 @@ export class TextInput extends BaseInput {
     }
     /**
      * @hidden
-     * @param {?} ev
-     * @return {?}
      */
     onFocus(ev) {
         this._fireFocus();
@@ -349,8 +311,6 @@ export class TextInput extends BaseInput {
     }
     /**
      * @hidden
-     * @param {?} ev
-     * @return {?}
      */
     onKeydown(ev) {
         if (ev && this._clearOnEdit) {
@@ -359,29 +319,25 @@ export class TextInput extends BaseInput {
     }
     /**
      * @hidden
-     * @return {?}
      */
     _inputUpdated() {
         super._inputUpdated();
-        const /** @type {?} */ inputEle = this._native.nativeElement;
-        const /** @type {?} */ value = this._value;
+        const inputEle = this._native.nativeElement;
+        const value = this._value;
         if (inputEle.value !== value) {
             inputEle.value = value;
         }
     }
     /**
      * @hidden
-     * @return {?}
      */
     clearTextInput() {
         this.value = '';
     }
     /**
-     * Check if we need to clear the text input if clearOnEdit is enabled
-     * @hidden
-     * @param {?} _
-     * @return {?}
-     */
+    * Check if we need to clear the text input if clearOnEdit is enabled
+    * @hidden
+    */
     checkClearOnEdit(_) {
         if (!this._clearOnEdit) {
             return;
@@ -394,9 +350,6 @@ export class TextInput extends BaseInput {
         // Reset the flag
         this._didBlurAfterEdit = false;
     }
-    /**
-     * @return {?}
-     */
     _getScrollData() {
         if (!this._content) {
             return newScrollData();
@@ -405,21 +358,17 @@ export class TextInput extends BaseInput {
         if (this._scrollData) {
             return this._scrollData;
         }
-        let /** @type {?} */ ele = this._elementRef.nativeElement;
-        ele = (ele.closest('ion-item,[ion-item]')) || ele;
+        let ele = this._elementRef.nativeElement;
+        ele = ele.closest('ion-item,[ion-item]') || ele;
         return this._scrollData = getScrollData(ele.offsetTop, ele.offsetHeight, this._content.getContentDimensions(), this._keyboardHeight, this._plt.height());
     }
-    /**
-     * @param {?} shouldRelocate
-     * @return {?}
-     */
     _relocateInput(shouldRelocate) {
         if (this._relocated === shouldRelocate) {
             return;
         }
-        const /** @type {?} */ platform = this._plt;
-        const /** @type {?} */ componentEle = this.getNativeElement();
-        const /** @type {?} */ focusedInputEle = this._native.nativeElement;
+        const platform = this._plt;
+        const componentEle = this.getNativeElement();
+        const focusedInputEle = this._native.nativeElement;
         (void 0) /* console.debug */;
         if (shouldRelocate) {
             // this allows for the actual input to receive the focus from
@@ -432,9 +381,9 @@ export class TextInput extends BaseInput {
             // before it receives the actual focus event
             // We hide the focused input (with the visible caret) invisiable by making it scale(0),
             cloneInputComponent(platform, componentEle, focusedInputEle);
-            const /** @type {?} */ inputRelativeY = this._getScrollData().inputSafeY;
+            const inputRelativeY = this._getScrollData().inputSafeY;
             // fix for #11817
-            const /** @type {?} */ tx = this._plt.isRTL ? 9999 : -9999;
+            const tx = this._plt.isRTL ? 9999 : -9999;
             focusedInputEle.style[platform.Css.transform] = `translate3d(${tx}px,${inputRelativeY}px,0)`;
             focusedInputEle.style.opacity = '0';
         }
@@ -443,25 +392,19 @@ export class TextInput extends BaseInput {
         }
         this._relocated = shouldRelocate;
     }
-    /**
-     * @return {?}
-     */
     _enableScrollPadding() {
         (void 0) /* assert */;
         (void 0) /* console.debug */;
         this.ionFocus.subscribe(() => {
-            const /** @type {?} */ content = this._content;
-            // add padding to the bottom of the scroll view (if needed)
-            content.addScrollPadding(this._getScrollData().scrollPadding);
+            const content = this._content;
+            const scrollPadding = this._getScrollData().scrollPadding;
+            content.addScrollPadding(scrollPadding);
             content.clearScrollPaddingFocusOut();
         });
     }
-    /**
-     * @return {?}
-     */
     _enableHideCaretOnScroll() {
         (void 0) /* assert */;
-        const /** @type {?} */ content = this._content;
+        const content = this._content;
         (void 0) /* console.debug */;
         content.ionScrollStart
             .takeUntil(this._onDestroy)
@@ -470,11 +413,7 @@ export class TextInput extends BaseInput {
             .takeUntil(this._onDestroy)
             .subscribe(() => scrollHideCaret(false));
         this.ionBlur.subscribe(() => this._relocateInput(false));
-        const /** @type {?} */ self = this;
-        /**
-         * @param {?} shouldHideCaret
-         * @return {?}
-         */
+        const self = this;
         function scrollHideCaret(shouldHideCaret) {
             // if it does have focus, then do the dom write
             if (self.isFocus()) {
@@ -482,23 +421,16 @@ export class TextInput extends BaseInput {
             }
         }
     }
-    /**
-     * @return {?}
-     */
-    _enableResizeAssist() {
+    _enableScrollMove() {
         (void 0) /* assert */;
         (void 0) /* console.debug */;
         this.ionFocus.subscribe(() => {
-            const /** @type {?} */ scrollData = this._getScrollData();
-            if (Math.abs(scrollData.scrollAmount) > 100) {
+            const scrollData = this._getScrollData();
+            if (Math.abs(scrollData.scrollAmount) > 4) {
                 this._content.scrollTo(0, scrollData.scrollTo, scrollData.scrollDuration);
             }
         });
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     _pointerStart(ev) {
         (void 0) /* assert */;
         // input cover touchstart
@@ -511,10 +443,6 @@ export class TextInput extends BaseInput {
         }
         (void 0) /* console.debug */;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     _pointerEnd(ev) {
         (void 0) /* assert */;
         // input cover touchend/mouseup
@@ -527,7 +455,7 @@ export class TextInput extends BaseInput {
         }
         else if (this._coord) {
             // get where the touchend/mouseup ended
-            var /** @type {?} */ endCoord = pointerCoord(ev);
+            var endCoord = pointerCoord(ev);
             // focus this input if the pointer hasn't moved XX pixels
             // and the input doesn't already have focus
             if (!hasPointerMoved(8, this._coord, endCoord) && !this.isFocus()) {
@@ -539,19 +467,16 @@ export class TextInput extends BaseInput {
         }
         this._coord = null;
     }
-    /**
-     * @return {?}
-     */
     _jsSetFocus() {
         (void 0) /* assert */;
         // begin the process of setting focus to the inner input element
-        const /** @type {?} */ content = this._content;
+        const content = this._content;
         (void 0) /* console.debug */;
         if (!content) {
             // not inside of a scroll view, just focus it
             this.setFocus();
         }
-        var /** @type {?} */ scrollData = this._getScrollData();
+        var scrollData = this._getScrollData();
         if (Math.abs(scrollData.scrollAmount) < 4) {
             // the text input is in a safe position that doesn't
             // require it to be scrolled into view, just set focus now
@@ -583,6 +508,7 @@ TextInput.decorators = [
                     '(focus)="onFocus($event)" ' +
                     '(keydown)="onKeydown($event)" ' +
                     '[type]="_type" ' +
+                    'dir="auto" ' +
                     '[attr.aria-labelledby]="_labelId" ' +
                     '[attr.min]="min" ' +
                     '[attr.max]="max" ' +
@@ -619,9 +545,7 @@ TextInput.decorators = [
                 inputs: ['value']
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 TextInput.ctorParameters = () => [
     { type: Config, },
     { type: Platform, },
@@ -650,108 +574,9 @@ TextInput.propDecorators = {
     'blur': [{ type: Output },],
     'focus': [{ type: Output },],
 };
-function TextInput_tsickle_Closure_declarations() {
-    /** @type {?} */
-    TextInput.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    TextInput.ctorParameters;
-    /** @type {?} */
-    TextInput.propDecorators;
-    /** @type {?} */
-    TextInput.prototype._autoFocusAssist;
-    /** @type {?} */
-    TextInput.prototype._clearInput;
-    /** @type {?} */
-    TextInput.prototype._clearOnEdit;
-    /** @type {?} */
-    TextInput.prototype._didBlurAfterEdit;
-    /** @type {?} */
-    TextInput.prototype._readonly;
-    /** @type {?} */
-    TextInput.prototype._keyboardHeight;
-    /** @type {?} */
-    TextInput.prototype._type;
-    /** @type {?} */
-    TextInput.prototype._scrollData;
-    /** @type {?} */
-    TextInput.prototype._isTextarea;
-    /** @type {?} */
-    TextInput.prototype._onDestroy;
-    /** @type {?} */
-    TextInput.prototype._coord;
-    /** @type {?} */
-    TextInput.prototype._isTouch;
-    /** @type {?} */
-    TextInput.prototype._useAssist;
-    /** @type {?} */
-    TextInput.prototype._relocated;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    TextInput.prototype._native;
-    /**
-     * \@input {string} Set the input's autocomplete property. Values: `"on"`, `"off"`. Default `"off"`.
-     * @type {?}
-     */
-    TextInput.prototype.autocomplete;
-    /**
-     * \@input {string} Set the input's autocorrect property. Values: `"on"`, `"off"`. Default `"off"`.
-     * @type {?}
-     */
-    TextInput.prototype.autocorrect;
-    /**
-     * \@input {string} Instructional text that shows before the input has a value.
-     * @type {?}
-     */
-    TextInput.prototype.placeholder;
-    /**
-     * \@input {any} The minimum value, which must not be greater than its maximum (max attribute) value.
-     * @type {?}
-     */
-    TextInput.prototype.min;
-    /**
-     * \@input {any} The maximum value, which must not be less than its minimum (min attribute) value.
-     * @type {?}
-     */
-    TextInput.prototype.max;
-    /**
-     * \@input {any} Works with the min and max attributes to limit the increments at which a value can be set.
-     * @type {?}
-     */
-    TextInput.prototype.step;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    TextInput.prototype.input;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    TextInput.prototype.blur;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    TextInput.prototype.focus;
-    /** @type {?} */
-    TextInput.prototype._plt;
-    /** @type {?} */
-    TextInput.prototype._app;
-    /** @type {?} */
-    TextInput.prototype._content;
-    /** @type {?} */
-    TextInput.prototype.ngControl;
-    /** @type {?} */
-    TextInput.prototype._dom;
-}
 /**
- * \@name TextArea
- * \@description
+ * @name TextArea
+ * @description
  *
  * `ion-textarea` is used for multi-line text inputs. Ionic still
  * uses an actual `<textarea>` HTML element within the component;
@@ -766,7 +591,7 @@ function TextInput_tsickle_Closure_declarations() {
  * When requiring only a single-line text input, we recommend using
  * `<ion-input>` instead.
  *
- * \@usage
+ * @usage
  * ```html
  *  <ion-item>
  *    <ion-label>Comments</ion-label>
@@ -789,12 +614,9 @@ function TextInput_tsickle_Closure_declarations() {
  *  </ion-item>
  * ```
  *
- * \@demo /docs/demos/src/textarea/
+ * @demo /docs/demos/src/textarea/
  */
 const SCROLL_ASSIST_SPEED = 0.3;
-/**
- * @return {?}
- */
 function newScrollData() {
     return {
         scrollAmount: 0,
@@ -806,27 +628,21 @@ function newScrollData() {
 }
 /**
  * @hidden
- * @param {?} inputOffsetTop
- * @param {?} inputOffsetHeight
- * @param {?} scrollViewDimensions
- * @param {?} keyboardHeight
- * @param {?} plaformHeight
- * @return {?}
  */
 export function getScrollData(inputOffsetTop, inputOffsetHeight, scrollViewDimensions, keyboardHeight, plaformHeight) {
     // compute input's Y values relative to the body
-    const /** @type {?} */ inputTop = (inputOffsetTop + scrollViewDimensions.contentTop - scrollViewDimensions.scrollTop);
-    const /** @type {?} */ inputBottom = (inputTop + inputOffsetHeight);
+    const inputTop = (inputOffsetTop + scrollViewDimensions.contentTop - scrollViewDimensions.scrollTop);
+    const inputBottom = (inputTop + inputOffsetHeight);
     // compute the safe area which is the viewable content area when the soft keyboard is up
-    const /** @type {?} */ safeAreaTop = scrollViewDimensions.contentTop;
-    const /** @type {?} */ safeAreaHeight = (plaformHeight - keyboardHeight - safeAreaTop) / 2;
-    const /** @type {?} */ safeAreaBottom = safeAreaTop + safeAreaHeight;
+    const safeAreaTop = scrollViewDimensions.contentTop;
+    const safeAreaHeight = (plaformHeight - keyboardHeight - safeAreaTop) / 2;
+    const safeAreaBottom = safeAreaTop + safeAreaHeight;
     // figure out if each edge of teh input is within the safe area
-    const /** @type {?} */ inputTopWithinSafeArea = (inputTop >= safeAreaTop && inputTop <= safeAreaBottom);
-    const /** @type {?} */ inputTopAboveSafeArea = (inputTop < safeAreaTop);
-    const /** @type {?} */ inputTopBelowSafeArea = (inputTop > safeAreaBottom);
-    const /** @type {?} */ inputBottomWithinSafeArea = (inputBottom >= safeAreaTop && inputBottom <= safeAreaBottom);
-    const /** @type {?} */ inputBottomBelowSafeArea = (inputBottom > safeAreaBottom);
+    const inputTopWithinSafeArea = (inputTop >= safeAreaTop && inputTop <= safeAreaBottom);
+    const inputTopAboveSafeArea = (inputTop < safeAreaTop);
+    const inputTopBelowSafeArea = (inputTop > safeAreaBottom);
+    const inputBottomWithinSafeArea = (inputBottom >= safeAreaTop && inputBottom <= safeAreaBottom);
+    const inputBottomBelowSafeArea = (inputBottom > safeAreaBottom);
     /*
     Text Input Scroll To Scenarios
     ---------------------------------------
@@ -838,7 +654,15 @@ export function getScrollData(inputOffsetTop, inputOffsetHeight, scrollViewDimen
     6) Input top within safe area, bottom below safe area, no room to scroll, input larger than safe area
     7) Input top below safe area, no room to scroll, input larger than safe area
     */
-    const /** @type {?} */ scrollData = newScrollData();
+    const scrollData = newScrollData();
+    // when auto-scrolling, there also needs to be enough
+    // content padding at the bottom of the scroll view
+    // always add scroll padding when a text input has focus
+    // this allows for the content to scroll above of the keyboard
+    // content behind the keyboard would be blank
+    // some cases may not need it, but when jumping around it's best
+    // to have the padding already rendered so there's no jank
+    scrollData.scrollPadding = keyboardHeight;
     if (inputTopWithinSafeArea && inputBottomWithinSafeArea) {
         // Input top within safe area, bottom within safe area
         // no need to scroll to a position, it's good as-is
@@ -868,26 +692,12 @@ export function getScrollData(inputOffsetTop, inputOffsetHeight, scrollViewDimen
     }
     // figure out where it should scroll to for the best position to the input
     scrollData.scrollTo = (scrollViewDimensions.scrollTop - scrollData.scrollAmount);
-    // when auto-scrolling, there also needs to be enough
-    // content padding at the bottom of the scroll view
-    // always add scroll padding when a text input has focus
-    // this allows for the content to scroll above of the keyboard
-    // content behind the keyboard would be blank
-    // some cases may not need it, but when jumping around it's best
-    // to have the padding already rendered so there's no jank
-    scrollData.scrollPadding = keyboardHeight;
     // calculate animation duration
-    const /** @type {?} */ distance = Math.abs(scrollData.scrollAmount);
-    const /** @type {?} */ duration = distance / SCROLL_ASSIST_SPEED;
+    const distance = Math.abs(scrollData.scrollAmount);
+    const duration = distance / SCROLL_ASSIST_SPEED;
     scrollData.scrollDuration = Math.min(400, Math.max(150, duration));
     return scrollData;
 }
-/**
- * @param {?} plt
- * @param {?} srcComponentEle
- * @param {?} srcNativeInputEle
- * @return {?}
- */
 function cloneInputComponent(plt, srcComponentEle, srcNativeInputEle) {
     // Make sure we kill all the clones before creating new ones
     // It is a defensive, removeClone() should do nothing
@@ -898,14 +708,14 @@ function cloneInputComponent(plt, srcComponentEle, srcNativeInputEle) {
     // then clone the entire component
     if (srcComponentEle) {
         // DOM READ
-        var /** @type {?} */ srcTop = srcComponentEle.offsetTop;
-        var /** @type {?} */ srcLeft = srcComponentEle.offsetLeft;
-        var /** @type {?} */ srcWidth = srcComponentEle.offsetWidth;
-        var /** @type {?} */ srcHeight = srcComponentEle.offsetHeight;
+        var srcTop = srcComponentEle.offsetTop;
+        var srcLeft = srcComponentEle.offsetLeft;
+        var srcWidth = srcComponentEle.offsetWidth;
+        var srcHeight = srcComponentEle.offsetHeight;
         // DOM WRITE
         // not using deep clone so we don't pull in unnecessary nodes
-        var /** @type {?} */ clonedComponentEle = (srcComponentEle.cloneNode(false));
-        var /** @type {?} */ clonedStyle = clonedComponentEle.style;
+        var clonedComponentEle = srcComponentEle.cloneNode(false);
+        var clonedStyle = clonedComponentEle.style;
         clonedComponentEle.classList.add('cloned-input');
         clonedComponentEle.setAttribute('aria-hidden', 'true');
         clonedStyle.pointerEvents = 'none';
@@ -914,30 +724,24 @@ function cloneInputComponent(plt, srcComponentEle, srcNativeInputEle) {
         clonedStyle.left = srcLeft + 'px';
         clonedStyle.width = srcWidth + 'px';
         clonedStyle.height = srcHeight + 'px';
-        var /** @type {?} */ clonedNativeInputEle = (srcNativeInputEle.cloneNode(false));
+        var clonedNativeInputEle = srcNativeInputEle.cloneNode(false);
         clonedNativeInputEle.value = srcNativeInputEle.value;
         clonedNativeInputEle.tabIndex = -1;
         clonedComponentEle.appendChild(clonedNativeInputEle);
         srcComponentEle.parentNode.appendChild(clonedComponentEle);
         srcComponentEle.style.pointerEvents = 'none';
     }
-    ((srcNativeInputEle.style))[plt.Css.transform] = 'scale(0)';
+    srcNativeInputEle.style[plt.Css.transform] = 'scale(0)';
 }
-/**
- * @param {?} plt
- * @param {?} srcComponentEle
- * @param {?} srcNativeInputEle
- * @return {?}
- */
 function removeClone(plt, srcComponentEle, srcNativeInputEle) {
     if (srcComponentEle && srcComponentEle.parentElement) {
-        var /** @type {?} */ clonedInputEles = srcComponentEle.parentElement.querySelectorAll('.cloned-input');
-        for (var /** @type {?} */ i = 0; i < clonedInputEles.length; i++) {
+        var clonedInputEles = srcComponentEle.parentElement.querySelectorAll('.cloned-input');
+        for (var i = 0; i < clonedInputEles.length; i++) {
             clonedInputEles[i].parentNode.removeChild(clonedInputEles[i]);
         }
         srcComponentEle.style.pointerEvents = '';
     }
-    ((srcNativeInputEle.style))[plt.Css.transform] = '';
+    srcNativeInputEle.style[plt.Css.transform] = '';
     srcNativeInputEle.style.opacity = '';
 }
 //# sourceMappingURL=input.js.map

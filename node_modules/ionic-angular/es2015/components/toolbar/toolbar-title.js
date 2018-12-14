@@ -4,11 +4,11 @@ import { Ion } from '../ion';
 import { Navbar } from './navbar';
 import { Toolbar } from './toolbar';
 /**
- * \@name Title
- * \@description
+ * @name Title
+ * @description
  * `ion-title` is a component that sets the title of the `Toolbar` or `Navbar`
  *
- * \@usage
+ * @usage
  *
  * ```html
  * <ion-header>
@@ -36,16 +36,9 @@ import { Toolbar } from './toolbar';
  * </ion-header>
  * ```
  *
- * \@demo /docs/demos/src/title/
+ * @demo /docs/demos/src/title/
  */
 export class ToolbarTitle extends Ion {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} toolbar
-     * @param {?} navbar
-     */
     constructor(config, elementRef, renderer, toolbar, navbar) {
         super(config, elementRef, renderer, 'title');
         toolbar && toolbar._setTitle(this);
@@ -53,7 +46,6 @@ export class ToolbarTitle extends Ion {
     }
     /**
      * @hidden
-     * @return {?}
      */
     getTitleText() {
         return this._elementRef.nativeElement.textContent;
@@ -69,9 +61,7 @@ ToolbarTitle.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ToolbarTitle.ctorParameters = () => [
     { type: Config, },
     { type: ElementRef, },
@@ -79,13 +69,4 @@ ToolbarTitle.ctorParameters = () => [
     { type: Toolbar, decorators: [{ type: Optional },] },
     { type: Navbar, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(() => Navbar),] },] },
 ];
-function ToolbarTitle_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ToolbarTitle.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ToolbarTitle.ctorParameters;
-}
 //# sourceMappingURL=toolbar-title.js.map

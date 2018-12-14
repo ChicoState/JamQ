@@ -6,6 +6,7 @@ export declare function dateDataSortValue(data: DateTimeData): number;
 export declare function daysInMonth(month: number, year: number): number;
 export declare function isLeapYear(year: number): boolean;
 export declare function parseDate(val: any): DateTimeData;
+export declare function compareDates(d1: DateTimeData, d2: DateTimeData): number;
 export declare function updateDate(existingData: DateTimeData, newData: any): boolean;
 export declare function parseTemplate(template: string): string[];
 export declare function getValueFromFormat(date: DateTimeData, format: string): any;

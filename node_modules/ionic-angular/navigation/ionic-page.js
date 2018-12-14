@@ -1,6 +1,6 @@
 /**
- * \@name IonicPage
- * \@description
+ * @name IonicPage
+ * @description
  * The Ionic Page handles registering and displaying specific pages based on URLs. It's used
  * underneath `NavController` so it will never have to be interacted with directly. When a new
  * page is pushed with `NavController`, the URL is updated to match the path to this page.
@@ -17,14 +17,14 @@
  * over the world.
  *
  *
- * \@usage
+ * @usage
  *
  * The first step to setting up deep links is to add the page that should be
  * a deep link in the `IonicPageModule.forChild` import of the page's module.
  * For our examples, this will be `MyPage`:
  *
  * ```ts
- * \@NgModule({
+ * @NgModule({
  *   declarations: [
  *     MyPage
  *   ],
@@ -38,12 +38,12 @@
  * export class MyPageModule {}
  * ```
  *
- * Then, add the `\@IonicPage` decorator to the component. The most simple usage is adding an
+ * Then, add the `@IonicPage` decorator to the component. The most simple usage is adding an
  * empty decorator:
  *
  * ```ts
- * \@IonicPage()
- * \@Component({
+ * @IonicPage()
+ * @Component({
  *   templateUrl: 'main.html'
  * })
  * export class MyPage {}
@@ -53,7 +53,7 @@
  * `name`: `'MyPage'`. The page can now be navigated to by using this name. For example:
  *
  * ```ts
- * \@Component({
+ * @Component({
  *   templateUrl: 'another-page.html'
  * })
  * export class AnotherPage {
@@ -66,7 +66,7 @@
  * }
  * ```
  *
- * The `\@IonicPage` decorator accepts a `DeepLinkMetadataType` object. This object accepts
+ * The `@IonicPage` decorator accepts a `DeepLinkMetadataType` object. This object accepts
  * the following properties: `name`, `segment`, `defaultHistory`, and `priority`. All of them
  * are optional but can be used to create complex navigation links.
  *
@@ -78,7 +78,7 @@
  * component, simply pass it in the decorator like so:
  *
  * ```ts
- * \@IonicPage({
+ * @IonicPage({
  *   name: 'my-page'
  * })
  * ```
@@ -105,7 +105,7 @@
  * a value for `name` and `segment`:
  *
  * ```ts
- * \@IonicPage({
+ * @IonicPage({
  *   name: 'my-page',
  *   segment: 'some-path'
  * })
@@ -126,10 +126,10 @@
  * of time, so it can be passed as a variable.
  *
  * Since passing data around is common practice in an app, it can be reflected in the app's URL by
- * using the `:param` syntax. For example, set the `segment` in the `\@IonicPage` decorator:
+ * using the `:param` syntax. For example, set the `segment` in the `@IonicPage` decorator:
  *
  * ```ts
- * \@IonicPage({
+ * @IonicPage({
  *   name: 'detail-page',
  *   segment: 'detail/:id'
  * })
@@ -145,7 +145,7 @@
  * be used:
  *
  * ```ts
- * \@IonicPage({
+ * @IonicPage({
  *   name: 'list'
  * })
  * export class ListPage {
@@ -187,11 +187,14 @@
  * be used if the history doesn't already exist, meaning if you navigate to the page the history will
  * be the pages that were navigated from.
  *
- * The `defaultHistory` property takes an array of strings. For example, setting the history of the
- * detail page to the list page where the `name` is `list`:
+ * The `defaultHistory` property takes an array of page names. The page names are specified as statically
+ * analyzable strings (which means you must use strings and not variables or delared constants). If the
+ * parent page does not have a `name` specified in its `IonicPage` decorator its name is its class name.
+ *
+ * For example, setting the history of the detail page to the list page where the `name` is `list`:
  *
  * ```ts
- * \@IonicPage({
+ * @IonicPage({
  *   name: 'detail-page',
  *   segment: 'detail/:id',
  *   defaultHistory: ['list']
@@ -201,6 +204,23 @@
  * In this example, if the app is launched at `http://localhost:8101/#/detail/my-detail` the displayed page
  * will be the `'detail-page'` with an id of `my-detail` and it will show a back button that goes back to
  * the `'list'` page.
+ *
+ * For a deeper example:
+ *
+ * ```ts
+ * @IonicPage({
+ *   segment: 'contact-more-info',
+ *   defaultHistory: ['ContactDetailPage', 'Contact']
+ * })
+ * ...
+ * export class ContactMoreInfoPage {
+ *   ...
+ * }
+ * ```
+ *
+ * In this example, if the app is launched at `http://localhost:8101/#/contact/contact-more-info` the displayed page
+ * will be the `'ContactMoreInfoPage'`. It will show a back button that will go to the `'ContactDetailPage'` which
+ * will also show a back button which will go to the `'Constact'` page.
  *
  * An example of an application with a set history stack is the Instagram application. Opening a link
  * to an image on Instagram will show the details for that image with a back button to the user's profile
@@ -214,7 +234,7 @@
  * config to `true`:
  *
  * ```ts
- * \@NgModule({
+ * @NgModule({
  *   declarations: [
  *     MyApp
  *   ],
@@ -239,10 +259,10 @@
  * All deep links with their priority set to `"high"` will be loaded first. Upon completion of loading the
  * `"high"` priority modules, all deep links with a priority of `"low"` (or no priority) will be loaded. If
  * the priority is set to `"off"` the link will not be preloaded. Setting the `priority` is as simple as
- * passing it to the `\@IonicPage` decorator:
+ * passing it to the `@IonicPage` decorator:
  *
  * ```ts
- * \@IonicPage({
+ * @IonicPage({
  *   name: 'my-page',
  *   priority: 'high'
  * })
@@ -251,8 +271,6 @@
  * We recommend setting the `priority` to `"high"` on the pages that will be viewed first when launching
  * the application.
  *
- * @param {?=} _config
- * @return {?}
  */
 export function IonicPage(_config) {
     return function (clazz) {

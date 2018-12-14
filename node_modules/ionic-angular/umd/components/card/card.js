@@ -23,42 +23,26 @@ var __extends = (this && this.__extends) || (function () {
     var config_1 = require("../../config/config");
     var ion_1 = require("../ion");
     /**
-     * @hidden
-     */
+      * @hidden
+      */
     var Card = (function (_super) {
         __extends(Card, _super);
-        /**
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         */
         function Card(config, elementRef, renderer) {
             return _super.call(this, config, elementRef, renderer, 'card') || this;
         }
+        Card.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: 'ion-card'
+                    },] },
+        ];
+        /** @nocollapse */
+        Card.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+        ]; };
         return Card;
     }(ion_1.Ion));
-    Card.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: 'ion-card'
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Card.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-    ]; };
     exports.Card = Card;
-    function Card_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Card.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Card.ctorParameters;
-    }
 });
 //# sourceMappingURL=card.js.map

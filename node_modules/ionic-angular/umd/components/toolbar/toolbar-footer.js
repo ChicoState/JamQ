@@ -24,12 +24,12 @@ var __extends = (this && this.__extends) || (function () {
     var ion_1 = require("../ion");
     var view_controller_1 = require("../../navigation/view-controller");
     /**
-     * \@name Footer
-     * \@description
+     * @name Footer
+     * @description
      * Footer is a root component of a page that sits at the bottom of the page.
      * Footer can be a wrapper for `ion-toolbar` to make sure the content area is sized correctly.
      *
-     * \@usage
+     * @usage
      *
      * ```html
      * <ion-content></ion-content>
@@ -44,42 +44,25 @@ var __extends = (this && this.__extends) || (function () {
      */
     var Footer = (function (_super) {
         __extends(Footer, _super);
-        /**
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         * @param {?} viewCtrl
-         */
         function Footer(config, elementRef, renderer, viewCtrl) {
             var _this = _super.call(this, config, elementRef, renderer, 'footer') || this;
             viewCtrl && viewCtrl._setFooter(_this);
             return _this;
         }
+        Footer.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: 'ion-footer'
+                    },] },
+        ];
+        /** @nocollapse */
+        Footer.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+            { type: view_controller_1.ViewController, decorators: [{ type: core_1.Optional },] },
+        ]; };
         return Footer;
     }(ion_1.Ion));
-    Footer.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: 'ion-footer'
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Footer.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-        { type: view_controller_1.ViewController, decorators: [{ type: core_1.Optional },] },
-    ]; };
     exports.Footer = Footer;
-    function Footer_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Footer.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Footer.ctorParameters;
-    }
 });
 //# sourceMappingURL=toolbar-footer.js.map

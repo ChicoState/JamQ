@@ -18,13 +18,10 @@ var PickerSlideIn = (function (_super) {
     function PickerSlideIn() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     PickerSlideIn.prototype.init = function () {
-        var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.picker-wrapper'));
+        var ele = this.enteringView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.picker-wrapper'));
         backdrop.fromTo('opacity', 0.01, 0.26);
         wrapper.fromTo('translateY', '100%', '0%');
         this.easing('cubic-bezier(.36,.66,.04,1)').duration(400).add(backdrop).add(wrapper);
@@ -37,13 +34,10 @@ var PickerSlideOut = (function (_super) {
     function PickerSlideOut() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     PickerSlideOut.prototype.init = function () {
-        var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.picker-wrapper'));
+        var ele = this.leavingView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.picker-wrapper'));
         backdrop.fromTo('opacity', 0.26, 0);
         wrapper.fromTo('translateY', '0%', '100%');
         this.easing('cubic-bezier(.36,.66,.04,1)').duration(450).add(backdrop).add(wrapper);

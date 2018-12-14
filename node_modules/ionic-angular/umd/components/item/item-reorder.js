@@ -16,33 +16,19 @@
     var item_reorder_gesture_1 = require("./item-reorder-gesture");
     var platform_1 = require("../../platform/platform");
     var ReorderIndexes = (function () {
-        /**
-         * @param {?} from
-         * @param {?} to
-         */
         function ReorderIndexes(from, to) {
             this.from = from;
             this.to = to;
         }
-        /**
-         * @param {?} array
-         * @return {?}
-         */
         ReorderIndexes.prototype.applyTo = function (array) {
             util_1.reorderArray(array, this);
         };
         return ReorderIndexes;
     }());
     exports.ReorderIndexes = ReorderIndexes;
-    function ReorderIndexes_tsickle_Closure_declarations() {
-        /** @type {?} */
-        ReorderIndexes.prototype.from;
-        /** @type {?} */
-        ReorderIndexes.prototype.to;
-    }
     /**
-     * \@name ItemReorder
-     * \@description
+     * @name ItemReorder
+     * @description
      * Item reorder adds the ability to change an item's order in a group.
      * It can be used within an `ion-list` or `ion-item-group` to provide a
      * visual drag and drop interface.
@@ -97,7 +83,7 @@
      * See [usage](#usage) below for some examples.
      *
      *
-     * \@usage
+     * @usage
      *
      * ```html
      * <ion-list>
@@ -157,20 +143,12 @@
      * </ion-list>
      * ```
      *
-     * \@demo /docs/demos/src/item-reorder/
-     * @see {\@link /docs/components#lists List Component Docs}
-     * @see {\@link ../../list/List List API Docs}
-     * @see {\@link ../Item Item API Docs}
+     * @demo /docs/demos/src/item-reorder/
+     * @see {@link /docs/components#lists List Component Docs}
+     * @see {@link ../../list/List List API Docs}
+     * @see {@link ../Item Item API Docs}
      */
     var ItemReorder = (function () {
-        /**
-         * @param {?} _plt
-         * @param {?} _dom
-         * @param {?} elementRef
-         * @param {?} _rendered
-         * @param {?} _zone
-         * @param {?} _content
-         */
         function ItemReorder(_plt, _dom, elementRef, _rendered, _zone, _content) {
             this._plt = _plt;
             this._dom = _dom;
@@ -182,7 +160,7 @@
             this._isStart = false;
             this._lastToIndex = -1;
             /**
-             * \@output {object} Emitted when the item is reordered. Emits an object
+             * @output {object} Emitted when the item is reordered. Emits an object
              * with `from` and `to` properties.
              */
             this.ionItemReorder = new core_1.EventEmitter();
@@ -190,9 +168,7 @@
         }
         Object.defineProperty(ItemReorder.prototype, "side", {
             /**
-             * \@input {string} Which side of the view the ion-reorder should be placed. Default `"end"`.
-             * @param {?} side
-             * @return {?}
+             * @input {string} Which side of the view the ion-reorder should be placed. Default `"end"`.
              */
             set: function (side) {
                 this._isStart = side === 'start';
@@ -202,7 +178,6 @@
         });
         /**
          * @hidden
-         * @return {?}
          */
         ItemReorder.prototype.ngOnDestroy = function () {
             this._element = null;
@@ -211,18 +186,13 @@
         Object.defineProperty(ItemReorder.prototype, "reorder", {
             /**
              * @hidden
-             * @return {?}
              */
             get: function () {
                 return this._enableReorder;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 var _this = this;
-                var /** @type {?} */ enabled = util_1.isTrueProperty(val);
+                var enabled = util_1.isTrueProperty(val);
                 if (!enabled && this._reorderGesture) {
                     this._reorderGesture.destroy();
                     this._reorderGesture = null;
@@ -243,95 +213,69 @@
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
         ItemReorder.prototype._reorderPrepare = function () {
-            var /** @type {?} */ ele = this._element;
-            var /** @type {?} */ children = ele.children;
-            for (var /** @type {?} */ i = 0, /** @type {?} */ ilen = children.length; i < ilen; i++) {
-                var /** @type {?} */ child = children[i];
+            var ele = this._element;
+            var children = ele.children;
+            for (var i = 0, ilen = children.length; i < ilen; i++) {
+                var child = children[i];
                 child.$ionIndex = i;
                 child.$ionReorderList = ele;
             }
         };
-        /**
-         * @return {?}
-         */
         ItemReorder.prototype._reorderStart = function () {
             this.setElementClass('reorder-list-active', true);
         };
-        /**
-         * @param {?} fromIndex
-         * @param {?} toIndex
-         * @return {?}
-         */
         ItemReorder.prototype._reorderEmit = function (fromIndex, toIndex) {
             var _this = this;
             this._reorderReset();
             if (fromIndex !== toIndex) {
                 this._zone.run(function () {
-                    var /** @type {?} */ indexes = new ReorderIndexes(fromIndex, toIndex);
+                    var indexes = new ReorderIndexes(fromIndex, toIndex);
                     _this.ionItemReorder.emit(indexes);
                 });
             }
         };
-        /**
-         * @param {?} scroll
-         * @return {?}
-         */
         ItemReorder.prototype._scrollContent = function (scroll) {
-            var /** @type {?} */ scrollTop = this._content.scrollTop + scroll;
+            var scrollTop = this._content.scrollTop + scroll;
             if (scroll !== 0) {
                 this._content.scrollTo(0, scrollTop, 0);
             }
             return scrollTop;
         };
-        /**
-         * @return {?}
-         */
         ItemReorder.prototype._reorderReset = function () {
-            var /** @type {?} */ children = this._element.children;
-            var /** @type {?} */ len = children.length;
+            var children = this._element.children;
+            var len = children.length;
             this.setElementClass('reorder-list-active', false);
-            var /** @type {?} */ transform = this._plt.Css.transform;
-            for (var /** @type {?} */ i = 0; i < len; i++) {
-                ((children[i])).style[transform] = '';
+            var transform = this._plt.Css.transform;
+            for (var i = 0; i < len; i++) {
+                children[i].style[transform] = '';
             }
             this._lastToIndex = -1;
         };
-        /**
-         * @param {?} fromIndex
-         * @param {?} toIndex
-         * @param {?} itemHeight
-         * @return {?}
-         */
         ItemReorder.prototype._reorderMove = function (fromIndex, toIndex, itemHeight) {
             if (this._lastToIndex === -1) {
                 this._lastToIndex = fromIndex;
             }
-            var /** @type {?} */ lastToIndex = this._lastToIndex;
+            var lastToIndex = this._lastToIndex;
             this._lastToIndex = toIndex;
-            /**
-             * ****** DOM READ **********
-             */
+            // TODO: I think both loops can be merged into a single one
+            // but I had no luck last time I tried
+            /********* DOM READ ********** */
             var children = this._element.children;
-            /**
-             * ****** DOM WRITE *********
-             */
+            /********* DOM WRITE ********* */
             var transform = this._plt.Css.transform;
             if (toIndex >= lastToIndex) {
-                for (var /** @type {?} */ i = lastToIndex; i <= toIndex; i++) {
+                for (var i = lastToIndex; i <= toIndex; i++) {
                     if (i !== fromIndex) {
-                        ((children[i])).style[transform] = (i > fromIndex)
+                        children[i].style[transform] = (i > fromIndex)
                             ? "translateY(" + -itemHeight + "px)" : '';
                     }
                 }
             }
             if (toIndex <= lastToIndex) {
-                for (var /** @type {?} */ i = toIndex; i <= lastToIndex; i++) {
+                for (var i = toIndex; i <= lastToIndex; i++) {
                     if (i !== fromIndex) {
-                        ((children[i])).style[transform] = (i < fromIndex)
+                        children[i].style[transform] = (i < fromIndex)
                             ? "translateY(" + itemHeight + "px)" : '';
                     }
                 }
@@ -339,87 +283,42 @@
         };
         /**
          * @hidden
-         * @param {?} classname
-         * @param {?} add
-         * @return {?}
          */
         ItemReorder.prototype.setElementClass = function (classname, add) {
             this._rendered.setElementClass(this._element, classname, add);
         };
         /**
          * @hidden
-         * @return {?}
          */
         ItemReorder.prototype.getNativeElement = function () {
             return this._element;
         };
+        ItemReorder.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: 'ion-list[reorder],ion-item-group[reorder]',
+                        host: {
+                            '[class.reorder-enabled]': '_enableReorder',
+                            '[class.reorder-visible]': '_visibleReorder',
+                            '[class.reorder-side-start]': '_isStart'
+                        }
+                    },] },
+        ];
+        /** @nocollapse */
+        ItemReorder.ctorParameters = function () { return [
+            { type: platform_1.Platform, },
+            { type: dom_controller_1.DomController, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+            { type: core_1.NgZone, },
+            { type: content_1.Content, decorators: [{ type: core_1.Optional },] },
+        ]; };
+        ItemReorder.propDecorators = {
+            'ionItemReorder': [{ type: core_1.Output },],
+            'side': [{ type: core_1.Input, args: ['side',] },],
+            'reorder': [{ type: core_1.Input },],
+        };
         return ItemReorder;
     }());
-    ItemReorder.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: 'ion-list[reorder],ion-item-group[reorder]',
-                    host: {
-                        '[class.reorder-enabled]': '_enableReorder',
-                        '[class.reorder-visible]': '_visibleReorder',
-                        '[class.reorder-side-start]': '_isStart'
-                    }
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    ItemReorder.ctorParameters = function () { return [
-        { type: platform_1.Platform, },
-        { type: dom_controller_1.DomController, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-        { type: core_1.NgZone, },
-        { type: content_1.Content, decorators: [{ type: core_1.Optional },] },
-    ]; };
-    ItemReorder.propDecorators = {
-        'ionItemReorder': [{ type: core_1.Output },],
-        'side': [{ type: core_1.Input, args: ['side',] },],
-        'reorder': [{ type: core_1.Input },],
-    };
     exports.ItemReorder = ItemReorder;
-    function ItemReorder_tsickle_Closure_declarations() {
-        /** @type {?} */
-        ItemReorder.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        ItemReorder.ctorParameters;
-        /** @type {?} */
-        ItemReorder.propDecorators;
-        /** @type {?} */
-        ItemReorder.prototype._enableReorder;
-        /** @type {?} */
-        ItemReorder.prototype._visibleReorder;
-        /** @type {?} */
-        ItemReorder.prototype._isStart;
-        /** @type {?} */
-        ItemReorder.prototype._reorderGesture;
-        /** @type {?} */
-        ItemReorder.prototype._lastToIndex;
-        /** @type {?} */
-        ItemReorder.prototype._element;
-        /**
-         * \@output {object} Emitted when the item is reordered. Emits an object
-         * with `from` and `to` properties.
-         * @type {?}
-         */
-        ItemReorder.prototype.ionItemReorder;
-        /** @type {?} */
-        ItemReorder.prototype._plt;
-        /** @type {?} */
-        ItemReorder.prototype._dom;
-        /** @type {?} */
-        ItemReorder.prototype._rendered;
-        /** @type {?} */
-        ItemReorder.prototype._zone;
-        /** @type {?} */
-        ItemReorder.prototype._content;
-    }
 });
 //# sourceMappingURL=item-reorder.js.map

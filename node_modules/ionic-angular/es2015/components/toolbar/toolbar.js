@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, ElementRef, Renderer } from '@angul
 import { Config } from '../../config/config';
 import { ToolbarBase } from './toolbar-base';
 /**
- * \@name Toolbar
- * \@description
+ * @name Toolbar
+ * @description
  * A Toolbar is a generic bar that is positioned above or below content.
  * Unlike a [Navbar](../Navbar/), a toolbar can be used as a subheader.
  * When toolbars are placed within an `<ion-header>` or `<ion-footer>`,
@@ -51,7 +51,7 @@ import { ToolbarBase } from './toolbar-base';
  * </ion-footer>
  * ```
  *
- * \@usage
+ * @usage
  *
  * ```html
  *
@@ -86,15 +86,10 @@ import { ToolbarBase } from './toolbar-base';
  * </ion-footer>
  *  ```
  *
- * \@demo /docs/demos/src/toolbar/
- * @see {\@link ../Navbar/ Navbar API Docs}
+ * @demo /docs/demos/src/toolbar/
+ * @see {@link ../Navbar/ Navbar API Docs}
  */
 export class Toolbar extends ToolbarBase {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     constructor(config, elementRef, renderer) {
         super(config, elementRef, renderer);
         this._sbPadding = config.getBoolean('statusbarPadding');
@@ -117,26 +112,10 @@ Toolbar.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Toolbar.ctorParameters = () => [
     { type: Config, },
     { type: ElementRef, },
     { type: Renderer, },
 ];
-function Toolbar_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Toolbar.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Toolbar.ctorParameters;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Toolbar.prototype._sbPadding;
-}
 //# sourceMappingURL=toolbar.js.map

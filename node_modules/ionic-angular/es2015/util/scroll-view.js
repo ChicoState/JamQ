@@ -1,10 +1,5 @@
 import { pointerCoord } from './dom';
 export class ScrollView {
-    /**
-     * @param {?} _app
-     * @param {?} _plt
-     * @param {?} _dom
-     */
     constructor(_app, _plt, _dom) {
         this._app = _app;
         this._plt = _plt;
@@ -35,12 +30,6 @@ export class ScrollView {
             domWrite: _dom.write.bind(_dom)
         };
     }
-    /**
-     * @param {?} ele
-     * @param {?} contentTop
-     * @param {?} contentBottom
-     * @return {?}
-     */
     init(ele, contentTop, contentBottom) {
         (void 0) /* assert */;
         this._el = ele;
@@ -54,17 +43,9 @@ export class ScrollView {
             }
         }
     }
-    /**
-     * @return {?}
-     */
     enableEvents() {
         this._eventsEnabled = true;
     }
-    /**
-     * @param {?} isScrolling
-     * @param {?} ev
-     * @return {?}
-     */
     setScrolling(isScrolling, ev) {
         if (this.isScrolling) {
             if (isScrolling) {
@@ -80,9 +61,6 @@ export class ScrollView {
             this.onScrollStart && this.onScrollStart(ev);
         }
     }
-    /**
-     * @return {?}
-     */
     enableNativeScrolling() {
         (void 0) /* assert */;
         (void 0) /* assert */;
@@ -92,13 +70,9 @@ export class ScrollView {
             return;
         }
         (void 0) /* console.debug */;
-        const /** @type {?} */ self = this;
-        const /** @type {?} */ ev = self.ev;
-        const /** @type {?} */ positions = [];
-        /**
-         * @param {?} scrollEvent
-         * @return {?}
-         */
+        const self = this;
+        const ev = self.ev;
+        const positions = [];
         function scrollCallback(scrollEvent) {
             // remind the app that it's currently scrolling
             self._app.setScrolling();
@@ -132,18 +106,18 @@ export class ScrollView {
                 // we've gotten at least 2 scroll events so far
                 ev.deltaY = (ev.scrollTop - ev.startY);
                 ev.deltaX = (ev.scrollLeft - ev.startX);
-                var /** @type {?} */ endPos = (positions.length - 1);
-                var /** @type {?} */ startPos = endPos;
-                var /** @type {?} */ timeRange = (ev.timeStamp - 100);
+                var endPos = (positions.length - 1);
+                var startPos = endPos;
+                var timeRange = (ev.timeStamp - 100);
                 // move pointer to position measured 100ms ago
-                for (var /** @type {?} */ i = endPos; i > 0 && positions[i] > timeRange; i -= 3) {
+                for (var i = endPos; i > 0 && positions[i] > timeRange; i -= 3) {
                     startPos = i;
                 }
                 if (startPos !== endPos) {
                     // compute relative movement between these two points
-                    var /** @type {?} */ movedTop = (positions[startPos - 2] - positions[endPos - 2]);
-                    var /** @type {?} */ movedLeft = (positions[startPos - 1] - positions[endPos - 1]);
-                    var /** @type {?} */ factor = FRAME_MS / (positions[endPos] - positions[startPos]);
+                    var movedTop = (positions[startPos - 2] - positions[endPos - 2]);
+                    var movedLeft = (positions[startPos - 1] - positions[endPos - 1]);
+                    var factor = FRAME_MS / (positions[endPos] - positions[startPos]);
                     // based on XXms compute the movement to apply for each render step
                     ev.velocityY = movedTop * factor;
                     ev.velocityX = movedLeft * factor;
@@ -152,9 +126,6 @@ export class ScrollView {
                     ev.directionX = (movedLeft > 0 ? 'left' : 'right');
                 }
             }
-            /**
-             * @return {?}
-             */
             function scrollEnd() {
                 // reset velocity, do not reset the directions or deltas
                 ev.velocityY = ev.velocityX = 0;
@@ -185,35 +156,25 @@ export class ScrollView {
      * no longer have to worry about iOS not firing scroll events during
      * inertia then this can be burned to the ground. iOS's more modern
      * WKWebView does not have this issue, only UIWebView does.
-     * @param {?} contentTop
-     * @param {?} contentBottom
-     * @return {?}
      */
     enableJsScroll(contentTop, contentBottom) {
-        const /** @type {?} */ self = this;
+        const self = this;
         self._js = true;
-        const /** @type {?} */ ele = self._el;
+        const ele = self._el;
         if (!ele) {
             return;
         }
         (void 0) /* console.debug */;
-        const /** @type {?} */ ev = self.ev;
-        const /** @type {?} */ positions = [];
-        let /** @type {?} */ rafCancel;
-        let /** @type {?} */ max;
-        /**
-         * @return {?}
-         */
+        const ev = self.ev;
+        const positions = [];
+        let rafCancel;
+        let max;
         function setMax() {
             if (!max) {
                 // ******** DOM READ ****************
                 max = ele.scrollHeight - ele.parentElement.offsetHeight + contentTop + contentBottom;
             }
         }
-        /**
-         * @param {?} timeStamp
-         * @return {?}
-         */
         function jsScrollDecelerate(timeStamp) {
             ev.timeStamp = timeStamp;
             (void 0) /* console.debug */;
@@ -246,26 +207,18 @@ export class ScrollView {
                 });
             }
         }
-        /**
-         * @param {?} touchEvent
-         * @return {?}
-         */
         function jsScrollTouchStart(touchEvent) {
             positions.length = 0;
             max = null;
             self._dom.cancel(rafCancel);
             positions.push(pointerCoord(touchEvent).y, touchEvent.timeStamp);
         }
-        /**
-         * @param {?} touchEvent
-         * @return {?}
-         */
         function jsScrollTouchMove(touchEvent) {
             if (!positions.length) {
                 return;
             }
             ev.timeStamp = touchEvent.timeStamp;
-            var /** @type {?} */ y = pointerCoord(touchEvent).y;
+            var y = pointerCoord(touchEvent).y;
             // ******** DOM READ ****************
             setMax();
             self._t -= (y - positions[positions.length - 2]);
@@ -285,10 +238,6 @@ export class ScrollView {
                 self.setTop(self._t);
             });
         }
-        /**
-         * @param {?} touchEvent
-         * @return {?}
-         */
         function jsScrollTouchEnd(touchEvent) {
             // figure out what the scroll position was about 100ms ago
             self._dom.cancel(rafCancel);
@@ -298,19 +247,19 @@ export class ScrollView {
                 self.onScrollEnd(ev);
                 return;
             }
-            var /** @type {?} */ y = pointerCoord(touchEvent).y;
+            var y = pointerCoord(touchEvent).y;
             positions.push(y, touchEvent.timeStamp);
-            var /** @type {?} */ endPos = (positions.length - 1);
-            var /** @type {?} */ startPos = endPos;
-            var /** @type {?} */ timeRange = (touchEvent.timeStamp - 100);
+            var endPos = (positions.length - 1);
+            var startPos = endPos;
+            var timeRange = (touchEvent.timeStamp - 100);
             // move pointer to position measured 100ms ago
-            for (var /** @type {?} */ i = endPos; i > 0 && positions[i] > timeRange; i -= 2) {
+            for (var i = endPos; i > 0 && positions[i] > timeRange; i -= 2) {
                 startPos = i;
             }
             if (startPos !== endPos) {
                 // compute relative movement between these two points
-                var /** @type {?} */ timeOffset = (positions[endPos] - positions[startPos]);
-                var /** @type {?} */ movedTop = (positions[startPos - 1] - positions[endPos - 1]);
+                var timeOffset = (positions[endPos] - positions[startPos]);
+                var movedTop = (positions[startPos - 1] - positions[endPos - 1]);
                 // based on XXms compute the movement to apply for each render step
                 ev.velocityY = ((movedTop / timeOffset) * FRAME_MS);
                 // verify that we have enough velocity to start deceleration
@@ -329,10 +278,10 @@ export class ScrollView {
             }
             positions.length = 0;
         }
-        const /** @type {?} */ plt = self._plt;
-        const /** @type {?} */ unRegStart = plt.registerListener(ele, 'touchstart', jsScrollTouchStart, EVENT_OPTS);
-        const /** @type {?} */ unRegMove = plt.registerListener(ele, 'touchmove', jsScrollTouchMove, EVENT_OPTS);
-        const /** @type {?} */ unRegEnd = plt.registerListener(ele, 'touchend', jsScrollTouchEnd, EVENT_OPTS);
+        const plt = self._plt;
+        const unRegStart = plt.registerListener(ele, 'touchstart', jsScrollTouchStart, EVENT_OPTS);
+        const unRegMove = plt.registerListener(ele, 'touchmove', jsScrollTouchMove, EVENT_OPTS);
+        const unRegEnd = plt.registerListener(ele, 'touchend', jsScrollTouchEnd, EVENT_OPTS);
         ele.parentElement.classList.add('js-scroll');
         // stop listening for actual scroll events
         self._lsn && self._lsn();
@@ -346,7 +295,6 @@ export class ScrollView {
     }
     /**
      * DOM READ
-     * @return {?}
      */
     getTop() {
         if (this._js) {
@@ -356,7 +304,6 @@ export class ScrollView {
     }
     /**
      * DOM READ
-     * @return {?}
      */
     getLeft() {
         if (this._js) {
@@ -366,13 +313,11 @@ export class ScrollView {
     }
     /**
      * DOM WRITE
-     * @param {?} top
-     * @return {?}
      */
     setTop(top) {
         this._t = top;
         if (this._js) {
-            ((this._el.style))[this._plt.Css.transform] = `translate3d(${this._l * -1}px,${top * -1}px,0px)`;
+            this._el.style[this._plt.Css.transform] = `translate3d(${this._l * -1}px,${top * -1}px,0px)`;
         }
         else {
             this._el.scrollTop = top;
@@ -380,29 +325,20 @@ export class ScrollView {
     }
     /**
      * DOM WRITE
-     * @param {?} left
-     * @return {?}
      */
     setLeft(left) {
         this._l = left;
         if (this._js) {
-            ((this._el.style))[this._plt.Css.transform] = `translate3d(${left * -1}px,${this._t * -1}px,0px)`;
+            this._el.style[this._plt.Css.transform] = `translate3d(${left * -1}px,${this._t * -1}px,0px)`;
         }
         else {
             this._el.scrollLeft = left;
         }
     }
-    /**
-     * @param {?} x
-     * @param {?} y
-     * @param {?} duration
-     * @param {?=} done
-     * @return {?}
-     */
     scrollTo(x, y, duration, done) {
         // scroll animation loop w/ easing
         // credit https://gist.github.com/dezinezync/5487119
-        let /** @type {?} */ promise;
+        let promise;
         if (done === undefined) {
             // only create a promise if a done callback wasn't provided
             // done can be a null, which avoids any functions
@@ -410,8 +346,8 @@ export class ScrollView {
                 done = resolve;
             });
         }
-        const /** @type {?} */ self = this;
-        const /** @type {?} */ el = self._el;
+        const self = this;
+        const el = self._el;
         if (!el) {
             // invalid element
             done();
@@ -423,29 +359,26 @@ export class ScrollView {
             done();
             return promise;
         }
-        const /** @type {?} */ fromY = el.scrollTop;
-        const /** @type {?} */ fromX = el.scrollLeft;
-        const /** @type {?} */ maxAttempts = (duration / 16) + 100;
-        const /** @type {?} */ transform = self._plt.Css.transform;
-        let /** @type {?} */ startTime;
-        let /** @type {?} */ attempts = 0;
-        let /** @type {?} */ stopScroll = false;
-        /**
-         * @param {?} timeStamp
-         * @return {?}
-         */
+        const fromY = el.scrollTop;
+        const fromX = el.scrollLeft;
+        const maxAttempts = (duration / 16) + 100;
+        const transform = self._plt.Css.transform;
+        let startTime;
+        let attempts = 0;
+        let stopScroll = false;
+        // scroll loop
         function step(timeStamp) {
             attempts++;
             if (!self._el || stopScroll || attempts > maxAttempts) {
                 self.setScrolling(false, null);
-                ((el.style))[transform] = '';
+                el.style[transform] = '';
                 done();
                 return;
             }
-            let /** @type {?} */ time = Math.min(1, ((timeStamp - startTime) / duration));
+            let time = Math.min(1, ((timeStamp - startTime) / duration));
             // where .5 would be 50% of time on a linear scale easedT gives a
             // fraction based on the easing method
-            let /** @type {?} */ easedT = (--time) * time * time + 1;
+            let easedT = (--time) * time * time + 1;
             if (fromY !== y) {
                 self.setTop((easedT * (y - fromY)) + fromY);
             }
@@ -460,7 +393,7 @@ export class ScrollView {
             else {
                 stopScroll = true;
                 self.setScrolling(false, null);
-                ((el.style))[transform] = '';
+                el.style[transform] = '';
                 done();
             }
         }
@@ -474,84 +407,38 @@ export class ScrollView {
         }, 16);
         return promise;
     }
-    /**
-     * @param {?} duration
-     * @return {?}
-     */
     scrollToTop(duration) {
         return this.scrollTo(0, 0, duration);
     }
-    /**
-     * @param {?} duration
-     * @return {?}
-     */
     scrollToBottom(duration) {
-        let /** @type {?} */ y = 0;
+        let y = 0;
         if (this._el) {
             y = this._el.scrollHeight - this._el.clientHeight;
         }
         return this.scrollTo(0, y, duration);
     }
-    /**
-     * @return {?}
-     */
     stop() {
         this.setScrolling(false, null);
     }
     /**
      * @hidden
-     * @return {?}
      */
     destroy() {
         this.stop();
         this._endTmr && this._dom.cancel(this._endTmr);
         this._lsn && this._lsn();
-        let /** @type {?} */ ev = this.ev;
+        let ev = this.ev;
         ev.domWrite = ev.contentElement = ev.fixedElement = ev.scrollElement = ev.headerElement = null;
         this._lsn = this._el = this._dom = this.ev = ev = null;
         this.onScrollStart = this.onScroll = this.onScrollEnd = null;
     }
 }
-function ScrollView_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ScrollView.prototype.ev;
-    /** @type {?} */
-    ScrollView.prototype.isScrolling;
-    /** @type {?} */
-    ScrollView.prototype.onScrollStart;
-    /** @type {?} */
-    ScrollView.prototype.onScroll;
-    /** @type {?} */
-    ScrollView.prototype.onScrollEnd;
-    /** @type {?} */
-    ScrollView.prototype.initialized;
-    /** @type {?} */
-    ScrollView.prototype._el;
-    /** @type {?} */
-    ScrollView.prototype._eventsEnabled;
-    /** @type {?} */
-    ScrollView.prototype._js;
-    /** @type {?} */
-    ScrollView.prototype._t;
-    /** @type {?} */
-    ScrollView.prototype._l;
-    /** @type {?} */
-    ScrollView.prototype._lsn;
-    /** @type {?} */
-    ScrollView.prototype._endTmr;
-    /** @type {?} */
-    ScrollView.prototype._app;
-    /** @type {?} */
-    ScrollView.prototype._plt;
-    /** @type {?} */
-    ScrollView.prototype._dom;
-}
-const /** @type {?} */ SCROLL_END_DEBOUNCE_MS = 80;
-const /** @type {?} */ MIN_VELOCITY_START_DECELERATION = 4;
-const /** @type {?} */ MIN_VELOCITY_CONTINUE_DECELERATION = 0.12;
-const /** @type {?} */ DECELERATION_FRICTION = 0.97;
-const /** @type {?} */ FRAME_MS = (1000 / 60);
-const /** @type {?} */ EVENT_OPTS = {
+const SCROLL_END_DEBOUNCE_MS = 80;
+const MIN_VELOCITY_START_DECELERATION = 4;
+const MIN_VELOCITY_CONTINUE_DECELERATION = 0.12;
+const DECELERATION_FRICTION = 0.97;
+const FRAME_MS = (1000 / 60);
+const EVENT_OPTS = {
     passive: true,
     zone: false
 };

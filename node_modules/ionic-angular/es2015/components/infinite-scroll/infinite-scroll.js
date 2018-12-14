@@ -2,8 +2,8 @@ import { Directive, ElementRef, EventEmitter, Input, NgZone, Output } from '@ang
 import { Content } from '../content/content';
 import { DomController } from '../../platform/dom-controller';
 /**
- * \@name InfiniteScroll
- * \@description
+ * @name InfiniteScroll
+ * @description
  * The Infinite Scroll allows you to perform an action when the user
  * scrolls a specified distance from the bottom or top of the page.
  *
@@ -12,7 +12,7 @@ import { DomController } from '../../platform/dom-controller';
  * has finished its tasks, it should call the `complete()` method
  * on the infinite scroll instance.
  *
- * \@usage
+ * @usage
  * ```html
  * <ion-content>
  *
@@ -28,7 +28,7 @@ import { DomController } from '../../platform/dom-controller';
  * ```
  *
  * ```ts
- * \@Component({...})
+ * @Component({...})
  * export class NewsFeedPage {
  *   items = [];
  *
@@ -74,7 +74,7 @@ import { DomController } from '../../platform/dom-controller';
  * ```
  *
  * ```ts
- * \@Component({...})
+ * @Component({...})
  * export class NewsFeedPage {
  *   items = [];
  *
@@ -132,16 +132,10 @@ import { DomController } from '../../platform/dom-controller';
  * developers to create their own infinite scroll content components.
  * You could replace our default content with custom SVG or CSS animations.
  *
- * \@demo /docs/demos/src/infinite-scroll/
+ * @demo /docs/demos/src/infinite-scroll/
  *
  */
 export class InfiniteScroll {
-    /**
-     * @param {?} _content
-     * @param {?} _zone
-     * @param {?} _elementRef
-     * @param {?} _dom
-     */
     constructor(_content, _zone, _elementRef, _dom) {
         this._content = _content;
         this._zone = _zone;
@@ -155,11 +149,11 @@ export class InfiniteScroll {
         this._position = POSITION_BOTTOM;
         this._init = false;
         /**
-         * \@internal
+         * @internal
          */
         this.state = STATE_ENABLED;
         /**
-         * \@output {event} Emitted when the scroll reaches
+         * @output {event} Emitted when the scroll reaches
          * the threshold distance. From within your infinite handler,
          * you must call the infinite scroll's `complete()` method when
          * your async operation has completed.
@@ -168,7 +162,7 @@ export class InfiniteScroll {
         _content.setElementClass('has-infinite-scroll', true);
     }
     /**
-     * \@input {string} The threshold distance from the bottom
+     * @input {string} The threshold distance from the bottom
      * of the content to call the `infinite` output event when scrolled.
      * The threshold value can be either a percent, or
      * in pixels. For example, use the value of `10%` for the `infinite`
@@ -176,15 +170,10 @@ export class InfiniteScroll {
      * from the bottom of the page. Use the value `100px` when the
      * scroll is within 100 pixels from the bottom of the page.
      * Default is `15%`.
-     * @return {?}
      */
     get threshold() {
         return this._thr;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set threshold(val) {
         this._thr = val;
         if (val.indexOf('%') > -1) {
@@ -197,28 +186,21 @@ export class InfiniteScroll {
         }
     }
     /**
-     * \@input {boolean} If true, Whether or not the infinite scroll should be
+     * @input {boolean} If true, Whether or not the infinite scroll should be
      * enabled or not. Setting to `false` will remove scroll event listeners
      * and hide the display.
-     * @param {?} shouldEnable
-     * @return {?}
      */
     set enabled(shouldEnable) {
         this.enable(shouldEnable);
     }
     /**
-     * \@input {string} The position of the infinite scroll element.
+     * @input {string} The position of the infinite scroll element.
      * The value can be either `top` or `bottom`.
      * Default is `bottom`.
-     * @return {?}
      */
     get position() {
         return this._position;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set position(val) {
         if (val === POSITION_TOP || val === POSITION_BOTTOM) {
             this._position = val;
@@ -227,10 +209,6 @@ export class InfiniteScroll {
             console.error(`Invalid value for ion-infinite-scroll's position input. Its value should be '${POSITION_BOTTOM}' or '${POSITION_TOP}'.`);
         }
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     _onScroll(ev) {
         if (this.state === STATE_LOADING || this.state === STATE_DISABLED) {
             return 1;
@@ -241,17 +219,17 @@ export class InfiniteScroll {
         }
         this._lastCheck = ev.timeStamp;
         // ******** DOM READ ****************
-        const /** @type {?} */ infiniteHeight = this._elementRef.nativeElement.scrollHeight;
+        const infiniteHeight = this._elementRef.nativeElement.scrollHeight;
         if (!infiniteHeight) {
             // if there is no height of this element then do nothing
             return 3;
         }
         // ******** DOM READ ****************
-        const /** @type {?} */ d = this._content.getContentDimensions();
-        const /** @type {?} */ height = d.contentHeight;
-        const /** @type {?} */ threshold = this._thrPc ? (height * this._thrPc) : this._thrPx;
+        const d = this._content.getContentDimensions();
+        const height = d.contentHeight;
+        const threshold = this._thrPc ? (height * this._thrPc) : this._thrPx;
         // ******** DOM READS ABOVE / DOM WRITES BELOW ****************
-        let /** @type {?} */ distanceFromInfinite;
+        let distanceFromInfinite;
         if (this._position === POSITION_BOTTOM) {
             distanceFromInfinite = d.scrollHeight - infiniteHeight - d.scrollTop - height - threshold;
         }
@@ -282,7 +260,6 @@ export class InfiniteScroll {
      * then call this method to signify that the loading has completed.
      * This method will change the infinite scroll's state from `loading`
      * to `enabled`.
-     * @return {?}
      */
     complete() {
         if (this.state !== STATE_LOADING) {
@@ -315,13 +292,13 @@ export class InfiniteScroll {
         */
         // ******** DOM READ ****************
         // Save the current content dimensions before the UI updates
-        const /** @type {?} */ prevDim = this._content.getContentDimensions();
+        const prevDim = this._content.getContentDimensions();
         // ******** DOM READ ****************
         this._dom.read(() => {
             // UI has updated, save the new content dimensions
-            const /** @type {?} */ newDim = this._content.getContentDimensions();
+            const newDim = this._content.getContentDimensions();
             // New content was added on top, so the scroll position should be changed immediately to prevent it from jumping around
-            const /** @type {?} */ newScrollTop = newDim.scrollHeight - (prevDim.scrollHeight - prevDim.scrollTop);
+            const newScrollTop = newDim.scrollHeight - (prevDim.scrollHeight - prevDim.scrollTop);
             // ******** DOM WRITE ****************
             this._dom.write(() => {
                 this._content.scrollTop = newScrollTop;
@@ -330,13 +307,11 @@ export class InfiniteScroll {
         });
     }
     /**
-     * Pass a promise inside `waitFor()` within the `infinite` output event handler in order to
-     * change state of infiniteScroll to "complete"
-     * @param {?} action
-     * @return {?}
-     */
+    * Pass a promise inside `waitFor()` within the `infinite` output event handler in order to
+    * change state of infiniteScroll to "complete"
+    */
     waitFor(action) {
-        const /** @type {?} */ enable = this.complete.bind(this);
+        const enable = this.complete.bind(this);
         action.then(enable, enable);
     }
     /**
@@ -344,10 +319,9 @@ export class InfiniteScroll {
      * trying to receive new data while scrolling. This method is useful
      * when it is known that there is no more data that can be added, and
      * the infinite scroll is no longer needed.
+     * @param {boolean} shouldEnable  If the infinite scroll should be
      * enabled or not. Setting to `false` will remove scroll event listeners
      * and hide the display.
-     * @param {?} shouldEnable
-     * @return {?}
      */
     enable(shouldEnable) {
         this.state = (shouldEnable ? STATE_ENABLED : STATE_DISABLED);
@@ -355,8 +329,6 @@ export class InfiniteScroll {
     }
     /**
      * @hidden
-     * @param {?} shouldListen
-     * @return {?}
      */
     _setListeners(shouldListen) {
         if (this._init) {
@@ -373,7 +345,6 @@ export class InfiniteScroll {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngAfterContentInit() {
         this._init = true;
@@ -384,7 +355,6 @@ export class InfiniteScroll {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnDestroy() {
         this._setListeners(false);
@@ -395,9 +365,7 @@ InfiniteScroll.decorators = [
                 selector: 'ion-infinite-scroll'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 InfiniteScroll.ctorParameters = () => [
     { type: Content, },
     { type: NgZone, },
@@ -410,57 +378,9 @@ InfiniteScroll.propDecorators = {
     'position': [{ type: Input },],
     'ionInfinite': [{ type: Output },],
 };
-function InfiniteScroll_tsickle_Closure_declarations() {
-    /** @type {?} */
-    InfiniteScroll.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    InfiniteScroll.ctorParameters;
-    /** @type {?} */
-    InfiniteScroll.propDecorators;
-    /** @type {?} */
-    InfiniteScroll.prototype._lastCheck;
-    /** @type {?} */
-    InfiniteScroll.prototype._highestY;
-    /** @type {?} */
-    InfiniteScroll.prototype._scLsn;
-    /** @type {?} */
-    InfiniteScroll.prototype._thr;
-    /** @type {?} */
-    InfiniteScroll.prototype._thrPx;
-    /** @type {?} */
-    InfiniteScroll.prototype._thrPc;
-    /** @type {?} */
-    InfiniteScroll.prototype._position;
-    /** @type {?} */
-    InfiniteScroll.prototype._init;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    InfiniteScroll.prototype.state;
-    /**
-     * \@output {event} Emitted when the scroll reaches
-     * the threshold distance. From within your infinite handler,
-     * you must call the infinite scroll's `complete()` method when
-     * your async operation has completed.
-     * @type {?}
-     */
-    InfiniteScroll.prototype.ionInfinite;
-    /** @type {?} */
-    InfiniteScroll.prototype._content;
-    /** @type {?} */
-    InfiniteScroll.prototype._zone;
-    /** @type {?} */
-    InfiniteScroll.prototype._elementRef;
-    /** @type {?} */
-    InfiniteScroll.prototype._dom;
-}
-const /** @type {?} */ STATE_ENABLED = 'enabled';
-const /** @type {?} */ STATE_DISABLED = 'disabled';
-const /** @type {?} */ STATE_LOADING = 'loading';
-const /** @type {?} */ POSITION_TOP = 'top';
-const /** @type {?} */ POSITION_BOTTOM = 'bottom';
+const STATE_ENABLED = 'enabled';
+const STATE_DISABLED = 'disabled';
+const STATE_LOADING = 'loading';
+const POSITION_TOP = 'top';
+const POSITION_BOTTOM = 'bottom';
 //# sourceMappingURL=infinite-scroll.js.map

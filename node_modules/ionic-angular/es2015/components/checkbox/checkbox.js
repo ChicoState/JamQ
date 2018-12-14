@@ -6,10 +6,10 @@ import { Form } from '../../util/form';
 import { BaseInput } from '../../util/base-input';
 import { Item } from '../item/item';
 /**
- * \@name Checkbox
- * \@module ionic
+ * @name Checkbox
+ * @module ionic
  *
- * \@description
+ * @description
  * The Checkbox is a simple component styled based on the mode. It can be
  * placed in an `ion-item` or used as a stand-alone checkbox.
  *
@@ -17,7 +17,7 @@ import { Item } from '../item/item';
  * for more info on forms and inputs.
  *
  *
- * \@usage
+ * @usage
  * ```html
  *
  *  <ion-list>
@@ -40,7 +40,7 @@ import { Item } from '../item/item';
  *  </ion-list>
  * ```
  *
- * \@advanced
+ * @advanced
  *
  * ```html
  *
@@ -56,7 +56,7 @@ import { Item } from '../item/item';
  * ```
  *
  * ```ts
- * \@Component({
+ * @Component({
  *   templateUrl: 'main.html'
  * })
  * class SaladPage {
@@ -68,55 +68,39 @@ import { Item } from '../item/item';
  * }
  * ```
  *
- * \@demo /docs/demos/src/checkbox/
- * @see {\@link /docs/components#checkbox Checkbox Component Docs}
+ * @demo /docs/demos/src/checkbox/
+ * @see {@link /docs/components#checkbox Checkbox Component Docs}
  */
 export class Checkbox extends BaseInput {
-    /**
-     * @param {?} config
-     * @param {?} form
-     * @param {?} item
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     constructor(config, form, item, elementRef, renderer) {
         super(config, elementRef, renderer, 'checkbox', false, form, item, null);
     }
     /**
-     * \@input {boolean} If true, the element is selected.
-     * @return {?}
+     * @input {boolean} If true, the element is selected.
      */
     get checked() {
         return this.value;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set checked(val) {
         this.value = val;
     }
     /**
      * @hidden
-     * @param {?} ev
-     * @return {?}
      */
     _click(ev) {
         ev.preventDefault();
         ev.stopPropagation();
         this.value = !this.value;
+        this._fireTouched();
     }
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     _inputNormalize(val) {
         return isTrueProperty(val);
     }
     /**
      * @hidden
-     * @return {?}
      */
     _inputUpdated() {
         this._item && this._item.setElementClass('item-checkbox-checked', this._value);
@@ -144,9 +128,7 @@ Checkbox.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Checkbox.ctorParameters = () => [
     { type: Config, },
     { type: Form, },
@@ -158,15 +140,4 @@ Checkbox.propDecorators = {
     'checked': [{ type: Input },],
     '_click': [{ type: HostListener, args: ['click', ['$event'],] },],
 };
-function Checkbox_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Checkbox.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Checkbox.ctorParameters;
-    /** @type {?} */
-    Checkbox.propDecorators;
-}
 //# sourceMappingURL=checkbox.js.map

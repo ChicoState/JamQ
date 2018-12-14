@@ -6,11 +6,6 @@ import { ViewController } from '../../navigation/view-controller';
  * @hidden
  */
 export class Alert extends ViewController {
-    /**
-     * @param {?} app
-     * @param {?=} opts
-     * @param {?=} config
-     */
     constructor(app, opts = {}, config) {
         opts.inputs = opts.inputs || [];
         opts.buttons = opts.buttons || [];
@@ -26,65 +21,56 @@ export class Alert extends ViewController {
         config.setTransition('alert-wp-pop-out', AlertWpPopOut);
     }
     /**
-     * @hidden
-     * @param {?} direction
-     * @return {?}
-     */
+    * @hidden
+    */
     getTransitionName(direction) {
-        let /** @type {?} */ key = (direction === 'back' ? 'alertLeave' : 'alertEnter');
+        let key = (direction === 'back' ? 'alertLeave' : 'alertEnter');
         return this._nav && this._nav.config.get(key);
     }
     /**
-     * @param {?} title
-     * @return {?}
+     * @param {string} title Alert title
      */
     setTitle(title) {
         this.data.title = title;
         return this;
     }
     /**
-     * @param {?} subTitle
-     * @return {?}
+     * @param {string} subTitle Alert subtitle
      */
     setSubTitle(subTitle) {
         this.data.subTitle = subTitle;
         return this;
     }
     /**
-     * @param {?} message
-     * @return {?}
+     * @param {string} message  Alert message content
      */
     setMessage(message) {
         this.data.message = message;
         return this;
     }
     /**
-     * @param {?} input
-     * @return {?}
+     * @param {object} input Alert input
      */
     addInput(input) {
         this.data.inputs.push(input);
         return this;
     }
     /**
-     * @param {?} button
-     * @return {?}
+     * @param {any} button Alert button
      */
     addButton(button) {
         this.data.buttons.push(button);
         return this;
     }
     /**
-     * @param {?} cssClass
-     * @return {?}
+     * @param {string} cssClass Set the CSS class names on the alert's outer wrapper.
      */
     setCssClass(cssClass) {
         this.data.cssClass = cssClass;
         return this;
     }
     /**
-     * @param {?} mode
-     * @return {?}
+     * @param {string} mode Set the mode of the alert (ios, md, wp).
      */
     setMode(mode) {
         this.data.mode = mode;
@@ -92,16 +78,12 @@ export class Alert extends ViewController {
     /**
      * Present the alert instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     present(navOptions = {}) {
         navOptions.minClickBlockDuration = navOptions.minClickBlockDuration || 400;
         return this._app.present(this, navOptions);
     }
-}
-function Alert_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Alert.prototype._app;
 }
 //# sourceMappingURL=alert.js.map

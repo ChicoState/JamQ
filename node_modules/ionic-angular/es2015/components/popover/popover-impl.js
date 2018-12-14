@@ -6,13 +6,6 @@ import { ViewController } from '../../navigation/view-controller';
  * @hidden
  */
 export class PopoverImpl extends ViewController {
-    /**
-     * @param {?} app
-     * @param {?} component
-     * @param {?=} data
-     * @param {?=} opts
-     * @param {?=} config
-     */
     constructor(app, component, data = {}, opts = {}, config) {
         opts.showBackdrop = isPresent(opts.showBackdrop) ? !!opts.showBackdrop : true;
         opts.enableBackdropDismiss = isPresent(opts.enableBackdropDismiss) ? !!opts.enableBackdropDismiss : true;
@@ -28,25 +21,19 @@ export class PopoverImpl extends ViewController {
     }
     /**
      * @hidden
-     * @param {?} direction
-     * @return {?}
      */
     getTransitionName(direction) {
-        let /** @type {?} */ key = (direction === 'back' ? 'popoverLeave' : 'popoverEnter');
+        let key = (direction === 'back' ? 'popoverLeave' : 'popoverEnter');
         return this._nav && this._nav.config.get(key);
     }
     /**
      * Present the popover instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     present(navOptions = {}) {
         return this._app.present(this, navOptions);
     }
-}
-function PopoverImpl_tsickle_Closure_declarations() {
-    /** @type {?} */
-    PopoverImpl.prototype._app;
 }
 //# sourceMappingURL=popover-impl.js.map

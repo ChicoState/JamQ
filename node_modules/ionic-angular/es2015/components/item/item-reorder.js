@@ -5,31 +5,17 @@ import { isTrueProperty, reorderArray } from '../../util/util';
 import { ItemReorderGesture } from './item-reorder-gesture';
 import { Platform } from '../../platform/platform';
 export class ReorderIndexes {
-    /**
-     * @param {?} from
-     * @param {?} to
-     */
     constructor(from, to) {
         this.from = from;
         this.to = to;
     }
-    /**
-     * @param {?} array
-     * @return {?}
-     */
     applyTo(array) {
         reorderArray(array, this);
     }
 }
-function ReorderIndexes_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ReorderIndexes.prototype.from;
-    /** @type {?} */
-    ReorderIndexes.prototype.to;
-}
 /**
- * \@name ItemReorder
- * \@description
+ * @name ItemReorder
+ * @description
  * Item reorder adds the ability to change an item's order in a group.
  * It can be used within an `ion-list` or `ion-item-group` to provide a
  * visual drag and drop interface.
@@ -84,7 +70,7 @@ function ReorderIndexes_tsickle_Closure_declarations() {
  * See [usage](#usage) below for some examples.
  *
  *
- * \@usage
+ * @usage
  *
  * ```html
  * <ion-list>
@@ -144,20 +130,12 @@ function ReorderIndexes_tsickle_Closure_declarations() {
  * </ion-list>
  * ```
  *
- * \@demo /docs/demos/src/item-reorder/
- * @see {\@link /docs/components#lists List Component Docs}
- * @see {\@link ../../list/List List API Docs}
- * @see {\@link ../Item Item API Docs}
+ * @demo /docs/demos/src/item-reorder/
+ * @see {@link /docs/components#lists List Component Docs}
+ * @see {@link ../../list/List List API Docs}
+ * @see {@link ../Item Item API Docs}
  */
 export class ItemReorder {
-    /**
-     * @param {?} _plt
-     * @param {?} _dom
-     * @param {?} elementRef
-     * @param {?} _rendered
-     * @param {?} _zone
-     * @param {?} _content
-     */
     constructor(_plt, _dom, elementRef, _rendered, _zone, _content) {
         this._plt = _plt;
         this._dom = _dom;
@@ -169,23 +147,20 @@ export class ItemReorder {
         this._isStart = false;
         this._lastToIndex = -1;
         /**
-         * \@output {object} Emitted when the item is reordered. Emits an object
+         * @output {object} Emitted when the item is reordered. Emits an object
          * with `from` and `to` properties.
          */
         this.ionItemReorder = new EventEmitter();
         this._element = elementRef.nativeElement;
     }
     /**
-     * \@input {string} Which side of the view the ion-reorder should be placed. Default `"end"`.
-     * @param {?} side
-     * @return {?}
+     * @input {string} Which side of the view the ion-reorder should be placed. Default `"end"`.
      */
     set side(side) {
         this._isStart = side === 'start';
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnDestroy() {
         this._element = null;
@@ -193,17 +168,12 @@ export class ItemReorder {
     }
     /**
      * @hidden
-     * @return {?}
      */
     get reorder() {
         return this._enableReorder;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set reorder(val) {
-        let /** @type {?} */ enabled = isTrueProperty(val);
+        let enabled = isTrueProperty(val);
         if (!enabled && this._reorderGesture) {
             this._reorderGesture.destroy();
             this._reorderGesture = null;
@@ -221,94 +191,68 @@ export class ItemReorder {
             }, 16);
         }
     }
-    /**
-     * @return {?}
-     */
     _reorderPrepare() {
-        let /** @type {?} */ ele = this._element;
-        let /** @type {?} */ children = ele.children;
-        for (let /** @type {?} */ i = 0, /** @type {?} */ ilen = children.length; i < ilen; i++) {
-            var /** @type {?} */ child = children[i];
+        let ele = this._element;
+        let children = ele.children;
+        for (let i = 0, ilen = children.length; i < ilen; i++) {
+            var child = children[i];
             child.$ionIndex = i;
             child.$ionReorderList = ele;
         }
     }
-    /**
-     * @return {?}
-     */
     _reorderStart() {
         this.setElementClass('reorder-list-active', true);
     }
-    /**
-     * @param {?} fromIndex
-     * @param {?} toIndex
-     * @return {?}
-     */
     _reorderEmit(fromIndex, toIndex) {
         this._reorderReset();
         if (fromIndex !== toIndex) {
             this._zone.run(() => {
-                const /** @type {?} */ indexes = new ReorderIndexes(fromIndex, toIndex);
+                const indexes = new ReorderIndexes(fromIndex, toIndex);
                 this.ionItemReorder.emit(indexes);
             });
         }
     }
-    /**
-     * @param {?} scroll
-     * @return {?}
-     */
     _scrollContent(scroll) {
-        const /** @type {?} */ scrollTop = this._content.scrollTop + scroll;
+        const scrollTop = this._content.scrollTop + scroll;
         if (scroll !== 0) {
             this._content.scrollTo(0, scrollTop, 0);
         }
         return scrollTop;
     }
-    /**
-     * @return {?}
-     */
     _reorderReset() {
-        let /** @type {?} */ children = this._element.children;
-        let /** @type {?} */ len = children.length;
+        let children = this._element.children;
+        let len = children.length;
         this.setElementClass('reorder-list-active', false);
-        let /** @type {?} */ transform = this._plt.Css.transform;
-        for (let /** @type {?} */ i = 0; i < len; i++) {
-            ((children[i])).style[transform] = '';
+        let transform = this._plt.Css.transform;
+        for (let i = 0; i < len; i++) {
+            children[i].style[transform] = '';
         }
         this._lastToIndex = -1;
     }
-    /**
-     * @param {?} fromIndex
-     * @param {?} toIndex
-     * @param {?} itemHeight
-     * @return {?}
-     */
     _reorderMove(fromIndex, toIndex, itemHeight) {
         if (this._lastToIndex === -1) {
             this._lastToIndex = fromIndex;
         }
-        let /** @type {?} */ lastToIndex = this._lastToIndex;
+        let lastToIndex = this._lastToIndex;
         this._lastToIndex = toIndex;
-        /**
-         * ****** DOM READ **********
-         */
+        // TODO: I think both loops can be merged into a single one
+        // but I had no luck last time I tried
+        /********* DOM READ ********** */
         let children = this._element.children;
-        /**
-         * ****** DOM WRITE *********
-         */
+        /********* DOM WRITE ********* */
         let transform = this._plt.Css.transform;
         if (toIndex >= lastToIndex) {
-            for (let /** @type {?} */ i = lastToIndex; i <= toIndex; i++) {
+            for (let i = lastToIndex; i <= toIndex; i++) {
                 if (i !== fromIndex) {
-                    ((children[i])).style[transform] = (i > fromIndex)
+                    children[i].style[transform] = (i > fromIndex)
                         ? `translateY(${-itemHeight}px)` : '';
                 }
             }
         }
         if (toIndex <= lastToIndex) {
-            for (let /** @type {?} */ i = toIndex; i <= lastToIndex; i++) {
+            for (let i = toIndex; i <= lastToIndex; i++) {
                 if (i !== fromIndex) {
-                    ((children[i])).style[transform] = (i < fromIndex)
+                    children[i].style[transform] = (i < fromIndex)
                         ? `translateY(${itemHeight}px)` : '';
                 }
             }
@@ -316,16 +260,12 @@ export class ItemReorder {
     }
     /**
      * @hidden
-     * @param {?} classname
-     * @param {?} add
-     * @return {?}
      */
     setElementClass(classname, add) {
         this._rendered.setElementClass(this._element, classname, add);
     }
     /**
      * @hidden
-     * @return {?}
      */
     getNativeElement() {
         return this._element;
@@ -341,9 +281,7 @@ ItemReorder.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ItemReorder.ctorParameters = () => [
     { type: Platform, },
     { type: DomController, },
@@ -357,43 +295,4 @@ ItemReorder.propDecorators = {
     'side': [{ type: Input, args: ['side',] },],
     'reorder': [{ type: Input },],
 };
-function ItemReorder_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ItemReorder.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ItemReorder.ctorParameters;
-    /** @type {?} */
-    ItemReorder.propDecorators;
-    /** @type {?} */
-    ItemReorder.prototype._enableReorder;
-    /** @type {?} */
-    ItemReorder.prototype._visibleReorder;
-    /** @type {?} */
-    ItemReorder.prototype._isStart;
-    /** @type {?} */
-    ItemReorder.prototype._reorderGesture;
-    /** @type {?} */
-    ItemReorder.prototype._lastToIndex;
-    /** @type {?} */
-    ItemReorder.prototype._element;
-    /**
-     * \@output {object} Emitted when the item is reordered. Emits an object
-     * with `from` and `to` properties.
-     * @type {?}
-     */
-    ItemReorder.prototype.ionItemReorder;
-    /** @type {?} */
-    ItemReorder.prototype._plt;
-    /** @type {?} */
-    ItemReorder.prototype._dom;
-    /** @type {?} */
-    ItemReorder.prototype._rendered;
-    /** @type {?} */
-    ItemReorder.prototype._zone;
-    /** @type {?} */
-    ItemReorder.prototype._content;
-}
 //# sourceMappingURL=item-reorder.js.map

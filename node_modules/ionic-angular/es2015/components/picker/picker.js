@@ -7,11 +7,6 @@ import { ViewController } from '../../navigation/view-controller';
  * @hidden
  */
 export class Picker extends ViewController {
-    /**
-     * @param {?} app
-     * @param {?=} opts
-     * @param {?=} config
-     */
     constructor(app, opts = {}, config) {
         if (!opts) {
             opts = {};
@@ -27,52 +22,37 @@ export class Picker extends ViewController {
         config.setTransition('picker-slide-out', PickerSlideOut);
     }
     /**
-     * @hidden
-     * @param {?} direction
-     * @return {?}
-     */
+    * @hidden
+    */
     getTransitionName(direction) {
-        let /** @type {?} */ key = (direction === 'back' ? 'pickerLeave' : 'pickerEnter');
+        let key = (direction === 'back' ? 'pickerLeave' : 'pickerEnter');
         return this._nav && this._nav.config.get(key);
     }
     /**
-     * @param {?} button
-     * @return {?}
+     * @param {any} button Picker toolbar button
      */
     addButton(button) {
         this.data.buttons.push(button);
     }
     /**
-     * @param {?} column
-     * @return {?}
+     * @param {PickerColumn} column Picker toolbar button
      */
     addColumn(column) {
         this.data.columns.push(column);
     }
-    /**
-     * @return {?}
-     */
     getColumns() {
         return this.data.columns;
     }
-    /**
-     * @param {?} name
-     * @return {?}
-     */
     getColumn(name) {
         return this.getColumns().find(column => column.name === name);
     }
-    /**
-     * @return {?}
-     */
     refresh() {
         (void 0) /* assert */;
         (void 0) /* assert */;
         this._cmp && this._cmp.instance.refresh && this._cmp.instance.refresh();
     }
     /**
-     * @param {?} cssClass
-     * @return {?}
+     * @param {string} cssClass CSS class name to add to the picker's outer wrapper.
      */
     setCssClass(cssClass) {
         this.data.cssClass = cssClass;
@@ -80,8 +60,8 @@ export class Picker extends ViewController {
     /**
      * Present the picker instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     present(navOptions = {}) {
         return this._app.present(this, navOptions);
@@ -90,12 +70,4 @@ export class Picker extends ViewController {
 Picker.propDecorators = {
     'ionChange': [{ type: Output },],
 };
-function Picker_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Picker.propDecorators;
-    /** @type {?} */
-    Picker.prototype._app;
-    /** @type {?} */
-    Picker.prototype.ionChange;
-}
 //# sourceMappingURL=picker.js.map

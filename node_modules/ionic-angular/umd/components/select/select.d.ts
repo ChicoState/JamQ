@@ -1,10 +1,8 @@
 import { ElementRef, EventEmitter, OnDestroy, QueryList, Renderer } from '@angular/core';
-import { ActionSheet } from '../action-sheet/action-sheet';
-import { Alert } from '../alert/alert';
-import { Popover } from '../popover/popover';
 import { App } from '../app/app';
 import { Config } from '../../config/config';
 import { DeepLinker } from '../../navigation/deep-linker';
+import { Overlay } from '../../navigation/overlay';
 import { Form } from '../../util/form';
 import { BaseInput } from '../../util/base-input';
 import { Item } from '../item/item';
@@ -151,7 +149,7 @@ export declare class Select extends BaseInput<any> implements OnDestroy {
     deepLinker: DeepLinker;
     _multi: boolean;
     _options: QueryList<Option>;
-    _overlay: ActionSheet | Alert | Popover;
+    _overlay: Overlay;
     _texts: string[];
     _text: string;
     _compareWith: (o1: any, o2: any) => boolean;

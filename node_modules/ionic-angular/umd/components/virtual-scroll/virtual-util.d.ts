@@ -7,7 +7,7 @@ export declare function processRecords(stopAtHeight: number, records: any[], cel
 /**
  * NO DOM
  */
-export declare function populateNodeData(startCellIndex: number, endCellIndex: number, scrollingDown: boolean, cells: VirtualCell[], records: any[], nodes: VirtualNode[], viewContainer: ViewContainerRef, itmTmp: TemplateRef<VirtualContext>, hdrTmp: TemplateRef<VirtualContext>, ftrTmp: TemplateRef<VirtualContext>, initialLoad: boolean): boolean;
+export declare function populateNodeData(startCellIndex: number, endCellIndex: number, scrollingDown: boolean, cells: VirtualCell[], records: any[], nodes: VirtualNode[], viewContainer: ViewContainerRef, itmTmp: TemplateRef<VirtualContext>, hdrTmp: TemplateRef<VirtualContext>, ftrTmp: TemplateRef<VirtualContext>): boolean;
 /**
  * DOM READ
  */

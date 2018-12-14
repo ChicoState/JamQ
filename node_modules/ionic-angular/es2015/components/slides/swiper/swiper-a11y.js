@@ -1,11 +1,6 @@
 import { CLS } from './swiper-utils';
-/**
- * @param {?} s
- * @param {?} plt
- * @return {?}
- */
 export function initA11y(s, plt) {
-    let /** @type {?} */ unregs = [];
+    let unregs = [];
     s._liveRegion = plt.doc().createElement('span');
     s._liveRegion.className = CLS.notification;
     s._liveRegion.setAttribute('aria-live', 'assertive');
@@ -38,34 +33,15 @@ export function initA11y(s, plt) {
         }
     };
 }
-/**
- * @param {?} ele
- * @return {?}
- */
 export function makeFocusable(ele) {
     ele.setAttribute('tabIndex', '0');
 }
-/**
- * @param {?} ele
- * @param {?} role
- * @return {?}
- */
 export function addRole(ele, role) {
     ele.setAttribute('role', role);
 }
-/**
- * @param {?} ele
- * @param {?} label
- * @return {?}
- */
 export function addLabel(ele, label) {
     ele.setAttribute('aria-label', label);
 }
-/**
- * @param {?} ele
- * @param {?} isDisabled
- * @return {?}
- */
 export function ariaDisable(ele, isDisabled) {
     if (isDisabled) {
         ele.setAttribute('aria-disabled', 'true');
@@ -74,11 +50,6 @@ export function ariaDisable(ele, isDisabled) {
         ele.removeAttribute('aria-disabled');
     }
 }
-/**
- * @param {?} ele
- * @param {?} isHidden
- * @return {?}
- */
 export function ariaHidden(ele, isHidden) {
     if (isHidden) {
         ele.setAttribute('aria-hidden', 'true');
@@ -87,11 +58,6 @@ export function ariaHidden(ele, isHidden) {
         ele.removeAttribute('aria-hidden');
     }
 }
-/**
- * @param {?} _
- * @param {?} __
- * @return {?}
- */
 function onEnterKey(_, __) {
     // if (event.keyCode !== 13) return;
     // const target: HTMLElement = <any>event.target;

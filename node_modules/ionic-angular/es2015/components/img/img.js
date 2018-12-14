@@ -4,8 +4,8 @@ import { DomController } from '../../platform/dom-controller';
 import { isPresent, isTrueProperty } from '../../util/util';
 import { Platform } from '../../platform/platform';
 /**
- * \@name Img
- * \@description
+ * @name Img
+ * @description
  * Two of the biggest cuprits of scroll jank is starting up a new HTTP
  * request, and rendering images. These two reasons is largely why
  * `ion-img` was created. The standard HTML `img` element is often a large
@@ -87,41 +87,24 @@ import { Platform } from '../../platform/platform';
  *
  */
 export class Img {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _renderer
-     * @param {?} _plt
-     * @param {?} _content
-     * @param {?} _dom
-     */
     constructor(_elementRef, _renderer, _plt, _content, _dom) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._plt = _plt;
         this._content = _content;
         this._dom = _dom;
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._cache = true;
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._w = '';
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._h = '';
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._wQ = '';
-        /**
-         * \@internal
-         */
+        /** @internal */
         this._hQ = '';
         /**
-         * \@input {string}  Set the `alt` attribute which gets assigned to
+         * @input {string}  Set the `alt` attribute which gets assigned to
          * the inner `img` element.
          */
         this.alt = '';
@@ -134,16 +117,11 @@ export class Img {
         this._isLoaded(false);
     }
     /**
-     * \@input {string} The source of the image.
-     * @return {?}
+     * @input {string} The source of the image.
      */
     get src() {
         return this._src;
     }
-    /**
-     * @param {?} newSrc
-     * @return {?}
-     */
     set src(newSrc) {
         // if the source hasn't changed, then um, let's not change it
         if (newSrc !== this._src) {
@@ -162,7 +140,6 @@ export class Img {
     }
     /**
      * @hidden
-     * @return {?}
      */
     reset() {
         if (this._requestingSrc) {
@@ -180,7 +157,6 @@ export class Img {
     }
     /**
      * @hidden
-     * @return {?}
      */
     update() {
         // only attempt an update if there is an active src
@@ -212,24 +188,20 @@ export class Img {
         }
     }
     /**
-     * \@internal
-     * @param {?} isLoaded
-     * @return {?}
+     * @internal
      */
     _isLoaded(isLoaded) {
-        const /** @type {?} */ renderer = this._renderer;
-        const /** @type {?} */ ele = this._elementRef.nativeElement;
+        const renderer = this._renderer;
+        const ele = this._elementRef.nativeElement;
         renderer.setElementClass(ele, 'img-loaded', isLoaded);
         renderer.setElementClass(ele, 'img-unloaded', !isLoaded);
     }
     /**
-     * \@internal
-     * @param {?} srcAttr
-     * @return {?}
+     * @internal
      */
     _srcAttr(srcAttr) {
-        const /** @type {?} */ imgEle = this._img;
-        const /** @type {?} */ renderer = this._renderer;
+        const imgEle = this._img;
+        const renderer = this._renderer;
         if (imgEle && imgEle.src !== srcAttr) {
             renderer.setElementAttribute(this._img, 'src', srcAttr);
             renderer.setElementAttribute(this._img, 'alt', this.alt);
@@ -237,23 +209,18 @@ export class Img {
     }
     /**
      * @hidden
-     * @return {?}
      */
     get top() {
-        const /** @type {?} */ bounds = this._getBounds();
+        const bounds = this._getBounds();
         return bounds && bounds.top || 0;
     }
     /**
      * @hidden
-     * @return {?}
      */
     get bottom() {
-        const /** @type {?} */ bounds = this._getBounds();
+        const bounds = this._getBounds();
         return bounds && bounds.bottom || 0;
     }
-    /**
-     * @return {?}
-     */
     _getBounds() {
         if (this._bounds) {
             // we've been manually passed bounds data
@@ -263,17 +230,15 @@ export class Img {
         if (!this._rect) {
             // we don't have bounds from virtual scroll
             // so let's do the raw DOM lookup w/ getBoundingClientRect
-            this._rect = ((this._elementRef.nativeElement)).getBoundingClientRect();
+            this._rect = this._elementRef.nativeElement.getBoundingClientRect();
             (void 0) /* console.debug */;
         }
         return this._rect;
     }
     /**
-     * \@input {any}  Sets the bounding rectangle of the element relative to the viewport.
+     * @input {any}  Sets the bounding rectangle of the element relative to the viewport.
      * When using `VirtualScroll`, each virtual item should pass its bounds to each
      * `ion-img`. The passed in data object should include `top` and `bottom` properties.
-     * @param {?} b
-     * @return {?}
      */
     set bounds(b) {
         if (isPresent(b)) {
@@ -281,53 +246,41 @@ export class Img {
         }
     }
     /**
-     * \@input {boolean}  After an image has been successfully downloaded, it can be cached
+     * @input {boolean}  After an image has been successfully downloaded, it can be cached
      * in-memory. This is useful for `VirtualScroll` by allowing image responses to be
      * cached, and not rendered, until after scrolling has completed, which allows for
      * smoother scrolling.
-     * @return {?}
      */
     get cache() {
         return this._cache;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set cache(val) {
         this._cache = isTrueProperty(val);
     }
     /**
-     * \@input {string}  Image width. If this property is not set it's important that
+     * @input {string}  Image width. If this property is not set it's important that
      * the dimensions are still set using CSS. If the dimension is just a number it
      * will assume the `px` unit.
-     * @param {?} val
-     * @return {?}
      */
     set width(val) {
         this._wQ = getUnitValue(val);
         this._setDims();
     }
     /**
-     * \@input {string}  Image height. If this property is not set it's important that
+     * @input {string}  Image height. If this property is not set it's important that
      * the dimensions are still set using CSS. If the dimension is just a number it
      * will assume the `px` unit.
-     * @param {?} val
-     * @return {?}
      */
     set height(val) {
         this._hQ = getUnitValue(val);
         this._setDims();
     }
-    /**
-     * @return {?}
-     */
     _setDims() {
         // only set the dimensions if we can render
         // and only if the dimensions have changed from when we last set it
         if (this.canRender && (this._w !== this._wQ || this._h !== this._hQ)) {
-            var /** @type {?} */ wrapperEle = this._elementRef.nativeElement;
-            var /** @type {?} */ renderer = this._renderer;
+            var wrapperEle = this._elementRef.nativeElement;
+            var renderer = this._renderer;
             this._dom.write(() => {
                 if (this._w !== this._wQ) {
                     this._w = this._wQ;
@@ -342,7 +295,6 @@ export class Img {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngAfterContentInit() {
         this._img = this._elementRef.nativeElement.firstChild;
@@ -353,7 +305,6 @@ export class Img {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnDestroy() {
         this._unreg && this._unreg();
@@ -368,9 +319,7 @@ Img.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Img.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer, },
@@ -386,112 +335,6 @@ Img.propDecorators = {
     'height': [{ type: Input },],
     'alt': [{ type: Input },],
 };
-function Img_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Img.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Img.ctorParameters;
-    /** @type {?} */
-    Img.propDecorators;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._src;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._requestingSrc;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._renderedSrc;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._hasLoaded;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._cache;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._bounds;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._rect;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._w;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._h;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._wQ;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._hQ;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._img;
-    /**
-     * \@internal
-     * @type {?}
-     */
-    Img.prototype._unreg;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Img.prototype.canRequest;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Img.prototype.canRender;
-    /**
-     * \@input {string}  Set the `alt` attribute which gets assigned to
-     * the inner `img` element.
-     * @type {?}
-     */
-    Img.prototype.alt;
-    /** @type {?} */
-    Img.prototype._elementRef;
-    /** @type {?} */
-    Img.prototype._renderer;
-    /** @type {?} */
-    Img.prototype._plt;
-    /** @type {?} */
-    Img.prototype._content;
-    /** @type {?} */
-    Img.prototype._dom;
-}
-/**
- * @param {?} val
- * @return {?}
- */
 function getUnitValue(val) {
     if (isPresent(val)) {
         if (typeof val === 'string') {

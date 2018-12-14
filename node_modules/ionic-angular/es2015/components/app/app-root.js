@@ -1,24 +1,15 @@
-import { Component, ComponentFactoryResolver, ElementRef, Inject, OpaqueToken, Renderer, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, Inject, InjectionToken, Renderer, ViewChild, ViewContainerRef } from '@angular/core';
 import { App } from './app';
 import { Config } from '../../config/config';
 import { Ion } from '../ion';
 import { OverlayPortal } from './overlay-portal';
 import { Platform } from '../../platform/platform';
 import * as Constants from './app-constants';
-export const /** @type {?} */ AppRootToken = new OpaqueToken('USERROOT');
+export const AppRootToken = new InjectionToken('USERROOT');
 /**
  * @hidden
  */
 export class IonicApp extends Ion {
-    /**
-     * @param {?} _userCmp
-     * @param {?} _cfr
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} config
-     * @param {?} _plt
-     * @param {?} app
-     */
     constructor(_userCmp, _cfr, elementRef, renderer, config, _plt, app) {
         super(config, elementRef, renderer, 'app-root');
         this._userCmp = _userCmp;
@@ -28,25 +19,22 @@ export class IonicApp extends Ion {
         app._appRoot = this;
         this._stopScrollPlugin = window['IonicStopScroll'];
     }
-    /**
-     * @return {?}
-     */
     ngOnInit() {
         // load the user root component
         // into Ionic's root component
-        const /** @type {?} */ factory = this._cfr.resolveComponentFactory(this._userCmp);
-        const /** @type {?} */ componentRef = this._viewport.createComponent(factory);
+        const factory = this._cfr.resolveComponentFactory(this._userCmp);
+        const componentRef = this._viewport.createComponent(factory);
         this._renderer.setElementClass(componentRef.location.nativeElement, 'app-root', true);
         componentRef.changeDetectorRef.detectChanges();
         // set the mode class name
         // ios/md/wp
         this.setElementClass(this._config.get('mode'), true);
-        const /** @type {?} */ versions = this._plt.versions();
+        const versions = this._plt.versions();
         this._plt.platforms().forEach(platformName => {
             // platform-ios
-            let /** @type {?} */ platformClass = 'platform-' + platformName;
+            let platformClass = 'platform-' + platformName;
             this.setElementClass(platformClass, true);
-            let /** @type {?} */ platformVersion = versions[platformName];
+            let platformVersion = versions[platformName];
             if (platformVersion) {
                 // platform-ios9
                 platformClass += platformVersion.major;
@@ -68,8 +56,6 @@ export class IonicApp extends Ion {
     }
     /**
      * @hidden
-     * @param {?=} portal
-     * @return {?}
      */
     _getPortal(portal) {
         if (portal === Constants.PORTAL_LOADING) {
@@ -85,20 +71,17 @@ export class IonicApp extends Ion {
         }
         return this._overlayPortal;
     }
-    /**
-     * @return {?}
-     */
     _getActivePortal() {
-        const /** @type {?} */ defaultPortal = this._overlayPortal;
-        const /** @type {?} */ modalPortal = this._modalPortal;
-        const /** @type {?} */ hasModal = modalPortal.length() > 0;
-        const /** @type {?} */ hasDefault = defaultPortal.length() > 0;
+        const defaultPortal = this._overlayPortal;
+        const modalPortal = this._modalPortal;
+        const hasModal = modalPortal.length() > 0;
+        const hasDefault = defaultPortal.length() > 0;
         if (!hasModal && !hasDefault) {
             return null;
         }
         else if (hasModal && hasDefault) {
-            var /** @type {?} */ defaultIndex = defaultPortal.getActive().getZIndex();
-            var /** @type {?} */ modalIndex = modalPortal.getActive().getZIndex();
+            var defaultIndex = defaultPortal.getActive().getZIndex();
+            var modalIndex = modalPortal.getActive().getZIndex();
             if (defaultIndex > modalIndex) {
                 return defaultPortal;
             }
@@ -114,10 +97,6 @@ export class IonicApp extends Ion {
             return defaultPortal;
         }
     }
-    /**
-     * @param {?} shouldDisableScroll
-     * @return {?}
-     */
     _disableScroll(shouldDisableScroll) {
         if (shouldDisableScroll) {
             this.stopScroll().then(() => {
@@ -128,7 +107,7 @@ export class IonicApp extends Ion {
             });
         }
         else {
-            let /** @type {?} */ plugin = this._stopScrollPlugin;
+            let plugin = this._stopScrollPlugin;
             if (plugin && plugin.cancel) {
                 plugin.cancel();
             }
@@ -137,9 +116,6 @@ export class IonicApp extends Ion {
             this.setElementClass('disable-scroll', false);
         }
     }
-    /**
-     * @return {?}
-     */
     stopScroll() {
         if (this._stopScrollPlugin) {
             return new Promise((resolve) => {
@@ -162,9 +138,7 @@ IonicApp.decorators = [
                     '<div class="click-block"></div>'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 IonicApp.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [AppRootToken,] },] },
     { type: ComponentFactoryResolver, },
@@ -181,35 +155,4 @@ IonicApp.propDecorators = {
     '_loadingPortal': [{ type: ViewChild, args: ['loadingPortal', { read: OverlayPortal },] },],
     '_toastPortal': [{ type: ViewChild, args: ['toastPortal', { read: OverlayPortal },] },],
 };
-function IonicApp_tsickle_Closure_declarations() {
-    /** @type {?} */
-    IonicApp.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    IonicApp.ctorParameters;
-    /** @type {?} */
-    IonicApp.propDecorators;
-    /** @type {?} */
-    IonicApp.prototype._stopScrollPlugin;
-    /** @type {?} */
-    IonicApp.prototype._tmr;
-    /** @type {?} */
-    IonicApp.prototype._viewport;
-    /** @type {?} */
-    IonicApp.prototype._modalPortal;
-    /** @type {?} */
-    IonicApp.prototype._overlayPortal;
-    /** @type {?} */
-    IonicApp.prototype._loadingPortal;
-    /** @type {?} */
-    IonicApp.prototype._toastPortal;
-    /** @type {?} */
-    IonicApp.prototype._userCmp;
-    /** @type {?} */
-    IonicApp.prototype._cfr;
-    /** @type {?} */
-    IonicApp.prototype._plt;
-}
 //# sourceMappingURL=app-root.js.map

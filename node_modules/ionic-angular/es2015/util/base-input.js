@@ -3,16 +3,6 @@ import { deepCopy, isArray, isPresent, isString, isTrueProperty, isUndefined } f
 import { Ion } from '../components/ion';
 import { TimeoutDebouncer } from './debouncer';
 export class BaseInput extends Ion {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} name
-     * @param {?} _defaultValue
-     * @param {?} _form
-     * @param {?} _item
-     * @param {?} _ngControl
-     */
     constructor(config, elementRef, renderer, name, _defaultValue, _form, _item, _ngControl) {
         super(config, elementRef, renderer, name);
         this._defaultValue = _defaultValue;
@@ -25,15 +15,15 @@ export class BaseInput extends Ion {
         this._init = false;
         this._initModel = false;
         /**
-         * \@output {Range} Emitted when the range selector drag starts.
+         * @output {Range} Emitted when the range selector drag starts.
          */
         this.ionFocus = new EventEmitter();
         /**
-         * \@output {Range} Emitted when the range value changes.
+         * @output {Range} Emitted when the range value changes.
          */
         this.ionChange = new EventEmitter();
         /**
-         * \@output {Range} Emitted when the range selector drag ends.
+         * @output {Range} Emitted when the range selector drag ends.
          */
         this.ionBlur = new EventEmitter();
         _form && _form.register(this);
@@ -50,46 +40,31 @@ export class BaseInput extends Ion {
         }
     }
     /**
-     * \@input {boolean} If true, the user cannot interact with this element.
-     * @return {?}
+     * @input {boolean} If true, the user cannot interact with this element.
      */
     get disabled() {
         return this._disabled;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set disabled(val) {
         this.setDisabledState(val);
     }
-    /**
-     * @return {?}
-     */
     get value() {
         return this._value;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set value(val) {
         if (this._writeValue(val)) {
             this.onChange();
             this._fireIonChange();
         }
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
+    // 1. Updates the value
+    // 2. Calls _inputUpdated()
+    // 3. Dispatch onChange events
     setValue(val) {
         this.value = val;
     }
     /**
      * @hidden
-     * @param {?} isDisabled
-     * @return {?}
      */
     setDisabledState(isDisabled) {
         this._disabled = isDisabled = isTrueProperty(isDisabled);
@@ -97,8 +72,6 @@ export class BaseInput extends Ion {
     }
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     writeValue(val) {
         if (this._writeValue(val)) {
@@ -113,18 +86,16 @@ export class BaseInput extends Ion {
     }
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     _writeValue(val) {
         (void 0) /* assert */;
         if (isUndefined(val)) {
             return false;
         }
-        const /** @type {?} */ normalized = (val === null)
+        const normalized = (val === null)
             ? deepCopy(this._defaultValue)
             : this._inputNormalize(val);
-        const /** @type {?} */ notUpdate = isUndefined(normalized) || !this._inputShouldChange(normalized);
+        const notUpdate = isUndefined(normalized) || !this._inputShouldChange(normalized);
         if (notUpdate) {
             return false;
         }
@@ -137,7 +108,6 @@ export class BaseInput extends Ion {
     }
     /**
      * @hidden
-     * @return {?}
      */
     _fireIonChange() {
         if (this._init) {
@@ -150,23 +120,18 @@ export class BaseInput extends Ion {
     }
     /**
      * @hidden
-     * @param {?} fn
-     * @return {?}
      */
     registerOnChange(fn) {
         this._onChanged = fn;
     }
     /**
      * @hidden
-     * @param {?} fn
-     * @return {?}
      */
     registerOnTouched(fn) {
         this._onTouched = fn;
     }
     /**
      * @hidden
-     * @return {?}
      */
     _initialize() {
         if (this._init) {
@@ -180,7 +145,6 @@ export class BaseInput extends Ion {
     }
     /**
      * @hidden
-     * @return {?}
      */
     _fireFocus() {
         if (this._isFocus) {
@@ -193,7 +157,6 @@ export class BaseInput extends Ion {
     }
     /**
      * @hidden
-     * @return {?}
      */
     _fireBlur() {
         if (!this._isFocus) {
@@ -202,19 +165,24 @@ export class BaseInput extends Ion {
         (void 0) /* console.debug */;
         this._form && this._form.unsetAsFocused(this);
         this._setFocus(false);
+        this._fireTouched();
         this.ionBlur.emit(this);
     }
     /**
      * @hidden
-     * @param {?} isFocused
-     * @return {?}
+     */
+    _fireTouched() {
+        this._onTouched && this._onTouched();
+    }
+    /**
+     * @hidden
      */
     _setFocus(isFocused) {
         (void 0) /* assert */;
         (void 0) /* assert */;
         (void 0) /* assert */;
         this._isFocus = isFocused;
-        const /** @type {?} */ item = this._item;
+        const item = this._item;
         if (item) {
             item.setElementClass('input-has-focus', isFocused);
             item.setElementClass('item-input-has-focus', isFocused);
@@ -223,25 +191,21 @@ export class BaseInput extends Ion {
     }
     /**
      * @hidden
-     * @return {?}
      */
     onChange() {
         this._onChanged && this._onChanged(this._inputNgModelEvent());
-        this._onTouched && this._onTouched();
     }
     /**
      * @hidden
-     * @return {?}
      */
     isFocus() {
         return this._isFocus;
     }
     /**
      * @hidden
-     * @return {?}
      */
     hasValue() {
-        const /** @type {?} */ val = this._value;
+        const val = this._value;
         if (!isPresent(val)) {
             return false;
         }
@@ -252,77 +216,66 @@ export class BaseInput extends Ion {
     }
     /**
      * @hidden
-     * @return {?}
      */
     focusNext() {
         this._form && this._form.tabFocus(this);
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnDestroy() {
         (void 0) /* assert */;
-        const /** @type {?} */ form = this._form;
+        const form = this._form;
         form && form.deregister(this);
         this._init = false;
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngAfterContentInit() {
         this._initialize();
     }
     /**
      * @hidden
-     * @return {?}
      */
     initFocus() {
-        const /** @type {?} */ ele = this._elementRef.nativeElement.querySelector('button');
+        const ele = this._elementRef.nativeElement.querySelector('button');
         ele && ele.focus();
     }
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     _inputNormalize(val) {
         return val;
     }
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     _inputShouldChange(val) {
         return this._value !== val;
     }
     /**
      * @hidden
-     * @return {?}
      */
     _inputChangeEvent() {
         return this;
     }
     /**
      * @hidden
-     * @return {?}
      */
     _inputNgModelEvent() {
         return this._value;
     }
     /**
      * @hidden
-     * @return {?}
      */
     _inputUpdated() {
         (void 0) /* assert */;
-        const /** @type {?} */ item = this._item;
+        const item = this._item;
         if (item) {
             setControlCss(item, this._ngControl);
             // TODO remove all uses of input-has-value in v4
-            let /** @type {?} */ hasValue = this.hasValue();
+            let hasValue = this.hasValue();
             item.setElementClass('input-has-value', hasValue);
             item.setElementClass('item-input-has-value', hasValue);
         }
@@ -334,58 +287,6 @@ BaseInput.propDecorators = {
     'ionBlur': [{ type: Output },],
     'disabled': [{ type: Input },],
 };
-function BaseInput_tsickle_Closure_declarations() {
-    /** @type {?} */
-    BaseInput.propDecorators;
-    /** @type {?} */
-    BaseInput.prototype._value;
-    /** @type {?} */
-    BaseInput.prototype._onChanged;
-    /** @type {?} */
-    BaseInput.prototype._onTouched;
-    /** @type {?} */
-    BaseInput.prototype._isFocus;
-    /** @type {?} */
-    BaseInput.prototype._labelId;
-    /** @type {?} */
-    BaseInput.prototype._disabled;
-    /** @type {?} */
-    BaseInput.prototype._debouncer;
-    /** @type {?} */
-    BaseInput.prototype._init;
-    /** @type {?} */
-    BaseInput.prototype._initModel;
-    /** @type {?} */
-    BaseInput.prototype.id;
-    /**
-     * \@output {Range} Emitted when the range selector drag starts.
-     * @type {?}
-     */
-    BaseInput.prototype.ionFocus;
-    /**
-     * \@output {Range} Emitted when the range value changes.
-     * @type {?}
-     */
-    BaseInput.prototype.ionChange;
-    /**
-     * \@output {Range} Emitted when the range selector drag ends.
-     * @type {?}
-     */
-    BaseInput.prototype.ionBlur;
-    /** @type {?} */
-    BaseInput.prototype._defaultValue;
-    /** @type {?} */
-    BaseInput.prototype._form;
-    /** @type {?} */
-    BaseInput.prototype._item;
-    /** @type {?} */
-    BaseInput.prototype._ngControl;
-}
-/**
- * @param {?} element
- * @param {?} control
- * @return {?}
- */
 function setControlCss(element, control) {
     if (!control) {
         return;

@@ -28,13 +28,6 @@ var __extends = (this && this.__extends) || (function () {
      */
     var PopoverImpl = (function (_super) {
         __extends(PopoverImpl, _super);
-        /**
-         * @param {?} app
-         * @param {?} component
-         * @param {?=} data
-         * @param {?=} opts
-         * @param {?=} config
-         */
         function PopoverImpl(app, component, data, opts, config) {
             if (data === void 0) { data = {}; }
             if (opts === void 0) { opts = {}; }
@@ -54,18 +47,16 @@ var __extends = (this && this.__extends) || (function () {
         }
         /**
          * @hidden
-         * @param {?} direction
-         * @return {?}
          */
         PopoverImpl.prototype.getTransitionName = function (direction) {
-            var /** @type {?} */ key = (direction === 'back' ? 'popoverLeave' : 'popoverEnter');
+            var key = (direction === 'back' ? 'popoverLeave' : 'popoverEnter');
             return this._nav && this._nav.config.get(key);
         };
         /**
          * Present the popover instance.
          *
-         * @param {?=} navOptions
-         * @return {?}
+         * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+         * @returns {Promise} Returns a promise which is resolved when the transition has completed.
          */
         PopoverImpl.prototype.present = function (navOptions) {
             if (navOptions === void 0) { navOptions = {}; }
@@ -74,9 +65,5 @@ var __extends = (this && this.__extends) || (function () {
         return PopoverImpl;
     }(view_controller_1.ViewController));
     exports.PopoverImpl = PopoverImpl;
-    function PopoverImpl_tsickle_Closure_declarations() {
-        /** @type {?} */
-        PopoverImpl.prototype._app;
-    }
 });
 //# sourceMappingURL=popover-impl.js.map

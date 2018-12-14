@@ -29,11 +29,6 @@ var __extends = (this && this.__extends) || (function () {
      */
     var Toast = (function (_super) {
         __extends(Toast, _super);
-        /**
-         * @param {?} app
-         * @param {?=} opts
-         * @param {?=} config
-         */
         function Toast(app, opts, config) {
             if (opts === void 0) { opts = {}; }
             var _this = this;
@@ -54,57 +49,48 @@ var __extends = (this && this.__extends) || (function () {
             return _this;
         }
         /**
-         * @hidden
-         * @param {?} direction
-         * @return {?}
-         */
+        * @hidden
+        */
         Toast.prototype.getTransitionName = function (direction) {
-            var /** @type {?} */ key = 'toast' + (direction === 'back' ? 'Leave' : 'Enter');
+            var key = 'toast' + (direction === 'back' ? 'Leave' : 'Enter');
             return this._nav && this._nav.config.get(key);
         };
         /**
-         * @hidden
-         * @param {?} position
-         * @return {?}
-         */
+        * @hidden
+        */
         Toast.prototype.isValidPosition = function (position) {
             return position === TOAST_POSITION_TOP || position === TOAST_POSITION_MIDDLE || position === TOAST_POSITION_BOTTOM;
         };
         /**
-         * @param {?} message
-         * @return {?}
+         * @param {string} message  Toast message content
          */
         Toast.prototype.setMessage = function (message) {
             this.data.message = message;
             return this;
         };
         /**
-         * @param {?} dur
-         * @return {?}
+         * @param {number} dur  Toast message duration
          */
         Toast.prototype.setDuration = function (dur) {
             this.data.duration = dur;
             return this;
         };
         /**
-         * @param {?} pos
-         * @return {?}
+         * @param {'top'|'middle'|'bottom'} pos  Toast message position
          */
         Toast.prototype.setPosition = function (pos) {
             this.data.position = pos;
             return this;
         };
         /**
-         * @param {?} cssClass
-         * @return {?}
+         * @param {string} cssClass  Toast message CSS class
          */
         Toast.prototype.setCssClass = function (cssClass) {
             this.data.cssClass = cssClass;
             return this;
         };
         /**
-         * @param {?} closeButton
-         * @return {?}
+         * @param {boolean} closeButton  Toast message close button
          */
         Toast.prototype.setShowCloseButton = function (closeButton) {
             this.data.showCloseButton = closeButton;
@@ -113,8 +99,8 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Present the toast instance.
          *
-         * @param {?=} navOptions
-         * @return {?}
+         * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+         * @returns {Promise} Returns a promise which is resolved when the transition has completed.
          */
         Toast.prototype.present = function (navOptions) {
             if (navOptions === void 0) { navOptions = {}; }
@@ -124,7 +110,6 @@ var __extends = (this && this.__extends) || (function () {
         };
         /**
          * Dismiss all toast components which have been presented.
-         * @return {?}
          */
         Toast.prototype.dismissAll = function () {
             this._nav && this._nav.popAll();
@@ -132,12 +117,8 @@ var __extends = (this && this.__extends) || (function () {
         return Toast;
     }(view_controller_1.ViewController));
     exports.Toast = Toast;
-    function Toast_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Toast.prototype._app;
-    }
-    var /** @type {?} */ TOAST_POSITION_TOP = 'top';
-    var /** @type {?} */ TOAST_POSITION_MIDDLE = 'middle';
-    var /** @type {?} */ TOAST_POSITION_BOTTOM = 'bottom';
+    var TOAST_POSITION_TOP = 'top';
+    var TOAST_POSITION_MIDDLE = 'middle';
+    var TOAST_POSITION_BOTTOM = 'bottom';
 });
 //# sourceMappingURL=toast.js.map

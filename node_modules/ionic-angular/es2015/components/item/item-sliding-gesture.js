@@ -5,12 +5,6 @@ import { pointerCoord } from '../../util/dom';
  * @hidden
  */
 export class ItemSlidingGesture extends PanGesture {
-    /**
-     * @param {?} plt
-     * @param {?} list
-     * @param {?} gestureCtrl
-     * @param {?} domCtrl
-     */
     constructor(plt, list, gestureCtrl, domCtrl) {
         super(plt, list.getNativeElement(), {
             maxAngle: 20,
@@ -28,16 +22,12 @@ export class ItemSlidingGesture extends PanGesture {
         this.selectedContainer = null;
         this.openContainer = null;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     canStart(ev) {
         if (this.selectedContainer) {
             return false;
         }
         // Get swiped sliding container
-        let /** @type {?} */ container = getContainer(ev);
+        let container = getContainer(ev);
         if (!container) {
             this.closeOpened();
             return false;
@@ -46,55 +36,36 @@ export class ItemSlidingGesture extends PanGesture {
         if (container !== this.openContainer) {
             this.closeOpened();
         }
-        let /** @type {?} */ coord = pointerCoord(ev);
+        let coord = pointerCoord(ev);
         this.preSelectedContainer = container;
         this.firstCoordX = coord.x;
         this.firstTimestamp = Date.now();
         return true;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     onDragStart(ev) {
         ev.preventDefault();
-        let /** @type {?} */ coord = pointerCoord(ev);
+        let coord = pointerCoord(ev);
         this.selectedContainer = this.openContainer = this.preSelectedContainer;
         this.selectedContainer.startSliding(coord.x);
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     onDragMove(ev) {
         ev.preventDefault();
         this.selectedContainer.moveSliding(pointerCoord(ev).x);
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     onDragEnd(ev) {
         ev.preventDefault();
-        let /** @type {?} */ coordX = pointerCoord(ev).x;
-        let /** @type {?} */ deltaX = (coordX - this.firstCoordX);
-        let /** @type {?} */ deltaT = (Date.now() - this.firstTimestamp);
+        let coordX = pointerCoord(ev).x;
+        let deltaX = (coordX - this.firstCoordX);
+        let deltaT = (Date.now() - this.firstTimestamp);
         this.selectedContainer.endSliding(deltaX / deltaT);
         this.selectedContainer = null;
         this.preSelectedContainer = null;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     notCaptured(ev) {
         if (!clickedOptionButton(ev)) {
             this.closeOpened();
         }
     }
-    /**
-     * @return {?}
-     */
     closeOpened() {
         this.selectedContainer = null;
         if (this.openContainer) {
@@ -104,9 +75,6 @@ export class ItemSlidingGesture extends PanGesture {
         }
         return false;
     }
-    /**
-     * @return {?}
-     */
     destroy() {
         super.destroy();
         this.closeOpened();
@@ -116,37 +84,15 @@ export class ItemSlidingGesture extends PanGesture {
         this.openContainer = null;
     }
 }
-function ItemSlidingGesture_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ItemSlidingGesture.prototype.preSelectedContainer;
-    /** @type {?} */
-    ItemSlidingGesture.prototype.selectedContainer;
-    /** @type {?} */
-    ItemSlidingGesture.prototype.openContainer;
-    /** @type {?} */
-    ItemSlidingGesture.prototype.firstCoordX;
-    /** @type {?} */
-    ItemSlidingGesture.prototype.firstTimestamp;
-    /** @type {?} */
-    ItemSlidingGesture.prototype.list;
-}
-/**
- * @param {?} ev
- * @return {?}
- */
 function getContainer(ev) {
-    let /** @type {?} */ ele = ev.target.closest('ion-item-sliding');
+    let ele = ev.target.closest('ion-item-sliding');
     if (ele) {
-        return ((ele))['$ionComponent'];
+        return ele['$ionComponent'];
     }
     return null;
 }
-/**
- * @param {?} ev
- * @return {?}
- */
 function clickedOptionButton(ev) {
-    let /** @type {?} */ ele = ev.target.closest('ion-item-options>button');
+    let ele = ev.target.closest('ion-item-options>button');
     return !!ele;
 }
 //# sourceMappingURL=item-sliding-gesture.js.map

@@ -32,8 +32,8 @@ var __extends = (this && this.__extends) || (function () {
     var dom_1 = require("../../util/dom");
     var ui_event_manager_1 = require("../../gestures/ui-event-manager");
     /**
-     * \@name Range
-     * \@description
+     * @name Range
+     * @description
      * The Range slider lets users select from a range of values by moving
      * the slider knob. It can accept dual knobs, but by default one knob
      * controls the value of the range.
@@ -66,7 +66,7 @@ var __extends = (this && this.__extends) || (function () {
      * be an object containing two properties: `lower` and `upper`.
      *
      *
-     * \@usage
+     * @usage
      * ```html
      * <ion-list>
      *   <ion-item>
@@ -100,21 +100,10 @@ var __extends = (this && this.__extends) || (function () {
      * ```
      *
      *
-     * \@demo /docs/demos/src/range/
+     * @demo /docs/demos/src/range/
      */
     var Range = (function (_super) {
         __extends(Range, _super);
-        /**
-         * @param {?} form
-         * @param {?} _haptic
-         * @param {?} item
-         * @param {?} config
-         * @param {?} _plt
-         * @param {?} elementRef
-         * @param {?} renderer
-         * @param {?} _dom
-         * @param {?} _cd
-         */
         function Range(form, _haptic, item, config, _plt, elementRef, renderer, _dom, _cd) {
             var _this = _super.call(this, config, elementRef, renderer, 'range', 0, form, item, null) || this;
             _this._haptic = _haptic;
@@ -133,16 +122,11 @@ var __extends = (this && this.__extends) || (function () {
         }
         Object.defineProperty(Range.prototype, "min", {
             /**
-             * \@input {number} Minimum integer value of the range. Defaults to `0`.
-             * @return {?}
+             * @input {number} Minimum integer value of the range. Defaults to `0`.
              */
             get: function () {
                 return this._min;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 val = Math.round(val);
                 if (!isNaN(val)) {
@@ -155,16 +139,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Range.prototype, "max", {
             /**
-             * \@input {number} Maximum integer value of the range. Defaults to `100`.
-             * @return {?}
+             * @input {number} Maximum integer value of the range. Defaults to `100`.
              */
             get: function () {
                 return this._max;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 val = Math.round(val);
                 if (!isNaN(val)) {
@@ -177,16 +156,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Range.prototype, "step", {
             /**
-             * \@input {number} Specifies the value granularity. Defaults to `1`.
-             * @return {?}
+             * @input {number} Specifies the value granularity. Defaults to `1`.
              */
             get: function () {
                 return this._step;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 val = Math.round(val);
                 if (!isNaN(val) && val > 0) {
@@ -198,17 +172,12 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Range.prototype, "snaps", {
             /**
-             * \@input {boolean} If true, the knob snaps to tick marks evenly spaced based
+             * @input {boolean} If true, the knob snaps to tick marks evenly spaced based
              * on the step property value. Defaults to `false`.
-             * @return {?}
              */
             get: function () {
                 return this._snaps;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._snaps = util_1.isTrueProperty(val);
             },
@@ -217,17 +186,12 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Range.prototype, "pin", {
             /**
-             * \@input {boolean} If true, a pin with integer value is shown when the knob
+             * @input {boolean} If true, a pin with integer value is shown when the knob
              * is pressed. Defaults to `false`.
-             * @return {?}
              */
             get: function () {
                 return this._pin;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._pin = util_1.isTrueProperty(val);
             },
@@ -236,17 +200,12 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Range.prototype, "debounce", {
             /**
-             * \@input {number} How long, in milliseconds, to wait to trigger the
+             * @input {number} How long, in milliseconds, to wait to trigger the
              * `ionChange` event after each change in the range value. Default `0`.
-             * @return {?}
              */
             get: function () {
                 return this._debouncer.wait;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._debouncer.wait = val;
             },
@@ -255,16 +214,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Range.prototype, "dualKnobs", {
             /**
-             * \@input {boolean} Show two knobs. Defaults to `false`.
-             * @return {?}
+             * @input {boolean} Show two knobs. Defaults to `false`.
              */
             get: function () {
                 return this._dual;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._dual = util_1.isTrueProperty(val);
             },
@@ -276,7 +230,6 @@ var __extends = (this && this.__extends) || (function () {
              * Returns the ratio of the knob's is current location, which is a number
              * between `0` and `1`. If two knobs are used, this property represents
              * the lower value.
-             * @return {?}
              */
             get: function () {
                 if (this._dual) {
@@ -292,7 +245,6 @@ var __extends = (this && this.__extends) || (function () {
              * Returns the ratio of the upper value's is current location, which is
              * a number between `0` and `1`. If there is only one knob, then this
              * will return `null`.
-             * @return {?}
              */
             get: function () {
                 if (this._dual) {
@@ -305,7 +257,6 @@ var __extends = (this && this.__extends) || (function () {
         });
         /**
          * @hidden
-         * @return {?}
          */
         Range.prototype.ngAfterContentInit = function () {
             this._initialize();
@@ -320,11 +271,7 @@ var __extends = (this && this.__extends) || (function () {
             // build all the ticks if there are any to show
             this._createTicks();
         };
-        /**
-         * \@internal
-         * @param {?} ev
-         * @return {?}
-         */
+        /** @internal */
         Range.prototype._pointerDown = function (ev) {
             // TODO: we could stop listening for events instead of checking this._disabled.
             // since there are a lot of events involved, this solution is
@@ -338,11 +285,11 @@ var __extends = (this && this.__extends) || (function () {
             ev.preventDefault();
             ev.stopPropagation();
             // get the start coordinates
-            var /** @type {?} */ current = dom_1.pointerCoord(ev);
+            var current = dom_1.pointerCoord(ev);
             // get the full dimensions of the slider element
-            var /** @type {?} */ rect = this._rect = this._plt.getElementBoundingClientRect(this._slider.nativeElement);
+            var rect = this._rect = this._plt.getElementBoundingClientRect(this._slider.nativeElement);
             // figure out which knob they started closer to
-            var /** @type {?} */ ratio = util_1.clamp(0, (current.x - rect.left) / (rect.width), 1);
+            var ratio = util_1.clamp(0, (current.x - rect.left) / (rect.width), 1);
             this._activeB = this._dual && (Math.abs(ratio - this._ratioA) > Math.abs(ratio - this._ratioB));
             // update the active knob's position
             this._update(current, rect, true);
@@ -352,11 +299,7 @@ var __extends = (this && this.__extends) || (function () {
             // know everything's still valid
             return true;
         };
-        /**
-         * \@internal
-         * @param {?} ev
-         * @return {?}
-         */
+        /** @internal */
         Range.prototype._pointerMove = function (ev) {
             if (this._disabled) {
                 return;
@@ -365,18 +308,14 @@ var __extends = (this && this.__extends) || (function () {
             ev.preventDefault();
             ev.stopPropagation();
             // update the active knob's position
-            var /** @type {?} */ hasChanged = this._update(dom_1.pointerCoord(ev), this._rect, true);
+            var hasChanged = this._update(dom_1.pointerCoord(ev), this._rect, true);
             if (hasChanged && this._snaps) {
                 // trigger a haptic selection changed event
                 // if this is a snap range
                 this._haptic.gestureSelectionChanged();
             }
         };
-        /**
-         * \@internal
-         * @param {?} ev
-         * @return {?}
-         */
+        /** @internal */
         Range.prototype._pointerUp = function (ev) {
             if (this._disabled) {
                 return;
@@ -391,25 +330,19 @@ var __extends = (this && this.__extends) || (function () {
             // trigger ionBlur event
             this._fireBlur();
         };
-        /**
-         * \@internal
-         * @param {?} current
-         * @param {?} rect
-         * @param {?} isPressed
-         * @return {?}
-         */
+        /** @internal */
         Range.prototype._update = function (current, rect, isPressed) {
             // figure out where the pointer is currently at
             // update the knob being interacted with
-            var /** @type {?} */ ratio = util_1.clamp(0, (current.x - rect.left) / (rect.width), 1);
-            var /** @type {?} */ val = this._ratioToValue(ratio);
+            var ratio = util_1.clamp(0, (current.x - rect.left) / (rect.width), 1);
+            var val = this._ratioToValue(ratio);
             if (this._snaps) {
                 // snaps the ratio to the current value
                 ratio = this._valueToRatio(val);
             }
             // update which knob is pressed
             this._pressed = isPressed;
-            var /** @type {?} */ valChanged = false;
+            var valChanged = false;
             if (this._activeB) {
                 // when the pointer down started it was determined
                 // that knob B was the one they were interacting with
@@ -432,7 +365,7 @@ var __extends = (this && this.__extends) || (function () {
                 return false;
             }
             // value has been updated
-            var /** @type {?} */ value;
+            var value;
             if (this._dual) {
                 // dual knobs have an lower and upper value
                 value = {
@@ -450,13 +383,10 @@ var __extends = (this && this.__extends) || (function () {
             this.value = value;
             return true;
         };
-        /**
-         * \@internal
-         * @return {?}
-         */
+        /** @internal */
         Range.prototype._updateBar = function () {
-            var /** @type {?} */ ratioA = this._ratioA;
-            var /** @type {?} */ ratioB = this._ratioB;
+            var ratioA = this._ratioA;
+            var ratioB = this._ratioB;
             if (this._dual) {
                 this._barL = (Math.min(ratioA, ratioB) * 100) + "%";
                 this._barR = 100 - (Math.max(ratioA, ratioB) * 100) + "%";
@@ -467,18 +397,15 @@ var __extends = (this && this.__extends) || (function () {
             }
             this._updateTicks();
         };
-        /**
-         * \@internal
-         * @return {?}
-         */
+        /** @internal */
         Range.prototype._createTicks = function () {
             var _this = this;
             if (this._snaps) {
                 this._dom.write(function () {
                     // TODO: Fix to not use RAF
                     _this._ticks = [];
-                    for (var /** @type {?} */ value = _this._min; value <= _this._max; value += _this._step) {
-                        var /** @type {?} */ ratio = _this._valueToRatio(value);
+                    for (var value = _this._min; value <= _this._max; value += _this._step) {
+                        var ratio = _this._valueToRatio(value);
                         _this._ticks.push({
                             ratio: ratio,
                             left: ratio * 100 + "%",
@@ -488,16 +415,13 @@ var __extends = (this && this.__extends) || (function () {
                 });
             }
         };
-        /**
-         * \@internal
-         * @return {?}
-         */
+        /** @internal */
         Range.prototype._updateTicks = function () {
-            var /** @type {?} */ ticks = this._ticks;
-            var /** @type {?} */ ratio = this.ratio;
+            var ticks = this._ticks;
+            var ratio = this.ratio;
             if (this._snaps && ticks) {
                 if (this._dual) {
-                    var /** @type {?} */ upperRatio = this.ratioUpper;
+                    var upperRatio = this.ratioUpper;
                     ticks.forEach(function (t) {
                         t.active = (t.ratio >= ratio && t.ratio <= upperRatio);
                     });
@@ -509,14 +433,9 @@ var __extends = (this && this.__extends) || (function () {
                 }
             }
         };
-        /**
-         * @hidden
-         * @param {?} isIncrease
-         * @param {?} isKnobB
-         * @return {?}
-         */
+        /** @hidden */
         Range.prototype._keyChg = function (isIncrease, isKnobB) {
-            var /** @type {?} */ step = this._step;
+            var step = this._step;
             if (isKnobB) {
                 if (isIncrease) {
                     this._valB += step;
@@ -539,30 +458,18 @@ var __extends = (this && this.__extends) || (function () {
             }
             this._updateBar();
         };
-        /**
-         * \@internal
-         * @param {?} ratio
-         * @return {?}
-         */
+        /** @internal */
         Range.prototype._ratioToValue = function (ratio) {
             ratio = Math.round(((this._max - this._min) * ratio));
             ratio = Math.round(ratio / this._step) * this._step + this._min;
             return util_1.clamp(this._min, ratio, this._max);
         };
-        /**
-         * \@internal
-         * @param {?} value
-         * @return {?}
-         */
+        /** @internal */
         Range.prototype._valueToRatio = function (value) {
             value = Math.round((value - this._min) / this._step) * this._step;
             value = value / (this._max - this._min);
             return util_1.clamp(0, value, 1);
         };
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         Range.prototype._inputNormalize = function (val) {
             if (this._dual) {
                 return val;
@@ -574,10 +481,9 @@ var __extends = (this && this.__extends) || (function () {
         };
         /**
          * @hidden
-         * @return {?}
          */
         Range.prototype._inputUpdated = function () {
-            var /** @type {?} */ val = this.value;
+            var val = this.value;
             if (this._dual) {
                 this._valA = val.lower;
                 this._valB = val.upper;
@@ -593,118 +499,56 @@ var __extends = (this && this.__extends) || (function () {
         };
         /**
          * @hidden
-         * @return {?}
          */
         Range.prototype.ngOnDestroy = function () {
             _super.prototype.ngOnDestroy.call(this);
             this._events.destroy();
         };
+        Range.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'ion-range',
+                        template: '<ng-content select="[range-left]"></ng-content>' +
+                            '<div class="range-slider" #slider>' +
+                            '<div class="range-tick" *ngFor="let t of _ticks" [style.left]="t.left" [class.range-tick-active]="t.active" role="presentation"></div>' +
+                            '<div class="range-bar" role="presentation"></div>' +
+                            '<div class="range-bar range-bar-active" [style.left]="_barL" [style.right]="_barR" #bar role="presentation"></div>' +
+                            '<div class="range-knob-handle" (ionIncrease)="_keyChg(true, false)" (ionDecrease)="_keyChg(false, false)" [ratio]="_ratioA" [val]="_valA" [pin]="_pin" [pressed]="_pressedA" [min]="_min" [max]="_max" [disabled]="_disabled" [labelId]="_labelId"></div>' +
+                            '<div class="range-knob-handle" (ionIncrease)="_keyChg(true, true)" (ionDecrease)="_keyChg(false, true)" [ratio]="_ratioB" [val]="_valB" [pin]="_pin" [pressed]="_pressedB" [min]="_min" [max]="_max" [disabled]="_disabled" [labelId]="_labelId" *ngIf="_dual"></div>' +
+                            '</div>' +
+                            '<ng-content select="[range-right]"></ng-content>',
+                        host: {
+                            '[class.range-disabled]': '_disabled',
+                            '[class.range-pressed]': '_pressed',
+                            '[class.range-has-pin]': '_pin'
+                        },
+                        providers: [{ provide: forms_1.NG_VALUE_ACCESSOR, useExisting: Range, multi: true }],
+                        encapsulation: core_1.ViewEncapsulation.None,
+                    },] },
+        ];
+        /** @nocollapse */
+        Range.ctorParameters = function () { return [
+            { type: form_1.Form, },
+            { type: haptic_1.Haptic, },
+            { type: item_1.Item, decorators: [{ type: core_1.Optional },] },
+            { type: config_1.Config, },
+            { type: platform_1.Platform, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+            { type: dom_controller_1.DomController, },
+            { type: core_1.ChangeDetectorRef, },
+        ]; };
+        Range.propDecorators = {
+            '_slider': [{ type: core_1.ViewChild, args: ['slider',] },],
+            'min': [{ type: core_1.Input },],
+            'max': [{ type: core_1.Input },],
+            'step': [{ type: core_1.Input },],
+            'snaps': [{ type: core_1.Input },],
+            'pin': [{ type: core_1.Input },],
+            'debounce': [{ type: core_1.Input },],
+            'dualKnobs': [{ type: core_1.Input },],
+        };
         return Range;
     }(base_input_1.BaseInput));
-    Range.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'ion-range',
-                    template: '<ng-content select="[range-left]"></ng-content>' +
-                        '<div class="range-slider" #slider>' +
-                        '<div class="range-tick" *ngFor="let t of _ticks" [style.left]="t.left" [class.range-tick-active]="t.active" role="presentation"></div>' +
-                        '<div class="range-bar" role="presentation"></div>' +
-                        '<div class="range-bar range-bar-active" [style.left]="_barL" [style.right]="_barR" #bar role="presentation"></div>' +
-                        '<div class="range-knob-handle" (ionIncrease)="_keyChg(true, false)" (ionDecrease)="_keyChg(false, false)" [ratio]="_ratioA" [val]="_valA" [pin]="_pin" [pressed]="_pressedA" [min]="_min" [max]="_max" [disabled]="_disabled" [labelId]="_labelId"></div>' +
-                        '<div class="range-knob-handle" (ionIncrease)="_keyChg(true, true)" (ionDecrease)="_keyChg(false, true)" [ratio]="_ratioB" [val]="_valB" [pin]="_pin" [pressed]="_pressedB" [min]="_min" [max]="_max" [disabled]="_disabled" [labelId]="_labelId" *ngIf="_dual"></div>' +
-                        '</div>' +
-                        '<ng-content select="[range-right]"></ng-content>',
-                    host: {
-                        '[class.range-disabled]': '_disabled',
-                        '[class.range-pressed]': '_pressed',
-                        '[class.range-has-pin]': '_pin'
-                    },
-                    providers: [{ provide: forms_1.NG_VALUE_ACCESSOR, useExisting: Range, multi: true }],
-                    encapsulation: core_1.ViewEncapsulation.None,
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Range.ctorParameters = function () { return [
-        { type: form_1.Form, },
-        { type: haptic_1.Haptic, },
-        { type: item_1.Item, decorators: [{ type: core_1.Optional },] },
-        { type: config_1.Config, },
-        { type: platform_1.Platform, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-        { type: dom_controller_1.DomController, },
-        { type: core_1.ChangeDetectorRef, },
-    ]; };
-    Range.propDecorators = {
-        '_slider': [{ type: core_1.ViewChild, args: ['slider',] },],
-        'min': [{ type: core_1.Input },],
-        'max': [{ type: core_1.Input },],
-        'step': [{ type: core_1.Input },],
-        'snaps': [{ type: core_1.Input },],
-        'pin': [{ type: core_1.Input },],
-        'debounce': [{ type: core_1.Input },],
-        'dualKnobs': [{ type: core_1.Input },],
-    };
     exports.Range = Range;
-    function Range_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Range.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Range.ctorParameters;
-        /** @type {?} */
-        Range.propDecorators;
-        /** @type {?} */
-        Range.prototype._dual;
-        /** @type {?} */
-        Range.prototype._pin;
-        /** @type {?} */
-        Range.prototype._pressed;
-        /** @type {?} */
-        Range.prototype._activeB;
-        /** @type {?} */
-        Range.prototype._rect;
-        /** @type {?} */
-        Range.prototype._ticks;
-        /** @type {?} */
-        Range.prototype._min;
-        /** @type {?} */
-        Range.prototype._max;
-        /** @type {?} */
-        Range.prototype._step;
-        /** @type {?} */
-        Range.prototype._snaps;
-        /** @type {?} */
-        Range.prototype._valA;
-        /** @type {?} */
-        Range.prototype._valB;
-        /** @type {?} */
-        Range.prototype._ratioA;
-        /** @type {?} */
-        Range.prototype._ratioB;
-        /** @type {?} */
-        Range.prototype._pressedA;
-        /** @type {?} */
-        Range.prototype._pressedB;
-        /** @type {?} */
-        Range.prototype._barL;
-        /** @type {?} */
-        Range.prototype._barR;
-        /** @type {?} */
-        Range.prototype._events;
-        /** @type {?} */
-        Range.prototype._slider;
-        /** @type {?} */
-        Range.prototype._haptic;
-        /** @type {?} */
-        Range.prototype._plt;
-        /** @type {?} */
-        Range.prototype._dom;
-        /** @type {?} */
-        Range.prototype._cd;
-    }
 });
 //# sourceMappingURL=range.js.map

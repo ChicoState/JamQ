@@ -16,12 +16,6 @@ import { SlideEdgeGesture } from '../gestures/slide-edge-gesture';
  */
 var SwipeBackGesture = (function (_super) {
     __extends(SwipeBackGesture, _super);
-    /**
-     * @param {?} plt
-     * @param {?} _nav
-     * @param {?} gestureCtlr
-     * @param {?} domCtrl
-     */
     function SwipeBackGesture(plt, _nav, gestureCtlr, domCtrl) {
         var _this = _super.call(this, plt, plt.doc().body, {
             direction: 'x',
@@ -39,10 +33,6 @@ var SwipeBackGesture = (function (_super) {
         _this._nav = _nav;
         return _this;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     SwipeBackGesture.prototype.canStart = function (ev) {
         // the gesture swipe angle must be mainly horizontal and the
         // gesture distance would be relatively short for a swipe back
@@ -50,43 +40,25 @@ var SwipeBackGesture = (function (_super) {
         return (this._nav.canSwipeBack() &&
             _super.prototype.canStart.call(this, ev));
     };
-    /**
-     * @param {?} _ev
-     * @return {?}
-     */
     SwipeBackGesture.prototype.onSlideBeforeStart = function (_ev) {
         this._nav.swipeBackStart();
     };
-    /**
-     * @param {?} slide
-     * @param {?} ev
-     * @return {?}
-     */
     SwipeBackGesture.prototype.onSlide = function (slide, ev) {
         ev.preventDefault();
         ev.stopPropagation();
-        var /** @type {?} */ stepValue = (slide.distance / slide.max);
+        var stepValue = (slide.distance / slide.max);
         this._nav.swipeBackProgress(stepValue);
     };
-    /**
-     * @param {?} slide
-     * @param {?} _ev
-     * @return {?}
-     */
     SwipeBackGesture.prototype.onSlideEnd = function (slide, _ev) {
-        var /** @type {?} */ velocity = slide.velocity;
-        var /** @type {?} */ currentStepValue = (slide.distance / slide.max);
-        var /** @type {?} */ isResetDirecction = velocity < 0;
-        var /** @type {?} */ isMovingFast = Math.abs(slide.velocity) > 0.4;
-        var /** @type {?} */ isInResetZone = Math.abs(slide.delta) < Math.abs(slide.max) * 0.5;
-        var /** @type {?} */ shouldComplete = !swipeShouldReset(isResetDirecction, isMovingFast, isInResetZone);
+        var velocity = slide.velocity;
+        var currentStepValue = (slide.distance / slide.max);
+        var isResetDirecction = velocity < 0;
+        var isMovingFast = Math.abs(slide.velocity) > 0.4;
+        var isInResetZone = Math.abs(slide.delta) < Math.abs(slide.max) * 0.5;
+        var shouldComplete = !swipeShouldReset(isResetDirecction, isMovingFast, isInResetZone);
         this._nav.swipeBackEnd(shouldComplete, currentStepValue, velocity);
     };
     return SwipeBackGesture;
 }(SlideEdgeGesture));
 export { SwipeBackGesture };
-function SwipeBackGesture_tsickle_Closure_declarations() {
-    /** @type {?} */
-    SwipeBackGesture.prototype._nav;
-}
 //# sourceMappingURL=swipe-back.js.map

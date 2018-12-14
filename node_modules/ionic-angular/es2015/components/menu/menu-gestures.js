@@ -4,12 +4,6 @@ import { SlideEdgeGesture } from '../../gestures/slide-edge-gesture';
  * Gesture attached to the content which the menu is assigned to
  */
 export class MenuContentGesture extends SlideEdgeGesture {
-    /**
-     * @param {?} plt
-     * @param {?} menu
-     * @param {?} gestureCtrl
-     * @param {?} domCtrl
-     */
     constructor(plt, menu, gestureCtrl, domCtrl) {
         super(plt, plt.doc().body, {
             direction: 'x',
@@ -27,12 +21,8 @@ export class MenuContentGesture extends SlideEdgeGesture {
         });
         this.menu = menu;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     canStart(ev) {
-        const /** @type {?} */ menu = this.menu;
+        const menu = this.menu;
         if (!menu.canSwipe()) {
             return false;
         }
@@ -44,62 +34,42 @@ export class MenuContentGesture extends SlideEdgeGesture {
         }
         return super.canStart(ev);
     }
-    /**
-     * @return {?}
-     */
+    // Set CSS, then wait one frame for it to apply before sliding starts
     onSlideBeforeStart() {
         (void 0) /* console.debug */;
         this.menu._swipeBeforeStart();
     }
-    /**
-     * @return {?}
-     */
     onSlideStart() {
         (void 0) /* console.debug */;
         this.menu._swipeStart();
     }
-    /**
-     * @param {?} slide
-     * @return {?}
-     */
     onSlide(slide) {
-        const /** @type {?} */ z = (this.menu.isRightSide !== this.plt.isRTL ? slide.min : slide.max);
-        const /** @type {?} */ stepValue = (slide.distance / z);
+        const z = (this.menu.isRightSide !== this.plt.isRTL ? slide.min : slide.max);
+        const stepValue = (slide.distance / z);
         this.menu._swipeProgress(stepValue);
     }
-    /**
-     * @param {?} slide
-     * @return {?}
-     */
     onSlideEnd(slide) {
-        let /** @type {?} */ z = (this.menu.isRightSide !== this.plt.isRTL ? slide.min : slide.max);
-        const /** @type {?} */ currentStepValue = (slide.distance / z);
-        const /** @type {?} */ velocity = slide.velocity;
+        let z = (this.menu.isRightSide !== this.plt.isRTL ? slide.min : slide.max);
+        const currentStepValue = (slide.distance / z);
+        const velocity = slide.velocity;
         z = Math.abs(z * 0.5);
-        const /** @type {?} */ shouldCompleteRight = (velocity >= 0)
+        const shouldCompleteRight = (velocity >= 0)
             && (velocity > 0.2 || slide.delta > z);
-        const /** @type {?} */ shouldCompleteLeft = (velocity <= 0)
+        const shouldCompleteLeft = (velocity <= 0)
             && (velocity < -0.2 || slide.delta < -z);
         (void 0) /* console.debug */;
         this.menu._swipeEnd(shouldCompleteLeft, shouldCompleteRight, currentStepValue, velocity);
     }
-    /**
-     * @param {?} slide
-     * @return {?}
-     */
     getElementStartPos(slide) {
-        const /** @type {?} */ menu = this.menu;
+        const menu = this.menu;
         if (menu.isRightSide !== this.plt.isRTL) {
             return menu.isOpen ? slide.min : slide.max;
         }
         // left menu
         return menu.isOpen ? slide.max : slide.min;
     }
-    /**
-     * @return {?}
-     */
     getSlideBoundaries() {
-        const /** @type {?} */ menu = this.menu;
+        const menu = this.menu;
         if (menu.isRightSide !== this.plt.isRTL) {
             return {
                 min: -menu.width(),
@@ -112,9 +82,5 @@ export class MenuContentGesture extends SlideEdgeGesture {
             max: menu.width()
         };
     }
-}
-function MenuContentGesture_tsickle_Closure_declarations() {
-    /** @type {?} */
-    MenuContentGesture.prototype.menu;
 }
 //# sourceMappingURL=menu-gestures.js.map

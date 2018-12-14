@@ -10,7 +10,7 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = require("@angular/core");
-    var /** @type {?} */ lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi maximus nisl lobortis interdum condimentum. Cras volutpat, massa quis vehicula eleifend, turpis mauris sodales erat, ut varius ligula ipsum et turpis. Aliquam erat volutpat. Maecenas sodales pellentesque auctor. Suspendisse faucibus a erat sit amet pretium. Vestibulum nec tempus tellus. Mauris fringilla faucibus dui sed vestibulum. Curabitur porttitor consectetur nisl. Nulla porta, neque sed congue tempus, erat nunc rutrum diam, eu elementum sapien leo quis eros. Donec non convallis felis. Nam eu pharetra sapien.';
+    var lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi maximus nisl lobortis interdum condimentum. Cras volutpat, massa quis vehicula eleifend, turpis mauris sodales erat, ut varius ligula ipsum et turpis. Aliquam erat volutpat. Maecenas sodales pellentesque auctor. Suspendisse faucibus a erat sit amet pretium. Vestibulum nec tempus tellus. Mauris fringilla faucibus dui sed vestibulum. Curabitur porttitor consectetur nisl. Nulla porta, neque sed congue tempus, erat nunc rutrum diam, eu elementum sapien leo quis eros. Donec non convallis felis. Nam eu pharetra sapien.';
     exports.TEXT_CORPUS = [
         ['hola', 'hola'],
         ['', ''],
@@ -44,17 +44,11 @@
         [' ', ' '],
         ['hola', 'hola']
     ];
-    /**
-     * @template T
-     * @param {?} input
-     * @param {?} config
-     * @return {?}
-     */
     function commonInputTest(input, config) {
         // TODO test form register/deregister
         // TODO test item classes
         // TODO test disable
-        var /** @type {?} */ zone = new core_1.NgZone(true);
+        var zone = new core_1.NgZone({ enableLongStackTrace: true });
         zone.run(function () {
             if (config.testItem === true && !input._item) {
                 (void 0) /* assert */;
@@ -65,7 +59,7 @@
             // Run tests before initialization
             testInput(input, config, false);
             input.ngAfterContentInit();
-            ((input)).ngAfterViewInit && ((input)).ngAfterViewInit();
+            input.ngAfterViewInit && input.ngAfterViewInit();
             // Run tests after initialization
             testInput(input, config, true);
             // Run tests without item
@@ -84,47 +78,41 @@
         });
     }
     exports.commonInputTest = commonInputTest;
-    /**
-     * @template T
-     * @param {?} input
-     * @param {?} config
-     * @param {?} isInit
-     * @return {?}
-     */
     function testInput(input, config, isInit) {
         testState(input, config, isInit);
         testWriteValue(input, config, isInit);
         testNgModelChange(input, config, isInit);
     }
-    /**
-     * @template T
-     * @param {?} input
-     * @param {?} config
-     * @param {?} isInit
-     * @return {?}
-     */
     function testState(input, config, isInit) {
         assertEqual(input._init, isInit, 'input must be init');
         assertEqual(input._isFocus, false, 'should not be focus');
         assertEqual(input.isFocus(), false, 'should not be focus');
         assertEqual(input.value, config.defaultValue, 'default value is wrong');
         if (isInit) {
-            var /** @type {?} */ blurCount_1 = 0;
-            var /** @type {?} */ focusCount_1 = 0;
-            var /** @type {?} */ subBlur = input.ionBlur.subscribe(function (ev) {
+            var blurCount_1 = 0;
+            var focusCount_1 = 0;
+            var onTouchedCalled_1 = 0;
+            var subBlur = input.ionBlur.subscribe(function (ev) {
                 assertEqual(ev, input, 'ionBlur argument is wrong');
                 blurCount_1++;
                 if (config.onFocusChange && config.onFocusChange(false) !== true) {
                     (void 0) /* assert */;
                 }
             });
-            var /** @type {?} */ subFocus = input.ionFocus.subscribe(function (ev) {
+            var subFocus = input.ionFocus.subscribe(function (ev) {
                 assertEqual(ev, input, 'ionFocus argument is wrong');
                 focusCount_1++;
                 if (config.onFocusChange && config.onFocusChange(true) !== true) {
                     (void 0) /* assert */;
                 }
             });
+            input.registerOnTouched(function () {
+                assertEqual(onTouchedCalled_1, 0, 'registerOnTouched: internal error');
+                onTouchedCalled_1++;
+            });
+            input._fireBlur();
+            assertEqual(blurCount_1, 0, 'blur should not have been emitted');
+            assertEqual(onTouchedCalled_1, 0, 'touched should not have been called');
             input._fireFocus();
             assertEqual(input._isFocus, true, 'should be focus');
             assertEqual(input.isFocus(), true, 'should be focus');
@@ -132,6 +120,7 @@
             input._fireBlur();
             assertEqual(input._isFocus, false, 'should be not focus');
             assertEqual(input.isFocus(), false, 'should be not focus');
+            assertEqual(onTouchedCalled_1, 1, 'touched should have been called');
             input._fireBlur(); // it should not crash
             assertEqual(focusCount_1, 1, 'ionFocus was not called correctly');
             assertEqual(blurCount_1, 1, 'ionBlur was not called correctly');
@@ -139,22 +128,15 @@
             subFocus.unsubscribe();
         }
     }
-    /**
-     * @template T
-     * @param {?} input
-     * @param {?} config
-     * @param {?} isInit
-     * @return {?}
-     */
     function testWriteValue(input, config, isInit) {
-        var /** @type {?} */ test;
-        var /** @type {?} */ i;
-        var /** @type {?} */ ionChangeCalled = 0;
-        var /** @type {?} */ OnChangeCalled = 0;
-        var /** @type {?} */ OnTouchedCalled = 0;
-        var /** @type {?} */ ngModelValue;
+        var test;
+        var i;
+        var ionChangeCalled = 0;
+        var OnChangeCalled = 0;
+        var OnTouchedCalled = 0;
+        var ngModelValue;
         // Test ionChange
-        var /** @type {?} */ sub = input.ionChange.subscribe(function (ev) {
+        var sub = input.ionChange.subscribe(function (ev) {
             assertEqual(ionChangeCalled, 0, 'ionChange: internal error');
             assertEqual(ev, input, 'ionChange: ev is not the input');
             assertEqual(ev.value, test[1], 'ionChange: value does not match');
@@ -169,7 +151,7 @@
             ngModelValue = ev;
             OnChangeCalled++;
         });
-        // Test registerOnChange
+        // Test registerOnTouched
         input.registerOnTouched(function () {
             assertEqual(OnTouchedCalled, 0, 'registerOnTouched: internal error');
             OnTouchedCalled++;
@@ -189,7 +171,7 @@
                 assertEqual(ionChangeCalled, 0, 'loop: ionChange error');
             }
             assertEqual(OnChangeCalled, 1, 'loop: OnChangeCalled was not called');
-            assertEqual(OnTouchedCalled, 1, 'loop: OnTouchedCalled was not called');
+            assertEqual(OnTouchedCalled, 0, 'loop: OnTouchedCalled was called');
             OnTouchedCalled = OnChangeCalled = ionChangeCalled = 0;
             // Set same value (it should not redispatch)
             input.value = test[0];
@@ -209,26 +191,19 @@
         input.value = null;
         assertEqual(input.value, config.defaultValue, 'null: wrong default value');
         assertEqual(OnChangeCalled, 1, 'null: OnChangeCalled was not called');
-        assertEqual(OnTouchedCalled, 1, 'null: OnTouchedCalled was not called');
+        assertEqual(OnTouchedCalled, 0, 'null: OnTouchedCalled was called');
         input.registerOnChange(null);
         input.registerOnTouched(null);
         sub.unsubscribe();
     }
-    /**
-     * @template T
-     * @param {?} input
-     * @param {?} config
-     * @param {?} isInit
-     * @return {?}
-     */
     function testNgModelChange(input, config, isInit) {
-        var /** @type {?} */ test;
-        var /** @type {?} */ i;
-        var /** @type {?} */ ionChangeCalled = 0;
-        var /** @type {?} */ OnChangeCalled = 0;
-        var /** @type {?} */ OnTouchedCalled = 0;
+        var test;
+        var i;
+        var ionChangeCalled = 0;
+        var OnChangeCalled = 0;
+        var OnTouchedCalled = 0;
         // Test ionChange
-        var /** @type {?} */ sub = input.ionChange.subscribe(function (ev) {
+        var sub = input.ionChange.subscribe(function (ev) {
             assertEqual(ionChangeCalled, 0, 'internal error');
             assertEqual(ev, input, 'ev output does not match');
             assertEqual(test[1], ev.value, 'value does not match');
@@ -272,22 +247,11 @@
         sub.unsubscribe();
         input.value = config.defaultValue;
     }
-    /**
-     * @param {?} a
-     * @param {?} b
-     * @param {?} message
-     * @return {?}
-     */
     function assertEqual(a, b, message) {
         if (!equal(a, b)) {
             (void 0) /* assert */;
         }
     }
-    /**
-     * @param {?} a
-     * @param {?} b
-     * @return {?}
-     */
     function equal(a, b) {
         if (a === b) {
             return true;

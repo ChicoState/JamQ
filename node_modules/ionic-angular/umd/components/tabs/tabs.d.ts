@@ -225,7 +225,7 @@ export declare class Tabs extends Ion implements AfterViewInit, RootNode, ITabs,
     /**
      * @internal
      */
-    initTabs(): void;
+    initTabs(): Promise<any>;
     /**
      * @internal
      */
@@ -237,7 +237,7 @@ export declare class Tabs extends Ion implements AfterViewInit, RootNode, ITabs,
     /**
      * @param {number|Tab} tabOrIndex Index, or the Tab instance, of the tab to select.
      */
-    select(tabOrIndex: number | Tab, opts?: NavOptions, fromUrl?: boolean): void;
+    select(tabOrIndex: number | Tab, opts?: NavOptions, fromUrl?: boolean): Promise<any>;
     _fireChangeEvent(selectedTab: Tab): void;
     _tabSwitchEnd(selectedTab: Tab, selectedPage: ViewController, currentPage: ViewController): void;
     /**
@@ -293,7 +293,7 @@ export declare class Tabs extends Ion implements AfterViewInit, RootNode, ITabs,
      * @internal
      */
     paneChanged(isPane: boolean): void;
-    goToRoot(opts: NavOptions): void;
+    goToRoot(opts: NavOptions): Promise<any>;
     getType(): string;
     getSecondaryIdentifier(): string;
     /**

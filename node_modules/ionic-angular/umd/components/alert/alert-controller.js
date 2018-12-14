@@ -14,8 +14,8 @@
     var app_1 = require("../app/app");
     var config_1 = require("../../config/config");
     /**
-     * \@name AlertController
-     * \@description
+     * @name AlertController
+     * @description
      * An Alert is a dialog that presents users with information or collects
      * information from the user using inputs. An alert appears on top
      * of the app's content, and must be manually dismissed by the user before
@@ -55,16 +55,14 @@
      * building the form within a modal instead.
      *
      *
-     * \@usage
+     * @usage
      * ```ts
      * import { AlertController } from 'ionic-angular';
      *
-     * constructor(private alertCtrl: AlertController) {
-     *
-     * }
+     * constructor(public alertCtrl: AlertController) { }
      *
      * presentAlert() {
-     *   let alert = this.alertCtrl.create({
+     *   const alert = this.alertCtrl.create({
      *     title: 'Low battery',
      *     subTitle: '10% of battery remaining',
      *     buttons: ['Dismiss']
@@ -73,7 +71,7 @@
      * }
      *
      * presentConfirm() {
-     *   let alert = this.alertCtrl.create({
+     *   const alert = this.alertCtrl.create({
      *     title: 'Confirm purchase',
      *     message: 'Do you want to buy this book?',
      *     buttons: [
@@ -96,7 +94,7 @@
      * }
      *
      * presentPrompt() {
-     *   let alert = this.alertCtrl.create({
+     *   const alert = this.alertCtrl.create({
      *     title: 'Login',
      *     inputs: [
      *       {
@@ -133,7 +131,7 @@
      *   alert.present();
      * }
      * ```
-     * \@advanced
+     * @advanced
      *
      *
      *  Alert options
@@ -189,14 +187,14 @@
      * out first, *then* start the next transition.
      *
      * ```ts
-     * let alert = this.alertCtrl.create({
+     * const alert = this.alertCtrl.create({
      *   title: 'Hello',
      *   buttons: [{
      *     text: 'Ok',
      *     handler: () => {
      *       // user has clicked the alert button
      *       // begin the alert's dismiss transition
-     *       let navTransition = alert.dismiss();
+     *       const navTransition = alert.dismiss();
      *
      *       // start some async method
      *       someAsyncOperation().then(() => {
@@ -225,51 +223,31 @@
      * out before starting a new transition.
      *
      *
-     * \@demo /docs/demos/src/alert/
+     * @demo /docs/demos/src/alert/
      */
     var AlertController = (function () {
-        /**
-         * @param {?} _app
-         * @param {?} config
-         */
         function AlertController(_app, config) {
             this._app = _app;
             this.config = config;
         }
         /**
          * Display an alert with a title, inputs, and buttons
-         * @param {?=} opts
-         * @return {?}
+         * @param {AlertOptions} opts Alert. See the table below
          */
         AlertController.prototype.create = function (opts) {
             if (opts === void 0) { opts = {}; }
             return new alert_1.Alert(this._app, opts, this.config);
         };
+        AlertController.decorators = [
+            { type: core_1.Injectable },
+        ];
+        /** @nocollapse */
+        AlertController.ctorParameters = function () { return [
+            { type: app_1.App, },
+            { type: config_1.Config, },
+        ]; };
         return AlertController;
     }());
-    AlertController.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    AlertController.ctorParameters = function () { return [
-        { type: app_1.App, },
-        { type: config_1.Config, },
-    ]; };
     exports.AlertController = AlertController;
-    function AlertController_tsickle_Closure_declarations() {
-        /** @type {?} */
-        AlertController.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        AlertController.ctorParameters;
-        /** @type {?} */
-        AlertController.prototype._app;
-        /** @type {?} */
-        AlertController.prototype.config;
-    }
 });
 //# sourceMappingURL=alert-controller.js.map

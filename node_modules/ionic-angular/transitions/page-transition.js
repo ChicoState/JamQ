@@ -18,9 +18,6 @@ var PageTransition = (function (_super) {
     function PageTransition() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     PageTransition.prototype.init = function () {
         var _this = this;
         if (this.enteringView) {
@@ -35,9 +32,6 @@ var PageTransition = (function (_super) {
             });
         }
     };
-    /**
-     * @return {?}
-     */
     PageTransition.prototype.destroy = function () {
         _super.prototype.destroy.call(this);
         this.enteringPage && this.enteringPage.destroy();
@@ -46,8 +40,4 @@ var PageTransition = (function (_super) {
     return PageTransition;
 }(Transition));
 export { PageTransition };
-function PageTransition_tsickle_Closure_declarations() {
-    /** @type {?} */
-    PageTransition.prototype.enteringPage;
-}
 //# sourceMappingURL=page-transition.js.map

@@ -17,8 +17,8 @@ import { Ion } from '../ion';
 import { Label } from '../label/label';
 import { ItemReorder } from './item-reorder';
 /**
- * \@name Item
- * \@description
+ * @name Item
+ * @description
  * An item can contain text, images, and anything else. Generally it is placed in a list with other
  * items. It can easily be swiped, deleted, reordered, edited, and more. An item is only required to
  * be in a [List](../../list/List) if manipulating the item via gestures is required. It requires an
@@ -136,7 +136,7 @@ import { ItemReorder } from './item-reorder';
  * See the [Utility Attributes Documentation](../../../../theming/css-utilities/) for attributes that can
  * be added to `ion-item` to transform the text.
  *
- * \@usage
+ * @usage
  *
  * ```html
  * <ion-list>
@@ -182,7 +182,7 @@ import { ItemReorder } from './item-reorder';
  * ```
  *
  *
- * \@advanced
+ * @advanced
  *
  * ```html
  * <ion-list>
@@ -273,20 +273,13 @@ import { ItemReorder } from './item-reorder';
  * ```
  *
  *
- * \@demo /docs/demos/src/item/
- * @see {\@link /docs/components#lists List Component Docs}
- * @see {\@link ../../list/List List API Docs}
- * @see {\@link ../ItemSliding ItemSliding API Docs}
+ * @demo /docs/demos/src/item/
+ * @see {@link /docs/components#lists List Component Docs}
+ * @see {@link ../../list/List List API Docs}
+ * @see {@link ../ItemSliding ItemSliding API Docs}
  */
 var Item = (function (_super) {
     __extends(Item, _super);
-    /**
-     * @param {?} form
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} reorder
-     */
     function Item(form, config, elementRef, renderer, reorder) {
         var _this = _super.call(this, config, elementRef, renderer, 'item') || this;
         _this._ids = -1;
@@ -315,8 +308,6 @@ var Item = (function (_super) {
     }
     /**
      * @hidden
-     * @param {?} type
-     * @return {?}
      */
     Item.prototype.registerInput = function (type) {
         this._inputs.push(type);
@@ -324,11 +315,10 @@ var Item = (function (_super) {
     };
     /**
      * @hidden
-     * @return {?}
      */
     Item.prototype.ngAfterContentInit = function () {
         if (this._viewLabel && this._inputs.length) {
-            var /** @type {?} */ labelText = this.getLabelText().trim();
+            var labelText = this.getLabelText().trim();
             this._viewLabel = (labelText.length > 0);
         }
         if (this._inputs.length > 1) {
@@ -337,9 +327,6 @@ var Item = (function (_super) {
     };
     /**
      * @hidden
-     * @param {?} newColor
-     * @param {?=} componentName
-     * @return {?}
      */
     Item.prototype._updateColor = function (newColor, componentName) {
         componentName = componentName || 'item'; // item-radio
@@ -347,18 +334,15 @@ var Item = (function (_super) {
     };
     /**
      * @hidden
-     * @param {?} elementRef
-     * @return {?}
      */
     Item.prototype._setName = function (elementRef) {
-        var /** @type {?} */ nodeName = elementRef.nativeElement.nodeName.replace('ION-', '');
+        var nodeName = elementRef.nativeElement.nodeName.replace('ION-', '');
         if (nodeName === 'LIST-HEADER' || nodeName === 'ITEM-DIVIDER') {
             this._name = nodeName;
         }
     };
     /**
      * @hidden
-     * @return {?}
      */
     Item.prototype.getLabelText = function () {
         return this._label ? this._label.text : '';
@@ -366,8 +350,6 @@ var Item = (function (_super) {
     Object.defineProperty(Item.prototype, "contentLabel", {
         /**
          * @hidden
-         * @param {?} label
-         * @return {?}
          */
         set: function (label) {
             if (label) {
@@ -385,8 +367,6 @@ var Item = (function (_super) {
     Object.defineProperty(Item.prototype, "viewLabel", {
         /**
          * @hidden
-         * @param {?} label
-         * @return {?}
          */
         set: function (label) {
             if (!this._label) {
@@ -399,8 +379,6 @@ var Item = (function (_super) {
     Object.defineProperty(Item.prototype, "_buttons", {
         /**
          * @hidden
-         * @param {?} buttons
-         * @return {?}
          */
         set: function (buttons) {
             buttons.forEach(function (button) {
@@ -415,8 +393,6 @@ var Item = (function (_super) {
     Object.defineProperty(Item.prototype, "_icons", {
         /**
          * @hidden
-         * @param {?} icons
-         * @return {?}
          */
         set: function (icons) {
             icons.forEach(function (icon) {
@@ -426,79 +402,44 @@ var Item = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Item.decorators = [
+        { type: Component, args: [{
+                    selector: 'ion-list-header,ion-item,[ion-item],ion-item-divider',
+                    template: '<ng-content select="[item-start],[item-left],ion-checkbox:not([item-end]):not([item-right])"></ng-content>' +
+                        '<div class="item-inner">' +
+                        '<div class="input-wrapper">' +
+                        '<ng-content select="ion-label"></ng-content>' +
+                        '<ion-label *ngIf="_viewLabel">' +
+                        '<ng-content></ng-content>' +
+                        '</ion-label>' +
+                        '<ng-content select="ion-select,ion-input,ion-textarea,ion-datetime,ion-range,[item-content]"></ng-content>' +
+                        '</div>' +
+                        '<ng-content select="[item-end],[item-right],ion-radio,ion-toggle"></ng-content>' +
+                        '<ion-reorder *ngIf="_hasReorder"></ion-reorder>' +
+                        '</div>' +
+                        '<div class="button-effect"></div>',
+                    host: {
+                        'class': 'item'
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                },] },
+    ];
+    /** @nocollapse */
+    Item.ctorParameters = function () { return [
+        { type: Form, },
+        { type: Config, },
+        { type: ElementRef, },
+        { type: Renderer, },
+        { type: ItemReorder, decorators: [{ type: Optional },] },
+    ]; };
+    Item.propDecorators = {
+        'contentLabel': [{ type: ContentChild, args: [Label,] },],
+        'viewLabel': [{ type: ViewChild, args: [Label,] },],
+        '_buttons': [{ type: ContentChildren, args: [Button,] },],
+        '_icons': [{ type: ContentChildren, args: [Icon,] },],
+    };
     return Item;
 }(Ion));
 export { Item };
-Item.decorators = [
-    { type: Component, args: [{
-                selector: 'ion-list-header,ion-item,[ion-item],ion-item-divider',
-                template: '<ng-content select="[item-start],[item-left],ion-checkbox:not([item-end]):not([item-right])"></ng-content>' +
-                    '<div class="item-inner">' +
-                    '<div class="input-wrapper">' +
-                    '<ng-content select="ion-label"></ng-content>' +
-                    '<ion-label *ngIf="_viewLabel">' +
-                    '<ng-content></ng-content>' +
-                    '</ion-label>' +
-                    '<ng-content select="ion-select,ion-input,ion-textarea,ion-datetime,ion-range,[item-content]"></ng-content>' +
-                    '</div>' +
-                    '<ng-content select="[item-end],[item-right],ion-radio,ion-toggle"></ng-content>' +
-                    '<ion-reorder *ngIf="_hasReorder"></ion-reorder>' +
-                    '</div>' +
-                    '<div class="button-effect"></div>',
-                host: {
-                    'class': 'item'
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-            },] },
-];
-/**
- * @nocollapse
- */
-Item.ctorParameters = function () { return [
-    { type: Form, },
-    { type: Config, },
-    { type: ElementRef, },
-    { type: Renderer, },
-    { type: ItemReorder, decorators: [{ type: Optional },] },
-]; };
-Item.propDecorators = {
-    'contentLabel': [{ type: ContentChild, args: [Label,] },],
-    'viewLabel': [{ type: ViewChild, args: [Label,] },],
-    '_buttons': [{ type: ContentChildren, args: [Button,] },],
-    '_icons': [{ type: ContentChildren, args: [Icon,] },],
-};
-function Item_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Item.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Item.ctorParameters;
-    /** @type {?} */
-    Item.propDecorators;
-    /** @type {?} */
-    Item.prototype._ids;
-    /** @type {?} */
-    Item.prototype._inputs;
-    /** @type {?} */
-    Item.prototype._label;
-    /** @type {?} */
-    Item.prototype._viewLabel;
-    /** @type {?} */
-    Item.prototype._name;
-    /** @type {?} */
-    Item.prototype._hasReorder;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Item.prototype.id;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Item.prototype.labelId;
-}
 //# sourceMappingURL=item.js.map

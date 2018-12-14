@@ -19,34 +19,19 @@ var IonicGestureConfig = (function (_super) {
     function IonicGestureConfig() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
     IonicGestureConfig.prototype.buildHammer = function (element) {
-        var /** @type {?} */ mc = new ((window)).Hammer(element);
-        for (var /** @type {?} */ eventName in this.overrides) {
+        var mc = new window.Hammer(element);
+        for (var eventName in this.overrides) {
             mc.get(eventName).set(this.overrides[eventName]);
         }
         return mc;
     };
+    IonicGestureConfig.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    IonicGestureConfig.ctorParameters = function () { return []; };
     return IonicGestureConfig;
 }(HammerGestureConfig));
 export { IonicGestureConfig };
-IonicGestureConfig.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-IonicGestureConfig.ctorParameters = function () { return []; };
-function IonicGestureConfig_tsickle_Closure_declarations() {
-    /** @type {?} */
-    IonicGestureConfig.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    IonicGestureConfig.ctorParameters;
-}
 //# sourceMappingURL=gesture-config.js.map

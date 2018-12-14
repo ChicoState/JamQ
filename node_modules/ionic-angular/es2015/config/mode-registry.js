@@ -1,4 +1,4 @@
-export const /** @type {?} */ MODE_IOS = {
+export const MODE_IOS = {
     activator: 'highlight',
     actionSheetEnter: 'action-sheet-slide-in',
     actionSheetLeave: 'action-sheet-slide-out',
@@ -26,7 +26,7 @@ export const /** @type {?} */ MODE_IOS = {
     toastEnter: 'toast-slide-in',
     toastLeave: 'toast-slide-out',
 };
-export const /** @type {?} */ MODE_MD = {
+export const MODE_MD = {
     activator: 'ripple',
     actionSheetEnter: 'action-sheet-md-slide-in',
     actionSheetLeave: 'action-sheet-md-slide-out',
@@ -54,7 +54,7 @@ export const /** @type {?} */ MODE_MD = {
     toastEnter: 'toast-md-slide-in',
     toastLeave: 'toast-md-slide-out',
 };
-export const /** @type {?} */ MODE_WP = {
+export const MODE_WP = {
     activator: 'highlight',
     actionSheetEnter: 'action-sheet-wp-slide-in',
     actionSheetLeave: 'action-sheet-wp-slide-out',
@@ -82,10 +82,6 @@ export const /** @type {?} */ MODE_WP = {
     toastEnter: 'toast-wp-slide-in',
     toastLeave: 'toast-wp-slide-out',
 };
-/**
- * @param {?} config
- * @return {?}
- */
 export function registerModeConfigs(config) {
     return function () {
         // iOS Mode Settings

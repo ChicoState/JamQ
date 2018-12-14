@@ -120,9 +120,6 @@ export declare class NavControllerBase extends Ion implements NavController {
     last(): ViewController;
     indexOf(view: ViewController): number;
     length(): number;
-    /**
-     * Return the stack of views in this NavController.
-     */
     getViews(): Array<ViewController>;
     /**
      * Return a view controller

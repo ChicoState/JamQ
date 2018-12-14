@@ -1,6 +1,6 @@
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { isCordova, isElectron, isIos, isIosUIWebView } from './platform-utils';
-export const /** @type {?} */ PLATFORM_CONFIGS = {
+export const PLATFORM_CONFIGS = {
     /**
      * core
      */
@@ -18,13 +18,9 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
      * phablet
      */
     'phablet': {
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         isMatch(plt) {
-            let /** @type {?} */ smallest = Math.min(plt.width(), plt.height());
-            let /** @type {?} */ largest = Math.max(plt.width(), plt.height());
+            let smallest = Math.min(plt.width(), plt.height());
+            let largest = Math.max(plt.width(), plt.height());
             return (smallest > 390 && smallest < 520) &&
                 (largest > 620 && largest < 800);
         }
@@ -33,13 +29,9 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
      * tablet
      */
     'tablet': {
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         isMatch(plt) {
-            let /** @type {?} */ smallest = Math.min(plt.width(), plt.height());
-            let /** @type {?} */ largest = Math.max(plt.width(), plt.height());
+            let smallest = Math.min(plt.width(), plt.height());
+            let largest = Math.max(plt.width(), plt.height());
             return (smallest > 460 && smallest < 820) &&
                 (largest > 780 && largest < 1400);
         }
@@ -60,7 +52,7 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
                 // if this a linux device, and is using Android Chrome v36 (Android 5.0)
                 // or above then use ripple, otherwise do not use a ripple effect
                 if (plt.testNavigatorPlatform('linux')) {
-                    let /** @type {?} */ chromeVersion = plt.matchUserAgentVersion(/Chrome\/(\d+).(\d+)?/);
+                    let chromeVersion = plt.matchUserAgentVersion(/Chrome\/(\d+).(\d+)?/);
                     if (chromeVersion) {
                         // linux android device using modern android chrome browser gets ripple
                         if (parseInt(chromeVersion.major, 10) < 36 || plt.version().major < 5) {
@@ -85,17 +77,9 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
             keyboardHeight: 300,
             mode: 'md',
         },
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         isMatch(plt) {
             return plt.isPlatformMatch('android', ['android', 'silk'], ['windows phone']);
         },
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         versionParser(plt) {
             return plt.matchUserAgentVersion(/Android (\d+).(\d+)?/);
         }
@@ -115,28 +99,19 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
             hoverCSS: false,
             inputBlurring: isIos,
             inputCloning: isIos,
-            keyboardHeight: 300,
+            keyboardHeight: 250,
             mode: 'ios',
-            scrollAssist: isIos,
             statusbarPadding: isCordova,
             swipeBackEnabled: isIos,
             tapPolyfill: isIosUIWebView,
             virtualScrollEventAssist: isIosUIWebView,
             disableScrollAssist: isIos,
+            scrollAssist: isIos,
             keyboardResizes: keyboardResizes,
-            resizeAssist: keyboardResizes,
         },
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         isMatch(plt) {
             return plt.isPlatformMatch('ios', ['iphone', 'ipad', 'ipod'], ['windows phone']);
         },
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         versionParser(plt) {
             return plt.matchUserAgentVersion(/OS (\d+)_(\d+)?/);
         }
@@ -149,10 +124,6 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
         settings: {
             keyboardHeight: 500,
         },
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         isMatch(plt) {
             return plt.isPlatformMatch('ipad');
         }
@@ -164,10 +135,6 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
         subsets: [
             'phablet'
         ],
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         isMatch(plt) {
             return plt.isPlatformMatch('iphone');
         }
@@ -186,17 +153,9 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
             autoFocusAssist: 'immediate',
             hoverCSS: false
         },
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         isMatch(plt) {
             return plt.isPlatformMatch('windows', ['windows phone']);
         },
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         versionParser(plt) {
             return plt.matchUserAgentVersion(/Windows Phone (\d+).(\d+)?/);
         }
@@ -232,7 +191,7 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
                         });
                         // cordova has its own exitApp method
                         plt.exitApp = function () {
-                            ((win))['navigator']['app'].exitApp();
+                            win['navigator']['app'].exitApp();
                         };
                         // cordova has fully loaded and we've added listeners
                         plt.triggerReady('cordova');
@@ -240,10 +199,6 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
                 });
             };
         },
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         isMatch(plt) {
             return isCordova(plt);
         }
@@ -261,30 +216,19 @@ export const /** @type {?} */ PLATFORM_CONFIGS = {
                 });
             };
         },
-        /**
-         * @param {?} plt
-         * @return {?}
-         */
         isMatch(plt) {
             return isElectron(plt);
         }
     }
 };
-/**
- * @param {?} plt
- * @return {?}
- */
 function keyboardResizes(plt) {
-    const /** @type {?} */ win = (plt.win());
+    const win = plt.win();
     if (win.Ionic && win.Ionic.keyboardResizes === true) {
         return true;
     }
     return false;
 }
-export const /** @type {?} */ PlatformConfigToken = new OpaqueToken('PLTCONFIG');
-/**
- * @return {?}
- */
+export const PlatformConfigToken = new InjectionToken('PLTCONFIG');
 export function providePlatformConfigs() {
     return PLATFORM_CONFIGS;
 }

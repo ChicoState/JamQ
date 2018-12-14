@@ -11,15 +11,15 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require("../../util/util");
     /**
-     * \@name MenuController
-     * \@description
+     * @name MenuController
+     * @description
      * The MenuController is a provider which makes it easy to control a [Menu](../../Menu/Menu/).
      * Its methods can be used to display the menu, enable the menu, toggle the menu, and more.
      * The controller will grab a reference to the menu by the `side`, `id`, or, if neither
      * of these are passed to it, it will grab the first menu it finds.
      *
      *
-     * \@usage
+     * @usage
      *
      * Add a basic menu component to start with. See the [Menu](../../Menu/Menu/) API docs
      * for more information on adding menu components.
@@ -41,10 +41,10 @@
      * toggling the menu.
      *
      * ```ts
-     * import { Component } from '\@angular/core';
+     * import { Component } from '@angular/core';
      * import { MenuController } from 'ionic-angular';
      *
-     * \@Component({...})
+     * @Component({...})
      * export class MyPage {
      *
      *  constructor(public menuCtrl: MenuController) {
@@ -116,10 +116,10 @@
      * Note: if an app only has one menu, there is no reason to pass an `id`.
      *
      *
-     * \@demo /docs/demos/src/menu/
+     * @demo /docs/demos/src/menu/
      *
-     * @see {\@link /docs/components#menus Menu Component Docs}
-     * @see {\@link ../Menu Menu API Docs}
+     * @see {@link /docs/components#menus Menu Component Docs}
+     * @see {@link ../Menu Menu API Docs}
      *
      */
     var MenuController = (function () {
@@ -128,13 +128,13 @@
         }
         /**
          * Programatically open the Menu.
-         * @param {?=} menuId
-         * @return {?}
+         * @param {string} [menuId]  Optionally get the menu by its id, or side.
+         * @return {Promise} returns a promise when the menu is fully opened
          */
         MenuController.prototype.open = function (menuId) {
-            var /** @type {?} */ menu = this.get(menuId);
+            var menu = this.get(menuId);
             if (menu && !this.isAnimating()) {
-                var /** @type {?} */ openedMenu = this.getOpen();
+                var openedMenu = this.getOpen();
                 if (openedMenu && menu !== openedMenu) {
                     openedMenu.setOpen(false, false);
                 }
@@ -146,11 +146,11 @@
          * Programatically close the Menu. If no `menuId` is given as the first
          * argument then it'll close any menu which is open. If a `menuId`
          * is given then it'll close that exact menu.
-         * @param {?=} menuId
-         * @return {?}
+         * @param {string} [menuId]  Optionally get the menu by its id, or side.
+         * @return {Promise} returns a promise when the menu is fully closed
          */
         MenuController.prototype.close = function (menuId) {
-            var /** @type {?} */ menu;
+            var menu;
             if (menuId) {
                 // find the menu by its id
                 menu = this.get(menuId);
@@ -168,13 +168,13 @@
         /**
          * Toggle the menu. If it's closed, it will open, and if opened, it
          * will close.
-         * @param {?=} menuId
-         * @return {?}
+         * @param {string} [menuId]  Optionally get the menu by its id, or side.
+         * @return {Promise} returns a promise when the menu has been toggled
          */
         MenuController.prototype.toggle = function (menuId) {
-            var /** @type {?} */ menu = this.get(menuId);
+            var menu = this.get(menuId);
             if (menu && !this.isAnimating()) {
-                var /** @type {?} */ openedMenu = this.getOpen();
+                var openedMenu = this.getOpen();
                 if (openedMenu && menu !== openedMenu) {
                     openedMenu.setOpen(false, false);
                 }
@@ -187,36 +187,35 @@
          * left menus, but only one of them should be able to be opened at the same
          * time. If there are multiple menus on the same side, then enabling one menu
          * will also automatically disable all the others that are on the same side.
-         * @param {?} shouldEnable
-         * @param {?=} menuId
-         * @return {?}
+         * @param {string} [menuId]  Optionally get the menu by its id, or side.
+         * @return {Menu}  Returns the instance of the menu, which is useful for chaining.
          */
         MenuController.prototype.enable = function (shouldEnable, menuId) {
-            var /** @type {?} */ menu = this.get(menuId);
+            var menu = this.get(menuId);
             if (menu) {
                 return menu.enable(shouldEnable);
             }
         };
         /**
          * Used to enable or disable the ability to swipe open the menu.
-         * @param {?} shouldEnable
-         * @param {?=} menuId
-         * @return {?}
+         * @param {boolean} shouldEnable  True if it should be swipe-able, false if not.
+         * @param {string} [menuId]  Optionally get the menu by its id, or side.
+         * @return {Menu}  Returns the instance of the menu, which is useful for chaining.
          */
         MenuController.prototype.swipeEnable = function (shouldEnable, menuId) {
-            var /** @type {?} */ menu = this.get(menuId);
+            var menu = this.get(menuId);
             if (menu) {
                 return menu.swipeEnable(shouldEnable);
             }
         };
         /**
+         * @param {string} [menuId] Optionally get the menu by its id, or side.
+         * @return {boolean} Returns true if the specified menu is currently open, otherwise false.
          * If the menuId is not specified, it returns true if ANY menu is currenly open.
-         * @param {?=} menuId
-         * @return {?}
          */
         MenuController.prototype.isOpen = function (menuId) {
             if (menuId) {
-                var /** @type {?} */ menu = this.get(menuId);
+                var menu = this.get(menuId);
                 return menu && menu.isOpen || false;
             }
             else {
@@ -224,11 +223,11 @@
             }
         };
         /**
-         * @param {?=} menuId
-         * @return {?}
+         * @param {string} [menuId]  Optionally get the menu by its id, or side.
+         * @return {boolean} Returns true if the menu is currently enabled, otherwise false.
          */
         MenuController.prototype.isEnabled = function (menuId) {
-            var /** @type {?} */ menu = this.get(menuId);
+            var menu = this.get(menuId);
             return menu && menu.enabled || false;
         };
         /**
@@ -237,11 +236,11 @@
          * it'll return the enabled menu on that side. Otherwise, if a `menuId` is
          * provided, then it'll try to find the menu using the menu's `id`
          * property. If a menu is not found then it'll return `null`.
-         * @param {?=} menuId
-         * @return {?}
+         * @param {string} [menuId]  Optionally get the menu by its id, or side.
+         * @return {Menu} Returns the instance of the menu if found, otherwise `null`.
          */
         MenuController.prototype.get = function (menuId) {
-            var /** @type {?} */ menu;
+            var menu;
             if (menuId === 'left' || menuId === 'right') {
                 // there could be more than one menu on the same side
                 // so first try to get the enabled one
@@ -267,28 +266,26 @@
             return (this._menus.length ? this._menus[0] : null);
         };
         /**
-         * @return {?}
+         * @return {Menu} Returns the instance of the menu already opened, otherwise `null`.
          */
         MenuController.prototype.getOpen = function () {
             return this._menus.find(function (m) { return m.isOpen; });
         };
         /**
-         * @return {?}
+         * @return {Array<Menu>}  Returns an array of all menu instances.
          */
         MenuController.prototype.getMenus = function () {
             return this._menus;
         };
         /**
          * @hidden
-         * @return {?}
+         * @return {boolean} if any menu is currently animating
          */
         MenuController.prototype.isAnimating = function () {
             return this._menus.some(function (menu) { return menu.isAnimating(); });
         };
         /**
          * @hidden
-         * @param {?} menu
-         * @return {?}
          */
         MenuController.prototype._register = function (menu) {
             (void 0) /* assert */;
@@ -296,8 +293,6 @@
         };
         /**
          * @hidden
-         * @param {?} menu
-         * @return {?}
          */
         MenuController.prototype._unregister = function (menu) {
             (void 0) /* assert */;
@@ -305,8 +300,6 @@
         };
         /**
          * @hidden
-         * @param {?} menu
-         * @return {?}
          */
         MenuController.prototype._setActiveMenu = function (menu) {
             (void 0) /* assert */;
@@ -314,26 +307,19 @@
             // if this menu should be enabled
             // then find all the other menus on this same side
             // and automatically disable other same side menus
-            var /** @type {?} */ side = menu.side;
+            var side = menu.side;
             this._menus
                 .filter(function (m) { return m.side === side && m !== menu; })
                 .map(function (m) { return m.enable(false); });
         };
         /**
          * @hidden
-         * @param {?} name
-         * @param {?} cls
-         * @return {?}
          */
         MenuController.registerType = function (name, cls) {
             menuTypes[name] = cls;
         };
         /**
          * @hidden
-         * @param {?} type
-         * @param {?} menuCmp
-         * @param {?} plt
-         * @return {?}
          */
         MenuController.create = function (type, menuCmp, plt) {
             return new menuTypes[type](menuCmp, plt);
@@ -341,10 +327,6 @@
         return MenuController;
     }());
     exports.MenuController = MenuController;
-    function MenuController_tsickle_Closure_declarations() {
-        /** @type {?} */
-        MenuController.prototype._menus;
-    }
-    var /** @type {?} */ menuTypes = {};
+    var menuTypes = {};
 });
 //# sourceMappingURL=menu-controller.js.map

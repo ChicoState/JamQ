@@ -3,8 +3,8 @@ import { Config } from '../../config/config';
 import { Ion } from '../ion';
 import { isTrueProperty } from '../../util/util';
 /**
- * \@name Spinner
- * \@description
+ * @name Spinner
+ * @description
  * The `ion-spinner` component provides a variety of animated SVG spinners.
  * Spinners enables you to give users feedback that the app is actively
  * processing/thinking/waiting/chillin’ out, or whatever you’d like it to indicate.
@@ -65,7 +65,7 @@ import { isTrueProperty } from '../../util/util';
  *  </tr>
  * </table>
  *
- * \@usage
+ * @usage
  * The following code would use the default spinner for the platform it's
  * running from. If it's neither iOS or Android, it'll default to use `ios`.
  *
@@ -96,63 +96,42 @@ import { isTrueProperty } from '../../util/util';
  * ```
  */
 export class Spinner extends Ion {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     constructor(config, elementRef, renderer) {
         super(config, elementRef, renderer, 'spinner');
         this._dur = null;
         this._paused = false;
     }
     /**
-     * \@input {string} SVG spinner name.
-     * @return {?}
+     * @input {string} SVG spinner name.
      */
     get name() {
         return this._name;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set name(val) {
         this._name = val;
         this.load();
     }
     /**
-     * \@input {string} How long it takes it to do one loop.
-     * @return {?}
+     * @input {string} How long it takes it to do one loop.
      */
     get duration() {
         return this._dur;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set duration(val) {
         this._dur = val;
         this.load();
     }
     /**
-     * \@input {boolean} If true, pause the animation.
-     * @return {?}
+     * @input {boolean} If true, pause the animation.
      */
     get paused() {
         return this._paused;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set paused(val) {
         this._paused = isTrueProperty(val);
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnInit() {
         this._init = true;
@@ -160,22 +139,21 @@ export class Spinner extends Ion {
     }
     /**
      * @hidden
-     * @return {?}
      */
     load() {
         if (this._init) {
             this._l = [];
             this._c = [];
-            var /** @type {?} */ name = this._name || this._config.get('spinner', 'ios');
-            const /** @type {?} */ spinner = SPINNERS[name];
+            var name = this._name || this._config.get('spinner', 'ios');
+            const spinner = SPINNERS[name];
             if (spinner) {
                 if (spinner.lines) {
-                    for (let /** @type {?} */ i = 0, /** @type {?} */ l = spinner.lines; i < l; i++) {
+                    for (let i = 0, l = spinner.lines; i < l; i++) {
                         this._l.push(this._loadEle(spinner, i, l));
                     }
                 }
                 else if (spinner.circles) {
-                    for (let /** @type {?} */ i = 0, /** @type {?} */ l = spinner.circles; i < l; i++) {
+                    for (let i = 0, l = spinner.circles; i < l; i++) {
                         this._c.push(this._loadEle(spinner, i, l));
                     }
                 }
@@ -184,15 +162,9 @@ export class Spinner extends Ion {
             }
         }
     }
-    /**
-     * @param {?} spinner
-     * @param {?} index
-     * @param {?} total
-     * @return {?}
-     */
     _loadEle(spinner, index, total) {
-        let /** @type {?} */ duration = this._dur || spinner.dur;
-        let /** @type {?} */ data = spinner.fn(duration, index, total);
+        let duration = this._dur || spinner.dur;
+        let data = spinner.fn(duration, index, total);
         data.style.animationDuration = duration + 'ms';
         return data;
     }
@@ -213,9 +185,7 @@ Spinner.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Spinner.ctorParameters = () => [
     { type: Config, },
     { type: ElementRef, },
@@ -226,36 +196,13 @@ Spinner.propDecorators = {
     'duration': [{ type: Input },],
     'paused': [{ type: Input },],
 };
-function Spinner_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Spinner.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Spinner.ctorParameters;
-    /** @type {?} */
-    Spinner.propDecorators;
-    /** @type {?} */
-    Spinner.prototype._c;
-    /** @type {?} */
-    Spinner.prototype._l;
-    /** @type {?} */
-    Spinner.prototype._name;
-    /** @type {?} */
-    Spinner.prototype._dur;
-    /** @type {?} */
-    Spinner.prototype._init;
-    /** @type {?} */
-    Spinner.prototype._paused;
-}
-const /** @type {?} */ SPINNERS = {
+const SPINNERS = {
     ios: {
         dur: 1000,
         lines: 12,
         fn: function (dur, index, total) {
-            const /** @type {?} */ transform = 'rotate(' + (30 * index + (index < 6 ? 180 : -180)) + 'deg)';
-            const /** @type {?} */ animationDelay = -(dur - ((dur / total) * index)) + 'ms';
+            const transform = 'rotate(' + (30 * index + (index < 6 ? 180 : -180)) + 'deg)';
+            const animationDelay = -(dur - ((dur / total) * index)) + 'ms';
             return {
                 y1: 17,
                 y2: 29,
@@ -272,8 +219,8 @@ const /** @type {?} */ SPINNERS = {
         dur: 1000,
         lines: 12,
         fn: function (dur, index, total) {
-            const /** @type {?} */ transform = 'rotate(' + (30 * index + (index < 6 ? 180 : -180)) + 'deg)';
-            const /** @type {?} */ animationDelay = -(dur - ((dur / total) * index)) + 'ms';
+            const transform = 'rotate(' + (30 * index + (index < 6 ? 180 : -180)) + 'deg)';
+            const animationDelay = -(dur - ((dur / total) * index)) + 'ms';
             return {
                 y1: 12,
                 y2: 20,
@@ -290,7 +237,7 @@ const /** @type {?} */ SPINNERS = {
         dur: 1000,
         circles: 9,
         fn: function (dur, index, total) {
-            const /** @type {?} */ animationDelay = -(dur - ((dur / total) * index)) + 'ms';
+            const animationDelay = -(dur - ((dur / total) * index)) + 'ms';
             return {
                 r: 5,
                 style: {
@@ -306,7 +253,7 @@ const /** @type {?} */ SPINNERS = {
         dur: 1000,
         circles: 8,
         fn: function (dur, index, total) {
-            const /** @type {?} */ animationDelay = -(dur - ((dur / total) * index)) + 'ms';
+            const animationDelay = -(dur - ((dur / total) * index)) + 'ms';
             return {
                 r: 5,
                 style: {
@@ -332,7 +279,7 @@ const /** @type {?} */ SPINNERS = {
         dur: 750,
         circles: 3,
         fn: function (_dur, index) {
-            const /** @type {?} */ animationDelay = -(110 * index) + 'ms';
+            const animationDelay = -(110 * index) + 'ms';
             return {
                 r: 6,
                 style: {

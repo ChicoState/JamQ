@@ -14,6 +14,7 @@ export declare class TapClick {
     private usePolyfill;
     private activator;
     private startCoord;
+    private activatableEle;
     private events;
     private pointerEvents;
     private lastTouchEnd;

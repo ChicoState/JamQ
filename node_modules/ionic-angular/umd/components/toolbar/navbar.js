@@ -27,8 +27,8 @@ var __extends = (this && this.__extends) || (function () {
     var toolbar_base_1 = require("./toolbar-base");
     var view_controller_1 = require("../../navigation/view-controller");
     /**
-     * \@name Navbar
-     * \@description
+     * @name Navbar
+     * @description
      * Navbar acts as the navigational toolbar, which also comes with a back
      * button. A navbar can contain a `ion-title`, any number of buttons,
      * a segment, or a searchbar. Navbars must be placed within an
@@ -36,7 +36,7 @@ var __extends = (this && this.__extends) || (function () {
      * It's important to note that navbar's are part of the dynamic navigation
      * stack. If you need a static toolbar, use ion-toolbar.
      *
-     * \@usage
+     * @usage
      * ```html
      * <ion-header>
      *
@@ -59,19 +59,11 @@ var __extends = (this && this.__extends) || (function () {
      * </ion-header>
      * ```
      *
-     * \@demo /docs/demos/src/navbar/
-     * @see {\@link ../../toolbar/Toolbar/ Toolbar API Docs}
+     * @demo /docs/demos/src/navbar/
+     * @see {@link ../../toolbar/Toolbar/ Toolbar API Docs}
      */
     var Navbar = (function (_super) {
         __extends(Navbar, _super);
-        /**
-         * @param {?} _app
-         * @param {?} viewCtrl
-         * @param {?} navCtrl
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         */
         function Navbar(_app, viewCtrl, navCtrl, config, elementRef, renderer) {
             var _this = _super.call(this, config, elementRef, renderer) || this;
             _this._app = _app;
@@ -92,26 +84,17 @@ var __extends = (this && this.__extends) || (function () {
         }
         Object.defineProperty(Navbar.prototype, "hideBackButton", {
             /**
-             * \@input {boolean} If true, the back button will be hidden.
-             * @return {?}
+             * @input {boolean} If true, the back button will be hidden.
              */
             get: function () {
                 return this._hideBb;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._hideBb = util_1.isTrueProperty(val);
             },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         Navbar.prototype.backButtonClick = function (ev) {
             ev.preventDefault();
             ev.stopPropagation();
@@ -119,15 +102,12 @@ var __extends = (this && this.__extends) || (function () {
         };
         /**
          * Set the text of the Back Button in the Nav Bar. Defaults to "Back".
-         * @param {?} text
-         * @return {?}
          */
         Navbar.prototype.setBackButtonText = function (text) {
             this._backText = text;
         };
         /**
          * @hidden
-         * @return {?}
          */
         Navbar.prototype.didEnter = function () {
             try {
@@ -139,90 +119,46 @@ var __extends = (this && this.__extends) || (function () {
         };
         /**
          * @hidden
-         * @param {?} isHidden
-         * @return {?}
          */
         Navbar.prototype.setHidden = function (isHidden) {
             // used to display none/block the navbar
             this._hidden = isHidden;
         };
+        Navbar.decorators = [
+            { type: core_1.Component, args: [{
+                        selector: 'ion-navbar',
+                        template: '<div class="toolbar-background" [ngClass]="\'toolbar-background-\' + _mode"></div>' +
+                            '<button (click)="backButtonClick($event)" ion-button="bar-button" class="back-button" [ngClass]="\'back-button-\' + _mode" [hidden]="_hideBb">' +
+                            '<ion-icon class="back-button-icon" [ngClass]="\'back-button-icon-\' + _mode" [name]="_bbIcon"></ion-icon>' +
+                            '<span class="back-button-text" [ngClass]="\'back-button-text-\' + _mode">{{_backText}}</span>' +
+                            '</button>' +
+                            '<ng-content select="[menuToggle],ion-buttons[left]"></ng-content>' +
+                            '<ng-content select="ion-buttons[start]"></ng-content>' +
+                            '<ng-content select="ion-buttons[end],ion-buttons[right]"></ng-content>' +
+                            '<div class="toolbar-content" [ngClass]="\'toolbar-content-\' + _mode">' +
+                            '<ng-content></ng-content>' +
+                            '</div>',
+                        host: {
+                            '[hidden]': '_hidden',
+                            'class': 'toolbar',
+                            '[class.statusbar-padding]': '_sbPadding'
+                        }
+                    },] },
+        ];
+        /** @nocollapse */
+        Navbar.ctorParameters = function () { return [
+            { type: app_1.App, },
+            { type: view_controller_1.ViewController, decorators: [{ type: core_1.Optional },] },
+            { type: nav_controller_1.NavController, decorators: [{ type: core_1.Optional },] },
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+        ]; };
+        Navbar.propDecorators = {
+            'hideBackButton': [{ type: core_1.Input },],
+        };
         return Navbar;
     }(toolbar_base_1.ToolbarBase));
-    Navbar.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'ion-navbar',
-                    template: '<div class="toolbar-background" [ngClass]="\'toolbar-background-\' + _mode"></div>' +
-                        '<button (click)="backButtonClick($event)" ion-button="bar-button" class="back-button" [ngClass]="\'back-button-\' + _mode" [hidden]="_hideBb">' +
-                        '<ion-icon class="back-button-icon" [ngClass]="\'back-button-icon-\' + _mode" [name]="_bbIcon"></ion-icon>' +
-                        '<span class="back-button-text" [ngClass]="\'back-button-text-\' + _mode">{{_backText}}</span>' +
-                        '</button>' +
-                        '<ng-content select="[menuToggle],ion-buttons[left]"></ng-content>' +
-                        '<ng-content select="ion-buttons[start]"></ng-content>' +
-                        '<ng-content select="ion-buttons[end],ion-buttons[right]"></ng-content>' +
-                        '<div class="toolbar-content" [ngClass]="\'toolbar-content-\' + _mode">' +
-                        '<ng-content></ng-content>' +
-                        '</div>',
-                    host: {
-                        '[hidden]': '_hidden',
-                        'class': 'toolbar',
-                        '[class.statusbar-padding]': '_sbPadding'
-                    }
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Navbar.ctorParameters = function () { return [
-        { type: app_1.App, },
-        { type: view_controller_1.ViewController, decorators: [{ type: core_1.Optional },] },
-        { type: nav_controller_1.NavController, decorators: [{ type: core_1.Optional },] },
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-    ]; };
-    Navbar.propDecorators = {
-        'hideBackButton': [{ type: core_1.Input },],
-    };
     exports.Navbar = Navbar;
-    function Navbar_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Navbar.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Navbar.ctorParameters;
-        /** @type {?} */
-        Navbar.propDecorators;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Navbar.prototype._backText;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Navbar.prototype._bbIcon;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Navbar.prototype._hidden;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Navbar.prototype._hideBb;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Navbar.prototype._sbPadding;
-        /** @type {?} */
-        Navbar.prototype._app;
-        /** @type {?} */
-        Navbar.prototype.navCtrl;
-    }
 });
 //# sourceMappingURL=navbar.js.map

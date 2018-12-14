@@ -29,13 +29,9 @@
          * phablet
          */
         'phablet': {
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             isMatch: function (plt) {
-                var /** @type {?} */ smallest = Math.min(plt.width(), plt.height());
-                var /** @type {?} */ largest = Math.max(plt.width(), plt.height());
+                var smallest = Math.min(plt.width(), plt.height());
+                var largest = Math.max(plt.width(), plt.height());
                 return (smallest > 390 && smallest < 520) &&
                     (largest > 620 && largest < 800);
             }
@@ -44,13 +40,9 @@
          * tablet
          */
         'tablet': {
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             isMatch: function (plt) {
-                var /** @type {?} */ smallest = Math.min(plt.width(), plt.height());
-                var /** @type {?} */ largest = Math.max(plt.width(), plt.height());
+                var smallest = Math.min(plt.width(), plt.height());
+                var largest = Math.max(plt.width(), plt.height());
                 return (smallest > 460 && smallest < 820) &&
                     (largest > 780 && largest < 1400);
             }
@@ -71,7 +63,7 @@
                     // if this a linux device, and is using Android Chrome v36 (Android 5.0)
                     // or above then use ripple, otherwise do not use a ripple effect
                     if (plt.testNavigatorPlatform('linux')) {
-                        var /** @type {?} */ chromeVersion = plt.matchUserAgentVersion(/Chrome\/(\d+).(\d+)?/);
+                        var chromeVersion = plt.matchUserAgentVersion(/Chrome\/(\d+).(\d+)?/);
                         if (chromeVersion) {
                             // linux android device using modern android chrome browser gets ripple
                             if (parseInt(chromeVersion.major, 10) < 36 || plt.version().major < 5) {
@@ -96,17 +88,9 @@
                 keyboardHeight: 300,
                 mode: 'md',
             },
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             isMatch: function (plt) {
                 return plt.isPlatformMatch('android', ['android', 'silk'], ['windows phone']);
             },
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             versionParser: function (plt) {
                 return plt.matchUserAgentVersion(/Android (\d+).(\d+)?/);
             }
@@ -126,28 +110,19 @@
                 hoverCSS: false,
                 inputBlurring: platform_utils_1.isIos,
                 inputCloning: platform_utils_1.isIos,
-                keyboardHeight: 300,
+                keyboardHeight: 250,
                 mode: 'ios',
-                scrollAssist: platform_utils_1.isIos,
                 statusbarPadding: platform_utils_1.isCordova,
                 swipeBackEnabled: platform_utils_1.isIos,
                 tapPolyfill: platform_utils_1.isIosUIWebView,
                 virtualScrollEventAssist: platform_utils_1.isIosUIWebView,
                 disableScrollAssist: platform_utils_1.isIos,
+                scrollAssist: platform_utils_1.isIos,
                 keyboardResizes: keyboardResizes,
-                resizeAssist: keyboardResizes,
             },
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             isMatch: function (plt) {
                 return plt.isPlatformMatch('ios', ['iphone', 'ipad', 'ipod'], ['windows phone']);
             },
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             versionParser: function (plt) {
                 return plt.matchUserAgentVersion(/OS (\d+)_(\d+)?/);
             }
@@ -160,10 +135,6 @@
             settings: {
                 keyboardHeight: 500,
             },
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             isMatch: function (plt) {
                 return plt.isPlatformMatch('ipad');
             }
@@ -175,10 +146,6 @@
             subsets: [
                 'phablet'
             ],
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             isMatch: function (plt) {
                 return plt.isPlatformMatch('iphone');
             }
@@ -197,17 +164,9 @@
                 autoFocusAssist: 'immediate',
                 hoverCSS: false
             },
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             isMatch: function (plt) {
                 return plt.isPlatformMatch('windows', ['windows phone']);
             },
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             versionParser: function (plt) {
                 return plt.matchUserAgentVersion(/Windows Phone (\d+).(\d+)?/);
             }
@@ -243,7 +202,7 @@
                             });
                             // cordova has its own exitApp method
                             plt.exitApp = function () {
-                                ((win))['navigator']['app'].exitApp();
+                                win['navigator']['app'].exitApp();
                             };
                             // cordova has fully loaded and we've added listeners
                             plt.triggerReady('cordova');
@@ -251,10 +210,6 @@
                     });
                 };
             },
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             isMatch: function (plt) {
                 return platform_utils_1.isCordova(plt);
             }
@@ -272,30 +227,19 @@
                     });
                 };
             },
-            /**
-             * @param {?} plt
-             * @return {?}
-             */
             isMatch: function (plt) {
                 return platform_utils_1.isElectron(plt);
             }
         }
     };
-    /**
-     * @param {?} plt
-     * @return {?}
-     */
     function keyboardResizes(plt) {
-        var /** @type {?} */ win = (plt.win());
+        var win = plt.win();
         if (win.Ionic && win.Ionic.keyboardResizes === true) {
             return true;
         }
         return false;
     }
-    exports.PlatformConfigToken = new core_1.OpaqueToken('PLTCONFIG');
-    /**
-     * @return {?}
-     */
+    exports.PlatformConfigToken = new core_1.InjectionToken('PLTCONFIG');
     function providePlatformConfigs() {
         return exports.PLATFORM_CONFIGS;
     }

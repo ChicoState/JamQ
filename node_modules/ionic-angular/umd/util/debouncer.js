@@ -10,24 +10,14 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var TimeoutDebouncer = (function () {
-        /**
-         * @param {?} wait
-         */
         function TimeoutDebouncer(wait) {
             this.wait = wait;
             this.timer = null;
         }
-        /**
-         * @param {?} callback
-         * @return {?}
-         */
         TimeoutDebouncer.prototype.debounce = function (callback) {
             this.callback = callback;
             this.schedule();
         };
-        /**
-         * @return {?}
-         */
         TimeoutDebouncer.prototype.schedule = function () {
             this.cancel();
             if (this.wait <= 0) {
@@ -37,9 +27,6 @@
                 this.timer = setTimeout(this.callback, this.wait);
             }
         };
-        /**
-         * @return {?}
-         */
         TimeoutDebouncer.prototype.cancel = function () {
             if (this.timer) {
                 clearTimeout(this.timer);
@@ -49,13 +36,5 @@
         return TimeoutDebouncer;
     }());
     exports.TimeoutDebouncer = TimeoutDebouncer;
-    function TimeoutDebouncer_tsickle_Closure_declarations() {
-        /** @type {?} */
-        TimeoutDebouncer.prototype.timer;
-        /** @type {?} */
-        TimeoutDebouncer.prototype.callback;
-        /** @type {?} */
-        TimeoutDebouncer.prototype.wait;
-    }
 });
 //# sourceMappingURL=debouncer.js.map

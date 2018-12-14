@@ -1,13 +1,9 @@
 import { updateClasses } from './swiper-classes';
-/**
- * @param {?} s
- * @return {?}
- */
 export function updateActiveIndex(s) {
-    var /** @type {?} */ translate = s._rtl ? s._translate : -s._translate;
-    var /** @type {?} */ newActiveIndex;
-    var /** @type {?} */ i;
-    var /** @type {?} */ snapIndex;
+    var translate = s._rtl ? s._translate : -s._translate;
+    var newActiveIndex;
+    var i;
+    var snapIndex;
     for (i = 0; i < s._slidesGrid.length; i++) {
         if (typeof s._slidesGrid[i + 1] !== 'undefined') {
             if (translate >= s._slidesGrid[i] && translate < s._slidesGrid[i + 1] - (s._slidesGrid[i + 1] - s._slidesGrid[i]) / 2) {
@@ -35,12 +31,8 @@ export function updateActiveIndex(s) {
     updateClasses(s);
     updateRealIndex(s);
 }
-/**
- * @param {?} s
- * @return {?}
- */
 export function updateRealIndex(s) {
-    var /** @type {?} */ activeSlide = (s._slides[s._activeIndex]);
+    var activeSlide = s._slides[s._activeIndex];
     if (activeSlide) {
         s.realIndex = parseInt(activeSlide.getAttribute('data-swiper-slide-index') || s._activeIndex, 10);
     }

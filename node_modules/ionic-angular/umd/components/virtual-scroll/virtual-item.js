@@ -14,39 +14,20 @@
      * @hidden
      */
     var VirtualItem = (function () {
-        /**
-         * @param {?} templateRef
-         * @param {?} viewContainer
-         */
         function VirtualItem(templateRef, viewContainer) {
             this.templateRef = templateRef;
             this.viewContainer = viewContainer;
         }
+        VirtualItem.decorators = [
+            { type: core_1.Directive, args: [{ selector: '[virtualItem]' },] },
+        ];
+        /** @nocollapse */
+        VirtualItem.ctorParameters = function () { return [
+            { type: core_1.TemplateRef, },
+            { type: core_1.ViewContainerRef, },
+        ]; };
         return VirtualItem;
     }());
-    VirtualItem.decorators = [
-        { type: core_1.Directive, args: [{ selector: '[virtualItem]' },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    VirtualItem.ctorParameters = function () { return [
-        { type: core_1.TemplateRef, },
-        { type: core_1.ViewContainerRef, },
-    ]; };
     exports.VirtualItem = VirtualItem;
-    function VirtualItem_tsickle_Closure_declarations() {
-        /** @type {?} */
-        VirtualItem.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        VirtualItem.ctorParameters;
-        /** @type {?} */
-        VirtualItem.prototype.templateRef;
-        /** @type {?} */
-        VirtualItem.prototype.viewContainer;
-    }
 });
 //# sourceMappingURL=virtual-item.js.map

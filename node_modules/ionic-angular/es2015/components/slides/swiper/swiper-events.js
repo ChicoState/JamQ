@@ -5,14 +5,13 @@ import { updateProgress } from './swiper-progress';
 import { updateActiveIndex } from './swiper-index';
 import { updatePagination } from './swiper-pagination';
 import { updateClasses } from './swiper-classes';
-/**
- * @param {?} s
- * @param {?} plt
- * @return {?}
- */
+/*=========================
+  Events
+  ===========================*/
+// Attach/detach events
 export function initEvents(s, plt) {
-    const /** @type {?} */ win = plt.win();
-    const /** @type {?} */ doc = plt.doc();
+    const win = plt.win();
+    const doc = plt.doc();
     s._supportTouch = (() => {
         return !!(('ontouchstart' in win) || win.DocumentTouch && doc instanceof win.DocumentTouch);
     })();
@@ -33,8 +32,8 @@ export function initEvents(s, plt) {
     if (win.navigator.pointerEnabled || win.navigator.msPointerEnabled) {
         (s.touchEventsTarget === 'container' ? s.container : s._wrapper).classList.add('swiper-wp8-' + s.direction);
     }
-    let /** @type {?} */ unregs = [];
-    const /** @type {?} */ touchEventsTarget = s.touchEventsTarget === 'container' ? s.container : s._wrapper;
+    let unregs = [];
+    const touchEventsTarget = s.touchEventsTarget === 'container' ? s.container : s._wrapper;
     // Touch Events
     if (s._supportTouch) {
         // touchstart
@@ -56,16 +55,16 @@ export function initEvents(s, plt) {
             onTouchStart(s, plt, ev);
         }, { zone: false }, unregs);
         // mousemove
-        plt.registerListener(plt.doc(), 'mousemove', (ev) => {
+        plt.registerListener(touchEventsTarget, 'mousemove', (ev) => {
             onTouchMove(s, plt, ev);
         }, { zone: false }, unregs);
         // mouseup
-        plt.registerListener(plt.doc(), 'mouseup', (ev) => {
+        plt.registerListener(touchEventsTarget, 'mouseup', (ev) => {
             onTouchEnd(s, plt, ev);
         }, { zone: false }, unregs);
     }
     // onresize
-    let /** @type {?} */ resizeObs = plt.resize.subscribe(() => onResize(s, plt, false));
+    let resizeObs = plt.resize.subscribe(() => onResize(s, plt, false));
     // Next, Prev, Index
     if (s.nextButton) {
         plt.registerListener(s.nextButton, 'click', (ev) => {
@@ -97,11 +96,10 @@ export function initEvents(s, plt) {
         unregs = null;
     };
 }
-/**
- * @param {?} s
- * @param {?} e
- * @return {?}
- */
+/*=========================
+  Handle Clicks
+  ===========================*/
+// Prevent Clicks
 function preventClicks(s, e) {
     if (!s._allowClick) {
         if (s.preventClicks) {
@@ -113,12 +111,7 @@ function preventClicks(s, e) {
         }
     }
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} e
- * @return {?}
- */
+// Clicks
 function onClickNext(s, plt, e) {
     e.preventDefault();
     if (s._isEnd && !s.loop) {
@@ -126,12 +119,6 @@ function onClickNext(s, plt, e) {
     }
     slideNext(s, plt);
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} e
- * @return {?}
- */
 function onClickPrev(s, plt, e) {
     e.preventDefault();
     if (s._isBeginning && !s.loop) {
@@ -139,16 +126,10 @@ function onClickPrev(s, plt, e) {
     }
     slidePrev(s, plt);
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} e
- * @return {?}
- */
 function onClickIndex(s, plt, e) {
-    var /** @type {?} */ indexStr = ((e.target)).getAttribute('data-slide-index');
+    var indexStr = e.target.getAttribute('data-slide-index');
     if (indexStr) {
-        var /** @type {?} */ index = parseInt(indexStr, 10);
+        var index = parseInt(indexStr, 10);
         e.preventDefault();
         if (s.loop) {
             index = index + s.loopedSlides;
@@ -156,19 +137,17 @@ function onClickIndex(s, plt, e) {
         slideTo(s, plt, index);
     }
 }
-/**
- * @param {?} e
- * @param {?} selector
- * @return {?}
- */
+/*=========================
+  Handle Touches
+  ===========================*/
 function findElementInEvent(e, selector) {
-    var /** @type {?} */ el = (e.target);
+    var el = e.target;
     if (!el.matches(selector)) {
         if (typeof selector === 'string') {
-            el = (el.closest(selector));
+            el = el.closest(selector);
         }
         else if (selector.nodeType) {
-            var /** @type {?} */ parentEl = el.parentElement;
+            var parentEl = el.parentElement;
             while (parentEl) {
                 if (parentEl === selector) {
                     return selector;
@@ -179,17 +158,11 @@ function findElementInEvent(e, selector) {
     }
     return el;
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} e
- * @return {?}
- */
 function updateClickedSlide(s, plt, e) {
-    var /** @type {?} */ slide = (findElementInEvent(e, '.' + CLS.slide));
-    var /** @type {?} */ slideIndex = -1;
+    var slide = findElementInEvent(e, '.' + CLS.slide);
+    var slideIndex = -1;
     if (slide) {
-        for (var /** @type {?} */ i = 0; i < s._slides.length; i++) {
+        for (var i = 0; i < s._slides.length; i++) {
             if (s._slides[i] === slide) {
                 slideIndex = i;
                 break;
@@ -206,9 +179,9 @@ function updateClickedSlide(s, plt, e) {
         return;
     }
     if (s.slideToClickedSlide && s.clickedIndex !== undefined && s.clickedIndex !== s._activeIndex) {
-        var /** @type {?} */ slideToIndex = s.clickedIndex;
-        var /** @type {?} */ realIndex;
-        var /** @type {?} */ slidesPerView = s.slidesPerView === 'auto' ? currentSlidesPerView(s) : (s.slidesPerView);
+        var slideToIndex = s.clickedIndex;
+        var realIndex;
+        var slidesPerView = s.slidesPerView === 'auto' ? currentSlidesPerView(s) : s.slidesPerView;
         if (s.loop) {
             if (s._animating)
                 return;
@@ -243,29 +216,23 @@ function updateClickedSlide(s, plt, e) {
         }
     }
 }
-var /** @type {?} */ isTouched;
-var /** @type {?} */ isMoved;
-var /** @type {?} */ allowTouchCallbacks;
-var /** @type {?} */ touchStartTime;
-var /** @type {?} */ isScrolling;
-var /** @type {?} */ currentTranslate;
-var /** @type {?} */ startTranslate;
-var /** @type {?} */ allowThresholdMove;
+var isTouched;
+var isMoved;
+var allowTouchCallbacks;
+var touchStartTime;
+var isScrolling;
+var currentTranslate;
+var startTranslate;
+var allowThresholdMove;
 // Last click time
-var /** @type {?} */ lastClickTime = Date.now();
-var /** @type {?} */ clickTimeout;
+var lastClickTime = Date.now();
+var clickTimeout;
 // Velocities
-var /** @type {?} */ velocities = [];
-var /** @type {?} */ allowMomentumBounce;
+var velocities = [];
+var allowMomentumBounce;
 // Touch handlers
-var /** @type {?} */ isTouchEvent;
-var /** @type {?} */ startMoving;
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} ev
- * @return {?}
- */
+var isTouchEvent;
+var startMoving;
 function onTouchStart(s, plt, ev) {
     (void 0) /* console.debug */;
     if (ev.originalEvent) {
@@ -284,8 +251,8 @@ function onTouchStart(s, plt, ev) {
         if (!findElementInEvent(ev, s.swipeHandler))
             return;
     }
-    var /** @type {?} */ startX = s._touches.currentX = ev.type === 'touchstart' ? ev.targetTouches[0].pageX : ev.pageX;
-    var /** @type {?} */ startY = s._touches.currentY = ev.type === 'touchstart' ? ev.targetTouches[0].pageY : ev.pageY;
+    var startX = s._touches.currentX = ev.type === 'touchstart' ? ev.targetTouches[0].pageX : ev.pageX;
+    var startY = s._touches.currentY = ev.type === 'touchstart' ? ev.targetTouches[0].pageY : ev.pageY;
     // Do NOT start if iOS edge swipe is detected. Otherwise iOS app (UIWebView) cannot swipe-to-go-back anymore
     if (plt.is('ios') && s.iOSEdgeSwipeDetection && startX <= s.iOSEdgeSwipeThreshold) {
         return;
@@ -305,7 +272,7 @@ function onTouchStart(s, plt, ev) {
         allowThresholdMove = false;
     }
     if (ev.type !== 'touchstart') {
-        var /** @type {?} */ preventDefault = true;
+        var preventDefault = true;
         if (isFormElement(ev.target)) {
             preventDefault = false;
         }
@@ -316,12 +283,6 @@ function onTouchStart(s, plt, ev) {
     }
     s.ionSlideTouchStart.emit(ev);
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} ev
- * @return {?}
- */
 function onTouchMove(s, plt, ev) {
     (void 0) /* console.debug */;
     if (ev.originalEvent) {
@@ -360,7 +321,7 @@ function onTouchMove(s, plt, ev) {
             }
         }
     }
-    const /** @type {?} */ activeEle = plt.getActiveElement();
+    const activeEle = plt.getActiveElement();
     if (isTouchEvent && activeEle) {
         if (ev.target === activeEle && isFormElement(ev.target)) {
             isMoved = true;
@@ -373,7 +334,7 @@ function onTouchMove(s, plt, ev) {
     s._touches.currentX = ev.type === 'touchmove' ? ev.targetTouches[0].pageX : ev.pageX;
     s._touches.currentY = ev.type === 'touchmove' ? ev.targetTouches[0].pageY : ev.pageY;
     if (typeof isScrolling === 'undefined') {
-        var /** @type {?} */ touchAngle;
+        var touchAngle;
         if (isHorizontal(s) && s._touches.currentY === s._touches.startY || !isHorizontal(s) && s._touches.currentX === s._touches.startX) {
             isScrolling = false;
         }
@@ -414,13 +375,13 @@ function onTouchMove(s, plt, ev) {
         allowMomentumBounce = false;
     }
     isMoved = true;
-    var /** @type {?} */ diff = s._touches.diff = isHorizontal(s) ? s._touches.currentX - s._touches.startX : s._touches.currentY - s._touches.startY;
+    var diff = s._touches.diff = isHorizontal(s) ? s._touches.currentX - s._touches.startX : s._touches.currentY - s._touches.startY;
     diff = diff * s.touchRatio;
     if (s._rtl)
         diff = -diff;
     s.swipeDirection = diff > 0 ? 'prev' : 'next';
     currentTranslate = diff + startTranslate;
-    var /** @type {?} */ disableParentSwiper = true;
+    var disableParentSwiper = true;
     if ((diff > 0 && currentTranslate > minTranslate(s))) {
         disableParentSwiper = false;
         if (s.resistance) {
@@ -469,12 +430,12 @@ function onTouchMove(s, plt, ev) {
         // Velocity
         if (velocities.length === 0) {
             velocities.push({
-                position: ((s._touches))[isHorizontal(s) ? 'startX' : 'startY'],
+                position: s._touches[isHorizontal(s) ? 'startX' : 'startY'],
                 time: touchStartTime
             });
         }
         velocities.push({
-            position: ((s._touches))[isHorizontal(s) ? 'currentX' : 'currentY'],
+            position: s._touches[isHorizontal(s) ? 'currentX' : 'currentY'],
             time: (new Date()).getTime()
         });
     }
@@ -483,12 +444,6 @@ function onTouchMove(s, plt, ev) {
     // Update translate
     setWrapperTranslate(s, plt, currentTranslate);
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} ev
- * @return {?}
- */
 function onTouchEnd(s, plt, ev) {
     (void 0) /* console.debug */;
     if (ev.originalEvent) {
@@ -502,8 +457,8 @@ function onTouchEnd(s, plt, ev) {
     if (!isTouched)
         return;
     // Time diff
-    var /** @type {?} */ touchEndTime = Date.now();
-    var /** @type {?} */ timeDiff = touchEndTime - touchStartTime;
+    var touchEndTime = Date.now();
+    var timeDiff = touchEndTime - touchStartTime;
     // Tap, doubleTap, Click
     if (s._allowClick) {
         updateClickedSlide(s, plt, ev);
@@ -516,7 +471,7 @@ function onTouchEnd(s, plt, ev) {
                 clickTimeout = plt.timeout(() => {
                     if (!s)
                         return;
-                    if (s.paginationHide && s._paginationContainer && !((ev.target)).classList.contains(CLS.bullet)) {
+                    if (s.paginationHide && s._paginationContainer && !ev.target.classList.contains(CLS.bullet)) {
                         s._paginationContainer.classList.toggle(CLS.paginationHidden);
                     }
                 }, 300);
@@ -539,7 +494,7 @@ function onTouchEnd(s, plt, ev) {
         return;
     }
     isTouched = isMoved = false;
-    var /** @type {?} */ currentPos;
+    var currentPos;
     if (s.followFinger) {
         currentPos = s._rtl ? s._translate : -s._translate;
     }
@@ -562,9 +517,9 @@ function onTouchEnd(s, plt, ev) {
         }
         if (s.freeModeMomentum) {
             if (velocities.length > 1) {
-                var /** @type {?} */ lastMoveEvent = velocities.pop(), /** @type {?} */ velocityEvent = velocities.pop();
-                var /** @type {?} */ distance = lastMoveEvent.position - velocityEvent.position;
-                var /** @type {?} */ time = lastMoveEvent.time - velocityEvent.time;
+                var lastMoveEvent = velocities.pop(), velocityEvent = velocities.pop();
+                var distance = lastMoveEvent.position - velocityEvent.position;
+                var time = lastMoveEvent.time - velocityEvent.time;
                 s.velocity = distance / time;
                 s.velocity = s.velocity / 2;
                 if (Math.abs(s.velocity) < s.freeModeMinimumVelocity) {
@@ -581,14 +536,14 @@ function onTouchEnd(s, plt, ev) {
             }
             s.velocity = s.velocity * s.freeModeMomentumVelocityRatio;
             velocities.length = 0;
-            var /** @type {?} */ momentumDuration = 1000 * s.freeModeMomentumRatio;
-            var /** @type {?} */ momentumDistance = s.velocity * momentumDuration;
-            var /** @type {?} */ newPosition = s._translate + momentumDistance;
+            var momentumDuration = 1000 * s.freeModeMomentumRatio;
+            var momentumDistance = s.velocity * momentumDuration;
+            var newPosition = s._translate + momentumDistance;
             if (s._rtl)
                 newPosition = -newPosition;
-            var /** @type {?} */ doBounce = false;
-            var /** @type {?} */ afterBouncePosition;
-            var /** @type {?} */ bounceAmount = Math.abs(s.velocity) * 20 * s.freeModeMomentumBounceRatio;
+            var doBounce = false;
+            var afterBouncePosition;
+            var bounceAmount = Math.abs(s.velocity) * 20 * s.freeModeMomentumBounceRatio;
             if (newPosition < maxTranslate(s)) {
                 if (s.freeModeMomentumBounce) {
                     if (newPosition + maxTranslate(s) < -bounceAmount) {
@@ -616,8 +571,8 @@ function onTouchEnd(s, plt, ev) {
                 }
             }
             else if (s.freeModeSticky) {
-                var /** @type {?} */ j = 0;
-                var /** @type {?} */ nextSlide;
+                var j = 0;
+                var nextSlide;
                 for (j = 0; j < s._snapGrid.length; j += 1) {
                     if (s._snapGrid[j] > -newPosition) {
                         nextSlide = j;
@@ -690,9 +645,9 @@ function onTouchEnd(s, plt, ev) {
         return;
     }
     // Find current slide
-    var /** @type {?} */ stopIndex = 0;
-    var /** @type {?} */ groupSize = s._slidesSizesGrid[0];
-    for (var /** @type {?} */ i = 0; i < s._slidesGrid.length; i += s.slidesPerGroup) {
+    var stopIndex = 0;
+    var groupSize = s._slidesSizesGrid[0];
+    for (var i = 0; i < s._slidesGrid.length; i += s.slidesPerGroup) {
         if (typeof s._slidesGrid[i + s.slidesPerGroup] !== 'undefined') {
             if (currentPos >= s._slidesGrid[i] && currentPos < s._slidesGrid[i + s.slidesPerGroup]) {
                 stopIndex = i;
@@ -707,7 +662,7 @@ function onTouchEnd(s, plt, ev) {
         }
     }
     // Find current slide size
-    var /** @type {?} */ ratio = (currentPos - s._slidesGrid[stopIndex]) / groupSize;
+    var ratio = (currentPos - s._slidesGrid[stopIndex]) / groupSize;
     if (timeDiff > s.longSwipesMs) {
         // Long touches
         if (!s.longSwipes) {
@@ -748,13 +703,7 @@ function onTouchEnd(s, plt, ev) {
 /*=========================
   Resize Handler
   ===========================*/
-let /** @type {?} */ resizeId;
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} forceUpdatePagination
- * @return {?}
- */
+let resizeId;
 function onResize(s, plt, forceUpdatePagination) {
     // TODO: hacky, we should use Resize Observer in the future
     if (resizeId) {
@@ -763,17 +712,11 @@ function onResize(s, plt, forceUpdatePagination) {
     }
     resizeId = plt.timeout(() => doResize(s, plt, forceUpdatePagination), 200);
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} forceUpdatePagination
- * @return {?}
- */
 function doResize(s, plt, forceUpdatePagination) {
     resizeId = null;
     // Disable locks on resize
-    var /** @type {?} */ allowSwipeToPrev = s._allowSwipeToPrev;
-    var /** @type {?} */ allowSwipeToNext = s._allowSwipeToNext;
+    var allowSwipeToPrev = s._allowSwipeToPrev;
+    var allowSwipeToNext = s._allowSwipeToNext;
     s._allowSwipeToPrev = s._allowSwipeToNext = true;
     updateContainerSize(s, plt);
     updateSlidesSize(s, plt);
@@ -783,9 +726,9 @@ function doResize(s, plt, forceUpdatePagination) {
     if (s._spline) {
         s._spline = undefined;
     }
-    var /** @type {?} */ slideChangedBySlideTo = false;
+    var slideChangedBySlideTo = false;
     if (s.freeMode) {
-        var /** @type {?} */ newTranslate = Math.min(Math.max(s._translate, maxTranslate(s)), minTranslate(s));
+        var newTranslate = Math.min(Math.max(s._translate, maxTranslate(s)), minTranslate(s));
         setWrapperTranslate(s, plt, newTranslate);
         updateActiveIndex(s);
         updateClasses(s);

@@ -18,13 +18,10 @@ var AlertPopIn = (function (_super) {
     function AlertPopIn() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     AlertPopIn.prototype.init = function () {
-        var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        var ele = this.enteringView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.01, 1).fromTo('scale', 1.1, 1);
         backdrop.fromTo('opacity', 0.01, 0.3);
         this
@@ -41,13 +38,10 @@ var AlertPopOut = (function (_super) {
     function AlertPopOut() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     AlertPopOut.prototype.init = function () {
-        var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        var ele = this.leavingView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.99, 0).fromTo('scale', 1, 0.9);
         backdrop.fromTo('opacity', 0.3, 0);
         this
@@ -64,13 +58,10 @@ var AlertMdPopIn = (function (_super) {
     function AlertMdPopIn() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     AlertMdPopIn.prototype.init = function () {
-        var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        var ele = this.enteringView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.01, 1).fromTo('scale', 1.1, 1);
         backdrop.fromTo('opacity', 0.01, 0.5);
         this
@@ -87,13 +78,10 @@ var AlertMdPopOut = (function (_super) {
     function AlertMdPopOut() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     AlertMdPopOut.prototype.init = function () {
-        var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        var ele = this.leavingView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.99, 0).fromTo('scale', 1, 0.9);
         backdrop.fromTo('opacity', 0.5, 0);
         this
@@ -110,13 +98,10 @@ var AlertWpPopIn = (function (_super) {
     function AlertWpPopIn() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     AlertWpPopIn.prototype.init = function () {
-        var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        var ele = this.enteringView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.01, 1).fromTo('scale', 1.3, 1);
         backdrop.fromTo('opacity', 0.01, 0.5);
         this
@@ -133,13 +118,10 @@ var AlertWpPopOut = (function (_super) {
     function AlertWpPopOut() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     AlertWpPopOut.prototype.init = function () {
-        var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
+        var ele = this.leavingView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.alert-wrapper'));
         wrapper.fromTo('opacity', 0.99, 0).fromTo('scale', 1, 1.3);
         backdrop.fromTo('opacity', 0.5, 0);
         this

@@ -16,37 +16,21 @@ import { Ion } from '../ion';
  */
 var CardContent = (function (_super) {
     __extends(CardContent, _super);
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     function CardContent(config, elementRef, renderer) {
         return _super.call(this, config, elementRef, renderer, 'card-content') || this;
     }
+    CardContent.decorators = [
+        { type: Directive, args: [{
+                    selector: 'ion-card-content'
+                },] },
+    ];
+    /** @nocollapse */
+    CardContent.ctorParameters = function () { return [
+        { type: Config, },
+        { type: ElementRef, },
+        { type: Renderer, },
+    ]; };
     return CardContent;
 }(Ion));
 export { CardContent };
-CardContent.decorators = [
-    { type: Directive, args: [{
-                selector: 'ion-card-content'
-            },] },
-];
-/**
- * @nocollapse
- */
-CardContent.ctorParameters = function () { return [
-    { type: Config, },
-    { type: ElementRef, },
-    { type: Renderer, },
-]; };
-function CardContent_tsickle_Closure_declarations() {
-    /** @type {?} */
-    CardContent.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    CardContent.ctorParameters;
-}
 //# sourceMappingURL=card-content.js.map

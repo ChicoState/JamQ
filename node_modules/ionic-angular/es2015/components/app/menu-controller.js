@@ -1,14 +1,14 @@
 import { removeArrayItem } from '../../util/util';
 /**
- * \@name MenuController
- * \@description
+ * @name MenuController
+ * @description
  * The MenuController is a provider which makes it easy to control a [Menu](../../Menu/Menu/).
  * Its methods can be used to display the menu, enable the menu, toggle the menu, and more.
  * The controller will grab a reference to the menu by the `side`, `id`, or, if neither
  * of these are passed to it, it will grab the first menu it finds.
  *
  *
- * \@usage
+ * @usage
  *
  * Add a basic menu component to start with. See the [Menu](../../Menu/Menu/) API docs
  * for more information on adding menu components.
@@ -30,10 +30,10 @@ import { removeArrayItem } from '../../util/util';
  * toggling the menu.
  *
  * ```ts
- * import { Component } from '\@angular/core';
+ * import { Component } from '@angular/core';
  * import { MenuController } from 'ionic-angular';
  *
- * \@Component({...})
+ * @Component({...})
  * export class MyPage {
  *
  *  constructor(public menuCtrl: MenuController) {
@@ -105,10 +105,10 @@ import { removeArrayItem } from '../../util/util';
  * Note: if an app only has one menu, there is no reason to pass an `id`.
  *
  *
- * \@demo /docs/demos/src/menu/
+ * @demo /docs/demos/src/menu/
  *
- * @see {\@link /docs/components#menus Menu Component Docs}
- * @see {\@link ../Menu Menu API Docs}
+ * @see {@link /docs/components#menus Menu Component Docs}
+ * @see {@link ../Menu Menu API Docs}
  *
  */
 export class MenuController {
@@ -117,13 +117,13 @@ export class MenuController {
     }
     /**
      * Programatically open the Menu.
-     * @param {?=} menuId
-     * @return {?}
+     * @param {string} [menuId]  Optionally get the menu by its id, or side.
+     * @return {Promise} returns a promise when the menu is fully opened
      */
     open(menuId) {
-        const /** @type {?} */ menu = this.get(menuId);
+        const menu = this.get(menuId);
         if (menu && !this.isAnimating()) {
-            let /** @type {?} */ openedMenu = this.getOpen();
+            let openedMenu = this.getOpen();
             if (openedMenu && menu !== openedMenu) {
                 openedMenu.setOpen(false, false);
             }
@@ -135,11 +135,11 @@ export class MenuController {
      * Programatically close the Menu. If no `menuId` is given as the first
      * argument then it'll close any menu which is open. If a `menuId`
      * is given then it'll close that exact menu.
-     * @param {?=} menuId
-     * @return {?}
+     * @param {string} [menuId]  Optionally get the menu by its id, or side.
+     * @return {Promise} returns a promise when the menu is fully closed
      */
     close(menuId) {
-        let /** @type {?} */ menu;
+        let menu;
         if (menuId) {
             // find the menu by its id
             menu = this.get(menuId);
@@ -157,13 +157,13 @@ export class MenuController {
     /**
      * Toggle the menu. If it's closed, it will open, and if opened, it
      * will close.
-     * @param {?=} menuId
-     * @return {?}
+     * @param {string} [menuId]  Optionally get the menu by its id, or side.
+     * @return {Promise} returns a promise when the menu has been toggled
      */
     toggle(menuId) {
-        const /** @type {?} */ menu = this.get(menuId);
+        const menu = this.get(menuId);
         if (menu && !this.isAnimating()) {
-            var /** @type {?} */ openedMenu = this.getOpen();
+            var openedMenu = this.getOpen();
             if (openedMenu && menu !== openedMenu) {
                 openedMenu.setOpen(false, false);
             }
@@ -176,36 +176,35 @@ export class MenuController {
      * left menus, but only one of them should be able to be opened at the same
      * time. If there are multiple menus on the same side, then enabling one menu
      * will also automatically disable all the others that are on the same side.
-     * @param {?} shouldEnable
-     * @param {?=} menuId
-     * @return {?}
+     * @param {string} [menuId]  Optionally get the menu by its id, or side.
+     * @return {Menu}  Returns the instance of the menu, which is useful for chaining.
      */
     enable(shouldEnable, menuId) {
-        const /** @type {?} */ menu = this.get(menuId);
+        const menu = this.get(menuId);
         if (menu) {
             return menu.enable(shouldEnable);
         }
     }
     /**
      * Used to enable or disable the ability to swipe open the menu.
-     * @param {?} shouldEnable
-     * @param {?=} menuId
-     * @return {?}
+     * @param {boolean} shouldEnable  True if it should be swipe-able, false if not.
+     * @param {string} [menuId]  Optionally get the menu by its id, or side.
+     * @return {Menu}  Returns the instance of the menu, which is useful for chaining.
      */
     swipeEnable(shouldEnable, menuId) {
-        const /** @type {?} */ menu = this.get(menuId);
+        const menu = this.get(menuId);
         if (menu) {
             return menu.swipeEnable(shouldEnable);
         }
     }
     /**
+     * @param {string} [menuId] Optionally get the menu by its id, or side.
+     * @return {boolean} Returns true if the specified menu is currently open, otherwise false.
      * If the menuId is not specified, it returns true if ANY menu is currenly open.
-     * @param {?=} menuId
-     * @return {?}
      */
     isOpen(menuId) {
         if (menuId) {
-            var /** @type {?} */ menu = this.get(menuId);
+            var menu = this.get(menuId);
             return menu && menu.isOpen || false;
         }
         else {
@@ -213,11 +212,11 @@ export class MenuController {
         }
     }
     /**
-     * @param {?=} menuId
-     * @return {?}
+     * @param {string} [menuId]  Optionally get the menu by its id, or side.
+     * @return {boolean} Returns true if the menu is currently enabled, otherwise false.
      */
     isEnabled(menuId) {
-        const /** @type {?} */ menu = this.get(menuId);
+        const menu = this.get(menuId);
         return menu && menu.enabled || false;
     }
     /**
@@ -226,11 +225,11 @@ export class MenuController {
      * it'll return the enabled menu on that side. Otherwise, if a `menuId` is
      * provided, then it'll try to find the menu using the menu's `id`
      * property. If a menu is not found then it'll return `null`.
-     * @param {?=} menuId
-     * @return {?}
+     * @param {string} [menuId]  Optionally get the menu by its id, or side.
+     * @return {Menu} Returns the instance of the menu if found, otherwise `null`.
      */
     get(menuId) {
-        var /** @type {?} */ menu;
+        var menu;
         if (menuId === 'left' || menuId === 'right') {
             // there could be more than one menu on the same side
             // so first try to get the enabled one
@@ -256,28 +255,26 @@ export class MenuController {
         return (this._menus.length ? this._menus[0] : null);
     }
     /**
-     * @return {?}
+     * @return {Menu} Returns the instance of the menu already opened, otherwise `null`.
      */
     getOpen() {
         return this._menus.find(m => m.isOpen);
     }
     /**
-     * @return {?}
+     * @return {Array<Menu>}  Returns an array of all menu instances.
      */
     getMenus() {
         return this._menus;
     }
     /**
      * @hidden
-     * @return {?}
+     * @return {boolean} if any menu is currently animating
      */
     isAnimating() {
         return this._menus.some(menu => menu.isAnimating());
     }
     /**
      * @hidden
-     * @param {?} menu
-     * @return {?}
      */
     _register(menu) {
         (void 0) /* assert */;
@@ -285,8 +282,6 @@ export class MenuController {
     }
     /**
      * @hidden
-     * @param {?} menu
-     * @return {?}
      */
     _unregister(menu) {
         (void 0) /* assert */;
@@ -294,8 +289,6 @@ export class MenuController {
     }
     /**
      * @hidden
-     * @param {?} menu
-     * @return {?}
      */
     _setActiveMenu(menu) {
         (void 0) /* assert */;
@@ -303,34 +296,23 @@ export class MenuController {
         // if this menu should be enabled
         // then find all the other menus on this same side
         // and automatically disable other same side menus
-        const /** @type {?} */ side = menu.side;
+        const side = menu.side;
         this._menus
             .filter(m => m.side === side && m !== menu)
             .map(m => m.enable(false));
     }
     /**
      * @hidden
-     * @param {?} name
-     * @param {?} cls
-     * @return {?}
      */
     static registerType(name, cls) {
         menuTypes[name] = cls;
     }
     /**
      * @hidden
-     * @param {?} type
-     * @param {?} menuCmp
-     * @param {?} plt
-     * @return {?}
      */
     static create(type, menuCmp, plt) {
         return new menuTypes[type](menuCmp, plt);
     }
 }
-function MenuController_tsickle_Closure_declarations() {
-    /** @type {?} */
-    MenuController.prototype._menus;
-}
-let /** @type {?} */ menuTypes = {};
+let menuTypes = {};
 //# sourceMappingURL=menu-controller.js.map

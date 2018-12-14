@@ -18,13 +18,10 @@ var LoadingPopIn = (function (_super) {
     function LoadingPopIn() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     LoadingPopIn.prototype.init = function () {
-        var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
+        var ele = this.enteringView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
         wrapper.fromTo('opacity', 0.01, 1).fromTo('scale', 1.1, 1);
         backdrop.fromTo('opacity', 0.01, 0.3);
         this
@@ -41,13 +38,10 @@ var LoadingPopOut = (function (_super) {
     function LoadingPopOut() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     LoadingPopOut.prototype.init = function () {
-        var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
+        var ele = this.leavingView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
         wrapper.fromTo('opacity', 0.99, 0).fromTo('scale', 1, 0.9);
         backdrop.fromTo('opacity', 0.3, 0);
         this
@@ -64,13 +58,10 @@ var LoadingMdPopIn = (function (_super) {
     function LoadingMdPopIn() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     LoadingMdPopIn.prototype.init = function () {
-        var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
+        var ele = this.enteringView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
         wrapper.fromTo('opacity', 0.01, 1).fromTo('scale', 1.1, 1);
         backdrop.fromTo('opacity', 0.01, 0.5);
         this
@@ -87,13 +78,10 @@ var LoadingMdPopOut = (function (_super) {
     function LoadingMdPopOut() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     LoadingMdPopOut.prototype.init = function () {
-        var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
+        var ele = this.leavingView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
         wrapper.fromTo('opacity', 0.99, 0).fromTo('scale', 1, 0.9);
         backdrop.fromTo('opacity', 0.5, 0);
         this
@@ -110,13 +98,10 @@ var LoadingWpPopIn = (function (_super) {
     function LoadingWpPopIn() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     LoadingWpPopIn.prototype.init = function () {
-        var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
+        var ele = this.enteringView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
         wrapper.fromTo('opacity', 0.01, 1).fromTo('scale', 1.3, 1);
         backdrop.fromTo('opacity', 0.01, 0.16);
         this
@@ -133,13 +118,10 @@ var LoadingWpPopOut = (function (_super) {
     function LoadingWpPopOut() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    /**
-     * @return {?}
-     */
     LoadingWpPopOut.prototype.init = function () {
-        var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        var /** @type {?} */ backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
-        var /** @type {?} */ wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
+        var ele = this.leavingView.pageRef().nativeElement;
+        var backdrop = new Animation(this.plt, ele.querySelector('ion-backdrop'));
+        var wrapper = new Animation(this.plt, ele.querySelector('.loading-wrapper'));
         wrapper.fromTo('opacity', 0.99, 0).fromTo('scale', 1, 1.3);
         backdrop.fromTo('opacity', 0.16, 0);
         this

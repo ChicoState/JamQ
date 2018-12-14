@@ -26,14 +26,11 @@ var __extends = (this && this.__extends) || (function () {
         function ToastSlideIn() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ToastSlideIn.prototype.init = function () {
             // DOM READS
-            var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-            var /** @type {?} */ wrapperEle = (ele.querySelector('.toast-wrapper'));
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, wrapperEle);
+            var ele = this.enteringView.pageRef().nativeElement;
+            var wrapperEle = ele.querySelector('.toast-wrapper');
+            var wrapper = new animation_1.Animation(this.plt, wrapperEle);
             if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_TOP) {
                 // top
                 // by default, it is -100% hidden (above the screen)
@@ -43,7 +40,7 @@ var __extends = (this && this.__extends) || (function () {
             else if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_MIDDLE) {
                 // Middle
                 // just center it and fade it in
-                var /** @type {?} */ topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
+                var topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
                 // DOM WRITE
                 wrapperEle.style.top = topPosition + "px";
                 wrapper.fromTo('opacity', 0.01, 1);
@@ -64,13 +61,10 @@ var __extends = (this && this.__extends) || (function () {
         function ToastSlideOut() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ToastSlideOut.prototype.init = function () {
-            var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-            var /** @type {?} */ wrapperEle = (ele.querySelector('.toast-wrapper'));
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, wrapperEle);
+            var ele = this.leavingView.pageRef().nativeElement;
+            var wrapperEle = ele.querySelector('.toast-wrapper');
+            var wrapper = new animation_1.Animation(this.plt, wrapperEle);
             if (this.leavingView.data && this.leavingView.data.position === TOAST_POSITION_TOP) {
                 // top
                 // reverse arguments from enter transition
@@ -96,14 +90,11 @@ var __extends = (this && this.__extends) || (function () {
         function ToastMdSlideIn() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ToastMdSlideIn.prototype.init = function () {
             // DOM reads
-            var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-            var /** @type {?} */ wrapperEle = ele.querySelector('.toast-wrapper');
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, wrapperEle);
+            var ele = this.enteringView.pageRef().nativeElement;
+            var wrapperEle = ele.querySelector('.toast-wrapper');
+            var wrapper = new animation_1.Animation(this.plt, wrapperEle);
             if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_TOP) {
                 // top
                 // by default, it is -100% hidden (above the screen)
@@ -113,7 +104,7 @@ var __extends = (this && this.__extends) || (function () {
             else if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_MIDDLE) {
                 // Middle
                 // just center it and fade it in
-                var /** @type {?} */ topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
+                var topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
                 // DOM WRITE
                 wrapperEle.style.top = topPosition + "px";
                 wrapper.fromTo('opacity', 0.01, 1);
@@ -134,13 +125,10 @@ var __extends = (this && this.__extends) || (function () {
         function ToastMdSlideOut() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ToastMdSlideOut.prototype.init = function () {
-            var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-            var /** @type {?} */ wrapperEle = ele.querySelector('.toast-wrapper');
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, wrapperEle);
+            var ele = this.leavingView.pageRef().nativeElement;
+            var wrapperEle = ele.querySelector('.toast-wrapper');
+            var wrapper = new animation_1.Animation(this.plt, wrapperEle);
             if (this.leavingView.data && this.leavingView.data.position === TOAST_POSITION_TOP) {
                 // top
                 // reverse arguments from enter transition
@@ -166,13 +154,10 @@ var __extends = (this && this.__extends) || (function () {
         function ToastWpPopIn() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ToastWpPopIn.prototype.init = function () {
-            var /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-            var /** @type {?} */ wrapperEle = ele.querySelector('.toast-wrapper');
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, wrapperEle);
+            var ele = this.enteringView.pageRef().nativeElement;
+            var wrapperEle = ele.querySelector('.toast-wrapper');
+            var wrapper = new animation_1.Animation(this.plt, wrapperEle);
             if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_TOP) {
                 // top
                 wrapper.fromTo('opacity', 0.01, 1);
@@ -181,7 +166,7 @@ var __extends = (this && this.__extends) || (function () {
             else if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_MIDDLE) {
                 // Middle
                 // just center it and fade it in
-                var /** @type {?} */ topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
+                var topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
                 // DOM WRITE
                 wrapperEle.style.top = topPosition + "px";
                 wrapper.fromTo('opacity', 0.01, 1);
@@ -202,14 +187,11 @@ var __extends = (this && this.__extends) || (function () {
         function ToastWpPopOut() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @return {?}
-         */
         ToastWpPopOut.prototype.init = function () {
             // DOM reads
-            var /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-            var /** @type {?} */ wrapperEle = ele.querySelector('.toast-wrapper');
-            var /** @type {?} */ wrapper = new animation_1.Animation(this.plt, wrapperEle);
+            var ele = this.leavingView.pageRef().nativeElement;
+            var wrapperEle = ele.querySelector('.toast-wrapper');
+            var wrapper = new animation_1.Animation(this.plt, wrapperEle);
             if (this.leavingView.data && this.leavingView.data.position === TOAST_POSITION_TOP) {
                 // top
                 // reverse arguments from enter transition
@@ -229,14 +211,14 @@ var __extends = (this && this.__extends) || (function () {
                 wrapper.fromTo('scale', 1, 1.3);
             }
             // DOM writes
-            var /** @type {?} */ EASE = 'ease-out';
-            var /** @type {?} */ DURATION = 150;
+            var EASE = 'ease-out';
+            var DURATION = 150;
             this.easing(EASE).duration(DURATION).add(wrapper);
         };
         return ToastWpPopOut;
     }(transition_1.Transition));
     exports.ToastWpPopOut = ToastWpPopOut;
-    var /** @type {?} */ TOAST_POSITION_TOP = 'top';
-    var /** @type {?} */ TOAST_POSITION_MIDDLE = 'middle';
+    var TOAST_POSITION_TOP = 'top';
+    var TOAST_POSITION_MIDDLE = 'middle';
 });
 //# sourceMappingURL=toast-transitions.js.map

@@ -1,4 +1,4 @@
-import { NavOptions } from './nav-util';
+import { NavOptions, NavSegment } from './nav-util';
 import { ViewController } from './view-controller';
 export interface Nav {
     goToRoot(opts: NavOptions): Promise<any>;
@@ -16,8 +16,7 @@ export interface Tab {
     tabUrlPath: string;
     tabTitle: string;
     index: number;
-    _lazyRootFromUrl: string;
-    _lazyRootFromUrlData: string;
+    _segment: NavSegment;
 }
 export interface Content {
     resize(): void;

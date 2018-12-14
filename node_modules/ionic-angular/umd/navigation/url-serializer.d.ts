@@ -1,4 +1,4 @@
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { App } from '../components/app/app';
 import { NavigationContainer } from './navigation-container';
 import { DeepLinkConfig, DehydratedSegment, DehydratedSegmentPair, NavGroup, NavLink, NavSegment } from './nav-util';
@@ -38,7 +38,7 @@ export declare const normalizeLinks: (links: NavLink[]) => NavLink[];
 /**
  * @hidden
  */
-export declare const DeepLinkConfigToken: OpaqueToken;
+export declare const DeepLinkConfigToken: InjectionToken<any>;
 export declare function setupUrlSerializer(app: App, userDeepLinkConfig: any): UrlSerializer;
 export declare function navGroupStringtoObjects(navGroupStrings: string[]): NavGroup[];
 export declare function urlToNavGroupStrings(url: string): string[];

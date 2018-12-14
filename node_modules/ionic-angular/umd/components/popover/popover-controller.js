@@ -15,8 +15,8 @@
     var popover_1 = require("./popover");
     var deep_linker_1 = require("../../navigation/deep-linker");
     /**
-     * \@name PopoverController
-     * \@description
+     * @name PopoverController
+     * @description
      * A Popover is a dialog that appears on top of the current page.
      * It can be used for anything, but generally it is used for overflow
      * actions that don't fit in the navigation bar.
@@ -51,7 +51,7 @@
      * presentation of the component in a reusable function as shown in the [usage](#usage)
      * section below.
      *
-     * \@usage
+     * @usage
      *
      * To open a popover on the click of a button, pass `$event` to the method
      * which creates and presents the popover:
@@ -65,7 +65,7 @@
      * ```ts
      * import { PopoverController } from 'ionic-angular';
      *
-     * \@Component({})
+     * @Component({})
      * class MyPage {
      *   constructor(public popoverCtrl: PopoverController) {}
      *
@@ -83,7 +83,7 @@
      * that close the popover on click.
      *
      * ```ts
-     * \@Component({
+     * @Component({
      *   template: `
      *     <ion-list>
      *       <ion-list-header>Ionic</ion-list-header>
@@ -102,7 +102,7 @@
      *   }
      * }
      * ```
-     * \@advanced
+     * @advanced
      * Popover Options
      *
      * | Option                | Type       | Description                                                                                                      |
@@ -113,14 +113,9 @@
      *
      *
      *
-     * \@demo /docs/demos/src/popover/
+     * @demo /docs/demos/src/popover/
      */
     var PopoverController = (function () {
-        /**
-         * @param {?} _app
-         * @param {?} config
-         * @param {?} _deepLinker
-         */
         function PopoverController(_app, config, _deepLinker) {
             this._app = _app;
             this.config = config;
@@ -128,44 +123,26 @@
         }
         /**
          * Present a popover. See below for options
-         * @param {?} component
-         * @param {?=} data
-         * @param {?=} opts
-         * @return {?}
+         * @param {object} component The Popover
+         * @param {object} data Any data to pass to the Popover view
+         * @param {PopoverOptions} opts Popover options
          */
         PopoverController.prototype.create = function (component, data, opts) {
             if (data === void 0) { data = {}; }
             if (opts === void 0) { opts = {}; }
             return new popover_1.Popover(this._app, component, data, opts, this.config, this._deepLinker);
         };
+        PopoverController.decorators = [
+            { type: core_1.Injectable },
+        ];
+        /** @nocollapse */
+        PopoverController.ctorParameters = function () { return [
+            { type: app_1.App, },
+            { type: config_1.Config, },
+            { type: deep_linker_1.DeepLinker, },
+        ]; };
         return PopoverController;
     }());
-    PopoverController.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    PopoverController.ctorParameters = function () { return [
-        { type: app_1.App, },
-        { type: config_1.Config, },
-        { type: deep_linker_1.DeepLinker, },
-    ]; };
     exports.PopoverController = PopoverController;
-    function PopoverController_tsickle_Closure_declarations() {
-        /** @type {?} */
-        PopoverController.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        PopoverController.ctorParameters;
-        /** @type {?} */
-        PopoverController.prototype._app;
-        /** @type {?} */
-        PopoverController.prototype.config;
-        /** @type {?} */
-        PopoverController.prototype._deepLinker;
-    }
 });
 //# sourceMappingURL=popover-controller.js.map

@@ -15,14 +15,6 @@ import { PopoverImpl } from './popover-impl';
  */
 var Popover = (function (_super) {
     __extends(Popover, _super);
-    /**
-     * @param {?} app
-     * @param {?} component
-     * @param {?} data
-     * @param {?=} opts
-     * @param {?=} config
-     * @param {?=} deepLinker
-     */
     function Popover(app, component, data, opts, config, deepLinker) {
         if (opts === void 0) { opts = {}; }
         var _this = _super.call(this, app, component, config, deepLinker) || this;
@@ -31,21 +23,10 @@ var Popover = (function (_super) {
         _this.isOverlay = true;
         return _this;
     }
-    /**
-     * @return {?}
-     */
     Popover.prototype.getImplementation = function () {
         return new PopoverImpl(this._app, this._component, this.data, this.opts, this._config);
     };
     return Popover;
 }(OverlayProxy));
 export { Popover };
-function Popover_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Popover.prototype.isOverlay;
-    /** @type {?} */
-    Popover.prototype.data;
-    /** @type {?} */
-    Popover.prototype.opts;
-}
 //# sourceMappingURL=popover.js.map

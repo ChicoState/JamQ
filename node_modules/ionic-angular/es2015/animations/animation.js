@@ -3,11 +3,6 @@ import { isDefined } from '../util/util';
  * @hidden
  */
 export class Animation {
-    /**
-     * @param {?} plt
-     * @param {?=} ele
-     * @param {?=} opts
-     */
     constructor(plt, ele, opts) {
         this._dur = null;
         this._es = null;
@@ -19,20 +14,16 @@ export class Animation {
         this.element(ele);
         this.opts = opts;
     }
-    /**
-     * @param {?} ele
-     * @return {?}
-     */
     element(ele) {
         if (ele) {
             if (typeof ele === 'string') {
                 ele = this.plt.doc().querySelectorAll(ele);
-                for (let /** @type {?} */ i = 0; i < ele.length; i++) {
+                for (let i = 0; i < ele.length; i++) {
                     this._addEle(ele[i]);
                 }
             }
             else if (ele.length) {
-                for (let /** @type {?} */ i = 0; i < ele.length; i++) {
+                for (let i = 0; i < ele.length; i++) {
                     this._addEle(ele[i]);
                 }
             }
@@ -44,21 +35,17 @@ export class Animation {
     }
     /**
      * NO DOM
-     * @param {?} ele
-     * @return {?}
      */
     _addEle(ele) {
         if (ele.nativeElement) {
             ele = ele.nativeElement;
         }
-        if (((ele)).nodeType === 1) {
+        if (ele.nodeType === 1) {
             this._eL = (this._e = this._e || []).push(ele);
         }
     }
     /**
      * Add a child animation to this animation.
-     * @param {?} childAnimation
-     * @return {?}
      */
     add(childAnimation) {
         childAnimation.parent = this;
@@ -69,8 +56,6 @@ export class Animation {
     /**
      * Get the duration of this animation. If this animation does
      * not have a duration, then it'll get the duration from its parent.
-     * @param {?=} opts
-     * @return {?}
      */
     getDuration(opts) {
         if (opts && isDefined(opts.duration)) {
@@ -86,15 +71,12 @@ export class Animation {
     }
     /**
      * Returns if the animation is a root one.
-     * @return {?}
      */
     isRoot() {
         return !this.parent;
     }
     /**
      * Set the duration for this animation.
-     * @param {?} milliseconds
-     * @return {?}
      */
     duration(milliseconds) {
         this._dur = milliseconds;
@@ -103,7 +85,6 @@ export class Animation {
     /**
      * Get the easing of this animation. If this animation does
      * not have an easing, then it'll get the easing from its parent.
-     * @return {?}
      */
     getEasing() {
         if (this._rv && this._rvEs) {
@@ -113,8 +94,6 @@ export class Animation {
     }
     /**
      * Set the easing for this animation.
-     * @param {?} name
-     * @return {?}
      */
     easing(name) {
         this._es = name;
@@ -122,8 +101,6 @@ export class Animation {
     }
     /**
      * Set the easing for this reversed animation.
-     * @param {?} name
-     * @return {?}
      */
     easingReverse(name) {
         this._rvEs = name;
@@ -131,9 +108,6 @@ export class Animation {
     }
     /**
      * Add the "from" value for a specific property.
-     * @param {?} prop
-     * @param {?} val
-     * @return {?}
      */
     from(prop, val) {
         this._addProp('from', prop, val);
@@ -141,13 +115,9 @@ export class Animation {
     }
     /**
      * Add the "to" value for a specific property.
-     * @param {?} prop
-     * @param {?} val
-     * @param {?=} clearProperyAfterTransition
-     * @return {?}
      */
     to(prop, val, clearProperyAfterTransition) {
-        const /** @type {?} */ fx = this._addProp('to', prop, val);
+        const fx = this._addProp('to', prop, val);
         if (clearProperyAfterTransition) {
             // if this effect is a transform then clear the transform effect
             // otherwise just clear the actual property
@@ -157,11 +127,6 @@ export class Animation {
     }
     /**
      * Shortcut to add both the "from" and "to" for the same property.
-     * @param {?} prop
-     * @param {?} fromVal
-     * @param {?} toVal
-     * @param {?=} clearProperyAfterTransition
-     * @return {?}
      */
     fromTo(prop, fromVal, toVal, clearProperyAfterTransition) {
         return this.from(prop, fromVal).to(prop, toVal, clearProperyAfterTransition);
@@ -169,8 +134,6 @@ export class Animation {
     /**
      * @hidden
      * NO DOM
-     * @param {?} name
-     * @return {?}
      */
     _getProp(name) {
         if (this._fx) {
@@ -181,17 +144,11 @@ export class Animation {
         }
         return null;
     }
-    /**
-     * @param {?} state
-     * @param {?} prop
-     * @param {?} val
-     * @return {?}
-     */
     _addProp(state, prop, val) {
-        let /** @type {?} */ fxProp = this._getProp(prop);
+        let fxProp = this._getProp(prop);
         if (!fxProp) {
             // first time we've see this EffectProperty
-            const /** @type {?} */ shouldTrans = (ANIMATION_TRANSFORMS[prop] === 1);
+            const shouldTrans = (ANIMATION_TRANSFORMS[prop] === 1);
             fxProp = {
                 name: prop,
                 trans: shouldTrans,
@@ -201,15 +158,15 @@ export class Animation {
             this._fx.push(fxProp);
         }
         // add from/to EffectState to the EffectProperty
-        let /** @type {?} */ fxState = {
+        let fxState = {
             val: val,
             num: null,
             unit: '',
         };
         fxProp[state] = fxState;
         if (typeof val === 'string' && val.indexOf(' ') < 0) {
-            let /** @type {?} */ r = val.match(ANIMATION_CSS_VALUE_REGEX);
-            let /** @type {?} */ num = parseFloat(r[1]);
+            let r = val.match(ANIMATION_CSS_VALUE_REGEX);
+            let num = parseFloat(r[1]);
             if (!isNaN(num)) {
                 fxState.num = num;
             }
@@ -223,8 +180,6 @@ export class Animation {
     /**
      * Add CSS class to this animation's elements
      * before the animation begins.
-     * @param {?} className
-     * @return {?}
      */
     beforeAddClass(className) {
         (this._bfAdd = this._bfAdd || []).push(className);
@@ -233,8 +188,6 @@ export class Animation {
     /**
      * Remove CSS class from this animation's elements
      * before the animation begins.
-     * @param {?} className
-     * @return {?}
      */
     beforeRemoveClass(className) {
         (this._bfRm = this._bfRm || []).push(className);
@@ -243,8 +196,6 @@ export class Animation {
     /**
      * Set CSS inline styles to this animation's elements
      * before the animation begins.
-     * @param {?} styles
-     * @return {?}
      */
     beforeStyles(styles) {
         this._bfSty = styles;
@@ -253,12 +204,10 @@ export class Animation {
     /**
      * Clear CSS inline styles from this animation's elements
      * before the animation begins.
-     * @param {?} propertyNames
-     * @return {?}
      */
     beforeClearStyles(propertyNames) {
         this._bfSty = this._bfSty || {};
-        for (let /** @type {?} */ i = 0; i < propertyNames.length; i++) {
+        for (let i = 0; i < propertyNames.length; i++) {
             this._bfSty[propertyNames[i]] = '';
         }
         return this;
@@ -266,8 +215,6 @@ export class Animation {
     /**
      * Add a function which contains DOM reads, which will run
      * before the animation begins.
-     * @param {?} domReadFn
-     * @return {?}
      */
     beforeAddRead(domReadFn) {
         (this._rdFn = this._rdFn || []).push(domReadFn);
@@ -276,8 +223,6 @@ export class Animation {
     /**
      * Add a function which contains DOM writes, which will run
      * before the animation begins.
-     * @param {?} domWriteFn
-     * @return {?}
      */
     beforeAddWrite(domWriteFn) {
         (this._wrFn = this._wrFn || []).push(domWriteFn);
@@ -286,8 +231,6 @@ export class Animation {
     /**
      * Add CSS class to this animation's elements
      * after the animation finishes.
-     * @param {?} className
-     * @return {?}
      */
     afterAddClass(className) {
         (this._afAdd = this._afAdd || []).push(className);
@@ -296,8 +239,6 @@ export class Animation {
     /**
      * Remove CSS class from this animation's elements
      * after the animation finishes.
-     * @param {?} className
-     * @return {?}
      */
     afterRemoveClass(className) {
         (this._afRm = this._afRm || []).push(className);
@@ -306,8 +247,6 @@ export class Animation {
     /**
      * Set CSS inline styles to this animation's elements
      * after the animation finishes.
-     * @param {?} styles
-     * @return {?}
      */
     afterStyles(styles) {
         this._afSty = styles;
@@ -316,20 +255,16 @@ export class Animation {
     /**
      * Clear CSS inline styles from this animation's elements
      * after the animation finishes.
-     * @param {?} propertyNames
-     * @return {?}
      */
     afterClearStyles(propertyNames) {
         this._afSty = this._afSty || {};
-        for (let /** @type {?} */ i = 0; i < propertyNames.length; i++) {
+        for (let i = 0; i < propertyNames.length; i++) {
             this._afSty[propertyNames[i]] = '';
         }
         return this;
     }
     /**
      * Play the animation.
-     * @param {?=} opts
-     * @return {?}
      */
     play(opts) {
         // If the animation was already invalidated (it did finish), do nothing
@@ -356,15 +291,12 @@ export class Animation {
             this.plt.raf(this._playDomInspect.bind(this, opts));
         });
     }
-    /**
-     * @return {?}
-     */
     syncPlay() {
         // If the animation was already invalidated (it did finish), do nothing
         if (!this.plt) {
             return;
         }
-        const /** @type {?} */ opts = { duration: 0 };
+        const opts = { duration: 0 };
         this._isAsync = false;
         this._clearAsync();
         this._playInit(opts);
@@ -374,8 +306,6 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * RECURSION
-     * @param {?} opts
-     * @return {?}
      */
     _playInit(opts) {
         // always default that an animation does not tween
@@ -386,8 +316,8 @@ export class Animation {
         this.isPlaying = true;
         this.hasCompleted = false;
         this._hasDur = (this.getDuration(opts) > ANIMATION_DURATION_MIN);
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             // ******** DOM WRITE ****************
             children[i]._playInit(opts);
         }
@@ -405,8 +335,6 @@ export class Animation {
      * DOM WRITE
      * NO RECURSION
      * ROOT ANIMATION
-     * @param {?} opts
-     * @return {?}
      */
     _playDomInspect(opts) {
         // fire off all the "before" function that have DOM READS in them
@@ -418,7 +346,7 @@ export class Animation {
         // for the root animation only
         // set the async TRANSITION END event
         // and run onFinishes when the transition ends
-        const /** @type {?} */ dur = this.getDuration(opts);
+        const dur = this.getDuration(opts);
         if (this._isAsync) {
             this._asyncEnd(dur, true);
         }
@@ -434,12 +362,10 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * RECURSION
-     * @param {?} opts
-     * @return {?}
      */
     _playProgress(opts) {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             // ******** DOM WRITE ****************
             children[i]._playProgress(opts);
         }
@@ -465,12 +391,10 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * RECURSION
-     * @param {?} stepValue
-     * @return {?}
      */
     _playToStep(stepValue) {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             // ******** DOM WRITE ****************
             children[i]._playToStep(stepValue);
         }
@@ -487,18 +411,12 @@ export class Animation {
      * DOM WRITE
      * NO RECURSION
      * ROOT ANIMATION
-     * @param {?} dur
-     * @param {?} shouldComplete
-     * @return {?}
      */
     _asyncEnd(dur, shouldComplete) {
         (void 0) /* assert */;
         (void 0) /* assert */;
         (void 0) /* assert */;
-        const /** @type {?} */ self = this;
-        /**
-         * @return {?}
-         */
+        const self = this;
         function onTransitionEnd() {
             // congrats! a successful transition completed!
             // ensure transition end events and timeouts have been cleared
@@ -508,9 +426,6 @@ export class Animation {
             // transition finished
             self._didFinishAll(shouldComplete, true, false);
         }
-        /**
-         * @return {?}
-         */
         function onTransitionFallback() {
             (void 0) /* console.debug */;
             // oh noz! the transition end event didn't fire in time!
@@ -535,12 +450,10 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * RECURSION
-     * @param {?=} stepValue
-     * @return {?}
      */
     _playEnd(stepValue) {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             // ******** DOM WRITE ****************
             children[i]._playEnd(stepValue);
         }
@@ -565,15 +478,13 @@ export class Animation {
      * @hidden
      * NO DOM
      * RECURSION
-     * @param {?} opts
-     * @return {?}
      */
     _hasDuration(opts) {
         if (this.getDuration(opts) > ANIMATION_DURATION_MIN) {
             return true;
         }
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             if (children[i]._hasDuration(opts)) {
                 return true;
             }
@@ -584,14 +495,13 @@ export class Animation {
      * @hidden
      * NO DOM
      * RECURSION
-     * @return {?}
      */
     _hasDomReads() {
         if (this._rdFn && this._rdFn.length) {
             return true;
         }
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             if (children[i]._hasDomReads()) {
                 return true;
             }
@@ -600,8 +510,6 @@ export class Animation {
     }
     /**
      * Immediately stop at the end of the animation.
-     * @param {?=} stepValue
-     * @return {?}
      */
     stop(stepValue = 1) {
         // ensure all past transition end events have been cleared
@@ -613,7 +521,6 @@ export class Animation {
      * @hidden
      * NO DOM
      * NO RECURSION
-     * @return {?}
      */
     _clearAsync() {
         this._unrgTrns && this._unrgTrns();
@@ -624,14 +531,12 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * NO RECURSION
-     * @param {?} stepValue
-     * @return {?}
      */
     _progress(stepValue) {
         // bread 'n butter
-        let /** @type {?} */ val;
-        let /** @type {?} */ effects = this._fx;
-        let /** @type {?} */ nuElements = this._eL;
+        let val;
+        let effects = this._fx;
+        let nuElements = this._eL;
         if (!effects || !nuElements) {
             return;
         }
@@ -639,15 +544,15 @@ export class Animation {
         if (this._rv) {
             stepValue = ((stepValue * -1) + 1);
         }
-        let /** @type {?} */ i, /** @type {?} */ j;
-        let /** @type {?} */ finalTransform = '';
-        const /** @type {?} */ elements = this._e;
+        let i, j;
+        let finalTransform = '';
+        const elements = this._e;
         for (i = 0; i < effects.length; i++) {
-            const /** @type {?} */ fx = effects[i];
+            const fx = effects[i];
             if (fx.from && fx.to) {
-                const /** @type {?} */ fromNum = fx.from.num;
-                const /** @type {?} */ toNum = fx.to.num;
-                const /** @type {?} */ tweenEffect = (fromNum !== toNum);
+                const fromNum = fx.from.num;
+                const toNum = fx.to.num;
+                const tweenEffect = (fromNum !== toNum);
                 (void 0) /* assert */;
                 if (tweenEffect) {
                     this._twn = true;
@@ -662,22 +567,22 @@ export class Animation {
                 }
                 else if (tweenEffect) {
                     // EVERYTHING IN BETWEEN
-                    let /** @type {?} */ valNum = (((toNum - fromNum) * stepValue) + fromNum);
-                    const /** @type {?} */ unit = fx.to.unit;
+                    let valNum = (((toNum - fromNum) * stepValue) + fromNum);
+                    const unit = fx.to.unit;
                     if (unit === 'px') {
                         valNum = Math.round(valNum);
                     }
                     val = valNum + unit;
                 }
                 if (val !== null) {
-                    const /** @type {?} */ prop = fx.name;
+                    const prop = fx.name;
                     if (fx.trans) {
                         finalTransform += prop + '(' + val + ') ';
                     }
                     else {
                         for (j = 0; j < nuElements; j++) {
                             // ******** DOM WRITE ****************
-                            ((elements[j].style))[prop] = val;
+                            elements[j].style[prop] = val;
                         }
                     }
                 }
@@ -688,10 +593,10 @@ export class Animation {
             if (!this._rv && stepValue !== 1 || this._rv && stepValue !== 0) {
                 finalTransform += 'translateZ(0px)';
             }
-            const /** @type {?} */ cssTransform = this.plt.Css.transform;
+            const cssTransform = this.plt.Css.transform;
             for (i = 0; i < elements.length; i++) {
                 // ******** DOM WRITE ****************
-                ((elements[i].style))[cssTransform] = finalTransform;
+                elements[i].style[cssTransform] = finalTransform;
             }
         }
     }
@@ -699,9 +604,6 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * NO RECURSION
-     * @param {?} dur
-     * @param {?} forcedLinearEasing
-     * @return {?}
      */
     _setTrans(dur, forcedLinearEasing) {
         // Transition is not enabled if there are not effects
@@ -709,15 +611,15 @@ export class Animation {
             return;
         }
         // set the TRANSITION properties inline on the element
-        const /** @type {?} */ elements = this._e;
-        const /** @type {?} */ easing = (forcedLinearEasing ? 'linear' : this.getEasing());
-        const /** @type {?} */ durString = dur + 'ms';
-        const /** @type {?} */ Css = this.plt.Css;
-        const /** @type {?} */ cssTransform = Css.transition;
-        const /** @type {?} */ cssTransitionDuration = Css.transitionDuration;
-        const /** @type {?} */ cssTransitionTimingFn = Css.transitionTimingFn;
-        let /** @type {?} */ eleStyle;
-        for (let /** @type {?} */ i = 0; i < this._eL; i++) {
+        const elements = this._e;
+        const easing = (forcedLinearEasing ? 'linear' : this.getEasing());
+        const durString = dur + 'ms';
+        const Css = this.plt.Css;
+        const cssTransform = Css.transition;
+        const cssTransitionDuration = Css.transitionDuration;
+        const cssTransitionTimingFn = Css.transitionTimingFn;
+        let eleStyle;
+        for (let i = 0; i < this._eL; i++) {
             eleStyle = elements[i].style;
             if (dur > 0) {
                 // ******** DOM WRITE ****************
@@ -739,7 +641,6 @@ export class Animation {
      * DOM READ
      * DOM WRITE
      * RECURSION
-     * @return {?}
      */
     _beforeAnimation() {
         // fire off all the "before" function that have DOM READS in them
@@ -759,11 +660,10 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * RECURSION
-     * @return {?}
      */
     _setBeforeStyles() {
-        let /** @type {?} */ i, /** @type {?} */ j;
-        const /** @type {?} */ children = this._c;
+        let i, j;
+        const children = this._c;
         for (i = 0; i < this._cL; i++) {
             children[i]._setBeforeStyles();
         }
@@ -772,11 +672,11 @@ export class Animation {
         if (this._rv) {
             return;
         }
-        const /** @type {?} */ addClasses = this._bfAdd;
-        const /** @type {?} */ removeClasses = this._bfRm;
-        let /** @type {?} */ ele;
-        let /** @type {?} */ eleClassList;
-        let /** @type {?} */ prop;
+        const addClasses = this._bfAdd;
+        const removeClasses = this._bfRm;
+        let ele;
+        let eleClassList;
+        let prop;
         for (i = 0; i < this._eL; i++) {
             ele = this._e[i];
             eleClassList = ele.classList;
@@ -798,7 +698,7 @@ export class Animation {
             if (this._bfSty) {
                 for (prop in this._bfSty) {
                     // ******** DOM WRITE ****************
-                    ((ele)).style[prop] = this._bfSty[prop];
+                    ele.style[prop] = this._bfSty[prop];
                 }
             }
         }
@@ -807,17 +707,16 @@ export class Animation {
      * @hidden
      * DOM READ
      * RECURSION
-     * @return {?}
      */
     _fireBeforeReadFunc() {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             // ******** DOM READ ****************
             children[i]._fireBeforeReadFunc();
         }
-        const /** @type {?} */ readFunctions = this._rdFn;
+        const readFunctions = this._rdFn;
         if (readFunctions) {
-            for (let /** @type {?} */ i = 0; i < readFunctions.length; i++) {
+            for (let i = 0; i < readFunctions.length; i++) {
                 // ******** DOM READ ****************
                 readFunctions[i]();
             }
@@ -827,17 +726,16 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * RECURSION
-     * @return {?}
      */
     _fireBeforeWriteFunc() {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             // ******** DOM WRITE ****************
             children[i]._fireBeforeWriteFunc();
         }
-        const /** @type {?} */ writeFunctions = this._wrFn;
+        const writeFunctions = this._wrFn;
         if (this._wrFn) {
-            for (let /** @type {?} */ i = 0; i < writeFunctions.length; i++) {
+            for (let i = 0; i < writeFunctions.length; i++) {
                 // ******** DOM WRITE ****************
                 writeFunctions[i]();
             }
@@ -846,19 +744,18 @@ export class Animation {
     /**
      * @hidden
      * DOM WRITE
-     * @return {?}
      */
     _setAfterStyles() {
-        let /** @type {?} */ i, /** @type {?} */ j;
-        let /** @type {?} */ ele;
-        let /** @type {?} */ eleClassList;
-        let /** @type {?} */ elements = this._e;
+        let i, j;
+        let ele;
+        let eleClassList;
+        let elements = this._e;
         for (i = 0; i < this._eL; i++) {
             ele = elements[i];
             eleClassList = ele.classList;
             // remove the transition duration/easing
             // ******** DOM WRITE ****************
-            ((ele)).style[this.plt.Css.transitionDuration] = ((ele)).style[this.plt.Css.transitionTimingFn] = '';
+            ele.style[this.plt.Css.transitionDuration] = ele.style[this.plt.Css.transitionTimingFn] = '';
             if (this._rv) {
                 // finished in reverse direction
                 // css classes that were added before the animation should be removed
@@ -877,9 +774,9 @@ export class Animation {
                 }
                 // inline styles that were added before the animation should be removed
                 if (this._bfSty) {
-                    for (const /** @type {?} */ prop in this._bfSty) {
+                    for (const prop in this._bfSty) {
                         // ******** DOM WRITE ****************
-                        ((ele)).style[prop] = '';
+                        ele.style[prop] = '';
                     }
                 }
             }
@@ -901,9 +798,9 @@ export class Animation {
                 }
                 // inline styles to add after the animation
                 if (this._afSty) {
-                    for (const /** @type {?} */ prop in this._afSty) {
+                    for (const prop in this._afSty) {
                         // ******** DOM WRITE ****************
-                        ((ele)).style[prop] = this._afSty[prop];
+                        ele.style[prop] = this._afSty[prop];
                     }
                 }
             }
@@ -913,17 +810,15 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * NO RECURSION
-     * @param {?} addWillChange
-     * @return {?}
      */
     _willChg(addWillChange) {
-        let /** @type {?} */ wc;
-        let /** @type {?} */ effects = this._fx;
-        let /** @type {?} */ willChange;
+        let wc;
+        let effects = this._fx;
+        let willChange;
         if (addWillChange && effects) {
             wc = [];
-            for (let /** @type {?} */ i = 0; i < effects.length; i++) {
-                const /** @type {?} */ propWC = effects[i].wc;
+            for (let i = 0; i < effects.length; i++) {
+                const propWC = effects[i].wc;
                 if (propWC === 'webkitTransform') {
                     wc.push('transform', '-webkit-transform');
                 }
@@ -936,14 +831,13 @@ export class Animation {
         else {
             willChange = '';
         }
-        for (let /** @type {?} */ i = 0; i < this._eL; i++) {
+        for (let i = 0; i < this._eL; i++) {
             // ******** DOM WRITE ****************
-            ((this._e[i])).style.willChange = willChange;
+            this._e[i].style.willChange = willChange;
         }
     }
     /**
      * Start the animation with a user controlled progress.
-     * @return {?}
      */
     progressStart() {
         // ensure all past transition end events have been cleared
@@ -957,11 +851,10 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * RECURSION
-     * @return {?}
      */
     _progressStart() {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             // ******** DOM WRITE ****************
             children[i]._progressStart();
         }
@@ -974,14 +867,12 @@ export class Animation {
     /**
      * Set the progress step for this animation.
      * progressStep() is not debounced, so it should not be called faster than 60FPS.
-     * @param {?} stepValue
-     * @return {?}
      */
     progressStep(stepValue) {
         // only update if the last update was more than 16ms ago
         stepValue = Math.min(1, Math.max(0, stepValue));
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             // ******** DOM WRITE ****************
             children[i].progressStep(stepValue);
         }
@@ -995,10 +886,6 @@ export class Animation {
     }
     /**
      * End the progress animation.
-     * @param {?} shouldComplete
-     * @param {?} currentStepValue
-     * @param {?=} dur
-     * @return {?}
      */
     progressEnd(shouldComplete, currentStepValue, dur = -1) {
         (void 0) /* console.debug */;
@@ -1007,8 +894,8 @@ export class Animation {
             // flip the step value: 0 becomes 1, 1 becomes 0
             currentStepValue = ((currentStepValue * -1) + 1);
         }
-        const /** @type {?} */ stepValue = shouldComplete ? 1 : 0;
-        const /** @type {?} */ diff = Math.abs(currentStepValue - stepValue);
+        const stepValue = shouldComplete ? 1 : 0;
+        const diff = Math.abs(currentStepValue - stepValue);
         if (diff < 0.05) {
             dur = 0;
         }
@@ -1032,15 +919,10 @@ export class Animation {
      * @hidden
      * DOM WRITE
      * RECURSION
-     * @param {?} shouldComplete
-     * @param {?} stepValue
-     * @param {?} dur
-     * @param {?} isAsync
-     * @return {?}
      */
     _progressEnd(shouldComplete, stepValue, dur, isAsync) {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             // ******** DOM WRITE ****************
             children[i]._progressEnd(shouldComplete, stepValue, dur, isAsync);
         }
@@ -1065,10 +947,6 @@ export class Animation {
     }
     /**
      * Add a callback to fire when the animation has finished.
-     * @param {?} callback
-     * @param {?=} onceTimeCallback
-     * @param {?=} clearOnFinishCallacks
-     * @return {?}
      */
     onFinish(callback, onceTimeCallback = false, clearOnFinishCallacks = false) {
         if (clearOnFinishCallacks) {
@@ -1088,14 +966,10 @@ export class Animation {
      * @hidden
      * NO DOM
      * RECURSION
-     * @param {?} hasCompleted
-     * @param {?} finishAsyncAnimations
-     * @param {?} finishNoDurationAnimations
-     * @return {?}
      */
     _didFinishAll(hasCompleted, finishAsyncAnimations, finishNoDurationAnimations) {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             children[i]._didFinishAll(hasCompleted, finishAsyncAnimations, finishNoDurationAnimations);
         }
         if (finishAsyncAnimations && this._isAsync || finishNoDurationAnimations && !this._isAsync) {
@@ -1105,21 +979,19 @@ export class Animation {
     /**
      * @hidden
      * NO RECURSION
-     * @param {?} hasCompleted
-     * @return {?}
      */
     _didFinish(hasCompleted) {
         this.isPlaying = false;
         this.hasCompleted = hasCompleted;
         if (this._fFn) {
             // run all finish callbacks
-            for (let /** @type {?} */ i = 0; i < this._fFn.length; i++) {
+            for (let i = 0; i < this._fFn.length; i++) {
                 this._fFn[i](this);
             }
         }
         if (this._fOneFn) {
             // run all "onetime" finish callbacks
-            for (let /** @type {?} */ i = 0; i < this._fOneFn.length; i++) {
+            for (let i = 0; i < this._fOneFn.length; i++) {
                 this._fOneFn[i](this);
             }
             this._fOneFn.length = 0;
@@ -1127,12 +999,10 @@ export class Animation {
     }
     /**
      * Reverse the animation.
-     * @param {?=} shouldReverse
-     * @return {?}
      */
     reverse(shouldReverse = true) {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             children[i].reverse(shouldReverse);
         }
         this._rv = shouldReverse;
@@ -1140,11 +1010,10 @@ export class Animation {
     }
     /**
      * Recursively destroy this animation and all child animations.
-     * @return {?}
      */
     destroy() {
-        const /** @type {?} */ children = this._c;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        const children = this._c;
+        for (let i = 0; i < this._cL; i++) {
             children[i].destroy();
         }
         this._clearAsync();
@@ -1162,12 +1031,11 @@ export class Animation {
     /**
      * @hidden
      * NO DOM
-     * @return {?}
      */
     _transEl() {
         // get the lowest level element that has an Animation
-        let /** @type {?} */ targetEl;
-        for (let /** @type {?} */ i = 0; i < this._cL; i++) {
+        let targetEl;
+        for (let i = 0; i < this._cL; i++) {
             targetEl = this._c[i]._transEl();
             if (targetEl) {
                 return targetEl;
@@ -1176,69 +1044,7 @@ export class Animation {
         return (this._twn && this._hasDur && this._eL ? this._e[0] : null);
     }
 }
-function Animation_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Animation.prototype._c;
-    /** @type {?} */
-    Animation.prototype._cL;
-    /** @type {?} */
-    Animation.prototype._e;
-    /** @type {?} */
-    Animation.prototype._eL;
-    /** @type {?} */
-    Animation.prototype._fx;
-    /** @type {?} */
-    Animation.prototype._dur;
-    /** @type {?} */
-    Animation.prototype._es;
-    /** @type {?} */
-    Animation.prototype._rvEs;
-    /** @type {?} */
-    Animation.prototype._bfSty;
-    /** @type {?} */
-    Animation.prototype._bfAdd;
-    /** @type {?} */
-    Animation.prototype._bfRm;
-    /** @type {?} */
-    Animation.prototype._afSty;
-    /** @type {?} */
-    Animation.prototype._afAdd;
-    /** @type {?} */
-    Animation.prototype._afRm;
-    /** @type {?} */
-    Animation.prototype._rdFn;
-    /** @type {?} */
-    Animation.prototype._wrFn;
-    /** @type {?} */
-    Animation.prototype._fFn;
-    /** @type {?} */
-    Animation.prototype._fOneFn;
-    /** @type {?} */
-    Animation.prototype._rv;
-    /** @type {?} */
-    Animation.prototype._unrgTrns;
-    /** @type {?} */
-    Animation.prototype._tm;
-    /** @type {?} */
-    Animation.prototype._hasDur;
-    /** @type {?} */
-    Animation.prototype._isAsync;
-    /** @type {?} */
-    Animation.prototype._twn;
-    /** @type {?} */
-    Animation.prototype.plt;
-    /** @type {?} */
-    Animation.prototype.parent;
-    /** @type {?} */
-    Animation.prototype.opts;
-    /** @type {?} */
-    Animation.prototype.hasChildren;
-    /** @type {?} */
-    Animation.prototype.isPlaying;
-    /** @type {?} */
-    Animation.prototype.hasCompleted;
-}
-const /** @type {?} */ ANIMATION_TRANSFORMS = {
+const ANIMATION_TRANSFORMS = {
     'translateX': 1,
     'translateY': 1,
     'translateZ': 1,
@@ -1254,7 +1060,7 @@ const /** @type {?} */ ANIMATION_TRANSFORMS = {
     'skewY': 1,
     'perspective': 1
 };
-const /** @type {?} */ ANIMATION_CSS_VALUE_REGEX = /(^-?\d*\.?\d*)(.*)/;
-const /** @type {?} */ ANIMATION_DURATION_MIN = 32;
-const /** @type {?} */ ANIMATION_TRANSITION_END_FALLBACK_PADDING_MS = 400;
+const ANIMATION_CSS_VALUE_REGEX = /(^-?\d*\.?\d*)(.*)/;
+const ANIMATION_DURATION_MIN = 32;
+const ANIMATION_TRANSITION_END_FALLBACK_PADDING_MS = 400;
 //# sourceMappingURL=animation.js.map

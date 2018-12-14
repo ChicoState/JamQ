@@ -1,21 +1,15 @@
 import { isBlank, isPresent, isString } from './util';
-/**
- * @param {?} template
- * @param {?} value
- * @param {?} locale
- * @return {?}
- */
 export function renderDateTime(template, value, locale) {
     if (isBlank(value)) {
         return '';
     }
-    let /** @type {?} */ tokens = [];
-    let /** @type {?} */ hasText = false;
+    let tokens = [];
+    let hasText = false;
     FORMAT_KEYS.forEach((format, index) => {
         if (template.indexOf(format.f) > -1) {
-            const /** @type {?} */ token = '{' + index + '}';
-            const /** @type {?} */ text = renderTextFormat(format.f, ((value))[format.k], value, locale);
-            if (!hasText && text && isPresent(((value))[format.k])) {
+            const token = '{' + index + '}';
+            const text = renderTextFormat(format.f, value[format.k], value, locale);
+            if (!hasText && text && isPresent(value[format.k])) {
                 hasText = true;
             }
             tokens.push(token, text);
@@ -25,18 +19,11 @@ export function renderDateTime(template, value, locale) {
     if (!hasText) {
         return '';
     }
-    for (let /** @type {?} */ i = 0; i < tokens.length; i += 2) {
+    for (let i = 0; i < tokens.length; i += 2) {
         template = template.replace(tokens[i], tokens[i + 1]);
     }
     return template;
 }
-/**
- * @param {?} format
- * @param {?} value
- * @param {?} date
- * @param {?} locale
- * @return {?}
- */
 export function renderTextFormat(format, value, date, locale) {
     if (format === FORMAT_DDDD || format === FORMAT_DDD) {
         try {
@@ -85,15 +72,9 @@ export function renderTextFormat(format, value, date, locale) {
     }
     return value.toString();
 }
-/**
- * @param {?} format
- * @param {?} min
- * @param {?} max
- * @return {?}
- */
 export function dateValueRange(format, min, max) {
-    let /** @type {?} */ opts = [];
-    let /** @type {?} */ i;
+    let opts = [];
+    let i;
     if (format === FORMAT_YYYY || format === FORMAT_YY) {
         // year
         i = max.year;
@@ -140,52 +121,27 @@ export function dateValueRange(format, min, max) {
     }
     return opts;
 }
-/**
- * @param {?} year
- * @param {?} month
- * @param {?} day
- * @param {?=} hour
- * @param {?=} minute
- * @return {?}
- */
 export function dateSortValue(year, month, day, hour = 0, minute = 0) {
     return parseInt(`1${fourDigit(year)}${twoDigit(month)}${twoDigit(day)}${twoDigit(hour)}${twoDigit(minute)}`, 10);
 }
-/**
- * @param {?} data
- * @return {?}
- */
 export function dateDataSortValue(data) {
     if (data) {
         return dateSortValue(data.year, data.month, data.day, data.hour, data.minute);
     }
     return -1;
 }
-/**
- * @param {?} month
- * @param {?} year
- * @return {?}
- */
 export function daysInMonth(month, year) {
     return (month === 4 || month === 6 || month === 9 || month === 11) ? 30 : (month === 2) ? isLeapYear(year) ? 29 : 28 : 31;
 }
-/**
- * @param {?} year
- * @return {?}
- */
 export function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
-const /** @type {?} */ ISO_8601_REGEXP = /^(\d{4}|[+\-]\d{6})(?:-(\d{2})(?:-(\d{2}))?)?(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{3}))?)?(?:(Z)|([+\-])(\d{2})(?::(\d{2}))?)?)?$/;
-const /** @type {?} */ TIME_REGEXP = /^((\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{3}))?)?(?:(Z)|([+\-])(\d{2})(?::(\d{2}))?)?)?$/;
-/**
- * @param {?} val
- * @return {?}
- */
+const ISO_8601_REGEXP = /^(\d{4}|[+\-]\d{6})(?:-(\d{2})(?:-(\d{2}))?)?(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{3}))?)?(?:(Z)|([+\-])(\d{2})(?::(\d{2}))?)?)?$/;
+const TIME_REGEXP = /^((\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{3}))?)?(?:(Z)|([+\-])(\d{2})(?::(\d{2}))?)?)?$/;
 export function parseDate(val) {
     // manually parse IS0 cuz Date.parse cannot be trusted
     // ISO 8601 format: 1994-12-15T13:47:20Z
-    let /** @type {?} */ parse;
+    let parse;
     if (isPresent(val) && val !== '') {
         // try parsing for just time first, HH:MM
         parse = TIME_REGEXP.exec(val);
@@ -204,10 +160,10 @@ export function parseDate(val) {
         return null;
     }
     // ensure all the parse values exist with at least 0
-    for (let /** @type {?} */ i = 1; i < 8; i++) {
+    for (let i = 1; i < 8; i++) {
         parse[i] = (parse[i] !== undefined ? parseInt(parse[i], 10) : null);
     }
-    let /** @type {?} */ tzOffset = 0;
+    let tzOffset = 0;
     if (isPresent(parse[9]) && isPresent(parse[10])) {
         // hours
         tzOffset = parseInt(parse[10], 10) * 60;
@@ -231,11 +187,11 @@ export function parseDate(val) {
         tzOffset: tzOffset,
     };
 }
-/**
- * @param {?} existingData
- * @param {?} newData
- * @return {?}
- */
+export function compareDates(d1, d2) {
+    const date1 = new Date(d1.year, d1.month, d1.day, d1.hour, d1.minute, d1.second);
+    const date2 = new Date(d2.year, d2.month, d2.day, d2.hour, d2.minute, d2.second);
+    return date1.getTime() - date2.getTime();
+}
 export function updateDate(existingData, newData) {
     if (isPresent(newData) && newData !== '') {
         if (isString(newData)) {
@@ -262,8 +218,8 @@ export function updateDate(existingData, newData) {
             }
             // merge new values from the picker's selection
             // to the existing DateTimeData values
-            for (const /** @type {?} */ k in newData) {
-                ((existingData))[k] = newData[k].value;
+            for (const k in newData) {
+                existingData[k] = newData[k].value;
             }
             return true;
         }
@@ -272,25 +228,21 @@ export function updateDate(existingData, newData) {
     }
     else {
         // blank data, clear everything out
-        for (const /** @type {?} */ k in existingData) {
-            delete ((existingData))[k];
+        for (const k in existingData) {
+            delete existingData[k];
         }
     }
     return false;
 }
-/**
- * @param {?} template
- * @return {?}
- */
 export function parseTemplate(template) {
-    const /** @type {?} */ formats = [];
+    const formats = [];
     template = template.replace(/[^\w\s]/gi, ' ');
     FORMAT_KEYS.forEach(format => {
         if (format.f.length > 1 && template.indexOf(format.f) > -1 && template.indexOf(format.f + format.f.charAt(0)) < 0) {
             template = template.replace(format.f, ' ' + format.f + ' ');
         }
     });
-    const /** @type {?} */ words = template.split(' ').filter(w => w.length > 0);
+    const words = template.split(' ').filter(w => w.length > 0);
     words.forEach((word, i) => {
         FORMAT_KEYS.forEach(format => {
             if (word === format.f) {
@@ -310,11 +262,6 @@ export function parseTemplate(template) {
     });
     return formats;
 }
-/**
- * @param {?} date
- * @param {?} format
- * @return {?}
- */
 export function getValueFromFormat(date, format) {
     if (format === FORMAT_A || format === FORMAT_a) {
         return (date.hour < 12 ? 'am' : 'pm');
@@ -322,27 +269,19 @@ export function getValueFromFormat(date, format) {
     if (format === FORMAT_hh || format === FORMAT_h) {
         return (date.hour > 12 ? date.hour - 12 : date.hour);
     }
-    return ((date))[convertFormatToKey(format)];
+    return date[convertFormatToKey(format)];
 }
-/**
- * @param {?} format
- * @return {?}
- */
 export function convertFormatToKey(format) {
-    for (const /** @type {?} */ k in FORMAT_KEYS) {
+    for (const k in FORMAT_KEYS) {
         if (FORMAT_KEYS[k].f === format) {
             return FORMAT_KEYS[k].k;
         }
     }
     return null;
 }
-/**
- * @param {?} data
- * @return {?}
- */
 export function convertDataToISO(data) {
     // https://www.w3.org/TR/NOTE-datetime
-    let /** @type {?} */ rtn = '';
+    let rtn = '';
     if (isPresent(data)) {
         if (isPresent(data.year)) {
             // YYYY
@@ -387,48 +326,36 @@ export function convertDataToISO(data) {
     }
     return rtn;
 }
-/**
- * @param {?} val
- * @return {?}
- */
 function twoDigit(val) {
     return ('0' + (isPresent(val) ? Math.abs(val) : '0')).slice(-2);
 }
-/**
- * @param {?} val
- * @return {?}
- */
 function threeDigit(val) {
     return ('00' + (isPresent(val) ? Math.abs(val) : '0')).slice(-3);
 }
-/**
- * @param {?} val
- * @return {?}
- */
 function fourDigit(val) {
     return ('000' + (isPresent(val) ? Math.abs(val) : '0')).slice(-4);
 }
-const /** @type {?} */ FORMAT_YYYY = 'YYYY';
-const /** @type {?} */ FORMAT_YY = 'YY';
-const /** @type {?} */ FORMAT_MMMM = 'MMMM';
-const /** @type {?} */ FORMAT_MMM = 'MMM';
-const /** @type {?} */ FORMAT_MM = 'MM';
-const /** @type {?} */ FORMAT_M = 'M';
-const /** @type {?} */ FORMAT_DDDD = 'DDDD';
-const /** @type {?} */ FORMAT_DDD = 'DDD';
-const /** @type {?} */ FORMAT_DD = 'DD';
-const /** @type {?} */ FORMAT_D = 'D';
-const /** @type {?} */ FORMAT_HH = 'HH';
-const /** @type {?} */ FORMAT_H = 'H';
-const /** @type {?} */ FORMAT_hh = 'hh';
-const /** @type {?} */ FORMAT_h = 'h';
-const /** @type {?} */ FORMAT_mm = 'mm';
-const /** @type {?} */ FORMAT_m = 'm';
-const /** @type {?} */ FORMAT_ss = 'ss';
-const /** @type {?} */ FORMAT_s = 's';
-const /** @type {?} */ FORMAT_A = 'A';
-const /** @type {?} */ FORMAT_a = 'a';
-const /** @type {?} */ FORMAT_KEYS = [
+const FORMAT_YYYY = 'YYYY';
+const FORMAT_YY = 'YY';
+const FORMAT_MMMM = 'MMMM';
+const FORMAT_MMM = 'MMM';
+const FORMAT_MM = 'MM';
+const FORMAT_M = 'M';
+const FORMAT_DDDD = 'DDDD';
+const FORMAT_DDD = 'DDD';
+const FORMAT_DD = 'DD';
+const FORMAT_D = 'D';
+const FORMAT_HH = 'HH';
+const FORMAT_H = 'H';
+const FORMAT_hh = 'hh';
+const FORMAT_h = 'h';
+const FORMAT_mm = 'mm';
+const FORMAT_m = 'm';
+const FORMAT_ss = 'ss';
+const FORMAT_s = 's';
+const FORMAT_A = 'A';
+const FORMAT_a = 'a';
+const FORMAT_KEYS = [
     { f: FORMAT_YYYY, k: 'year' },
     { f: FORMAT_MMMM, k: 'month' },
     { f: FORMAT_DDDD, k: 'day' },
@@ -450,7 +377,7 @@ const /** @type {?} */ FORMAT_KEYS = [
     { f: FORMAT_A, k: 'ampm' },
     { f: FORMAT_a, k: 'ampm' },
 ];
-const /** @type {?} */ DAY_NAMES = [
+const DAY_NAMES = [
     'Sunday',
     'Monday',
     'Tuesday',
@@ -459,7 +386,7 @@ const /** @type {?} */ DAY_NAMES = [
     'Friday',
     'Saturday',
 ];
-const /** @type {?} */ DAY_SHORT_NAMES = [
+const DAY_SHORT_NAMES = [
     'Sun',
     'Mon',
     'Tue',
@@ -468,7 +395,7 @@ const /** @type {?} */ DAY_SHORT_NAMES = [
     'Fri',
     'Sat',
 ];
-const /** @type {?} */ MONTH_NAMES = [
+const MONTH_NAMES = [
     'January',
     'February',
     'March',
@@ -482,7 +409,7 @@ const /** @type {?} */ MONTH_NAMES = [
     'November',
     'December',
 ];
-const /** @type {?} */ MONTH_SHORT_NAMES = [
+const MONTH_SHORT_NAMES = [
     'Jan',
     'Feb',
     'Mar',
@@ -496,7 +423,7 @@ const /** @type {?} */ MONTH_SHORT_NAMES = [
     'Nov',
     'Dec',
 ];
-const /** @type {?} */ VALID_AMPM_PREFIX = [
+const VALID_AMPM_PREFIX = [
     FORMAT_hh, FORMAT_h, FORMAT_mm, FORMAT_m, FORMAT_ss, FORMAT_s
 ];
 //# sourceMappingURL=datetime-util.js.map

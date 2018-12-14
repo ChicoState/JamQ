@@ -27,38 +27,22 @@ var __extends = (this && this.__extends) || (function () {
      */
     var CardTitle = (function (_super) {
         __extends(CardTitle, _super);
-        /**
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         */
         function CardTitle(config, elementRef, renderer) {
             return _super.call(this, config, elementRef, renderer, 'card-title') || this;
         }
+        CardTitle.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: 'ion-card-title'
+                    },] },
+        ];
+        /** @nocollapse */
+        CardTitle.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+        ]; };
         return CardTitle;
     }(ion_1.Ion));
-    CardTitle.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: 'ion-card-title'
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    CardTitle.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-    ]; };
     exports.CardTitle = CardTitle;
-    function CardTitle_tsickle_Closure_declarations() {
-        /** @type {?} */
-        CardTitle.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        CardTitle.ctorParameters;
-    }
 });
 //# sourceMappingURL=card-title.js.map

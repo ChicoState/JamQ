@@ -14,16 +14,6 @@ import { Ion } from '../components/ion';
 import { TimeoutDebouncer } from './debouncer';
 var BaseInput = (function (_super) {
     __extends(BaseInput, _super);
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} name
-     * @param {?} _defaultValue
-     * @param {?} _form
-     * @param {?} _item
-     * @param {?} _ngControl
-     */
     function BaseInput(config, elementRef, renderer, name, _defaultValue, _form, _item, _ngControl) {
         var _this = _super.call(this, config, elementRef, renderer, name) || this;
         _this._defaultValue = _defaultValue;
@@ -36,15 +26,15 @@ var BaseInput = (function (_super) {
         _this._init = false;
         _this._initModel = false;
         /**
-         * \@output {Range} Emitted when the range selector drag starts.
+         * @output {Range} Emitted when the range selector drag starts.
          */
         _this.ionFocus = new EventEmitter();
         /**
-         * \@output {Range} Emitted when the range value changes.
+         * @output {Range} Emitted when the range value changes.
          */
         _this.ionChange = new EventEmitter();
         /**
-         * \@output {Range} Emitted when the range selector drag ends.
+         * @output {Range} Emitted when the range selector drag ends.
          */
         _this.ionBlur = new EventEmitter();
         _form && _form.register(_this);
@@ -63,16 +53,11 @@ var BaseInput = (function (_super) {
     }
     Object.defineProperty(BaseInput.prototype, "disabled", {
         /**
-         * \@input {boolean} If true, the user cannot interact with this element.
-         * @return {?}
+         * @input {boolean} If true, the user cannot interact with this element.
          */
         get: function () {
             return this._disabled;
         },
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set: function (val) {
             this.setDisabledState(val);
         },
@@ -80,16 +65,9 @@ var BaseInput = (function (_super) {
         configurable: true
     });
     Object.defineProperty(BaseInput.prototype, "value", {
-        /**
-         * @return {?}
-         */
         get: function () {
             return this._value;
         },
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set: function (val) {
             if (this._writeValue(val)) {
                 this.onChange();
@@ -99,17 +77,14 @@ var BaseInput = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @param {?} val
-     * @return {?}
-     */
+    // 1. Updates the value
+    // 2. Calls _inputUpdated()
+    // 3. Dispatch onChange events
     BaseInput.prototype.setValue = function (val) {
         this.value = val;
     };
     /**
      * @hidden
-     * @param {?} isDisabled
-     * @return {?}
      */
     BaseInput.prototype.setDisabledState = function (isDisabled) {
         this._disabled = isDisabled = isTrueProperty(isDisabled);
@@ -117,8 +92,6 @@ var BaseInput = (function (_super) {
     };
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     BaseInput.prototype.writeValue = function (val) {
         if (this._writeValue(val)) {
@@ -133,18 +106,16 @@ var BaseInput = (function (_super) {
     };
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     BaseInput.prototype._writeValue = function (val) {
         (void 0) /* assert */;
         if (isUndefined(val)) {
             return false;
         }
-        var /** @type {?} */ normalized = (val === null)
+        var normalized = (val === null)
             ? deepCopy(this._defaultValue)
             : this._inputNormalize(val);
-        var /** @type {?} */ notUpdate = isUndefined(normalized) || !this._inputShouldChange(normalized);
+        var notUpdate = isUndefined(normalized) || !this._inputShouldChange(normalized);
         if (notUpdate) {
             return false;
         }
@@ -157,7 +128,6 @@ var BaseInput = (function (_super) {
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype._fireIonChange = function () {
         var _this = this;
@@ -171,23 +141,18 @@ var BaseInput = (function (_super) {
     };
     /**
      * @hidden
-     * @param {?} fn
-     * @return {?}
      */
     BaseInput.prototype.registerOnChange = function (fn) {
         this._onChanged = fn;
     };
     /**
      * @hidden
-     * @param {?} fn
-     * @return {?}
      */
     BaseInput.prototype.registerOnTouched = function (fn) {
         this._onTouched = fn;
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype._initialize = function () {
         if (this._init) {
@@ -201,7 +166,6 @@ var BaseInput = (function (_super) {
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype._fireFocus = function () {
         if (this._isFocus) {
@@ -214,7 +178,6 @@ var BaseInput = (function (_super) {
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype._fireBlur = function () {
         if (!this._isFocus) {
@@ -223,19 +186,24 @@ var BaseInput = (function (_super) {
         (void 0) /* console.debug */;
         this._form && this._form.unsetAsFocused(this);
         this._setFocus(false);
+        this._fireTouched();
         this.ionBlur.emit(this);
     };
     /**
      * @hidden
-     * @param {?} isFocused
-     * @return {?}
+     */
+    BaseInput.prototype._fireTouched = function () {
+        this._onTouched && this._onTouched();
+    };
+    /**
+     * @hidden
      */
     BaseInput.prototype._setFocus = function (isFocused) {
         (void 0) /* assert */;
         (void 0) /* assert */;
         (void 0) /* assert */;
         this._isFocus = isFocused;
-        var /** @type {?} */ item = this._item;
+        var item = this._item;
         if (item) {
             item.setElementClass('input-has-focus', isFocused);
             item.setElementClass('item-input-has-focus', isFocused);
@@ -244,25 +212,21 @@ var BaseInput = (function (_super) {
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype.onChange = function () {
         this._onChanged && this._onChanged(this._inputNgModelEvent());
-        this._onTouched && this._onTouched();
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype.isFocus = function () {
         return this._isFocus;
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype.hasValue = function () {
-        var /** @type {?} */ val = this._value;
+        var val = this._value;
         if (!isPresent(val)) {
             return false;
         }
@@ -273,142 +237,79 @@ var BaseInput = (function (_super) {
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype.focusNext = function () {
         this._form && this._form.tabFocus(this);
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype.ngOnDestroy = function () {
         (void 0) /* assert */;
-        var /** @type {?} */ form = this._form;
+        var form = this._form;
         form && form.deregister(this);
         this._init = false;
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype.ngAfterContentInit = function () {
         this._initialize();
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype.initFocus = function () {
-        var /** @type {?} */ ele = this._elementRef.nativeElement.querySelector('button');
+        var ele = this._elementRef.nativeElement.querySelector('button');
         ele && ele.focus();
     };
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     BaseInput.prototype._inputNormalize = function (val) {
         return val;
     };
     /**
      * @hidden
-     * @param {?} val
-     * @return {?}
      */
     BaseInput.prototype._inputShouldChange = function (val) {
         return this._value !== val;
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype._inputChangeEvent = function () {
         return this;
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype._inputNgModelEvent = function () {
         return this._value;
     };
     /**
      * @hidden
-     * @return {?}
      */
     BaseInput.prototype._inputUpdated = function () {
         (void 0) /* assert */;
-        var /** @type {?} */ item = this._item;
+        var item = this._item;
         if (item) {
             setControlCss(item, this._ngControl);
             // TODO remove all uses of input-has-value in v4
-            var /** @type {?} */ hasValue = this.hasValue();
+            var hasValue = this.hasValue();
             item.setElementClass('input-has-value', hasValue);
             item.setElementClass('item-input-has-value', hasValue);
         }
     };
+    BaseInput.propDecorators = {
+        'ionFocus': [{ type: Output },],
+        'ionChange': [{ type: Output },],
+        'ionBlur': [{ type: Output },],
+        'disabled': [{ type: Input },],
+    };
     return BaseInput;
 }(Ion));
 export { BaseInput };
-BaseInput.propDecorators = {
-    'ionFocus': [{ type: Output },],
-    'ionChange': [{ type: Output },],
-    'ionBlur': [{ type: Output },],
-    'disabled': [{ type: Input },],
-};
-function BaseInput_tsickle_Closure_declarations() {
-    /** @type {?} */
-    BaseInput.propDecorators;
-    /** @type {?} */
-    BaseInput.prototype._value;
-    /** @type {?} */
-    BaseInput.prototype._onChanged;
-    /** @type {?} */
-    BaseInput.prototype._onTouched;
-    /** @type {?} */
-    BaseInput.prototype._isFocus;
-    /** @type {?} */
-    BaseInput.prototype._labelId;
-    /** @type {?} */
-    BaseInput.prototype._disabled;
-    /** @type {?} */
-    BaseInput.prototype._debouncer;
-    /** @type {?} */
-    BaseInput.prototype._init;
-    /** @type {?} */
-    BaseInput.prototype._initModel;
-    /** @type {?} */
-    BaseInput.prototype.id;
-    /**
-     * \@output {Range} Emitted when the range selector drag starts.
-     * @type {?}
-     */
-    BaseInput.prototype.ionFocus;
-    /**
-     * \@output {Range} Emitted when the range value changes.
-     * @type {?}
-     */
-    BaseInput.prototype.ionChange;
-    /**
-     * \@output {Range} Emitted when the range selector drag ends.
-     * @type {?}
-     */
-    BaseInput.prototype.ionBlur;
-    /** @type {?} */
-    BaseInput.prototype._defaultValue;
-    /** @type {?} */
-    BaseInput.prototype._form;
-    /** @type {?} */
-    BaseInput.prototype._item;
-    /** @type {?} */
-    BaseInput.prototype._ngControl;
-}
-/**
- * @param {?} element
- * @param {?} control
- * @return {?}
- */
 function setControlCss(element, control) {
     if (!control) {
         return;

@@ -1,14 +1,11 @@
 import { Animation } from '../../animations/animation';
 import { Transition } from '../../transitions/transition';
 export class ToastSlideIn extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
         // DOM READS
-        let /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        const /** @type {?} */ wrapperEle = (ele.querySelector('.toast-wrapper'));
-        let /** @type {?} */ wrapper = new Animation(this.plt, wrapperEle);
+        let ele = this.enteringView.pageRef().nativeElement;
+        const wrapperEle = ele.querySelector('.toast-wrapper');
+        let wrapper = new Animation(this.plt, wrapperEle);
         if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_TOP) {
             // top
             // by default, it is -100% hidden (above the screen)
@@ -18,7 +15,7 @@ export class ToastSlideIn extends Transition {
         else if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_MIDDLE) {
             // Middle
             // just center it and fade it in
-            let /** @type {?} */ topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
+            let topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
             // DOM WRITE
             wrapperEle.style.top = `${topPosition}px`;
             wrapper.fromTo('opacity', 0.01, 1);
@@ -33,13 +30,10 @@ export class ToastSlideIn extends Transition {
     }
 }
 export class ToastSlideOut extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
-        let /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        const /** @type {?} */ wrapperEle = (ele.querySelector('.toast-wrapper'));
-        let /** @type {?} */ wrapper = new Animation(this.plt, wrapperEle);
+        let ele = this.leavingView.pageRef().nativeElement;
+        const wrapperEle = ele.querySelector('.toast-wrapper');
+        let wrapper = new Animation(this.plt, wrapperEle);
         if (this.leavingView.data && this.leavingView.data.position === TOAST_POSITION_TOP) {
             // top
             // reverse arguments from enter transition
@@ -59,14 +53,11 @@ export class ToastSlideOut extends Transition {
     }
 }
 export class ToastMdSlideIn extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
         // DOM reads
-        let /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        const /** @type {?} */ wrapperEle = ele.querySelector('.toast-wrapper');
-        let /** @type {?} */ wrapper = new Animation(this.plt, wrapperEle);
+        let ele = this.enteringView.pageRef().nativeElement;
+        const wrapperEle = ele.querySelector('.toast-wrapper');
+        let wrapper = new Animation(this.plt, wrapperEle);
         if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_TOP) {
             // top
             // by default, it is -100% hidden (above the screen)
@@ -76,7 +67,7 @@ export class ToastMdSlideIn extends Transition {
         else if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_MIDDLE) {
             // Middle
             // just center it and fade it in
-            let /** @type {?} */ topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
+            let topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
             // DOM WRITE
             wrapperEle.style.top = `${topPosition}px`;
             wrapper.fromTo('opacity', 0.01, 1);
@@ -91,13 +82,10 @@ export class ToastMdSlideIn extends Transition {
     }
 }
 export class ToastMdSlideOut extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
-        let /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        const /** @type {?} */ wrapperEle = ele.querySelector('.toast-wrapper');
-        let /** @type {?} */ wrapper = new Animation(this.plt, wrapperEle);
+        let ele = this.leavingView.pageRef().nativeElement;
+        const wrapperEle = ele.querySelector('.toast-wrapper');
+        let wrapper = new Animation(this.plt, wrapperEle);
         if (this.leavingView.data && this.leavingView.data.position === TOAST_POSITION_TOP) {
             // top
             // reverse arguments from enter transition
@@ -117,13 +105,10 @@ export class ToastMdSlideOut extends Transition {
     }
 }
 export class ToastWpPopIn extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
-        let /** @type {?} */ ele = this.enteringView.pageRef().nativeElement;
-        const /** @type {?} */ wrapperEle = ele.querySelector('.toast-wrapper');
-        let /** @type {?} */ wrapper = new Animation(this.plt, wrapperEle);
+        let ele = this.enteringView.pageRef().nativeElement;
+        const wrapperEle = ele.querySelector('.toast-wrapper');
+        let wrapper = new Animation(this.plt, wrapperEle);
         if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_TOP) {
             // top
             wrapper.fromTo('opacity', 0.01, 1);
@@ -132,7 +117,7 @@ export class ToastWpPopIn extends Transition {
         else if (this.enteringView.data && this.enteringView.data.position === TOAST_POSITION_MIDDLE) {
             // Middle
             // just center it and fade it in
-            let /** @type {?} */ topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
+            let topPosition = Math.floor(ele.clientHeight / 2 - wrapperEle.clientHeight / 2);
             // DOM WRITE
             wrapperEle.style.top = `${topPosition}px`;
             wrapper.fromTo('opacity', 0.01, 1);
@@ -147,14 +132,11 @@ export class ToastWpPopIn extends Transition {
     }
 }
 export class ToastWpPopOut extends Transition {
-    /**
-     * @return {?}
-     */
     init() {
         // DOM reads
-        let /** @type {?} */ ele = this.leavingView.pageRef().nativeElement;
-        const /** @type {?} */ wrapperEle = ele.querySelector('.toast-wrapper');
-        let /** @type {?} */ wrapper = new Animation(this.plt, wrapperEle);
+        let ele = this.leavingView.pageRef().nativeElement;
+        const wrapperEle = ele.querySelector('.toast-wrapper');
+        let wrapper = new Animation(this.plt, wrapperEle);
         if (this.leavingView.data && this.leavingView.data.position === TOAST_POSITION_TOP) {
             // top
             // reverse arguments from enter transition
@@ -174,11 +156,11 @@ export class ToastWpPopOut extends Transition {
             wrapper.fromTo('scale', 1, 1.3);
         }
         // DOM writes
-        const /** @type {?} */ EASE = 'ease-out';
-        const /** @type {?} */ DURATION = 150;
+        const EASE = 'ease-out';
+        const DURATION = 150;
         this.easing(EASE).duration(DURATION).add(wrapper);
     }
 }
-const /** @type {?} */ TOAST_POSITION_TOP = 'top';
-const /** @type {?} */ TOAST_POSITION_MIDDLE = 'middle';
+const TOAST_POSITION_TOP = 'top';
+const TOAST_POSITION_MIDDLE = 'middle';
 //# sourceMappingURL=toast-transitions.js.map

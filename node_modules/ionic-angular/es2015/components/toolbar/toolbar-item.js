@@ -8,21 +8,10 @@ import { Toolbar } from './toolbar';
  * @hidden
  */
 export class ToolbarItem extends Ion {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} toolbar
-     * @param {?} navbar
-     */
     constructor(config, elementRef, renderer, toolbar, navbar) {
         super(config, elementRef, renderer, 'bar-buttons');
         this.inToolbar = !!(toolbar || navbar);
     }
-    /**
-     * @param {?} buttons
-     * @return {?}
-     */
     set _buttons(buttons) {
         if (this.inToolbar) {
             buttons.forEach((button) => {
@@ -36,9 +25,7 @@ ToolbarItem.decorators = [
                 selector: 'ion-buttons,[menuToggle]'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ToolbarItem.ctorParameters = () => [
     { type: Config, },
     { type: ElementRef, },
@@ -49,17 +36,4 @@ ToolbarItem.ctorParameters = () => [
 ToolbarItem.propDecorators = {
     '_buttons': [{ type: ContentChildren, args: [Button,] },],
 };
-function ToolbarItem_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ToolbarItem.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ToolbarItem.ctorParameters;
-    /** @type {?} */
-    ToolbarItem.propDecorators;
-    /** @type {?} */
-    ToolbarItem.prototype.inToolbar;
-}
 //# sourceMappingURL=toolbar-item.js.map

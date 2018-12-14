@@ -11,15 +11,12 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     var swiper_utils_1 = require("./swiper-utils");
     var swiper_1 = require("./swiper");
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @param {?} e
-     * @return {?}
-     */
+    /*=========================
+      Keyboard Control
+      ===========================*/
     function handleKeyboard(s, plt, e) {
-        var /** @type {?} */ win = plt.win();
-        var /** @type {?} */ kc = e.keyCode || e.charCode;
+        var win = plt.win();
+        var kc = e.keyCode || e.charCode;
         // Directions locks
         if (!s._allowSwipeToNext && (swiper_utils_1.isHorizontal(s) && kc === 39 || !swiper_utils_1.isHorizontal(s) && kc === 40)) {
             return false;
@@ -30,34 +27,34 @@
         if (e.shiftKey || e.altKey || e.ctrlKey || e.metaKey) {
             return;
         }
-        var /** @type {?} */ activeEle = plt.getActiveElement();
+        var activeEle = plt.getActiveElement();
         if (activeEle && activeEle.nodeName && (activeEle.nodeName.toLowerCase() === 'input' || activeEle.nodeName.toLowerCase() === 'textarea')) {
             return;
         }
         if (kc === 37 || kc === 39 || kc === 38 || kc === 40) {
-            var /** @type {?} */ inView = false;
+            var inView = false;
             // Check that swiper should be inside of visible area of window
             if (s.container.closest('.' + swiper_utils_1.CLS.slide) && !s.container.closest('.' + swiper_utils_1.CLS.slideActive)) {
                 return;
             }
-            var /** @type {?} */ windowScroll = {
+            var windowScroll = {
                 left: win.pageXOffset,
                 top: win.pageYOffset
             };
-            var /** @type {?} */ windowWidth = plt.width();
-            var /** @type {?} */ windowHeight = plt.height();
-            var /** @type {?} */ swiperOffset = swiper_utils_1.offset(s.container, plt);
+            var windowWidth = plt.width();
+            var windowHeight = plt.height();
+            var swiperOffset = swiper_utils_1.offset(s.container, plt);
             if (s._rtl) {
                 swiperOffset.left = swiperOffset.left - s.container.scrollLeft;
             }
-            var /** @type {?} */ swiperCoord = [
+            var swiperCoord = [
                 [swiperOffset.left, swiperOffset.top],
                 [swiperOffset.left + s.renderedWidth, swiperOffset.top],
                 [swiperOffset.left, swiperOffset.top + s.renderedHeight],
                 [swiperOffset.left + s.renderedWidth, swiperOffset.top + s.renderedHeight]
             ];
-            for (var /** @type {?} */ i = 0; i < swiperCoord.length; i++) {
-                var /** @type {?} */ point = swiperCoord[i];
+            for (var i = 0; i < swiperCoord.length; i++) {
+                var point = swiperCoord[i];
                 if (point[0] >= windowScroll.left && point[0] <= windowScroll.left + windowWidth &&
                     point[1] >= windowScroll.top && point[1] <= windowScroll.top + windowHeight) {
                     inView = true;
@@ -99,12 +96,6 @@
             }
         }
     }
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @param {?} shouldEnable
-     * @return {?}
-     */
     function enableKeyboardControl(s, plt, shouldEnable) {
         if (shouldEnable && !s._keyboardUnReg) {
             s._keyboardUnReg = plt.registerListener(plt.doc(), 'keydown', function (ev) {

@@ -16,12 +16,6 @@ import { pointerCoord } from '../../util/dom';
  */
 var ToggleGesture = (function (_super) {
     __extends(ToggleGesture, _super);
-    /**
-     * @param {?} plt
-     * @param {?} toggle
-     * @param {?} gestureCtrl
-     * @param {?} domCtrl
-     */
     function ToggleGesture(plt, toggle, gestureCtrl, domCtrl) {
         var _this = _super.call(this, plt, toggle.getNativeElement(), {
             threshold: 0,
@@ -35,32 +29,17 @@ var ToggleGesture = (function (_super) {
         _this.toggle = toggle;
         return _this;
     }
-    /**
-     * @return {?}
-     */
     ToggleGesture.prototype.canStart = function () {
         return true;
     };
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     ToggleGesture.prototype.onDragStart = function (ev) {
         ev.preventDefault();
         this.toggle._onDragStart(pointerCoord(ev).x);
     };
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     ToggleGesture.prototype.onDragMove = function (ev) {
         ev.preventDefault();
         this.toggle._onDragMove(pointerCoord(ev).x);
     };
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     ToggleGesture.prototype.onDragEnd = function (ev) {
         ev.preventDefault();
         this.toggle._onDragEnd(pointerCoord(ev).x);
@@ -68,8 +47,4 @@ var ToggleGesture = (function (_super) {
     return ToggleGesture;
 }(PanGesture));
 export { ToggleGesture };
-function ToggleGesture_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ToggleGesture.prototype.toggle;
-}
 //# sourceMappingURL=toggle-gesture.js.map

@@ -10,13 +10,8 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var swiper_utils_1 = require("./swiper-utils");
-    /**
-     * @param {?} s
-     * @param {?} plt
-     * @return {?}
-     */
     function initA11y(s, plt) {
-        var /** @type {?} */ unregs = [];
+        var unregs = [];
         s._liveRegion = plt.doc().createElement('span');
         s._liveRegion.className = swiper_utils_1.CLS.notification;
         s._liveRegion.setAttribute('aria-live', 'assertive');
@@ -50,37 +45,18 @@
         };
     }
     exports.initA11y = initA11y;
-    /**
-     * @param {?} ele
-     * @return {?}
-     */
     function makeFocusable(ele) {
         ele.setAttribute('tabIndex', '0');
     }
     exports.makeFocusable = makeFocusable;
-    /**
-     * @param {?} ele
-     * @param {?} role
-     * @return {?}
-     */
     function addRole(ele, role) {
         ele.setAttribute('role', role);
     }
     exports.addRole = addRole;
-    /**
-     * @param {?} ele
-     * @param {?} label
-     * @return {?}
-     */
     function addLabel(ele, label) {
         ele.setAttribute('aria-label', label);
     }
     exports.addLabel = addLabel;
-    /**
-     * @param {?} ele
-     * @param {?} isDisabled
-     * @return {?}
-     */
     function ariaDisable(ele, isDisabled) {
         if (isDisabled) {
             ele.setAttribute('aria-disabled', 'true');
@@ -90,11 +66,6 @@
         }
     }
     exports.ariaDisable = ariaDisable;
-    /**
-     * @param {?} ele
-     * @param {?} isHidden
-     * @return {?}
-     */
     function ariaHidden(ele, isHidden) {
         if (isHidden) {
             ele.setAttribute('aria-hidden', 'true');
@@ -104,11 +75,6 @@
         }
     }
     exports.ariaHidden = ariaHidden;
-    /**
-     * @param {?} _
-     * @param {?} __
-     * @return {?}
-     */
     function onEnterKey(_, __) {
         // if (event.keyCode !== 13) return;
         // const target: HTMLElement = <any>event.target;

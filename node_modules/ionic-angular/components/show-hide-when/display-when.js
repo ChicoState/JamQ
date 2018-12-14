@@ -2,11 +2,6 @@
  * @hidden
  */
 var DisplayWhen = (function () {
-    /**
-     * @param {?} conditions
-     * @param {?} _plt
-     * @param {?} zone
-     */
     function DisplayWhen(conditions, _plt, zone) {
         this._plt = _plt;
         this.zone = zone;
@@ -27,11 +22,8 @@ var DisplayWhen = (function () {
             this.resizeObs = _plt.resize.subscribe(this.orientation.bind(this));
         }
     }
-    /**
-     * @return {?}
-     */
     DisplayWhen.prototype.orientation = function () {
-        for (var /** @type {?} */ i = 0; i < this.conditions.length; i++) {
+        for (var i = 0; i < this.conditions.length; i++) {
             if (this.conditions[i] === 'portrait') {
                 this.isMatch = this._plt.isPortrait();
                 return true;
@@ -43,9 +35,6 @@ var DisplayWhen = (function () {
         }
         return false;
     };
-    /**
-     * @return {?}
-     */
     DisplayWhen.prototype.ngOnDestroy = function () {
         this.resizeObs && this.resizeObs.unsubscribe();
         this.resizeObs = null;
@@ -53,16 +42,4 @@ var DisplayWhen = (function () {
     return DisplayWhen;
 }());
 export { DisplayWhen };
-function DisplayWhen_tsickle_Closure_declarations() {
-    /** @type {?} */
-    DisplayWhen.prototype.isMatch;
-    /** @type {?} */
-    DisplayWhen.prototype.conditions;
-    /** @type {?} */
-    DisplayWhen.prototype.resizeObs;
-    /** @type {?} */
-    DisplayWhen.prototype._plt;
-    /** @type {?} */
-    DisplayWhen.prototype.zone;
-}
 //# sourceMappingURL=display-when.js.map

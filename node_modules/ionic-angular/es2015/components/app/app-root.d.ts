@@ -1,10 +1,10 @@
-import { ComponentFactoryResolver, ElementRef, OnInit, OpaqueToken, Renderer, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, ElementRef, InjectionToken, OnInit, Renderer, ViewContainerRef } from '@angular/core';
 import { App } from './app';
 import { Config } from '../../config/config';
 import { Ion } from '../ion';
 import { OverlayPortal } from './overlay-portal';
 import { Platform } from '../../platform/platform';
-export declare const AppRootToken: OpaqueToken;
+export declare const AppRootToken: InjectionToken<any>;
 /**
  * @hidden
  */

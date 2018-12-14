@@ -93,10 +93,6 @@
         toastEnter: 'toast-wp-slide-in',
         toastLeave: 'toast-wp-slide-out',
     };
-    /**
-     * @param {?} config
-     * @return {?}
-     */
     function registerModeConfigs(config) {
         return function () {
             // iOS Mode Settings

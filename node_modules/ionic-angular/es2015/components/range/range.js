@@ -11,8 +11,8 @@ import { Platform } from '../../platform/platform';
 import { pointerCoord } from '../../util/dom';
 import { UIEventManager } from '../../gestures/ui-event-manager';
 /**
- * \@name Range
- * \@description
+ * @name Range
+ * @description
  * The Range slider lets users select from a range of values by moving
  * the slider knob. It can accept dual knobs, but by default one knob
  * controls the value of the range.
@@ -45,7 +45,7 @@ import { UIEventManager } from '../../gestures/ui-event-manager';
  * be an object containing two properties: `lower` and `upper`.
  *
  *
- * \@usage
+ * @usage
  * ```html
  * <ion-list>
  *   <ion-item>
@@ -79,20 +79,9 @@ import { UIEventManager } from '../../gestures/ui-event-manager';
  * ```
  *
  *
- * \@demo /docs/demos/src/range/
+ * @demo /docs/demos/src/range/
  */
 export class Range extends BaseInput {
-    /**
-     * @param {?} form
-     * @param {?} _haptic
-     * @param {?} item
-     * @param {?} config
-     * @param {?} _plt
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} _dom
-     * @param {?} _cd
-     */
     constructor(form, _haptic, item, config, _plt, elementRef, renderer, _dom, _cd) {
         super(config, elementRef, renderer, 'range', 0, form, item, null);
         this._haptic = _haptic;
@@ -109,16 +98,11 @@ export class Range extends BaseInput {
         this._events = new UIEventManager(_plt);
     }
     /**
-     * \@input {number} Minimum integer value of the range. Defaults to `0`.
-     * @return {?}
+     * @input {number} Minimum integer value of the range. Defaults to `0`.
      */
     get min() {
         return this._min;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set min(val) {
         val = Math.round(val);
         if (!isNaN(val)) {
@@ -127,16 +111,11 @@ export class Range extends BaseInput {
         }
     }
     /**
-     * \@input {number} Maximum integer value of the range. Defaults to `100`.
-     * @return {?}
+     * @input {number} Maximum integer value of the range. Defaults to `100`.
      */
     get max() {
         return this._max;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set max(val) {
         val = Math.round(val);
         if (!isNaN(val)) {
@@ -145,16 +124,11 @@ export class Range extends BaseInput {
         }
     }
     /**
-     * \@input {number} Specifies the value granularity. Defaults to `1`.
-     * @return {?}
+     * @input {number} Specifies the value granularity. Defaults to `1`.
      */
     get step() {
         return this._step;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set step(val) {
         val = Math.round(val);
         if (!isNaN(val) && val > 0) {
@@ -162,61 +136,41 @@ export class Range extends BaseInput {
         }
     }
     /**
-     * \@input {boolean} If true, the knob snaps to tick marks evenly spaced based
+     * @input {boolean} If true, the knob snaps to tick marks evenly spaced based
      * on the step property value. Defaults to `false`.
-     * @return {?}
      */
     get snaps() {
         return this._snaps;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set snaps(val) {
         this._snaps = isTrueProperty(val);
     }
     /**
-     * \@input {boolean} If true, a pin with integer value is shown when the knob
+     * @input {boolean} If true, a pin with integer value is shown when the knob
      * is pressed. Defaults to `false`.
-     * @return {?}
      */
     get pin() {
         return this._pin;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set pin(val) {
         this._pin = isTrueProperty(val);
     }
     /**
-     * \@input {number} How long, in milliseconds, to wait to trigger the
+     * @input {number} How long, in milliseconds, to wait to trigger the
      * `ionChange` event after each change in the range value. Default `0`.
-     * @return {?}
      */
     get debounce() {
         return this._debouncer.wait;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set debounce(val) {
         this._debouncer.wait = val;
     }
     /**
-     * \@input {boolean} Show two knobs. Defaults to `false`.
-     * @return {?}
+     * @input {boolean} Show two knobs. Defaults to `false`.
      */
     get dualKnobs() {
         return this._dual;
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     set dualKnobs(val) {
         this._dual = isTrueProperty(val);
     }
@@ -224,7 +178,6 @@ export class Range extends BaseInput {
      * Returns the ratio of the knob's is current location, which is a number
      * between `0` and `1`. If two knobs are used, this property represents
      * the lower value.
-     * @return {?}
      */
     get ratio() {
         if (this._dual) {
@@ -236,7 +189,6 @@ export class Range extends BaseInput {
      * Returns the ratio of the upper value's is current location, which is
      * a number between `0` and `1`. If there is only one knob, then this
      * will return `null`.
-     * @return {?}
      */
     get ratioUpper() {
         if (this._dual) {
@@ -246,7 +198,6 @@ export class Range extends BaseInput {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngAfterContentInit() {
         this._initialize();
@@ -261,11 +212,7 @@ export class Range extends BaseInput {
         // build all the ticks if there are any to show
         this._createTicks();
     }
-    /**
-     * \@internal
-     * @param {?} ev
-     * @return {?}
-     */
+    /** @internal */
     _pointerDown(ev) {
         // TODO: we could stop listening for events instead of checking this._disabled.
         // since there are a lot of events involved, this solution is
@@ -279,11 +226,11 @@ export class Range extends BaseInput {
         ev.preventDefault();
         ev.stopPropagation();
         // get the start coordinates
-        const /** @type {?} */ current = pointerCoord(ev);
+        const current = pointerCoord(ev);
         // get the full dimensions of the slider element
-        const /** @type {?} */ rect = this._rect = this._plt.getElementBoundingClientRect(this._slider.nativeElement);
+        const rect = this._rect = this._plt.getElementBoundingClientRect(this._slider.nativeElement);
         // figure out which knob they started closer to
-        const /** @type {?} */ ratio = clamp(0, (current.x - rect.left) / (rect.width), 1);
+        const ratio = clamp(0, (current.x - rect.left) / (rect.width), 1);
         this._activeB = this._dual && (Math.abs(ratio - this._ratioA) > Math.abs(ratio - this._ratioB));
         // update the active knob's position
         this._update(current, rect, true);
@@ -293,11 +240,7 @@ export class Range extends BaseInput {
         // know everything's still valid
         return true;
     }
-    /**
-     * \@internal
-     * @param {?} ev
-     * @return {?}
-     */
+    /** @internal */
     _pointerMove(ev) {
         if (this._disabled) {
             return;
@@ -306,18 +249,14 @@ export class Range extends BaseInput {
         ev.preventDefault();
         ev.stopPropagation();
         // update the active knob's position
-        const /** @type {?} */ hasChanged = this._update(pointerCoord(ev), this._rect, true);
+        const hasChanged = this._update(pointerCoord(ev), this._rect, true);
         if (hasChanged && this._snaps) {
             // trigger a haptic selection changed event
             // if this is a snap range
             this._haptic.gestureSelectionChanged();
         }
     }
-    /**
-     * \@internal
-     * @param {?} ev
-     * @return {?}
-     */
+    /** @internal */
     _pointerUp(ev) {
         if (this._disabled) {
             return;
@@ -332,25 +271,19 @@ export class Range extends BaseInput {
         // trigger ionBlur event
         this._fireBlur();
     }
-    /**
-     * \@internal
-     * @param {?} current
-     * @param {?} rect
-     * @param {?} isPressed
-     * @return {?}
-     */
+    /** @internal */
     _update(current, rect, isPressed) {
         // figure out where the pointer is currently at
         // update the knob being interacted with
-        let /** @type {?} */ ratio = clamp(0, (current.x - rect.left) / (rect.width), 1);
-        let /** @type {?} */ val = this._ratioToValue(ratio);
+        let ratio = clamp(0, (current.x - rect.left) / (rect.width), 1);
+        let val = this._ratioToValue(ratio);
         if (this._snaps) {
             // snaps the ratio to the current value
             ratio = this._valueToRatio(val);
         }
         // update which knob is pressed
         this._pressed = isPressed;
-        let /** @type {?} */ valChanged = false;
+        let valChanged = false;
         if (this._activeB) {
             // when the pointer down started it was determined
             // that knob B was the one they were interacting with
@@ -373,7 +306,7 @@ export class Range extends BaseInput {
             return false;
         }
         // value has been updated
-        let /** @type {?} */ value;
+        let value;
         if (this._dual) {
             // dual knobs have an lower and upper value
             value = {
@@ -391,13 +324,10 @@ export class Range extends BaseInput {
         this.value = value;
         return true;
     }
-    /**
-     * \@internal
-     * @return {?}
-     */
+    /** @internal */
     _updateBar() {
-        const /** @type {?} */ ratioA = this._ratioA;
-        const /** @type {?} */ ratioB = this._ratioB;
+        const ratioA = this._ratioA;
+        const ratioB = this._ratioB;
         if (this._dual) {
             this._barL = `${(Math.min(ratioA, ratioB) * 100)}%`;
             this._barR = `${100 - (Math.max(ratioA, ratioB) * 100)}%`;
@@ -408,17 +338,14 @@ export class Range extends BaseInput {
         }
         this._updateTicks();
     }
-    /**
-     * \@internal
-     * @return {?}
-     */
+    /** @internal */
     _createTicks() {
         if (this._snaps) {
             this._dom.write(() => {
                 // TODO: Fix to not use RAF
                 this._ticks = [];
-                for (var /** @type {?} */ value = this._min; value <= this._max; value += this._step) {
-                    var /** @type {?} */ ratio = this._valueToRatio(value);
+                for (var value = this._min; value <= this._max; value += this._step) {
+                    var ratio = this._valueToRatio(value);
                     this._ticks.push({
                         ratio: ratio,
                         left: `${ratio * 100}%`,
@@ -428,16 +355,13 @@ export class Range extends BaseInput {
             });
         }
     }
-    /**
-     * \@internal
-     * @return {?}
-     */
+    /** @internal */
     _updateTicks() {
-        const /** @type {?} */ ticks = this._ticks;
-        const /** @type {?} */ ratio = this.ratio;
+        const ticks = this._ticks;
+        const ratio = this.ratio;
         if (this._snaps && ticks) {
             if (this._dual) {
-                var /** @type {?} */ upperRatio = this.ratioUpper;
+                var upperRatio = this.ratioUpper;
                 ticks.forEach(t => {
                     t.active = (t.ratio >= ratio && t.ratio <= upperRatio);
                 });
@@ -449,14 +373,9 @@ export class Range extends BaseInput {
             }
         }
     }
-    /**
-     * @hidden
-     * @param {?} isIncrease
-     * @param {?} isKnobB
-     * @return {?}
-     */
+    /** @hidden */
     _keyChg(isIncrease, isKnobB) {
-        const /** @type {?} */ step = this._step;
+        const step = this._step;
         if (isKnobB) {
             if (isIncrease) {
                 this._valB += step;
@@ -479,30 +398,18 @@ export class Range extends BaseInput {
         }
         this._updateBar();
     }
-    /**
-     * \@internal
-     * @param {?} ratio
-     * @return {?}
-     */
+    /** @internal */
     _ratioToValue(ratio) {
         ratio = Math.round(((this._max - this._min) * ratio));
         ratio = Math.round(ratio / this._step) * this._step + this._min;
         return clamp(this._min, ratio, this._max);
     }
-    /**
-     * \@internal
-     * @param {?} value
-     * @return {?}
-     */
+    /** @internal */
     _valueToRatio(value) {
         value = Math.round((value - this._min) / this._step) * this._step;
         value = value / (this._max - this._min);
         return clamp(0, value, 1);
     }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
     _inputNormalize(val) {
         if (this._dual) {
             return val;
@@ -514,10 +421,9 @@ export class Range extends BaseInput {
     }
     /**
      * @hidden
-     * @return {?}
      */
     _inputUpdated() {
-        const /** @type {?} */ val = this.value;
+        const val = this.value;
         if (this._dual) {
             this._valA = val.lower;
             this._valB = val.upper;
@@ -533,7 +439,6 @@ export class Range extends BaseInput {
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngOnDestroy() {
         super.ngOnDestroy();
@@ -561,9 +466,7 @@ Range.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Range.ctorParameters = () => [
     { type: Form, },
     { type: Haptic, },
@@ -585,63 +488,4 @@ Range.propDecorators = {
     'debounce': [{ type: Input },],
     'dualKnobs': [{ type: Input },],
 };
-function Range_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Range.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Range.ctorParameters;
-    /** @type {?} */
-    Range.propDecorators;
-    /** @type {?} */
-    Range.prototype._dual;
-    /** @type {?} */
-    Range.prototype._pin;
-    /** @type {?} */
-    Range.prototype._pressed;
-    /** @type {?} */
-    Range.prototype._activeB;
-    /** @type {?} */
-    Range.prototype._rect;
-    /** @type {?} */
-    Range.prototype._ticks;
-    /** @type {?} */
-    Range.prototype._min;
-    /** @type {?} */
-    Range.prototype._max;
-    /** @type {?} */
-    Range.prototype._step;
-    /** @type {?} */
-    Range.prototype._snaps;
-    /** @type {?} */
-    Range.prototype._valA;
-    /** @type {?} */
-    Range.prototype._valB;
-    /** @type {?} */
-    Range.prototype._ratioA;
-    /** @type {?} */
-    Range.prototype._ratioB;
-    /** @type {?} */
-    Range.prototype._pressedA;
-    /** @type {?} */
-    Range.prototype._pressedB;
-    /** @type {?} */
-    Range.prototype._barL;
-    /** @type {?} */
-    Range.prototype._barR;
-    /** @type {?} */
-    Range.prototype._events;
-    /** @type {?} */
-    Range.prototype._slider;
-    /** @type {?} */
-    Range.prototype._haptic;
-    /** @type {?} */
-    Range.prototype._plt;
-    /** @type {?} */
-    Range.prototype._dom;
-    /** @type {?} */
-    Range.prototype._cd;
-}
 //# sourceMappingURL=range.js.map

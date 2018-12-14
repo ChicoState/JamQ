@@ -9,16 +9,11 @@ import { IOSTransition } from '../../transitions/transition-ios';
 import { MDTransition } from '../../transitions/transition-md';
 import { WPTransition } from '../../transitions/transition-wp';
 /**
- * \@name App
- * \@description
+ * @name App
+ * @description
  * App is a utility class used in Ionic to get information about various aspects of an app
  */
 export class App {
-    /**
-     * @param {?} _config
-     * @param {?} _plt
-     * @param {?=} _menuCtrl
-     */
     constructor(_config, _plt, _menuCtrl) {
         this._config = _config;
         this._plt = _plt;
@@ -31,26 +26,32 @@ export class App {
         this._didScroll = false;
         /**
          * Observable that emits whenever a view loads in the app.
+         * @returns {Observable} Returns an observable
          */
         this.viewDidLoad = new EventEmitter();
         /**
          * Observable that emits before any view is entered in the app.
+         * @returns {Observable} Returns an observable
          */
         this.viewWillEnter = new EventEmitter();
         /**
          * Observable that emits after any view is entered in the app.
+         * @returns {Observable} Returns an observable
          */
         this.viewDidEnter = new EventEmitter();
         /**
          * Observable that emits before any view is exited in the app.
+         * @returns {Observable} Returns an observable
          */
         this.viewWillLeave = new EventEmitter();
         /**
          * Observable that emits after any view is exited in the app.
+         * @returns {Observable} Returns an observable
          */
         this.viewDidLeave = new EventEmitter();
         /**
          * Observable that emits before any view unloads in the app.
+         * @returns {Observable} Returns an observable
          */
         this.viewWillUnload = new EventEmitter();
         // listen for hardware back button events
@@ -68,8 +69,7 @@ export class App {
     }
     /**
      * Sets the document title.
-     * @param {?} val
-     * @return {?}
+     * @param {string} val  Value to set the document title to.
      */
     setTitle(val) {
         if (val !== this._title) {
@@ -79,9 +79,6 @@ export class App {
     }
     /**
      * @hidden
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
      */
     setElementClass(className, isAdd) {
         this._appRoot.setElementClass(className, isAdd);
@@ -92,13 +89,11 @@ export class App {
      * available to accept new user commands. For example, this is set to `false`
      * while views transition, a modal slides up, an action-sheet
      * slides up, etc. After the transition completes it is set back to `true`.
+     * @param {boolean} isEnabled `true` for enabled, `false` for disabled
+     * @param {number} duration  When `isEnabled` is set to `false`, this argument
      * is used to set the maximum number of milliseconds that app will wait until
      * it will automatically enable the app again. It's basically a fallback incase
      * something goes wrong during a transition and the app wasn't re-enabled correctly.
-     * @param {?} isEnabled
-     * @param {?=} duration
-     * @param {?=} minDuration
-     * @return {?}
      */
     setEnabled(isEnabled, duration = 700, minDuration = 0) {
         this._disTime = (isEnabled ? 0 : Date.now() + duration);
@@ -116,9 +111,8 @@ export class App {
     /**
      * @hidden
      * Toggles whether an application can be scrolled
+     * @param {boolean} disableScroll when set to `false`, the application's
      * scrolling is enabled. When set to `true`, scrolling is disabled.
-     * @param {?} disableScroll
-     * @return {?}
      */
     _setDisableScroll(disableScroll) {
         if (this._disableScrollAssist) {
@@ -128,10 +122,10 @@ export class App {
     /**
      * @hidden
      * Boolean if the app is actively enabled or not.
-     * @return {?}
+     * @return {boolean}
      */
     isEnabled() {
-        const /** @type {?} */ disTime = this._disTime;
+        const disTime = this._disTime;
         if (disTime === 0) {
             return true;
         }
@@ -139,7 +133,6 @@ export class App {
     }
     /**
      * @hidden
-     * @return {?}
      */
     setScrolling() {
         this._scrollTime = Date.now() + ACTIVE_SCROLLING_TIME;
@@ -147,10 +140,10 @@ export class App {
     }
     /**
      * Boolean if the app is actively scrolling or not.
-     * @return {?}
+     * @return {boolean} returns true or false
      */
     isScrolling() {
-        const /** @type {?} */ scrollTime = this._scrollTime;
+        const scrollTime = this._scrollTime;
         if (scrollTime === 0) {
             return false;
         }
@@ -161,48 +154,44 @@ export class App {
         return true;
     }
     /**
-     * @return {?}
+     * @return {NavController} Returns the first Active Nav Controller from the list. This method is deprecated
      */
     getActiveNav() {
         console.warn('(getActiveNav) is deprecated and will be removed in the next major release. Use getActiveNavs instead.');
-        const /** @type {?} */ navs = this.getActiveNavs();
+        const navs = this.getActiveNavs();
         if (navs && navs.length) {
             return navs[0];
         }
         return null;
     }
     /**
-     * @param {?=} rootNavId
-     * @return {?}
+     * @return {NavController[]} Returns the active NavControllers. Using this method is preferred when we need access to the top-level navigation controller while on the outside views and handlers like `registerBackButtonAction()`
      */
     getActiveNavs(rootNavId) {
-        const /** @type {?} */ portal = this._appRoot._getPortal(Constants.PORTAL_MODAL);
+        const portal = this._appRoot._getPortal(Constants.PORTAL_MODAL);
         if (portal.length() > 0) {
-            return (findTopNavs(portal));
+            return findTopNavs(portal);
         }
         if (!this._rootNavs || !this._rootNavs.size) {
             return [];
         }
         if (this._rootNavs.size === 1) {
-            return (findTopNavs(this._rootNavs.values().next().value));
+            return findTopNavs(this._rootNavs.values().next().value);
         }
         if (rootNavId) {
-            return (findTopNavs(this._rootNavs.get(rootNavId)));
+            return findTopNavs(this._rootNavs.get(rootNavId));
         }
         // fallback to just using all root names
-        let /** @type {?} */ activeNavs = [];
+        let activeNavs = [];
         this._rootNavs.forEach(nav => {
-            const /** @type {?} */ topNavs = findTopNavs(nav);
+            const topNavs = findTopNavs(nav);
             activeNavs = activeNavs.concat(topNavs);
         });
-        return (activeNavs);
+        return activeNavs;
     }
-    /**
-     * @return {?}
-     */
     getRootNav() {
         console.warn('(getRootNav) is deprecated and will be removed in the next major release. Use getRootNavById instead.');
-        const /** @type {?} */ rootNavs = this.getRootNavs();
+        const rootNavs = this.getRootNavs();
         if (rootNavs.length === 0) {
             return null;
         }
@@ -211,35 +200,32 @@ export class App {
         }
         return rootNavs[0];
     }
-    /**
-     * @return {?}
-     */
     getRootNavs() {
-        const /** @type {?} */ navs = [];
+        const navs = [];
         this._rootNavs.forEach(nav => navs.push(nav));
         return navs;
     }
     /**
-     * @param {?} navId
-     * @return {?}
+     * @return {NavController} Returns the root NavController
      */
     getRootNavById(navId) {
         return this._rootNavs.get(navId);
     }
     /**
      * @hidden
-     * @param {?} nav
-     * @return {?}
      */
     registerRootNav(nav) {
         this._rootNavs.set(nav.id, nav);
     }
     /**
-     * @return {?}
+     * @hidden
      */
+    unregisterRootNav(nav) {
+        this._rootNavs.delete(nav.id);
+    }
     getActiveNavContainers() {
         // for each root nav container, get it's active nav
-        let /** @type {?} */ list = [];
+        let list = [];
         this._rootNavs.forEach((container) => {
             list = list.concat(findTopNavs(container));
         });
@@ -247,14 +233,10 @@ export class App {
     }
     /**
      * @hidden
-     * @param {?} enteringView
-     * @param {?} opts
-     * @param {?=} appPortal
-     * @return {?}
      */
     present(enteringView, opts, appPortal) {
         (void 0) /* assert */;
-        const /** @type {?} */ portal = this._appRoot._getPortal(appPortal);
+        const portal = this._appRoot._getPortal(appPortal);
         // Set Nav must be set here in order to dimiss() work synchnously.
         // TODO: move _setNav() to the earlier stages of NavController. _queueTrns()
         enteringView._setNav(portal);
@@ -272,13 +254,12 @@ export class App {
     }
     /**
      * @hidden
-     * @return {?}
      */
     goBack() {
         if (this._menuCtrl && this._menuCtrl.isOpen()) {
             return this._menuCtrl.close();
         }
-        const /** @type {?} */ navPromise = this.navPop();
+        const navPromise = this.navPop();
         if (!navPromise) {
             // no views to go back to
             // let's exit the app
@@ -291,24 +272,23 @@ export class App {
     }
     /**
      * @hidden
-     * @return {?}
      */
     navPop() {
         if (!this._rootNavs || this._rootNavs.size === 0 || !this.isEnabled()) {
             return Promise.resolve();
         }
         // If there are any alert/actionsheet open, let's do nothing
-        const /** @type {?} */ portal = this._appRoot._getPortal(Constants.PORTAL_DEFAULT);
+        const portal = this._appRoot._getPortal(Constants.PORTAL_DEFAULT);
         if (portal.length() > 0) {
             return Promise.resolve();
         }
-        let /** @type {?} */ navToPop = null;
-        let /** @type {?} */ mostRecentVC = null;
+        let navToPop = null;
+        let mostRecentVC = null;
         this._rootNavs.forEach((navContainer) => {
-            const /** @type {?} */ activeNavs = this.getActiveNavs(navContainer.id);
-            const /** @type {?} */ poppableNavs = activeNavs.map(activeNav => getPoppableNav(activeNav)).filter(nav => !!nav);
+            const activeNavs = this.getActiveNavs(navContainer.id);
+            const poppableNavs = activeNavs.map(activeNav => getPoppableNav(activeNav)).filter(nav => !!nav);
             poppableNavs.forEach(poppable => {
-                const /** @type {?} */ topViewController = poppable.last();
+                const topViewController = poppable.last();
                 if (poppable._isPortal || (topViewController && poppable.length() > 1 && (!mostRecentVC || topViewController._ts >= mostRecentVC._ts))) {
                     mostRecentVC = topViewController;
                     navToPop = poppable;
@@ -321,32 +301,24 @@ export class App {
     }
     /**
      * @hidden
-     * @return {?}
      */
     _enableInputBlurring() {
         (void 0) /* console.debug */;
-        let /** @type {?} */ focused = true;
-        const /** @type {?} */ self = this;
-        const /** @type {?} */ platform = this._plt;
+        let focused = true;
+        const self = this;
+        const platform = this._plt;
         platform.registerListener(platform.doc(), 'focusin', onFocusin, { capture: true, zone: false, passive: true });
         platform.registerListener(platform.doc(), 'touchend', onTouchend, { capture: false, zone: false, passive: true });
-        /**
-         * @return {?}
-         */
         function onFocusin() {
             focused = true;
         }
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         function onTouchend(ev) {
             // if app did scroll return early
             if (self._didScroll) {
                 self._didScroll = false;
                 return;
             }
-            const /** @type {?} */ active = (self._plt.getActiveElement());
+            const active = self._plt.getActiveElement();
             if (!active) {
                 return;
             }
@@ -355,7 +327,7 @@ export class App {
                 return;
             }
             // if the selected target is the active element, do not blur
-            const /** @type {?} */ tapped = ev.target;
+            const tapped = ev.target;
             if (tapped === active) {
                 return;
             }
@@ -375,14 +347,10 @@ export class App {
             }, 50);
         }
     }
-    /**
-     * @param {?} id
-     * @return {?}
-     */
     getNavByIdOrName(id) {
-        const /** @type {?} */ navs = Array.from(this._rootNavs.values());
-        for (const /** @type {?} */ navContainer of navs) {
-            const /** @type {?} */ match = getNavByIdOrName(navContainer, id);
+        const navs = Array.from(this._rootNavs.values());
+        for (const navContainer of navs) {
+            const match = getNavByIdOrName(navContainer, id);
             if (match) {
                 return match;
             }
@@ -393,104 +361,24 @@ export class App {
 App.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 App.ctorParameters = () => [
     { type: Config, },
     { type: Platform, },
     { type: MenuController, decorators: [{ type: Optional },] },
 ];
-function App_tsickle_Closure_declarations() {
-    /** @type {?} */
-    App.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    App.ctorParameters;
-    /** @type {?} */
-    App.prototype._disTime;
-    /** @type {?} */
-    App.prototype._scrollTime;
-    /** @type {?} */
-    App.prototype._title;
-    /** @type {?} */
-    App.prototype._titleSrv;
-    /** @type {?} */
-    App.prototype._rootNavs;
-    /** @type {?} */
-    App.prototype._disableScrollAssist;
-    /** @type {?} */
-    App.prototype._didScroll;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    App.prototype._clickBlock;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    App.prototype._appRoot;
-    /**
-     * Observable that emits whenever a view loads in the app.
-     * @type {?}
-     */
-    App.prototype.viewDidLoad;
-    /**
-     * Observable that emits before any view is entered in the app.
-     * @type {?}
-     */
-    App.prototype.viewWillEnter;
-    /**
-     * Observable that emits after any view is entered in the app.
-     * @type {?}
-     */
-    App.prototype.viewDidEnter;
-    /**
-     * Observable that emits before any view is exited in the app.
-     * @type {?}
-     */
-    App.prototype.viewWillLeave;
-    /**
-     * Observable that emits after any view is exited in the app.
-     * @type {?}
-     */
-    App.prototype.viewDidLeave;
-    /**
-     * Observable that emits before any view unloads in the app.
-     * @type {?}
-     */
-    App.prototype.viewWillUnload;
-    /** @type {?} */
-    App.prototype._config;
-    /** @type {?} */
-    App.prototype._plt;
-    /** @type {?} */
-    App.prototype._menuCtrl;
-}
-/**
- * @param {?} nav
- * @param {?} id
- * @return {?}
- */
 export function getNavByIdOrName(nav, id) {
     if (nav.id === id || nav.name === id) {
         return nav;
     }
-    for (const /** @type {?} */ child of nav.getAllChildNavs()) {
-        const /** @type {?} */ tmp = getNavByIdOrName(child, id);
+    for (const child of nav.getAllChildNavs()) {
+        const tmp = getNavByIdOrName(child, id);
         if (tmp) {
             return tmp;
         }
     }
     return null;
 }
-/**
- * @param {?} nav
- * @return {?}
- */
 function getPoppableNav(nav) {
     if (!nav) {
         return null;
@@ -499,7 +387,7 @@ function getPoppableNav(nav) {
         // tabs aren't a nav, so just call this function again immediately on the parent on tabs
         return getPoppableNav(nav.parent);
     }
-    const /** @type {?} */ len = nav.length();
+    const len = nav.length();
     if (len > 1 || (nav._isPortal && len > 0)) {
         // this nav controller has more than one view
         // use this nav!
@@ -508,25 +396,21 @@ function getPoppableNav(nav) {
     // try again using the parent nav (if there is one)
     return getPoppableNav(nav.parent);
 }
-/**
- * @param {?} nav
- * @return {?}
- */
 export function findTopNavs(nav) {
-    let /** @type {?} */ containers = [];
-    const /** @type {?} */ childNavs = nav.getActiveChildNavs();
+    let containers = [];
+    const childNavs = nav.getActiveChildNavs();
     if (!childNavs || !childNavs.length) {
         containers.push(nav);
     }
     else {
         childNavs.forEach(childNav => {
-            const /** @type {?} */ topNavs = findTopNavs(childNav);
+            const topNavs = findTopNavs(childNav);
             containers = containers.concat(topNavs);
         });
     }
     return containers;
 }
-const /** @type {?} */ SKIP_BLURRING = ['INPUT', 'TEXTAREA', 'ION-INPUT', 'ION-TEXTAREA'];
-const /** @type {?} */ ACTIVE_SCROLLING_TIME = 100;
-const /** @type {?} */ CLICK_BLOCK_BUFFER_IN_MILLIS = 64;
+const SKIP_BLURRING = ['INPUT', 'TEXTAREA', 'ION-INPUT', 'ION-TEXTAREA'];
+const ACTIVE_SCROLLING_TIME = 100;
+const CLICK_BLOCK_BUFFER_IN_MILLIS = 64;
 //# sourceMappingURL=app.js.map

@@ -26,12 +26,6 @@ var __extends = (this && this.__extends) || (function () {
      */
     var MenuContentGesture = (function (_super) {
         __extends(MenuContentGesture, _super);
-        /**
-         * @param {?} plt
-         * @param {?} menu
-         * @param {?} gestureCtrl
-         * @param {?} domCtrl
-         */
         function MenuContentGesture(plt, menu, gestureCtrl, domCtrl) {
             var _this = _super.call(this, plt, plt.doc().body, {
                 direction: 'x',
@@ -50,12 +44,8 @@ var __extends = (this && this.__extends) || (function () {
             _this.menu = menu;
             return _this;
         }
-        /**
-         * @param {?} ev
-         * @return {?}
-         */
         MenuContentGesture.prototype.canStart = function (ev) {
-            var /** @type {?} */ menu = this.menu;
+            var menu = this.menu;
             if (!menu.canSwipe()) {
                 return false;
             }
@@ -67,62 +57,42 @@ var __extends = (this && this.__extends) || (function () {
             }
             return _super.prototype.canStart.call(this, ev);
         };
-        /**
-         * @return {?}
-         */
+        // Set CSS, then wait one frame for it to apply before sliding starts
         MenuContentGesture.prototype.onSlideBeforeStart = function () {
             (void 0) /* console.debug */;
             this.menu._swipeBeforeStart();
         };
-        /**
-         * @return {?}
-         */
         MenuContentGesture.prototype.onSlideStart = function () {
             (void 0) /* console.debug */;
             this.menu._swipeStart();
         };
-        /**
-         * @param {?} slide
-         * @return {?}
-         */
         MenuContentGesture.prototype.onSlide = function (slide) {
-            var /** @type {?} */ z = (this.menu.isRightSide !== this.plt.isRTL ? slide.min : slide.max);
-            var /** @type {?} */ stepValue = (slide.distance / z);
+            var z = (this.menu.isRightSide !== this.plt.isRTL ? slide.min : slide.max);
+            var stepValue = (slide.distance / z);
             this.menu._swipeProgress(stepValue);
         };
-        /**
-         * @param {?} slide
-         * @return {?}
-         */
         MenuContentGesture.prototype.onSlideEnd = function (slide) {
-            var /** @type {?} */ z = (this.menu.isRightSide !== this.plt.isRTL ? slide.min : slide.max);
-            var /** @type {?} */ currentStepValue = (slide.distance / z);
-            var /** @type {?} */ velocity = slide.velocity;
+            var z = (this.menu.isRightSide !== this.plt.isRTL ? slide.min : slide.max);
+            var currentStepValue = (slide.distance / z);
+            var velocity = slide.velocity;
             z = Math.abs(z * 0.5);
-            var /** @type {?} */ shouldCompleteRight = (velocity >= 0)
+            var shouldCompleteRight = (velocity >= 0)
                 && (velocity > 0.2 || slide.delta > z);
-            var /** @type {?} */ shouldCompleteLeft = (velocity <= 0)
+            var shouldCompleteLeft = (velocity <= 0)
                 && (velocity < -0.2 || slide.delta < -z);
             (void 0) /* console.debug */;
             this.menu._swipeEnd(shouldCompleteLeft, shouldCompleteRight, currentStepValue, velocity);
         };
-        /**
-         * @param {?} slide
-         * @return {?}
-         */
         MenuContentGesture.prototype.getElementStartPos = function (slide) {
-            var /** @type {?} */ menu = this.menu;
+            var menu = this.menu;
             if (menu.isRightSide !== this.plt.isRTL) {
                 return menu.isOpen ? slide.min : slide.max;
             }
             // left menu
             return menu.isOpen ? slide.max : slide.min;
         };
-        /**
-         * @return {?}
-         */
         MenuContentGesture.prototype.getSlideBoundaries = function () {
-            var /** @type {?} */ menu = this.menu;
+            var menu = this.menu;
             if (menu.isRightSide !== this.plt.isRTL) {
                 return {
                     min: -menu.width(),
@@ -138,9 +108,5 @@ var __extends = (this && this.__extends) || (function () {
         return MenuContentGesture;
     }(slide_edge_gesture_1.SlideEdgeGesture));
     exports.MenuContentGesture = MenuContentGesture;
-    function MenuContentGesture_tsickle_Closure_declarations() {
-        /** @type {?} */
-        MenuContentGesture.prototype.menu;
-    }
 });
 //# sourceMappingURL=menu-gestures.js.map

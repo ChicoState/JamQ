@@ -1,14 +1,10 @@
-/**
- * @param {?} docEle
- * @return {?}
- */
 export function getCss(docEle) {
-    const /** @type {?} */ css = {};
+    const css = {};
     // transform
-    var /** @type {?} */ i;
-    var /** @type {?} */ keys = ['webkitTransform', '-webkit-transform', 'webkit-transform', 'transform'];
+    var i;
+    var keys = ['webkitTransform', '-webkit-transform', 'webkit-transform', 'transform'];
     for (i = 0; i < keys.length; i++) {
-        if (((docEle.style))[keys[i]] !== undefined) {
+        if (docEle.style[keys[i]] !== undefined) {
             css.transform = keys[i];
             break;
         }
@@ -16,13 +12,13 @@ export function getCss(docEle) {
     // transition
     keys = ['webkitTransition', 'transition'];
     for (i = 0; i < keys.length; i++) {
-        if (((docEle.style))[keys[i]] !== undefined) {
+        if (docEle.style[keys[i]] !== undefined) {
             css.transition = keys[i];
             break;
         }
     }
     // The only prefix we care about is webkit for transitions.
-    var /** @type {?} */ isWebkit = css.transition.indexOf('webkit') > -1;
+    var isWebkit = css.transition.indexOf('webkit') > -1;
     // transition duration
     css.transitionDuration = (isWebkit ? '-webkit-' : '') + 'transition-duration';
     // transition timing function
@@ -37,65 +33,46 @@ export function getCss(docEle) {
     css.animationDelay = (isWebkit ? 'webkitAnimationDelay' : 'animationDelay');
     return css;
 }
-/**
- * @param {?} ev
- * @return {?}
- */
 export function pointerCoord(ev) {
     // get coordinates for either a mouse click
     // or a touch depending on the given event
     if (ev) {
-        var /** @type {?} */ changedTouches = ev.changedTouches;
+        var changedTouches = ev.changedTouches;
         if (changedTouches && changedTouches.length > 0) {
-            var /** @type {?} */ touch = changedTouches[0];
+            var touch = changedTouches[0];
             return { x: touch.clientX, y: touch.clientY };
         }
-        var /** @type {?} */ pageX = ev.pageX;
+        var pageX = ev.pageX;
         if (pageX !== undefined) {
             return { x: pageX, y: ev.pageY };
         }
     }
     return { x: 0, y: 0 };
 }
-/**
- * @param {?} threshold
- * @param {?} startCoord
- * @param {?} endCoord
- * @return {?}
- */
 export function hasPointerMoved(threshold, startCoord, endCoord) {
     if (startCoord && endCoord) {
-        const /** @type {?} */ deltaX = (startCoord.x - endCoord.x);
-        const /** @type {?} */ deltaY = (startCoord.y - endCoord.y);
-        const /** @type {?} */ distance = deltaX * deltaX + deltaY * deltaY;
+        const deltaX = (startCoord.x - endCoord.x);
+        const deltaY = (startCoord.y - endCoord.y);
+        const distance = deltaX * deltaX + deltaY * deltaY;
         return distance > (threshold * threshold);
     }
     return false;
 }
-/**
- * @param {?} ele
- * @return {?}
- */
 export function isTextInput(ele) {
     return !!ele &&
         (ele.tagName === 'TEXTAREA' ||
             ele.contentEditable === 'true' ||
             (ele.tagName === 'INPUT' && !(NON_TEXT_INPUT_REGEX.test(ele.type))));
 }
-export const /** @type {?} */ NON_TEXT_INPUT_REGEX = /^(radio|checkbox|range|file|submit|reset|color|image|button)$/i;
-const /** @type {?} */ SKIP_INPUT_ATTR = ['value', 'checked', 'disabled', 'readonly', 'placeholder', 'type', 'class', 'style', 'id', 'autofocus', 'autocomplete', 'autocorrect'];
-/**
- * @param {?} srcElement
- * @param {?} destElement
- * @return {?}
- */
+export const NON_TEXT_INPUT_REGEX = /^(radio|checkbox|range|file|submit|reset|color|image|button)$/i;
+const SKIP_INPUT_ATTR = ['value', 'checked', 'disabled', 'readonly', 'placeholder', 'type', 'class', 'style', 'id', 'autofocus', 'autocomplete', 'autocorrect'];
 export function copyInputAttributes(srcElement, destElement) {
     // copy attributes from one element to another
     // however, skip over a few of them as they're already
     // handled in the angular world
-    const /** @type {?} */ attrs = srcElement.attributes;
-    for (var /** @type {?} */ i = 0; i < attrs.length; i++) {
-        var /** @type {?} */ attr = attrs[i];
+    const attrs = srcElement.attributes;
+    for (var i = 0; i < attrs.length; i++) {
+        var attr = attrs[i];
         if (SKIP_INPUT_ATTR.indexOf(attr.name) === -1) {
             destElement.setAttribute(attr.name, attr.value);
         }

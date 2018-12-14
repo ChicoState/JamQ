@@ -6,13 +6,6 @@ import { ViewController } from '../../navigation/view-controller';
  * @hidden
  */
 export class ToastCmp {
-    /**
-     * @param {?} _viewCtrl
-     * @param {?} _config
-     * @param {?} _elementRef
-     * @param {?} params
-     * @param {?} renderer
-     */
     constructor(_viewCtrl, _config, _elementRef, params, renderer) {
         this._viewCtrl = _viewCtrl;
         this._config = _config;
@@ -32,43 +25,30 @@ export class ToastCmp {
             this.hdrId = 'toast-hdr-' + this.id;
         }
     }
-    /**
-     * @return {?}
-     */
     ngAfterViewInit() {
         // if there's a `duration` set, automatically dismiss.
         if (this.d.duration) {
-            this.dismissTimeout = ((setTimeout(() => {
+            this.dismissTimeout = setTimeout(() => {
                 this.dismiss('backdrop');
-            }, this.d.duration)));
+            }, this.d.duration);
         }
         this.enabled = true;
     }
-    /**
-     * @return {?}
-     */
     ionViewDidEnter() {
         const { activeElement } = document;
         if (activeElement) {
             activeElement.blur();
         }
-        let /** @type {?} */ focusableEle = this._elementRef.nativeElement.querySelector('button');
+        let focusableEle = this._elementRef.nativeElement.querySelector('button');
         if (focusableEle) {
             focusableEle.focus();
         }
     }
-    /**
-     * @return {?}
-     */
     cbClick() {
         if (this.enabled) {
             this.dismiss('close');
         }
     }
-    /**
-     * @param {?} role
-     * @return {?}
-     */
     dismiss(role) {
         clearTimeout(this.dismissTimeout);
         this.dismissTimeout = undefined;
@@ -96,9 +76,7 @@ ToastCmp.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ToastCmp.ctorParameters = () => [
     { type: ViewController, },
     { type: Config, },
@@ -106,32 +84,5 @@ ToastCmp.ctorParameters = () => [
     { type: NavParams, },
     { type: Renderer, },
 ];
-function ToastCmp_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ToastCmp.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ToastCmp.ctorParameters;
-    /** @type {?} */
-    ToastCmp.prototype.d;
-    /** @type {?} */
-    ToastCmp.prototype.descId;
-    /** @type {?} */
-    ToastCmp.prototype.dismissTimeout;
-    /** @type {?} */
-    ToastCmp.prototype.enabled;
-    /** @type {?} */
-    ToastCmp.prototype.hdrId;
-    /** @type {?} */
-    ToastCmp.prototype.id;
-    /** @type {?} */
-    ToastCmp.prototype._viewCtrl;
-    /** @type {?} */
-    ToastCmp.prototype._config;
-    /** @type {?} */
-    ToastCmp.prototype._elementRef;
-}
-let /** @type {?} */ toastIds = -1;
+let toastIds = -1;
 //# sourceMappingURL=toast-component.js.map

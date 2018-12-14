@@ -23,8 +23,8 @@ var __extends = (this && this.__extends) || (function () {
     var platform_1 = require("../../platform/platform");
     var display_when_1 = require("./display-when");
     /**
-     * \@name HideWhen
-     * \@description
+     * @name HideWhen
+     * @description
      * The `hideWhen` attribute takes a string that represents a plaform or screen orientation.
      * The element the attribute is added to will only be hidden when that platform or screen orientation is active.
      *
@@ -36,7 +36,7 @@ var __extends = (this && this.__extends) || (function () {
      * View the [Platform API docs](../../../platform/Platform) for more information on the different
      * platforms you can use.
      *
-     * \@usage
+     * @usage
      * ```html
      * <div hideWhen="android">
      *  I am hidden on Android!
@@ -59,47 +59,31 @@ var __extends = (this && this.__extends) || (function () {
      * </div>
      * ```
      *
-     * \@demo /docs/demos/src/hide-when/
-     * @see {\@link ../ShowWhen ShowWhen API Docs}
-     * @see {\@link ../../../platform/Platform Platform API Docs}
-     */
+     * @demo /docs/demos/src/hide-when/
+     * @see {@link ../ShowWhen ShowWhen API Docs}
+     * @see {@link ../../../platform/Platform Platform API Docs}
+    */
     var HideWhen = (function (_super) {
         __extends(HideWhen, _super);
-        /**
-         * @param {?} hideWhen
-         * @param {?} plt
-         * @param {?} zone
-         */
         function HideWhen(hideWhen, plt, zone) {
             return _super.call(this, hideWhen, plt, zone) || this;
         }
+        HideWhen.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: '[hideWhen]',
+                        host: {
+                            '[class.hidden-hide-when]': 'isMatch'
+                        }
+                    },] },
+        ];
+        /** @nocollapse */
+        HideWhen.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core_1.Attribute, args: ['hideWhen',] },] },
+            { type: platform_1.Platform, },
+            { type: core_1.NgZone, },
+        ]; };
         return HideWhen;
     }(display_when_1.DisplayWhen));
-    HideWhen.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: '[hideWhen]',
-                    host: {
-                        '[class.hidden-hide-when]': 'isMatch'
-                    }
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    HideWhen.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core_1.Attribute, args: ['hideWhen',] },] },
-        { type: platform_1.Platform, },
-        { type: core_1.NgZone, },
-    ]; };
     exports.HideWhen = HideWhen;
-    function HideWhen_tsickle_Closure_declarations() {
-        /** @type {?} */
-        HideWhen.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        HideWhen.ctorParameters;
-    }
 });
 //# sourceMappingURL=hide-when.js.map

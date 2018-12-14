@@ -8,15 +8,6 @@ import { ModuleLoader } from '../../util/module-loader';
  * @hidden
  */
 export class ModalCmp {
-    /**
-     * @param {?} _cfr
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     * @param {?} _navParams
-     * @param {?} _viewCtrl
-     * @param {?} gestureCtrl
-     * @param {?} moduleLoader
-     */
     constructor(_cfr, _renderer, _elementRef, _navParams, _viewCtrl, gestureCtrl, moduleLoader) {
         this._cfr = _cfr;
         this._renderer = _renderer;
@@ -38,22 +29,19 @@ export class ModalCmp {
             });
         }
     }
-    /**
-     * @return {?}
-     */
     ionViewPreLoad() {
-        const /** @type {?} */ component = this._navParams.data.component;
+        const component = this._navParams.data.component;
         if (!component) {
             console.warn('modal\'s page was not defined');
             return;
         }
-        let /** @type {?} */ cfr = this.moduleLoader.getComponentFactoryResolver(component);
+        let cfr = this.moduleLoader.getComponentFactoryResolver(component);
         if (!cfr) {
             cfr = this._cfr;
         }
-        const /** @type {?} */ componentFactory = cfr.resolveComponentFactory(component);
+        const componentFactory = cfr.resolveComponentFactory(component);
         // ******** DOM WRITE ****************
-        const /** @type {?} */ componentRef = this._viewport.createComponent(componentFactory, this._viewport.length, this._viewport.parentInjector, []);
+        const componentRef = this._viewport.createComponent(componentFactory, this._viewport.length, this._viewport.parentInjector, []);
         this._setCssClass(componentRef, 'ion-page');
         this._setCssClass(componentRef, 'show-page');
         // Change the viewcontroller's instance to point the user provided page
@@ -64,49 +52,28 @@ export class ModalCmp {
         this._viewCtrl.didLeave.subscribe(this._viewDidLeave.bind(this));
         this._enabled = true;
     }
-    /**
-     * @return {?}
-     */
     _viewWillEnter() {
         this._gestureBlocker.block();
     }
-    /**
-     * @return {?}
-     */
     _viewDidLeave() {
         this._gestureBlocker.unblock();
     }
-    /**
-     * @param {?} componentRef
-     * @param {?} className
-     * @return {?}
-     */
     _setCssClass(componentRef, className) {
         this._renderer.setElementClass(componentRef.location.nativeElement, className, true);
     }
-    /**
-     * @return {?}
-     */
     _bdClick() {
         if (this._enabled && this._bdDismiss) {
-            const /** @type {?} */ opts = {
+            const opts = {
                 minClickBlockDuration: 400
             };
             return this._viewCtrl.dismiss(null, 'backdrop', opts);
         }
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     _keyUp(ev) {
         if (this._enabled && this._viewCtrl.isLast() && ev.keyCode === KEY_ESCAPE) {
             this._bdClick();
         }
     }
-    /**
-     * @return {?}
-     */
     ngOnDestroy() {
         (void 0) /* assert */;
         this._gestureBlocker.destroy();
@@ -121,9 +88,7 @@ ModalCmp.decorators = [
                     '</div>'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ModalCmp.ctorParameters = () => [
     { type: ComponentFactoryResolver, },
     { type: Renderer, },
@@ -137,35 +102,4 @@ ModalCmp.propDecorators = {
     '_viewport': [{ type: ViewChild, args: ['viewport', { read: ViewContainerRef },] },],
     '_keyUp': [{ type: HostListener, args: ['body:keyup', ['$event'],] },],
 };
-function ModalCmp_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ModalCmp.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ModalCmp.ctorParameters;
-    /** @type {?} */
-    ModalCmp.propDecorators;
-    /** @type {?} */
-    ModalCmp.prototype._viewport;
-    /** @type {?} */
-    ModalCmp.prototype._bdDismiss;
-    /** @type {?} */
-    ModalCmp.prototype._enabled;
-    /** @type {?} */
-    ModalCmp.prototype._gestureBlocker;
-    /** @type {?} */
-    ModalCmp.prototype._cfr;
-    /** @type {?} */
-    ModalCmp.prototype._renderer;
-    /** @type {?} */
-    ModalCmp.prototype._elementRef;
-    /** @type {?} */
-    ModalCmp.prototype._navParams;
-    /** @type {?} */
-    ModalCmp.prototype._viewCtrl;
-    /** @type {?} */
-    ModalCmp.prototype.moduleLoader;
-}
 //# sourceMappingURL=modal-component.js.map

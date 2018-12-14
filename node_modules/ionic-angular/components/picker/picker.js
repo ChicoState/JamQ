@@ -18,11 +18,6 @@ import { ViewController } from '../../navigation/view-controller';
  */
 var Picker = (function (_super) {
     __extends(Picker, _super);
-    /**
-     * @param {?} app
-     * @param {?=} opts
-     * @param {?=} config
-     */
     function Picker(app, opts, config) {
         if (opts === void 0) { opts = {}; }
         var _this = this;
@@ -41,52 +36,37 @@ var Picker = (function (_super) {
         return _this;
     }
     /**
-     * @hidden
-     * @param {?} direction
-     * @return {?}
-     */
+    * @hidden
+    */
     Picker.prototype.getTransitionName = function (direction) {
-        var /** @type {?} */ key = (direction === 'back' ? 'pickerLeave' : 'pickerEnter');
+        var key = (direction === 'back' ? 'pickerLeave' : 'pickerEnter');
         return this._nav && this._nav.config.get(key);
     };
     /**
-     * @param {?} button
-     * @return {?}
+     * @param {any} button Picker toolbar button
      */
     Picker.prototype.addButton = function (button) {
         this.data.buttons.push(button);
     };
     /**
-     * @param {?} column
-     * @return {?}
+     * @param {PickerColumn} column Picker toolbar button
      */
     Picker.prototype.addColumn = function (column) {
         this.data.columns.push(column);
     };
-    /**
-     * @return {?}
-     */
     Picker.prototype.getColumns = function () {
         return this.data.columns;
     };
-    /**
-     * @param {?} name
-     * @return {?}
-     */
     Picker.prototype.getColumn = function (name) {
         return this.getColumns().find(function (column) { return column.name === name; });
     };
-    /**
-     * @return {?}
-     */
     Picker.prototype.refresh = function () {
         (void 0) /* assert */;
         (void 0) /* assert */;
         this._cmp && this._cmp.instance.refresh && this._cmp.instance.refresh();
     };
     /**
-     * @param {?} cssClass
-     * @return {?}
+     * @param {string} cssClass CSS class name to add to the picker's outer wrapper.
      */
     Picker.prototype.setCssClass = function (cssClass) {
         this.data.cssClass = cssClass;
@@ -94,25 +74,17 @@ var Picker = (function (_super) {
     /**
      * Present the picker instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     Picker.prototype.present = function (navOptions) {
         if (navOptions === void 0) { navOptions = {}; }
         return this._app.present(this, navOptions);
     };
+    Picker.propDecorators = {
+        'ionChange': [{ type: Output },],
+    };
     return Picker;
 }(ViewController));
 export { Picker };
-Picker.propDecorators = {
-    'ionChange': [{ type: Output },],
-};
-function Picker_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Picker.propDecorators;
-    /** @type {?} */
-    Picker.prototype._app;
-    /** @type {?} */
-    Picker.prototype.ionChange;
-}
 //# sourceMappingURL=picker.js.map

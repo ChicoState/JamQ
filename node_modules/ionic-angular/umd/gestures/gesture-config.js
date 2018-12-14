@@ -30,35 +30,20 @@ var __extends = (this && this.__extends) || (function () {
         function IonicGestureConfig() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * @param {?} element
-         * @return {?}
-         */
         IonicGestureConfig.prototype.buildHammer = function (element) {
-            var /** @type {?} */ mc = new ((window)).Hammer(element);
-            for (var /** @type {?} */ eventName in this.overrides) {
+            var mc = new window.Hammer(element);
+            for (var eventName in this.overrides) {
                 mc.get(eventName).set(this.overrides[eventName]);
             }
             return mc;
         };
+        IonicGestureConfig.decorators = [
+            { type: core_1.Injectable },
+        ];
+        /** @nocollapse */
+        IonicGestureConfig.ctorParameters = function () { return []; };
         return IonicGestureConfig;
     }(platform_browser_1.HammerGestureConfig));
-    IonicGestureConfig.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    IonicGestureConfig.ctorParameters = function () { return []; };
     exports.IonicGestureConfig = IonicGestureConfig;
-    function IonicGestureConfig_tsickle_Closure_declarations() {
-        /** @type {?} */
-        IonicGestureConfig.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        IonicGestureConfig.ctorParameters;
-    }
 });
 //# sourceMappingURL=gesture-config.js.map

@@ -1,10 +1,5 @@
 import { CLS, isHorizontal, offset, transform, transition } from './swiper-utils';
 import { getTranslate } from './swiper-transition';
-/**
- * @param {?} s
- * @param {?} plt
- * @return {?}
- */
 export function initZoom(s, plt) {
     s._supportGestures = ('ongesturestart' in plt.win());
     s._zoom = {
@@ -50,24 +45,16 @@ export function initZoom(s, plt) {
         detachZoomEvents(s);
     };
 }
-/**
- * @param {?} ev
- * @return {?}
- */
+// Calc Scale From Multi-touches
 function getDistanceBetweenTouches(ev) {
     if (ev.targetTouches.length < 2)
         return 1;
-    var /** @type {?} */ x1 = ev.targetTouches[0].pageX, /** @type {?} */ y1 = ev.targetTouches[0].pageY, /** @type {?} */ x2 = ev.targetTouches[1].pageX, /** @type {?} */ y2 = ev.targetTouches[1].pageY;
+    var x1 = ev.targetTouches[0].pageX, y1 = ev.targetTouches[0].pageY, x2 = ev.targetTouches[1].pageX, y2 = ev.targetTouches[1].pageY;
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
-/**
- * @param {?} s
- * @param {?} _plt
- * @param {?} ev
- * @return {?}
- */
+// Events
 function onGestureStart(s, _plt, ev) {
-    var /** @type {?} */ z = s._zoom;
+    var z = s._zoom;
     s.originalEvent = ev;
     if (!s._supportGestures) {
         if (ev.type !== 'touchstart' || ev.type === 'touchstart' && ev.targetTouches.length < 2) {
@@ -76,31 +63,27 @@ function onGestureStart(s, _plt, ev) {
         z.gesture.scaleStart = getDistanceBetweenTouches(ev);
     }
     if (!z.gesture.slide) {
-        if (ev.currentTarget && ((ev.currentTarget)).classList.contains(CLS.slide)) {
-            z.gesture.slide = (ev.currentTarget);
+        if (ev.currentTarget && ev.currentTarget.classList.contains(CLS.slide)) {
+            z.gesture.slide = ev.currentTarget;
         }
         if (!z.gesture.slide) {
             z.gesture.slide = s._slides[s._activeIndex];
         }
-        z.gesture.image = (z.gesture.slide.querySelector('img, svg, canvas, ion-img'));
-        z.gesture.imageWrap = (z.gesture.image.closest('.' + CLS.zoomContainer));
-        if (!z.gesture.imageWrap) {
-            z.gesture.image = undefined;
-            return;
+        z.gesture.image = z.gesture.slide.querySelector('img, svg, canvas, ion-img');
+        if (z.gesture.image) {
+            z.gesture.imageWrap = z.gesture.image.closest('.' + CLS.zoomContainer);
+            if (!z.gesture.imageWrap) {
+                z.gesture.image = undefined;
+                return;
+            }
+            z.gesture.zoomMax = parseInt(z.gesture.imageWrap.getAttribute('data-swiper-zoom') || s.zoomMax, 10);
         }
-        z.gesture.zoomMax = parseInt(z.gesture.imageWrap.getAttribute('data-swiper-zoom') || (s.zoomMax), 10);
     }
     transition(z.gesture.image, 0);
     z.isScaling = true;
 }
-/**
- * @param {?} s
- * @param {?} _plt
- * @param {?} ev
- * @return {?}
- */
 function onGestureChange(s, _plt, ev) {
-    var /** @type {?} */ z = s._zoom;
+    var z = s._zoom;
     s.originalEvent = ev;
     if (!s._supportGestures) {
         if (ev.type !== 'touchmove' || ev.type === 'touchmove' && ev.targetTouches.length < 2) {
@@ -111,7 +94,7 @@ function onGestureChange(s, _plt, ev) {
     if (!z.gesture.image)
         return;
     if (s._supportGestures) {
-        z.scale = ((ev)).scale * z.currentScale;
+        z.scale = ev.scale * z.currentScale;
     }
     else {
         z.scale = (z.gesture.scaleMove / z.gesture.scaleStart) * z.currentScale;
@@ -124,14 +107,8 @@ function onGestureChange(s, _plt, ev) {
     }
     transform(z.gesture.image, 'translate3d(0,0,0) scale(' + z.scale + ')');
 }
-/**
- * @param {?} s
- * @param {?} _plt
- * @param {?} ev
- * @return {?}
- */
 function onGestureEnd(s, _plt, ev) {
-    var /** @type {?} */ z = s._zoom;
+    var z = s._zoom;
     s.originalEvent = ev;
     if (!s._supportGestures) {
         if (ev.type !== 'touchend' || ev.type === 'touchend' && ev.changedTouches.length < 2) {
@@ -149,14 +126,8 @@ function onGestureEnd(s, _plt, ev) {
         z.gesture.slide = undefined;
     }
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} ev
- * @return {?}
- */
 function onTouchStart(s, plt, ev) {
-    var /** @type {?} */ z = s._zoom;
+    var z = s._zoom;
     s.originalEvent = ev;
     if (!z.gesture.image || z.image.isTouched)
         return;
@@ -164,17 +135,11 @@ function onTouchStart(s, plt, ev) {
         ev.preventDefault();
     }
     z.image.isTouched = true;
-    z.image.touchesStart.x = ev.type === 'touchstart' ? ev.targetTouches[0].pageX : ((ev)).pageX;
-    z.image.touchesStart.y = ev.type === 'touchstart' ? ev.targetTouches[0].pageY : ((ev)).pageY;
+    z.image.touchesStart.x = ev.type === 'touchstart' ? ev.targetTouches[0].pageX : ev.pageX;
+    z.image.touchesStart.y = ev.type === 'touchstart' ? ev.targetTouches[0].pageY : ev.pageY;
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} ev
- * @return {?}
- */
 function onTouchMove(s, plt, ev) {
-    var /** @type {?} */ z = s._zoom;
+    var z = s._zoom;
     s.originalEvent = ev;
     if (!z.gesture.image)
         return;
@@ -195,8 +160,8 @@ function onTouchMove(s, plt, ev) {
         }
     }
     // Define if we need image drag
-    var /** @type {?} */ scaledWidth = z.image.width * z.scale;
-    var /** @type {?} */ scaledHeight = z.image.height * z.scale;
+    var scaledWidth = z.image.width * z.scale;
+    var scaledHeight = z.image.height * z.scale;
     if (scaledWidth < z.gesture.slideWidth && scaledHeight < z.gesture.slideHeight) {
         return;
     }
@@ -204,8 +169,8 @@ function onTouchMove(s, plt, ev) {
     z.image.maxX = -z.image.minX;
     z.image.minY = Math.min((z.gesture.slideHeight / 2 - scaledHeight / 2), 0);
     z.image.maxY = -z.image.minY;
-    z.image.touchesCurrent.x = ev.type === 'touchmove' ? ev.targetTouches[0].pageX : ((ev)).pageX;
-    z.image.touchesCurrent.y = ev.type === 'touchmove' ? ev.targetTouches[0].pageY : ((ev)).pageY;
+    z.image.touchesCurrent.x = ev.type === 'touchmove' ? ev.targetTouches[0].pageX : ev.pageX;
+    z.image.touchesCurrent.y = ev.type === 'touchmove' ? ev.targetTouches[0].pageY : ev.pageY;
     if (!z.image.isMoved && !z.isScaling) {
         if (isHorizontal(s) &&
             (Math.floor(z.image.minX) === Math.floor(z.image.startX) && z.image.touchesCurrent.x < z.image.touchesStart.x) ||
@@ -255,12 +220,8 @@ function onTouchMove(s, plt, ev) {
     z.velocity.prevTime = Date.now();
     transform(z.gesture.imageWrap, 'translate3d(' + z.image.currentX + 'px, ' + z.image.currentY + 'px,0)');
 }
-/**
- * @param {?} s
- * @return {?}
- */
 function onTouchEnd(s) {
-    var /** @type {?} */ z = s._zoom;
+    var z = s._zoom;
     if (!z.gesture.image)
         return;
     if (!z.image.isTouched || !z.image.isMoved) {
@@ -270,23 +231,23 @@ function onTouchEnd(s) {
     }
     z.image.isTouched = false;
     z.image.isMoved = false;
-    var /** @type {?} */ momentumDurationX = 300;
-    var /** @type {?} */ momentumDurationY = 300;
-    var /** @type {?} */ momentumDistanceX = z.velocity.x * momentumDurationX;
-    var /** @type {?} */ newPositionX = z.image.currentX + momentumDistanceX;
-    var /** @type {?} */ momentumDistanceY = z.velocity.y * momentumDurationY;
-    var /** @type {?} */ newPositionY = z.image.currentY + momentumDistanceY;
+    var momentumDurationX = 300;
+    var momentumDurationY = 300;
+    var momentumDistanceX = z.velocity.x * momentumDurationX;
+    var newPositionX = z.image.currentX + momentumDistanceX;
+    var momentumDistanceY = z.velocity.y * momentumDurationY;
+    var newPositionY = z.image.currentY + momentumDistanceY;
     // Fix duration
     if (z.velocity.x !== 0)
         momentumDurationX = Math.abs((newPositionX - z.image.currentX) / z.velocity.x);
     if (z.velocity.y !== 0)
         momentumDurationY = Math.abs((newPositionY - z.image.currentY) / z.velocity.y);
-    var /** @type {?} */ momentumDuration = Math.max(momentumDurationX, momentumDurationY);
+    var momentumDuration = Math.max(momentumDurationX, momentumDurationY);
     z.image.currentX = newPositionX;
     z.image.currentY = newPositionY;
     // Define if we need image drag
-    var /** @type {?} */ scaledWidth = z.image.width * z.scale;
-    var /** @type {?} */ scaledHeight = z.image.height * z.scale;
+    var scaledWidth = z.image.width * z.scale;
+    var scaledHeight = z.image.height * z.scale;
     z.image.minX = Math.min((z.gesture.slideWidth / 2 - scaledWidth / 2), 0);
     z.image.maxX = -z.image.minX;
     z.image.minY = Math.min((z.gesture.slideHeight / 2 - scaledHeight / 2), 0);
@@ -296,12 +257,8 @@ function onTouchEnd(s) {
     transition(z.gesture.imageWrap, momentumDuration);
     transform(z.gesture.imageWrap, 'translate3d(' + z.image.currentX + 'px, ' + z.image.currentY + 'px,0)');
 }
-/**
- * @param {?} s
- * @return {?}
- */
 function onTransitionEnd(s) {
-    var /** @type {?} */ z = s._zoom;
+    var z = s._zoom;
     if (z.gesture.slide && s._previousIndex !== s._activeIndex) {
         transform(z.gesture.image, 'translate3d(0,0,0) scale(1)');
         transform(z.gesture.imageWrap, 'translate3d(0,0,0)');
@@ -309,42 +266,37 @@ function onTransitionEnd(s) {
         z.scale = z.currentScale = 1;
     }
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @return {?}
- */
 function toggleZoom(s, plt) {
-    var /** @type {?} */ z = s._zoom;
-    var /** @type {?} */ ev = s.originalEvent;
+    var z = s._zoom;
+    var ev = s.originalEvent;
     if (!z.gesture.slide) {
         z.gesture.slide = s.clickedSlide ? s.clickedSlide : s._slides[s._activeIndex];
-        z.gesture.image = (z.gesture.slide.querySelector('img, svg, canvas, ion-img'));
-        z.gesture.imageWrap = (z.gesture.image.closest('.' + CLS.zoomContainer));
+        z.gesture.image = z.gesture.slide.querySelector('img, svg, canvas, ion-img');
+        z.gesture.imageWrap = z.gesture.image && z.gesture.image.closest('.' + CLS.zoomContainer);
     }
-    if (!z.gesture.image)
+    if (!z.gesture.imageWrap)
         return;
-    var /** @type {?} */ touchX;
-    var /** @type {?} */ touchY;
-    var /** @type {?} */ offsetX;
-    var /** @type {?} */ offsetY;
-    var /** @type {?} */ diffX;
-    var /** @type {?} */ diffY;
-    var /** @type {?} */ translateX;
-    var /** @type {?} */ translateY;
-    var /** @type {?} */ imageWidth;
-    var /** @type {?} */ imageHeight;
-    var /** @type {?} */ scaledWidth;
-    var /** @type {?} */ scaledHeight;
-    var /** @type {?} */ translateMinX;
-    var /** @type {?} */ translateMinY;
-    var /** @type {?} */ translateMaxX;
-    var /** @type {?} */ translateMaxY;
-    var /** @type {?} */ slideWidth;
-    var /** @type {?} */ slideHeight;
+    var touchX;
+    var touchY;
+    var offsetX;
+    var offsetY;
+    var diffX;
+    var diffY;
+    var translateX;
+    var translateY;
+    var imageWidth;
+    var imageHeight;
+    var scaledWidth;
+    var scaledHeight;
+    var translateMinX;
+    var translateMinY;
+    var translateMaxX;
+    var translateMaxY;
+    var slideWidth;
+    var slideHeight;
     if (typeof z.image.touchesStart.x === 'undefined' && ev) {
-        touchX = ev.type === 'touchend' ? ev.changedTouches[0].pageX : ((ev)).pageX;
-        touchY = ev.type === 'touchend' ? ev.changedTouches[0].pageY : ((ev)).pageY;
+        touchX = ev.type === 'touchend' ? ev.changedTouches[0].pageX : ev.pageX;
+        touchY = ev.type === 'touchend' ? ev.changedTouches[0].pageY : ev.pageY;
     }
     else {
         touchX = z.image.touchesStart.x;
@@ -361,11 +313,11 @@ function toggleZoom(s, plt) {
     }
     else {
         // Zoom In
-        z.scale = z.currentScale = parseInt(z.gesture.imageWrap.getAttribute('data-swiper-zoom') || (s.zoomMax), 10);
+        z.scale = z.currentScale = parseInt(z.gesture.imageWrap.getAttribute('data-swiper-zoom') || s.zoomMax, 10);
         if (ev) {
             slideWidth = z.gesture.slide.offsetWidth;
             slideHeight = z.gesture.slide.offsetHeight;
-            var /** @type {?} */ slideOffsets = offset(z.gesture.slide, plt);
+            var slideOffsets = offset(z.gesture.slide, plt);
             offsetX = slideOffsets.left;
             offsetY = slideOffsets.top;
             diffX = offsetX + slideWidth / 2 - touchX;
@@ -403,20 +355,15 @@ function toggleZoom(s, plt) {
         transform(z.gesture.image, 'translate3d(0,0,0) scale(' + z.scale + ')');
     }
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @return {?}
- */
 export function resetZoomEvents(s, plt) {
     detachZoomEvents(s);
-    var /** @type {?} */ unRegs = s._zoom.unRegs;
-    var /** @type {?} */ evtOpts = { passive: s._touchEvents.start === 'touchstart', zone: false };
-    var /** @type {?} */ slides = s._slides;
-    var /** @type {?} */ slide;
+    var unRegs = s._zoom.unRegs;
+    var evtOpts = { passive: s._touchEvents.start === 'touchstart', zone: false };
+    var slides = s._slides;
+    var slide;
     // Scale image
     if (s._supportGestures) {
-        for (var /** @type {?} */ i = 0; i < slides.length; i++) {
+        for (var i = 0; i < slides.length; i++) {
             slide = slides[i];
             // gesturestart
             plt.registerListener(slide, 'gesturestart', function (ev) {
@@ -433,8 +380,8 @@ export function resetZoomEvents(s, plt) {
         }
     }
     else if (s._touchEvents.start === 'touchstart') {
-        for (var /** @type {?} */ i_1 = 0; i_1 < slides.length; i_1++) {
-            slide = slides[i_1];
+        for (var i = 0; i < slides.length; i++) {
+            slide = slides[i];
             // touchstart
             plt.registerListener(slide, s._touchEvents.start, function (ev) {
                 onGestureStart(s, plt, ev);
@@ -450,38 +397,34 @@ export function resetZoomEvents(s, plt) {
         }
     }
     // Move image
-    var /** @type {?} */ touchStartSub = s.ionSlideTouchStart.subscribe(function (ev) {
+    var touchStartSub = s.ionSlideTouchStart.subscribe(function (ev) {
         onTouchStart(s, plt, ev);
     });
     unRegs.push(function () { touchStartSub.unsubscribe(); });
-    for (var /** @type {?} */ i_2 = 0; i_2 < slides.length; i_2++) {
-        slide = slides[i_2];
+    for (var i = 0; i < slides.length; i++) {
+        slide = slides[i];
         if (slide.querySelector('.' + CLS.zoomContainer)) {
             plt.registerListener(slide, 's.touchEvents.move', function (ev) {
                 onTouchMove(s, plt, ev);
             }, evtOpts, unRegs);
         }
     }
-    var /** @type {?} */ touchEndSub = s.ionSlideTouchEnd.subscribe(function () {
+    var touchEndSub = s.ionSlideTouchEnd.subscribe(function () {
         onTouchEnd(s);
     });
     unRegs.push(function () { touchEndSub.unsubscribe(); });
     // Scale Out
-    var /** @type {?} */ transEndSub = s.ionSlideTouchEnd.subscribe(function () {
+    var transEndSub = s.ionSlideTouchEnd.subscribe(function () {
         onTransitionEnd(s);
     });
     unRegs.push(function () { transEndSub.unsubscribe(); });
     if (s.zoomToggle) {
-        var /** @type {?} */ doubleTapSub = s.ionSlideDoubleTap.subscribe(function () {
+        var doubleTapSub = s.ionSlideDoubleTap.subscribe(function () {
             toggleZoom(s, plt);
         });
         unRegs.push(function () { doubleTapSub.unsubscribe(); });
     }
 }
-/**
- * @param {?} s
- * @return {?}
- */
 function detachZoomEvents(s) {
     s._zoom.unRegs.forEach(function (unReg) {
         unReg();

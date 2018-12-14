@@ -18,11 +18,6 @@ import { ViewController } from '../../navigation/view-controller';
  */
 var Loading = (function (_super) {
     __extends(Loading, _super);
-    /**
-     * @param {?} app
-     * @param {?=} opts
-     * @param {?=} config
-     */
     function Loading(app, opts, config) {
         if (opts === void 0) { opts = {}; }
         var _this = this;
@@ -42,48 +37,41 @@ var Loading = (function (_super) {
     }
     /**
      * @hidden
-     * @param {?} direction
-     * @return {?}
      */
     Loading.prototype.getTransitionName = function (direction) {
-        var /** @type {?} */ key = (direction === 'back' ? 'loadingLeave' : 'loadingEnter');
+        var key = (direction === 'back' ? 'loadingLeave' : 'loadingEnter');
         return this._nav && this._nav.config.get(key);
     };
     /**
-     * @param {?} content
-     * @return {?}
+     * @param {string} content sets the html content for the loading indicator.
      */
     Loading.prototype.setContent = function (content) {
         this.data.content = content;
         return this;
     };
     /**
-     * @param {?} spinner
-     * @return {?}
+     * @param {string} spinner sets the name of the SVG spinner for the loading indicator.
      */
     Loading.prototype.setSpinner = function (spinner) {
         this.data.spinner = spinner;
         return this;
     };
     /**
-     * @param {?} cssClass
-     * @return {?}
+     * @param {string} cssClass sets additional classes for custom styles, separated by spaces.
      */
     Loading.prototype.setCssClass = function (cssClass) {
         this.data.cssClass = cssClass;
         return this;
     };
     /**
-     * @param {?} showBackdrop
-     * @return {?}
+     * @param {boolean} showBackdrop sets whether to show the backdrop.
      */
     Loading.prototype.setShowBackdrop = function (showBackdrop) {
         this.data.showBackdrop = showBackdrop;
         return this;
     };
     /**
-     * @param {?} dur
-     * @return {?}
+     * @param {number} dur how many milliseconds to wait before hiding the indicator.
      */
     Loading.prototype.setDuration = function (dur) {
         this.data.duration = dur;
@@ -92,8 +80,8 @@ var Loading = (function (_super) {
     /**
      * Present the loading instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     Loading.prototype.present = function (navOptions) {
         if (navOptions === void 0) { navOptions = {}; }
@@ -101,7 +89,6 @@ var Loading = (function (_super) {
     };
     /**
      * Dismiss all loading components which have been presented.
-     * @return {?}
      */
     Loading.prototype.dismissAll = function () {
         this._nav && this._nav.popAll();
@@ -109,8 +96,4 @@ var Loading = (function (_super) {
     return Loading;
 }(ViewController));
 export { Loading };
-function Loading_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Loading.prototype._app;
-}
 //# sourceMappingURL=loading.js.map

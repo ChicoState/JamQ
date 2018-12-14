@@ -4,20 +4,20 @@ import { Item } from './item';
 import { List } from '../list/list';
 import { Platform } from '../../platform/platform';
 import { ItemOptions } from './item-options';
-var /** @type {?} */ SWIPE_MARGIN = 30;
-var /** @type {?} */ ELASTIC_FACTOR = 0.55;
-var /** @type {?} */ ITEM_SIDE_FLAG_NONE = 0;
-var /** @type {?} */ ITEM_SIDE_FLAG_LEFT = 1 << 0;
-var /** @type {?} */ ITEM_SIDE_FLAG_RIGHT = 1 << 1;
-var /** @type {?} */ ITEM_SIDE_FLAG_BOTH = ITEM_SIDE_FLAG_LEFT | ITEM_SIDE_FLAG_RIGHT;
+var SWIPE_MARGIN = 30;
+var ELASTIC_FACTOR = 0.55;
+var ITEM_SIDE_FLAG_NONE = 0;
+var ITEM_SIDE_FLAG_LEFT = 1 << 0;
+var ITEM_SIDE_FLAG_RIGHT = 1 << 1;
+var ITEM_SIDE_FLAG_BOTH = ITEM_SIDE_FLAG_LEFT | ITEM_SIDE_FLAG_RIGHT;
 /**
- * \@name ItemSliding
- * \@description
+ * @name ItemSliding
+ * @description
  * A sliding item is a list item that can be swiped to reveal buttons. It requires
  * an [Item](../Item) component as a child and a [List](../../list/List) component as
  * a parent. All buttons to reveal can be placed in the `<ion-item-options>` element.
  *
- * \@usage
+ * @usage
  * ```html
  * <ion-list>
  *   <ion-item-sliding #item>
@@ -106,19 +106,12 @@ var /** @type {?} */ ITEM_SIDE_FLAG_BOTH = ITEM_SIDE_FLAG_LEFT | ITEM_SIDE_FLAG_
  *
  * We can call `delete` by either clicking the button, or by doing a full swipe on the item.
  *
- * \@demo /docs/demos/src/item-sliding/
- * @see {\@link /docs/components#lists List Component Docs}
- * @see {\@link ../Item Item API Docs}
- * @see {\@link ../../list/List List API Docs}
+ * @demo /docs/demos/src/item-sliding/
+ * @see {@link /docs/components#lists List Component Docs}
+ * @see {@link ../Item Item API Docs}
+ * @see {@link ../../list/List List API Docs}
  */
 var ItemSliding = (function () {
-    /**
-     * @param {?} list
-     * @param {?} _plt
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     * @param {?} _zone
-     */
     function ItemSliding(list, _plt, _renderer, _elementRef, _zone) {
         this._plt = _plt;
         this._renderer = _renderer;
@@ -132,7 +125,7 @@ var ItemSliding = (function () {
         this._optsDirty = true;
         this._state = 2 /* Disabled */;
         /**
-         * \@output {event} Emitted when the sliding position changes.
+         * @output {event} Emitted when the sliding position changes.
          * It reports the relative position.
          *
          * ```ts
@@ -158,12 +151,8 @@ var ItemSliding = (function () {
         this.setElementClass('item-wrapper', true);
     }
     Object.defineProperty(ItemSliding.prototype, "_itemOptions", {
-        /**
-         * @param {?} itemOptions
-         * @return {?}
-         */
         set: function (itemOptions) {
-            var /** @type {?} */ sides = 0;
+            var sides = 0;
             // Reset left and right options in case they were removed
             this._leftOptions = this._rightOptions = null;
             for (var _i = 0, _a = itemOptions.toArray(); _i < _a.length; _i++) {
@@ -185,17 +174,15 @@ var ItemSliding = (function () {
     });
     /**
      * @hidden
-     * @return {?}
      */
     ItemSliding.prototype.getOpenAmount = function () {
         return this._openAmount;
     };
     /**
      * @hidden
-     * @return {?}
      */
     ItemSliding.prototype.getSlidingPercent = function () {
-        var /** @type {?} */ openAmount = this._openAmount;
+        var openAmount = this._openAmount;
         if (openAmount > 0) {
             return openAmount / this._optsWidthRightSide;
         }
@@ -208,8 +195,6 @@ var ItemSliding = (function () {
     };
     /**
      * @hidden
-     * @param {?} startX
-     * @return {?}
      */
     ItemSliding.prototype.startSliding = function (startX) {
         if (this._tmr) {
@@ -225,15 +210,13 @@ var ItemSliding = (function () {
     };
     /**
      * @hidden
-     * @param {?} x
-     * @return {?}
      */
     ItemSliding.prototype.moveSliding = function (x) {
         if (this._optsDirty) {
             this.calculateOptsWidth();
             return;
         }
-        var /** @type {?} */ openAmount = (this._startX - x);
+        var openAmount = (this._startX - x);
         switch (this._sides) {
             case ITEM_SIDE_FLAG_RIGHT:
                 openAmount = Math.max(0, openAmount);
@@ -248,11 +231,11 @@ var ItemSliding = (function () {
                 break;
         }
         if (openAmount > this._optsWidthRightSide) {
-            var /** @type {?} */ optsWidth = this._optsWidthRightSide;
+            var optsWidth = this._optsWidthRightSide;
             openAmount = optsWidth + (openAmount - optsWidth) * ELASTIC_FACTOR;
         }
         else if (openAmount < -this._optsWidthLeftSide) {
-            var /** @type {?} */ optsWidth = -this._optsWidthLeftSide;
+            var optsWidth = -this._optsWidthLeftSide;
             openAmount = optsWidth + (openAmount - optsWidth) * ELASTIC_FACTOR;
         }
         this._setOpenAmount(openAmount, false);
@@ -260,18 +243,16 @@ var ItemSliding = (function () {
     };
     /**
      * @hidden
-     * @param {?} velocity
-     * @return {?}
      */
     ItemSliding.prototype.endSliding = function (velocity) {
-        var /** @type {?} */ restingPoint = (this._openAmount > 0)
+        var restingPoint = (this._openAmount > 0)
             ? this._optsWidthRightSide
             : -this._optsWidthLeftSide;
         // Check if the drag didn't clear the buttons mid-point
         // and we aren't moving fast enough to swipe open
-        var /** @type {?} */ isResetDirection = (this._openAmount > 0) === !(velocity < 0);
-        var /** @type {?} */ isMovingFast = Math.abs(velocity) > 0.3;
-        var /** @type {?} */ isOnCloseZone = Math.abs(this._openAmount) < Math.abs(restingPoint / 2);
+        var isResetDirection = (this._openAmount > 0) === !(velocity < 0);
+        var isMovingFast = Math.abs(velocity) > 0.3;
+        var isOnCloseZone = Math.abs(this._openAmount) < Math.abs(restingPoint / 2);
         if (swipeShouldReset(isResetDirection, isMovingFast, isOnCloseZone)) {
             restingPoint = 0;
         }
@@ -281,7 +262,6 @@ var ItemSliding = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     ItemSliding.prototype.fireSwipeEvent = function () {
         var _this = this;
@@ -294,7 +274,6 @@ var ItemSliding = (function () {
     };
     /**
      * @hidden
-     * @return {?}
      */
     ItemSliding.prototype.calculateOptsWidth = function () {
         if (!this._optsDirty) {
@@ -312,14 +291,9 @@ var ItemSliding = (function () {
         }
         this._optsDirty = false;
     };
-    /**
-     * @param {?} openAmount
-     * @param {?} isFinal
-     * @return {?}
-     */
     ItemSliding.prototype._setOpenAmount = function (openAmount, isFinal) {
         var _this = this;
-        var /** @type {?} */ platform = this._plt;
+        var platform = this._plt;
         if (this._tmr) {
             platform.cancelTimeout(this._tmr);
             this._tmr = null;
@@ -329,13 +303,13 @@ var ItemSliding = (function () {
             this.item.setElementStyle(platform.Css.transition, '');
         }
         if (openAmount > 0) {
-            var /** @type {?} */ state = (openAmount >= (this._optsWidthRightSide + SWIPE_MARGIN))
+            var state = (openAmount >= (this._optsWidthRightSide + SWIPE_MARGIN))
                 ? 8 /* Right */ | 32 /* SwipeRight */
                 : 8 /* Right */;
             this._setState(state);
         }
         else if (openAmount < 0) {
-            var /** @type {?} */ state_1 = (openAmount <= (-this._optsWidthLeftSide - SWIPE_MARGIN))
+            var state_1 = (openAmount <= (-this._optsWidthLeftSide - SWIPE_MARGIN))
                 ? 16 /* Left */ | 64 /* SwipeLeft */
                 : 16 /* Left */;
             this._setState(state_1);
@@ -350,15 +324,11 @@ var ItemSliding = (function () {
             return;
         }
         this.item.setElementStyle(platform.Css.transform, "translate3d(" + -openAmount + "px,0,0)");
-        var /** @type {?} */ ionDrag = this.ionDrag;
+        var ionDrag = this.ionDrag;
         if (ionDrag.observers.length > 0) {
             ionDrag.emit(this);
         }
     };
-    /**
-     * @param {?} state
-     * @return {?}
-     */
     ItemSliding.prototype._setState = function (state) {
         if (state === this._state) {
             return;
@@ -391,10 +361,10 @@ var ItemSliding = (function () {
      * ```
      *
      * ```ts
-     * import { Component } from '\@angular/core';
+     * import { Component } from '@angular/core';
      * import { ItemSliding } from 'ionic-angular';
      *
-     * \@Component({...})
+     * @Component({...})
      * export class MyClass {
      *   constructor() { }
      *
@@ -403,111 +373,38 @@ var ItemSliding = (function () {
      *   }
      * }
      * ```
-     * @return {?}
      */
     ItemSliding.prototype.close = function () {
         this._setOpenAmount(0, true);
     };
     /**
      * @hidden
-     * @param {?} cssClass
-     * @param {?} shouldAdd
-     * @return {?}
      */
     ItemSliding.prototype.setElementClass = function (cssClass, shouldAdd) {
         this._renderer.setElementClass(this._elementRef.nativeElement, cssClass, shouldAdd);
     };
+    ItemSliding.decorators = [
+        { type: Component, args: [{
+                    selector: 'ion-item-sliding',
+                    template: "\n    <ng-content select=\"ion-item,[ion-item]\"></ng-content>\n    <ng-content select=\"ion-item-options\"></ng-content>\n  ",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None
+                },] },
+    ];
+    /** @nocollapse */
+    ItemSliding.ctorParameters = function () { return [
+        { type: List, decorators: [{ type: Optional },] },
+        { type: Platform, },
+        { type: Renderer, },
+        { type: ElementRef, },
+        { type: NgZone, },
+    ]; };
+    ItemSliding.propDecorators = {
+        'item': [{ type: ContentChild, args: [Item,] },],
+        'ionDrag': [{ type: Output },],
+        '_itemOptions': [{ type: ContentChildren, args: [forwardRef(function () { return ItemOptions; }),] },],
+    };
     return ItemSliding;
 }());
 export { ItemSliding };
-ItemSliding.decorators = [
-    { type: Component, args: [{
-                selector: 'ion-item-sliding',
-                template: "\n    <ng-content select=\"ion-item,[ion-item]\"></ng-content>\n    <ng-content select=\"ion-item-options\"></ng-content>\n  ",
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None
-            },] },
-];
-/**
- * @nocollapse
- */
-ItemSliding.ctorParameters = function () { return [
-    { type: List, decorators: [{ type: Optional },] },
-    { type: Platform, },
-    { type: Renderer, },
-    { type: ElementRef, },
-    { type: NgZone, },
-]; };
-ItemSliding.propDecorators = {
-    'item': [{ type: ContentChild, args: [Item,] },],
-    'ionDrag': [{ type: Output },],
-    '_itemOptions': [{ type: ContentChildren, args: [forwardRef(function () { return ItemOptions; }),] },],
-};
-function ItemSliding_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ItemSliding.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    ItemSliding.ctorParameters;
-    /** @type {?} */
-    ItemSliding.propDecorators;
-    /** @type {?} */
-    ItemSliding.prototype._openAmount;
-    /** @type {?} */
-    ItemSliding.prototype._startX;
-    /** @type {?} */
-    ItemSliding.prototype._optsWidthRightSide;
-    /** @type {?} */
-    ItemSliding.prototype._optsWidthLeftSide;
-    /** @type {?} */
-    ItemSliding.prototype._sides;
-    /** @type {?} */
-    ItemSliding.prototype._tmr;
-    /** @type {?} */
-    ItemSliding.prototype._leftOptions;
-    /** @type {?} */
-    ItemSliding.prototype._rightOptions;
-    /** @type {?} */
-    ItemSliding.prototype._optsDirty;
-    /** @type {?} */
-    ItemSliding.prototype._state;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    ItemSliding.prototype.item;
-    /**
-     * \@output {event} Emitted when the sliding position changes.
-     * It reports the relative position.
-     *
-     * ```ts
-     * ondrag(item) {
-     *   let percent = item.getSlidingPercent();
-     *   if (percent > 0) {
-     *     // positive
-     *     console.log('right side');
-     *   } else {
-     *     // negative
-     *     console.log('left side');
-     *   }
-     *   if (Math.abs(percent) > 1) {
-     *     console.log('overscroll');
-     *   }
-     * }
-     * ```
-     *
-     * @type {?}
-     */
-    ItemSliding.prototype.ionDrag;
-    /** @type {?} */
-    ItemSliding.prototype._plt;
-    /** @type {?} */
-    ItemSliding.prototype._renderer;
-    /** @type {?} */
-    ItemSliding.prototype._elementRef;
-    /** @type {?} */
-    ItemSliding.prototype._zone;
-}
 //# sourceMappingURL=item-sliding.js.map

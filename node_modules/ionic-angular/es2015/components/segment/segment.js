@@ -4,8 +4,8 @@ import { Config } from '../../config/config';
 import { BaseInput } from '../../util/base-input';
 import { SegmentButton } from './segment-button';
 /**
- * \@name Segment
- * \@description
+ * @name Segment
+ * @description
  * A Segment is a group of buttons, sometimes known as Segmented Controls, that allow the user to interact with a compact group of a number of controls.
  * Segments provide functionality similar to tabs, selecting one will unselect all others. You should use a tab bar instead of a segmented control when you want to let the user move back and forth between distinct pages in your app.
  * You could use Angular's `ngModel` or `FormBuilder` API. For an overview on how `FormBuilder` works, checkout [Angular Forms](http://learnangular2.com/forms/), or [Angular FormBuilder](https://angular.io/docs/ts/latest/api/forms/index/FormBuilder-class.html)
@@ -55,43 +55,38 @@ import { SegmentButton } from './segment-button';
  * ```
  *
  *
- * \@demo /docs/demos/src/segment/
- * @see {\@link /docs/components#segment Segment Component Docs}
+ * @demo /docs/demos/src/segment/
+ * @see {@link /docs/components#segment Segment Component Docs}
  * @see [Angular Forms](http://learnangular2.com/forms/)
  */
 export class Segment extends BaseInput {
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} ngControl
-     */
     constructor(config, elementRef, renderer, ngControl) {
         super(config, elementRef, renderer, 'segment', null, null, null, ngControl);
     }
     /**
      * @hidden
-     * @return {?}
      */
     ngAfterContentInit() {
         this._initialize();
         this._buttons.forEach(button => {
-            button.ionSelect.subscribe((selectedButton) => this.value = selectedButton.value);
+            button.ionSelect.subscribe((selectedButton) => {
+                this.value = selectedButton.value;
+                this._fireTouched();
+            });
         });
     }
     /**
      * @hidden
      * Write a new value to the element.
-     * @return {?}
      */
     _inputUpdated() {
         if (!this._buttons) {
             (void 0) /* assert */;
             return;
         }
-        const /** @type {?} */ buttons = this._buttons.toArray();
-        const /** @type {?} */ value = this.value;
-        for (var /** @type {?} */ button of buttons) {
+        const buttons = this._buttons.toArray();
+        const value = this.value;
+        for (var button of buttons) {
             button.isActive = (button.value === value);
         }
     }
@@ -104,9 +99,7 @@ Segment.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 Segment.ctorParameters = () => [
     { type: Config, },
     { type: ElementRef, },
@@ -116,20 +109,4 @@ Segment.ctorParameters = () => [
 Segment.propDecorators = {
     '_buttons': [{ type: ContentChildren, args: [SegmentButton,] },],
 };
-function Segment_tsickle_Closure_declarations() {
-    /** @type {?} */
-    Segment.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    Segment.ctorParameters;
-    /** @type {?} */
-    Segment.propDecorators;
-    /**
-     * @hidden
-     * @type {?}
-     */
-    Segment.prototype._buttons;
-}
 //# sourceMappingURL=segment.js.map

@@ -28,11 +28,6 @@ var __extends = (this && this.__extends) || (function () {
      */
     var ActionSheet = (function (_super) {
         __extends(ActionSheet, _super);
-        /**
-         * @param {?} app
-         * @param {?} opts
-         * @param {?} config
-         */
         function ActionSheet(app, opts, config) {
             var _this = this;
             opts.buttons = opts.buttons || [];
@@ -50,32 +45,27 @@ var __extends = (this && this.__extends) || (function () {
         }
         /**
          * @hidden
-         * @param {?} direction
-         * @return {?}
          */
         ActionSheet.prototype.getTransitionName = function (direction) {
-            var /** @type {?} */ key = 'actionSheet' + (direction === 'back' ? 'Leave' : 'Enter');
+            var key = 'actionSheet' + (direction === 'back' ? 'Leave' : 'Enter');
             return this._nav && this._nav.config.get(key);
         };
         /**
-         * @param {?} title
-         * @return {?}
+         * @param {string} title Action sheet title
          */
         ActionSheet.prototype.setTitle = function (title) {
             this.data.title = title;
             return this;
         };
         /**
-         * @param {?} subTitle
-         * @return {?}
+         * @param {string} subTitle Action sheet subtitle
          */
         ActionSheet.prototype.setSubTitle = function (subTitle) {
             this.data.subTitle = subTitle;
             return this;
         };
         /**
-         * @param {?} button
-         * @return {?}
+         * @param {object} button Action sheet button
          */
         ActionSheet.prototype.addButton = function (button) {
             this.data.buttons.push(button);
@@ -84,8 +74,8 @@ var __extends = (this && this.__extends) || (function () {
         /**
          * Present the action sheet instance.
          *
-         * @param {?=} navOptions
-         * @return {?}
+         * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+         * @returns {Promise} Returns a promise which is resolved when the transition has completed.
          */
         ActionSheet.prototype.present = function (navOptions) {
             if (navOptions === void 0) { navOptions = {}; }
@@ -95,9 +85,5 @@ var __extends = (this && this.__extends) || (function () {
         return ActionSheet;
     }(view_controller_1.ViewController));
     exports.ActionSheet = ActionSheet;
-    function ActionSheet_tsickle_Closure_declarations() {
-        /** @type {?} */
-        ActionSheet.prototype._app;
-    }
 });
 //# sourceMappingURL=action-sheet.js.map

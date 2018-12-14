@@ -7,13 +7,6 @@ import { ViewController } from '../../navigation/view-controller';
  * @hidden
  */
 export class ModalImpl extends ViewController {
-    /**
-     * @param {?} app
-     * @param {?} component
-     * @param {?} data
-     * @param {?=} opts
-     * @param {?=} config
-     */
     constructor(app, component, data, opts = {}, config) {
         data = data || {};
         data.component = component;
@@ -32,11 +25,9 @@ export class ModalImpl extends ViewController {
     }
     /**
      * @hidden
-     * @param {?} direction
-     * @return {?}
      */
     getTransitionName(direction) {
-        let /** @type {?} */ key;
+        let key;
         if (direction === 'back') {
             if (this._leaveAnimation) {
                 return this._leaveAnimation;
@@ -54,20 +45,12 @@ export class ModalImpl extends ViewController {
     /**
      * Present the action sheet instance.
      *
-     * @param {?=} navOptions
-     * @return {?}
+     * @param {NavOptions} [navOptions={}] Nav options to go with this transition.
+     * @returns {Promise} Returns a promise which is resolved when the transition has completed.
      */
     present(navOptions = {}) {
         navOptions.minClickBlockDuration = navOptions.minClickBlockDuration || 400;
         return this._app.present(this, navOptions, PORTAL_MODAL);
     }
-}
-function ModalImpl_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ModalImpl.prototype._app;
-    /** @type {?} */
-    ModalImpl.prototype._enterAnimation;
-    /** @type {?} */
-    ModalImpl.prototype._leaveAnimation;
 }
 //# sourceMappingURL=modal-impl.js.map

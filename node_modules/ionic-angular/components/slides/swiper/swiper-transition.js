@@ -4,16 +4,8 @@ import { updateProgress } from './swiper-progress';
 import { updateActiveIndex } from './swiper-index';
 import { SWIPER_CONTROLLER } from './swiper-controller';
 import { SWIPER_EFFECTS } from './swiper-effects';
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} translate
- * @param {?=} shouldUpdateActiveIndex
- * @param {?=} byController
- * @return {?}
- */
 export function setWrapperTranslate(s, plt, translate, shouldUpdateActiveIndex, byController) {
-    var /** @type {?} */ x = 0, /** @type {?} */ y = 0, /** @type {?} */ z = 0;
+    var x = 0, y = 0, z = 0;
     if (isHorizontal(s)) {
         x = s._rtl ? -translate : translate;
     }
@@ -29,8 +21,8 @@ export function setWrapperTranslate(s, plt, translate, shouldUpdateActiveIndex, 
     }
     s._translate = isHorizontal(s) ? x : y;
     // Check if we need to update progress
-    var /** @type {?} */ progress;
-    var /** @type {?} */ translatesDiff = maxTranslate(s) - minTranslate(s);
+    var progress;
+    var translatesDiff = maxTranslate(s) - minTranslate(s);
     if (translatesDiff === 0) {
         progress = 0;
     }
@@ -53,19 +45,12 @@ export function setWrapperTranslate(s, plt, translate, shouldUpdateActiveIndex, 
         SWIPER_CONTROLLER.setTranslate(s, plt, s._translate, byController, setWrapperTranslate);
     }
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} el
- * @param {?} axis
- * @return {?}
- */
 export function getTranslate(s, plt, el, axis) {
-    var /** @type {?} */ win = plt.win();
-    var /** @type {?} */ matrix;
-    var /** @type {?} */ curTransform;
-    var /** @type {?} */ curStyle;
-    var /** @type {?} */ transformMatrix;
+    var win = plt.win();
+    var matrix;
+    var curTransform;
+    var curStyle;
+    var transformMatrix;
     // automatic axis detection
     if (typeof axis === 'undefined') {
         axis = 'x';
@@ -86,13 +71,13 @@ export function getTranslate(s, plt, el, axis) {
         transformMatrix = new win.WebKitCSSMatrix(curTransform === 'none' ? '' : curTransform);
     }
     else {
-        transformMatrix = ((curStyle)).MozTransform || ((curStyle)).OTransform || ((curStyle)).MsTransform || ((curStyle)).msTransform || curStyle.transform || curStyle.getPropertyValue('transform').replace('translate(', 'matrix(1, 0, 0, 1,');
+        transformMatrix = curStyle.MozTransform || curStyle.OTransform || curStyle.MsTransform || curStyle.msTransform || curStyle.transform || curStyle.getPropertyValue('transform').replace('translate(', 'matrix(1, 0, 0, 1,');
         matrix = transformMatrix.toString().split(',');
     }
     if (axis === 'x') {
         if (win.WebKitCSSMatrix) {
             // Latest Chrome and webkits Fix
-            curTransform = (transformMatrix.m41);
+            curTransform = transformMatrix.m41;
         }
         else if (matrix.length === 16) {
             // Crazy IE10 Matrix
@@ -122,25 +107,12 @@ export function getTranslate(s, plt, el, axis) {
     }
     return curTransform || 0;
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?=} axis
- * @return {?}
- */
 export function getWrapperTranslate(s, plt, axis) {
     if (typeof axis === 'undefined') {
         axis = isHorizontal(s) ? 'x' : 'y';
     }
     return getTranslate(s, plt, s._wrapper, axis);
 }
-/**
- * @param {?} s
- * @param {?} plt
- * @param {?} duration
- * @param {?=} byController
- * @return {?}
- */
 export function setWrapperTransition(s, plt, duration, byController) {
     transition(s._wrapper, duration);
     if (s.effect !== 'slide' && SWIPER_EFFECTS[s.effect]) {

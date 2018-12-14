@@ -6,11 +6,6 @@ import { UIEventManager } from './ui-event-manager';
  * @hidden
  */
 export class PanGesture {
-    /**
-     * @param {?} plt
-     * @param {?} element
-     * @param {?=} opts
-     */
     constructor(plt, element, opts = {}) {
         this.plt = plt;
         this.element = element;
@@ -41,18 +36,12 @@ export class PanGesture {
             this.detector = new PanRecognizer(opts.direction, opts.threshold, opts.maxAngle);
         }
     }
-    /**
-     * @return {?}
-     */
     listen() {
         if (!this.isListening) {
             this.pointerEvents = this.events.pointerEvents(this.eventsConfig);
             this.isListening = true;
         }
     }
-    /**
-     * @return {?}
-     */
     unlisten() {
         if (this.isListening) {
             this.gestute && this.gestute.release();
@@ -60,9 +49,6 @@ export class PanGesture {
             this.isListening = false;
         }
     }
-    /**
-     * @return {?}
-     */
     destroy() {
         this.gestute && this.gestute.destroy();
         this.gestute = null;
@@ -70,10 +56,6 @@ export class PanGesture {
         this.events.destroy();
         this.events = this.element = this.gestute = null;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     pointerDown(ev) {
         if (this.started) {
             return;
@@ -91,7 +73,7 @@ export class PanGesture {
         }
         this.started = true;
         this.captured = false;
-        const /** @type {?} */ coord = pointerCoord(ev);
+        const coord = pointerCoord(ev);
         if (this.detector) {
             this.detector.start(coord);
         }
@@ -105,10 +87,6 @@ export class PanGesture {
         }
         return true;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     pointerMove(ev) {
         (void 0) /* assert */;
         if (this.captured) {
@@ -118,7 +96,7 @@ export class PanGesture {
             return;
         }
         (void 0) /* assert */;
-        const /** @type {?} */ coord = pointerCoord(ev);
+        const coord = pointerCoord(ev);
         if (this.detector.detect(coord)) {
             if (this.detector.pan() !== 0) {
                 if (!this.tryToCapture(ev)) {
@@ -127,10 +105,6 @@ export class PanGesture {
             }
         }
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     pointerUp(ev) {
         (void 0) /* assert */;
         this.debouncer.cancel();
@@ -144,10 +118,6 @@ export class PanGesture {
         this.captured = false;
         this.started = false;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     tryToCapture(ev) {
         (void 0) /* assert */;
         (void 0) /* assert */;
@@ -158,10 +128,6 @@ export class PanGesture {
         this.captured = true;
         return true;
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     abort(ev) {
         this.started = false;
         this.captured = false;
@@ -169,62 +135,14 @@ export class PanGesture {
         this.pointerEvents.stop();
         this.notCaptured(ev);
     }
-    /**
-     * @return {?}
-     */
     getNativeElement() {
         return this.element;
     }
-    /**
-     * @param {?} _ev
-     * @return {?}
-     */
+    // Implemented in a subclass
     canStart(_ev) { return true; }
-    /**
-     * @param {?} _ev
-     * @return {?}
-     */
     onDragStart(_ev) { }
-    /**
-     * @param {?} _ev
-     * @return {?}
-     */
     onDragMove(_ev) { }
-    /**
-     * @param {?} _ev
-     * @return {?}
-     */
     onDragEnd(_ev) { }
-    /**
-     * @param {?} _ev
-     * @return {?}
-     */
     notCaptured(_ev) { }
-}
-function PanGesture_tsickle_Closure_declarations() {
-    /** @type {?} */
-    PanGesture.prototype.debouncer;
-    /** @type {?} */
-    PanGesture.prototype.events;
-    /** @type {?} */
-    PanGesture.prototype.pointerEvents;
-    /** @type {?} */
-    PanGesture.prototype.detector;
-    /** @type {?} */
-    PanGesture.prototype.started;
-    /** @type {?} */
-    PanGesture.prototype.captured;
-    /** @type {?} */
-    PanGesture.prototype.isListening;
-    /** @type {?} */
-    PanGesture.prototype.gestute;
-    /** @type {?} */
-    PanGesture.prototype.direction;
-    /** @type {?} */
-    PanGesture.prototype.eventsConfig;
-    /** @type {?} */
-    PanGesture.prototype.plt;
-    /** @type {?} */
-    PanGesture.prototype.element;
 }
 //# sourceMappingURL=pan-gesture.js.map

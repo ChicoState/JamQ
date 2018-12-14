@@ -10,14 +10,6 @@ import { PickerColumnCmp } from './picker-column';
  * @hidden
  */
 export class PickerCmp {
-    /**
-     * @param {?} _viewCtrl
-     * @param {?} _elementRef
-     * @param {?} config
-     * @param {?} gestureCtrl
-     * @param {?} params
-     * @param {?} renderer
-     */
     constructor(_viewCtrl, _elementRef, config, gestureCtrl, params, renderer) {
         this._viewCtrl = _viewCtrl;
         this._elementRef = _elementRef;
@@ -33,12 +25,9 @@ export class PickerCmp {
         this.id = (++pickerIds);
         this.lastClick = 0;
     }
-    /**
-     * @return {?}
-     */
     ionViewWillLoad() {
         // normalize the data
-        let /** @type {?} */ data = this.d;
+        let data = this.d;
         data.buttons = data.buttons.map(button => {
             if (isString(button)) {
                 return { text: button };
@@ -55,7 +44,7 @@ export class PickerCmp {
             }
             column.selectedIndex = column.selectedIndex || 0;
             column.options = column.options.map(inputOpt => {
-                let /** @type {?} */ opt = {
+                let opt = {
                     text: '',
                     value: '',
                     disabled: inputOpt.disabled,
@@ -75,42 +64,23 @@ export class PickerCmp {
             return column;
         });
     }
-    /**
-     * @return {?}
-     */
     ionViewDidLoad() {
         this.refresh();
     }
-    /**
-     * @return {?}
-     */
     ionViewWillEnter() {
         this._gestureBlocker.block();
     }
-    /**
-     * @return {?}
-     */
     ionViewDidLeave() {
         this._gestureBlocker.unblock();
     }
-    /**
-     * @return {?}
-     */
     refresh() {
         this._cols.forEach(column => column.refresh());
     }
-    /**
-     * @return {?}
-     */
     _colChange() {
         // one of the columns has changed its selected index
-        var /** @type {?} */ picker = (this._viewCtrl);
+        var picker = this._viewCtrl;
         picker.ionChange.emit(this.getSelected());
     }
-    /**
-     * @param {?} ev
-     * @return {?}
-     */
     _keyUp(ev) {
         if (this.enabled && this._viewCtrl.isLast()) {
             if (ev.keyCode === KEY_ENTER) {
@@ -120,7 +90,7 @@ export class PickerCmp {
                     // key to click the button. However, both the click handler and
                     // this keyup event will fire, so only allow one of them to go.
                     (void 0) /* console.debug */;
-                    let /** @type {?} */ button = this.d.buttons[this.d.buttons.length - 1];
+                    let button = this.d.buttons[this.d.buttons.length - 1];
                     this.btnClick(button);
                 }
             }
@@ -130,27 +100,20 @@ export class PickerCmp {
             }
         }
     }
-    /**
-     * @return {?}
-     */
     ionViewDidEnter() {
-        let /** @type {?} */ focusableEle = this._elementRef.nativeElement.querySelector('button');
+        let focusableEle = this._elementRef.nativeElement.querySelector('button');
         if (focusableEle) {
             focusableEle.focus();
         }
         this.enabled = true;
     }
-    /**
-     * @param {?} button
-     * @return {?}
-     */
     btnClick(button) {
         if (!this.enabled) {
             return;
         }
         // keep the time of the most recent button click
         this.lastClick = Date.now();
-        let /** @type {?} */ shouldDismiss = true;
+        let shouldDismiss = true;
         if (button.handler) {
             // a handler has been provided, execute it
             // pass the handler the values from the inputs
@@ -163,12 +126,9 @@ export class PickerCmp {
             this.dismiss(button.role);
         }
     }
-    /**
-     * @return {?}
-     */
     bdClick() {
         if (this.enabled && this.d.enableBackdropDismiss) {
-            let /** @type {?} */ cancelBtn = this.d.buttons.find(b => b.role === 'cancel');
+            let cancelBtn = this.d.buttons.find(b => b.role === 'cancel');
             if (cancelBtn) {
                 this.btnClick(cancelBtn);
             }
@@ -177,20 +137,13 @@ export class PickerCmp {
             }
         }
     }
-    /**
-     * @param {?} role
-     * @return {?}
-     */
     dismiss(role) {
         return this._viewCtrl.dismiss(this.getSelected(), role);
     }
-    /**
-     * @return {?}
-     */
     getSelected() {
-        let /** @type {?} */ selected = {};
+        let selected = {};
         this.d.columns.forEach((col, index) => {
-            let /** @type {?} */ selectedColumn = col.options[col.selectedIndex];
+            let selectedColumn = col.options[col.selectedIndex];
             selected[col.name] = {
                 text: selectedColumn ? selectedColumn.text : null,
                 value: selectedColumn ? selectedColumn.value : null,
@@ -199,9 +152,6 @@ export class PickerCmp {
         });
         return selected;
     }
-    /**
-     * @return {?}
-     */
     ngOnDestroy() {
         (void 0) /* assert */;
         this._gestureBlocker.destroy();
@@ -233,9 +183,7 @@ PickerCmp.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 PickerCmp.ctorParameters = () => [
     { type: ViewController, },
     { type: ElementRef, },
@@ -248,34 +196,5 @@ PickerCmp.propDecorators = {
     '_cols': [{ type: ViewChildren, args: [PickerColumnCmp,] },],
     '_keyUp': [{ type: HostListener, args: ['body:keyup', ['$event'],] },],
 };
-function PickerCmp_tsickle_Closure_declarations() {
-    /** @type {?} */
-    PickerCmp.decorators;
-    /**
-     * @nocollapse
-     * @type {?}
-     */
-    PickerCmp.ctorParameters;
-    /** @type {?} */
-    PickerCmp.propDecorators;
-    /** @type {?} */
-    PickerCmp.prototype._cols;
-    /** @type {?} */
-    PickerCmp.prototype.d;
-    /** @type {?} */
-    PickerCmp.prototype.enabled;
-    /** @type {?} */
-    PickerCmp.prototype.lastClick;
-    /** @type {?} */
-    PickerCmp.prototype.id;
-    /** @type {?} */
-    PickerCmp.prototype.mode;
-    /** @type {?} */
-    PickerCmp.prototype._gestureBlocker;
-    /** @type {?} */
-    PickerCmp.prototype._viewCtrl;
-    /** @type {?} */
-    PickerCmp.prototype._elementRef;
-}
-let /** @type {?} */ pickerIds = -1;
+let pickerIds = -1;
 //# sourceMappingURL=picker-component.js.map

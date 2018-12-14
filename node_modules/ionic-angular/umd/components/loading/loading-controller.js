@@ -14,8 +14,8 @@
     var config_1 = require("../../config/config");
     var loading_1 = require("./loading");
     /**
-     * \@name LoadingController
-     * \@description
+     * @name LoadingController
+     * @description
      * An overlay that can be used to indicate activity while blocking user
      * interaction. The loading indicator appears on top of the app's content,
      * and can be dismissed by the app to resume user interaction with
@@ -53,14 +53,14 @@
      * `z-index` property. You must ensure no element has a stacking context with
      * a higher `z-index` than this element.
      *
-     * \@usage
+     * @usage
      * ```ts
-     * constructor(public loadingCtrl: LoadingController) {
+     * import { LoadingController } from 'ionic-angular';
      *
-     * }
+     * constructor(public loadingCtrl: LoadingController) { }
      *
      * presentLoadingDefault() {
-     *   let loading = this.loadingCtrl.create({
+     *   const loading = this.loadingCtrl.create({
      *     content: 'Please wait...'
      *   });
      *
@@ -72,7 +72,7 @@
      * }
      *
      * presentLoadingCustom() {
-     *   let loading = this.loadingCtrl.create({
+     *   const loading = this.loadingCtrl.create({
      *     spinner: 'hide',
      *     content: `
      *       <div class="custom-spinner-container">
@@ -89,7 +89,7 @@
      * }
      *
      * presentLoadingText() {
-     *   let loading = this.loadingCtrl.create({
+     *   const loading = this.loadingCtrl.create({
      *     spinner: 'hide',
      *     content: 'Loading Please Wait...'
      *   });
@@ -105,7 +105,7 @@
      *   }, 5000);
      * }
      * ```
-     * \@advanced
+     * @advanced
      *
      * Loading options
      *
@@ -119,52 +119,33 @@
      * | dismissOnPageChange   |`boolean`   | Whether to dismiss the indicator when navigating to a new page. Default false.                                   |
      * | duration              |`number`    | How many milliseconds to wait before hiding the indicator. By default, it will show until `dismiss()` is called. |
      *
-     * \@demo /docs/demos/src/loading/
-     * @see {\@link /docs/api/components/spinner/Spinner Spinner API Docs}
+     * @demo /docs/demos/src/loading/
+     * @see {@link /docs/api/components/spinner/Spinner Spinner API Docs}
      */
     var LoadingController = (function () {
-        /**
-         * @param {?} _app
-         * @param {?} config
-         */
         function LoadingController(_app, config) {
             this._app = _app;
             this.config = config;
         }
         /**
          * Create a loading indicator. See below for options.
-         * @param {?=} opts
-         * @return {?}
+         * @param {LoadingOptions} [opts] Loading options
+         * @returns {Loading} Returns a Loading Instance
          */
         LoadingController.prototype.create = function (opts) {
             if (opts === void 0) { opts = {}; }
             return new loading_1.Loading(this._app, opts, this.config);
         };
+        LoadingController.decorators = [
+            { type: core_1.Injectable },
+        ];
+        /** @nocollapse */
+        LoadingController.ctorParameters = function () { return [
+            { type: app_1.App, },
+            { type: config_1.Config, },
+        ]; };
         return LoadingController;
     }());
-    LoadingController.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    LoadingController.ctorParameters = function () { return [
-        { type: app_1.App, },
-        { type: config_1.Config, },
-    ]; };
     exports.LoadingController = LoadingController;
-    function LoadingController_tsickle_Closure_declarations() {
-        /** @type {?} */
-        LoadingController.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        LoadingController.ctorParameters;
-        /** @type {?} */
-        LoadingController.prototype._app;
-        /** @type {?} */
-        LoadingController.prototype.config;
-    }
 });
 //# sourceMappingURL=loading-controller.js.map

@@ -24,8 +24,8 @@ var __extends = (this && this.__extends) || (function () {
     var config_1 = require("../../config/config");
     var ion_1 = require("../ion");
     /**
-     * \@name Icon
-     * \@description
+     * @name Icon
+     * @description
      * Icons can be used on their own, or inside of a number of Ionic components.
      * For a full list of available icons, check out the
      * [Ionicons docs](../../../../ionicons).
@@ -37,7 +37,7 @@ var __extends = (this && this.__extends) || (function () {
      * automatically apply `md-alarm`. This allows the developer to write the
      * markup once while Ionic applies the appropriate icon based on the mode.
      *
-     * \@usage
+     * @usage
      * ```html
      * <!-- automatically uses the correct "star" icon depending on the mode -->
      * <ion-icon name="star"></ion-icon>
@@ -50,38 +50,23 @@ var __extends = (this && this.__extends) || (function () {
      * <ion-icon name="logo-twitter"></ion-icon>
      * ```
      *
-     * \@demo /docs/demos/src/icon/
-     * @see {\@link /docs/components#icons Icon Component Docs}
+     * @demo /docs/demos/src/icon/
+     * @see {@link /docs/components#icons Icon Component Docs}
      *
      */
     var Icon = (function (_super) {
         __extends(Icon, _super);
-        /**
-         * @param {?} config
-         * @param {?} elementRef
-         * @param {?} renderer
-         */
         function Icon(config, elementRef, renderer) {
             var _this = _super.call(this, config, elementRef, renderer, 'icon') || this;
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this._isActive = true;
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this._name = '';
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this._ios = '';
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this._md = '';
-            /**
-             * @hidden
-             */
+            /** @hidden */
             _this._css = '';
             /**
              * @hidden
@@ -92,7 +77,6 @@ var __extends = (this && this.__extends) || (function () {
         }
         /**
          * @hidden
-         * @return {?}
          */
         Icon.prototype.ngOnDestroy = function () {
             if (this._css) {
@@ -101,17 +85,12 @@ var __extends = (this && this.__extends) || (function () {
         };
         Object.defineProperty(Icon.prototype, "name", {
             /**
-             * \@input {string} Specifies which icon to use. The appropriate icon will be used based on the mode.
+             * @input {string} Specifies which icon to use. The appropriate icon will be used based on the mode.
              * For more information, see [Ionicons](/docs/ionicons/).
-             * @return {?}
              */
             get: function () {
                 return this._name;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 if (!(/^md-|^ios-|^logo-/.test(val))) {
                     // this does not have one of the defaults
@@ -128,16 +107,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Icon.prototype, "ios", {
             /**
-             * \@input {string} Specifies which icon to use on `ios` mode.
-             * @return {?}
+             * @input {string} Specifies which icon to use on `ios` mode.
              */
             get: function () {
                 return this._ios;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._ios = val;
                 this.update();
@@ -147,16 +121,11 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Icon.prototype, "md", {
             /**
-             * \@input {string} Specifies which icon to use on `md` mode.
-             * @return {?}
+             * @input {string} Specifies which icon to use on `md` mode.
              */
             get: function () {
                 return this._md;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._md = val;
                 this.update();
@@ -166,18 +135,13 @@ var __extends = (this && this.__extends) || (function () {
         });
         Object.defineProperty(Icon.prototype, "isActive", {
             /**
-             * \@input {boolean} If true, the icon is styled with an "active" appearance.
+             * @input {boolean} If true, the icon is styled with an "active" appearance.
              * An active icon is filled in, and an inactive icon is the outline of the icon.
              * The `isActive` property is largely used by the tabbar. Only affects `ios` icons.
-             * @return {?}
              */
             get: function () {
                 return this._isActive;
             },
-            /**
-             * @param {?} val
-             * @return {?}
-             */
             set: function (val) {
                 this._isActive = util_1.isTrueProperty(val);
                 this.update();
@@ -187,10 +151,9 @@ var __extends = (this && this.__extends) || (function () {
         });
         /**
          * @hidden
-         * @return {?}
          */
         Icon.prototype.update = function () {
-            var /** @type {?} */ iconName;
+            var iconName;
             if (this._ios && this._iconMode === 'ios') {
                 iconName = this._ios;
             }
@@ -200,18 +163,18 @@ var __extends = (this && this.__extends) || (function () {
             else {
                 iconName = this._name;
             }
-            var /** @type {?} */ hidden = this._hidden = (iconName === null);
+            var hidden = this._hidden = (iconName === null);
             if (hidden) {
                 return;
             }
-            var /** @type {?} */ iconMode = iconName.split('-', 2)[0];
+            var iconMode = iconName.split('-', 2)[0];
             if (iconMode === 'ios' &&
                 !this._isActive &&
                 iconName.indexOf('logo-') < 0 &&
                 iconName.indexOf('-outline') < 0) {
                 iconName += '-outline';
             }
-            var /** @type {?} */ css = 'ion-' + iconName;
+            var css = 'ion-' + iconName;
             if (this._css === css) {
                 return;
             }
@@ -220,83 +183,35 @@ var __extends = (this && this.__extends) || (function () {
             }
             this._css = css;
             this.setElementClass(css, true);
-            var /** @type {?} */ label = iconName
+            var label = iconName
                 .replace('ios-', '')
                 .replace('md-', '')
                 .replace('-', ' ');
             this.setElementAttribute('aria-label', label);
         };
+        Icon.decorators = [
+            { type: core_1.Directive, args: [{
+                        selector: 'ion-icon',
+                        host: {
+                            'role': 'img'
+                        }
+                    },] },
+        ];
+        /** @nocollapse */
+        Icon.ctorParameters = function () { return [
+            { type: config_1.Config, },
+            { type: core_1.ElementRef, },
+            { type: core_1.Renderer, },
+        ]; };
+        Icon.propDecorators = {
+            'name': [{ type: core_1.Input },],
+            'ios': [{ type: core_1.Input },],
+            'md': [{ type: core_1.Input },],
+            'isActive': [{ type: core_1.Input },],
+            '_hidden': [{ type: core_1.HostBinding, args: ['class.hide',] },],
+        };
         return Icon;
     }(ion_1.Ion));
-    Icon.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: 'ion-icon',
-                    host: {
-                        'role': 'img'
-                    }
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    Icon.ctorParameters = function () { return [
-        { type: config_1.Config, },
-        { type: core_1.ElementRef, },
-        { type: core_1.Renderer, },
-    ]; };
-    Icon.propDecorators = {
-        'name': [{ type: core_1.Input },],
-        'ios': [{ type: core_1.Input },],
-        'md': [{ type: core_1.Input },],
-        'isActive': [{ type: core_1.Input },],
-        '_hidden': [{ type: core_1.HostBinding, args: ['class.hide',] },],
-    };
     exports.Icon = Icon;
-    function Icon_tsickle_Closure_declarations() {
-        /** @type {?} */
-        Icon.decorators;
-        /**
-         * @nocollapse
-         * @type {?}
-         */
-        Icon.ctorParameters;
-        /** @type {?} */
-        Icon.propDecorators;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Icon.prototype._iconMode;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Icon.prototype._isActive;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Icon.prototype._name;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Icon.prototype._ios;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Icon.prototype._md;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Icon.prototype._css;
-        /**
-         * @hidden
-         * @type {?}
-         */
-        Icon.prototype._hidden;
-    }
 });
 //# sourceMappingURL=icon.js.map

@@ -8,9 +8,6 @@ import { MenuController } from '../app/menu-controller';
  * and registers itself with Menu.
  */
 export class MenuType {
-    /**
-     * @param {?} plt
-     */
     constructor(plt) {
         this.ani = new Animation(plt);
         this.ani
@@ -18,14 +15,8 @@ export class MenuType {
             .easingReverse('cubic-bezier(0.4, 0.0, 0.6, 1)')
             .duration(280);
     }
-    /**
-     * @param {?} shouldOpen
-     * @param {?} animated
-     * @param {?} done
-     * @return {?}
-     */
     setOpen(shouldOpen, animated, done) {
-        const /** @type {?} */ ani = this.ani
+        const ani = this.ani
             .onFinish(done, true, true)
             .reverse(!shouldOpen);
         if (animated) {
@@ -35,10 +26,6 @@ export class MenuType {
             ani.syncPlay();
         }
     }
-    /**
-     * @param {?} isOpen
-     * @return {?}
-     */
     setProgressStart(isOpen) {
         this.isOpening = !isOpen;
         // the cloned animation should not use an easing curve during seek
@@ -46,48 +33,28 @@ export class MenuType {
             .reverse(isOpen)
             .progressStart();
     }
-    /**
-     * @param {?} stepValue
-     * @return {?}
-     */
     setProgessStep(stepValue) {
         // adjust progress value depending if it opening or closing
         this.ani.progressStep(stepValue);
     }
-    /**
-     * @param {?} shouldComplete
-     * @param {?} currentStepValue
-     * @param {?} velocity
-     * @param {?} done
-     * @return {?}
-     */
     setProgressEnd(shouldComplete, currentStepValue, velocity, done) {
-        let /** @type {?} */ isOpen = (this.isOpening && shouldComplete);
+        let isOpen = (this.isOpening && shouldComplete);
         if (!this.isOpening && !shouldComplete) {
             isOpen = true;
         }
-        const /** @type {?} */ ani = this.ani;
+        const ani = this.ani;
         ani.onFinish(() => {
             this.isOpening = false;
             done(isOpen);
         }, true);
-        const /** @type {?} */ factor = 1 - Math.min(Math.abs(velocity) / 4, 0.7);
-        const /** @type {?} */ dur = ani.getDuration() * factor;
+        const factor = 1 - Math.min(Math.abs(velocity) / 4, 0.7);
+        const dur = ani.getDuration() * factor;
         ani.progressEnd(shouldComplete, currentStepValue, dur);
     }
-    /**
-     * @return {?}
-     */
     destroy() {
         this.ani.destroy();
         this.ani = null;
     }
-}
-function MenuType_tsickle_Closure_declarations() {
-    /** @type {?} */
-    MenuType.prototype.ani;
-    /** @type {?} */
-    MenuType.prototype.isOpening;
 }
 /**
  * @hidden
@@ -96,10 +63,6 @@ function MenuType_tsickle_Closure_declarations() {
  * The menu itself, which is under the content, does not move.
  */
 class MenuRevealType extends MenuType {
-    /**
-     * @param {?} menu
-     * @param {?} plt
-     */
     constructor(menu, plt) {
         super(plt);
         const openedX = (menu.width() * (menu.isRightSide ? -1 : 1)) + 'px';
@@ -116,10 +79,6 @@ MenuController.registerType('reveal', MenuRevealType);
  * The menu itself also slides over to reveal its bad self.
  */
 class MenuPushType extends MenuType {
-    /**
-     * @param {?} menu
-     * @param {?} plt
-     */
     constructor(menu, plt) {
         super(plt);
         let contentOpenedX, menuClosedX, menuOpenedX;
@@ -151,10 +110,6 @@ MenuController.registerType('push', MenuPushType);
  * itself, which is under the menu, does not move.
  */
 class MenuOverlayType extends MenuType {
-    /**
-     * @param {?} menu
-     * @param {?} plt
-     */
     constructor(menu, plt) {
         super(plt);
         let closedX, openedX;

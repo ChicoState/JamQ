@@ -14,18 +14,11 @@ import { Ion } from '../ion';
  */
 var ToolbarBase = (function (_super) {
     __extends(ToolbarBase, _super);
-    /**
-     * @param {?} config
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     function ToolbarBase(config, elementRef, renderer) {
         return _super.call(this, config, elementRef, renderer, 'toolbar') || this;
     }
     /**
      * @hidden
-     * @param {?} titleCmp
-     * @return {?}
      */
     ToolbarBase.prototype._setTitle = function (titleCmp) {
         this._title = titleCmp;
@@ -33,7 +26,6 @@ var ToolbarBase = (function (_super) {
     /**
      * @hidden
      * Returns the toolbar title text if it exists or an empty string
-     * @return {?}
      */
     ToolbarBase.prototype.getTitleText = function () {
         return (this._title && this._title.getTitleText()) || '';
@@ -41,8 +33,4 @@ var ToolbarBase = (function (_super) {
     return ToolbarBase;
 }(Ion));
 export { ToolbarBase };
-function ToolbarBase_tsickle_Closure_declarations() {
-    /** @type {?} */
-    ToolbarBase.prototype._title;
-}
 //# sourceMappingURL=toolbar-base.js.map
