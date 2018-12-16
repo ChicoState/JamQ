@@ -3,12 +3,9 @@ dislikeArtist(song) {
     this.dislikeCheck = this.af.list("/parties/" + this.partyKey + "/userlist/" + this.username + "/dislikes");
     this.dislikeCheck.subscribe(data => {
       data.forEach(item => {
-        // console.log(item.song)
         temp.push(item.song)
       })
-
     })
-    //console.log(temp)
     var check = false;
     if (temp.length == 0) {
       this.user_dislikes.push({ song: song.$key });
