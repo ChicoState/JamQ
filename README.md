@@ -3,7 +3,7 @@
 
 An app that lets your guests create your music playlist.
 
-To view testing branch please go to [https://github.com/cnolan3/JamQ](https://github.com/cnolan3/JamQ)
+Democratically create a spotify playlist with input from everyone at your party
 
 ## Built With
 - [Ionic 3](https://ionicframework.com/) - The web framework used
