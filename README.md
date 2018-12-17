@@ -19,8 +19,18 @@ To view testing branch please go to [https://github.com/cnolan3/JamQ](https://gi
 - Install [ionic]( https://ionicframework.com/docs/cli/)
 - Run ionic serve
 
-## Setting up Docker container(not recommended)
-See [Docker Instructions](docker.md)
+## Testing
+- Install cucumber and cucumber expressions
+- npm install cucumber cucumber-expressions
+- Run npm test
+
+```
+Tests are located in /features
+
+Create a *.feature file to add a test
+Then edit /feature/step_definitions/stepdefs.js with the test you would like to run
+
+```
 
 ## Built By - [Group Discord](https://discord.gg/H8jbQ3R)
 - [Logan Markle](https://github.com/logm)
