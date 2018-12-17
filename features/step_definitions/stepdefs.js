@@ -103,8 +103,7 @@ function login(afToken) {
   }
 }
 
-Given('Correct user information', function () {
-  this.afToken = true;
+Given('Correct user information', function () { this.afToken = true;
 });
 
 Given('Incorrect user information', function () {
@@ -160,24 +159,75 @@ Then('Do nothing', function () {
 });
 
 //createPlaylist
-/*
-function createplaylist(roomnumber, spotifytoken) {
+
+function createplaylist(spotifytoken, roomnumber, data) {
   //Create spotify api
   //Set spotifytoken
 
   let exists = false;
 
-  spotify.getMe()
+  //spotify.getMe()
   // Get all user playlists
-  spotify.getUserPlaylists(data.body.id)
-  var playlists = data.body.items;
+  //spotify.getUserPlaylists(data.body.id)
+  var playlists = data;
   // Check if we already created this playlist
   for (var i = 0; i < playlists.length; i++) {
     if (playlists[i].name == 'JamQ' + roomnumber)
       exists = true;
-    }
   }
   //If we have not created a playlist for this room create one
-  if (!exists)
-    spotify.createPlaylist(data.body.id, 'JamQ' + roomnumber, { 'public': true })
-}*/
+  if (exists)
+    return true;
+  else 
+    return false;
+}
+
+Given('A spotify token and room number', function () {
+  this.spotifytoken = true;
+  this.roomnumber = "1234";
+  this.data = []
+  this.data.push({"length": 1, "name": "JamQ1234"});
+});
+
+When('It runs', function () {
+  this.answer = createplaylist(this.spotifytoken, this.roomnumber, this.data);
+});
+
+Then('Make the playlist', function () {
+  assert.equal(this.answer, true);
+});
+
+//watchroom
+
+function watchroom(roomnumber, spotifytoken, data, songid) {
+  //Give ref to database song list
+  //Create spotify api
+  //Set spotify api token
+  //get spotify data
+  var playlists = data;
+  var playlistid;
+  // Find the playlist we are looking for
+  for (var i = 0; i < playlists.length; i++) {
+    if (playlists[i].name == 'JamQ' + roomnumber)
+      playlistid = playlists[i];
+  }
+  var track = "spotify:track:" + songid;
+  return track;
+  //Add tracks to spotify
+}
+
+Given('Watch data', function () {
+  this.spotifytoken = true;
+  this.roomnumber = "1234";
+  this.data = []
+  this.data.push({"length": 1, "name": "JamQ1234"});
+  this.songid = "Butts";
+});
+
+When('Watchroom runs', function () {
+  this.answer = watchroom(this.spotifytoken, this.roomnumber, this.data, this.songid);
+});
+
+Then('Make the playlist on spotify', function () {
+  assert.equal(this.answer, "spotify:track:Butts");
+});
