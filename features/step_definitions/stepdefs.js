@@ -2,7 +2,8 @@ const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
 
 function register(password, verify, result) {
-    if(password != verify) { return "Failed";
+    if(password != verify) {
+      return "Failed";//Show error.
     } else {
       if(result) {
         return "Worked";
@@ -157,3 +158,26 @@ Then('Make playlist', function () {
 Then('Do nothing', function () {
   assert.equal(this.answer, false);
 });
+
+//createPlaylist
+/*
+function createplaylist(roomnumber, spotifytoken) {
+  //Create spotify api
+  //Set spotifytoken
+
+  let exists = false;
+
+  spotify.getMe()
+  // Get all user playlists
+  spotify.getUserPlaylists(data.body.id)
+  var playlists = data.body.items;
+  // Check if we already created this playlist
+  for (var i = 0; i < playlists.length; i++) {
+    if (playlists[i].name == 'JamQ' + roomnumber)
+      exists = true;
+    }
+  }
+  //If we have not created a playlist for this room create one
+  if (!exists)
+    spotify.createPlaylist(data.body.id, 'JamQ' + roomnumber, { 'public': true })
+}*/
