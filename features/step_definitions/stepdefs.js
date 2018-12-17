@@ -38,7 +38,6 @@ Then('Make a DJ', function () {
 });
 
 //Song Search
-/*
 function searchSongs(data, length) {
   this.songslist = [];
   var songslist = this.songslist;
@@ -52,13 +51,16 @@ function searchSongs(data, length) {
   for (let i = 0; i < length; i++) {
     //Get data from each song and update the html with it
 
+    assert.equal(songs[0].name, "Song1 Name");
+
+
     let title = songs[i].name;
     let artist = songs[i].artists[0].name;
     let songid = songs[i].id;
 
     //Image may be absent
     let image;
-    if (songs[i].album.images.length != 0) {
+    if ("album" in songs[i] && "images" in songs[i].album) {
       image = "Image here";
     } else {
       //Use temp image
@@ -67,17 +69,20 @@ function searchSongs(data, length) {
 
     //Add the song the the list, html will be updated dyanmcally automagically
     songslist.push({ "title": title, "artist": artist, "image": image, "id": songid });
-    return songlist[0].title;
+
+
+
+    return songslist[0].title;
   }
 }
 
 Given('Song name', function () {
-  this.song1 = [];
   this.artist = [];
   this.artist.push({"name": "Artists Name"});
-  this.song1.push({"name": "Song1 Name", "artists": this.artist, "id": "Song id"});
+  this.song1 = {"name": "Song1 Name", "artists": [this.artist], "id": "Song id"};
   this.data = [1];
   this.data[0] = this.song1;
+  this.length = 1;
 });
 
 When('Finished typing', function () {
@@ -87,9 +92,8 @@ When('Finished typing', function () {
 Then('Load song lists', function () {
   assert.equal(this.answer, "Song1 Name");
 });
-*/
-//Login
 
+//Login
 function login(afToken) {
   var errorMessage = ""
   //Firebase authentication
