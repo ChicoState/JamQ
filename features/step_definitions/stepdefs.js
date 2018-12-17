@@ -12,41 +12,6 @@ function register(password, verify, result) {
     //Redirect to party page
   }
 
-/* function searchSongs(data, length) {
-    //Each query should have a new list
-    this.songslist = [];
-
-    //This magically lets you use songlist inside a promise
-    var songslist = this.songslist;
-
-    //Get song data from spotify
-      //function (data) {
-
-        //Get all returned songs from search
-        let songs = data;
-
-        for (let i = 0; i < length; i++) {
-          //Get data from each song and update the html with it
-
-          let title = songs[i].name;
-          let artist = songs[i].artists[0].name;
-          let songid = songs[i].id;
-
-          //Image may be absent
-          let image;
-          if (songs[i].album.images.length != 0) {
-            image = songs[i].album.images[0].url;
-          } else {
-            //Use temp image
-            image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87NixlNcf6A52z5o0v8Lx-wcwdQlxOTjc4AwWzEALPSQk0VuStw"
-          }
-
-          //Add the song the the list, html will be updated dyanmcally automagically
-          songslist.push({ "title": title, "artist": artist, "image": image, "id": songid });
-          return songlist[0].title;
-        }
-      }*/
-
 Given('A correct user name and password', function () {
   this.password = "password";
   this.verify = "password"; 
@@ -70,7 +35,41 @@ Then('Throw error', function () {
 Then('Make a DJ', function () {
   assert.equal(this.register, "Worked");
 });
+
+//Song Search
 /*
+function searchSongs(data, length) {
+  this.songslist = [];
+  var songslist = this.songslist;
+    
+  //Get song data from spotify
+  //function (data) {
+
+  //Get all returned songs from search
+  let songs = data;
+
+  for (let i = 0; i < length; i++) {
+    //Get data from each song and update the html with it
+
+    let title = songs[i].name;
+    let artist = songs[i].artists[0].name;
+    let songid = songs[i].id;
+
+    //Image may be absent
+    let image;
+    if (songs[i].album.images.length != 0) {
+      image = "Image here";
+    } else {
+      //Use temp image
+      image = "Image not found";
+    }
+
+    //Add the song the the list, html will be updated dyanmcally automagically
+    songslist.push({ "title": title, "artist": artist, "image": image, "id": songid });
+    return songlist[0].title;
+  }
+}
+
 Given('Song name', function () {
   this.song1 = [];
   this.artist = [];
@@ -86,4 +85,75 @@ When('Finished typing', function () {
 
 Then('Load song lists', function () {
   assert.equal(this.answer, "Song1 Name");
-});*/
+});
+*/
+//Login
+
+function login(afToken) {
+  var errorMessage = ""
+  //Firebase authentication
+    errorMessage = afToken;
+    //alert(error)
+    if(!errorMessage)
+      return "Failed";
+  if(errorMessage == true){
+    //Login
+    return "Signed in";
+  }
+}
+
+Given('Correct user information', function () {
+  this.afToken = true;
+});
+
+Given('Incorrect user information', function () {
+  this.afToken = false;
+});
+
+When('User clicks button', function () {
+  this.answer = login(this.afToken);
+});
+
+Then('Sign in', function () {
+  assert.equal(this.answer, "Signed in");
+});
+
+Then('Error', function () {
+  assert.equal(this.answer, "Failed");
+});
+
+//Checkroom
+
+function checkroom(spotifytoken, roomnumber) {
+    var roomref = roomnumber; //Acutally grab ref from firebase
+    if (spotifytoken) {
+      //Create playlist
+      //Call Watch room
+      return true;
+    } else {
+      //No Token
+      return false;
+    }
+}
+
+Given('No spotify token', function () {
+  this.spotifytoken = false;
+  this.roomnumber = "1234";
+});
+
+Given('A spotify token', function () {
+  this.spotifytoken = true;
+  this.roomnumber = "1234";
+});
+
+When('This runs', function () {
+  this.answer = checkroom(this.spotifytoken, this.roomnumber);
+});
+
+Then('Make playlist', function () {
+  assert.equal(this.answer, true);
+});
+
+Then('Do nothing', function () {
+  assert.equal(this.answer, false);
+});
