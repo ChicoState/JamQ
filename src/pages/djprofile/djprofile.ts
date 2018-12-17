@@ -54,11 +54,7 @@ export class DjprofilePage {
       );
   }
 
-
-
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad DjprofilePage');
   }
-
 }
