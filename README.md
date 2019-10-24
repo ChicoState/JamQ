@@ -39,6 +39,10 @@ Then edit /feature/step_definitions/stepdefs.js with the test you would like to 
 - [Connor Nolan](https://github.com/cnolan3)
 - [Jasper Stubbe](https://github.com/jasparigus)
 
+## Spotify Login
+- Email - e143499@nwytg.net
+- Password - 430Jamq
+
 ## Discord
 - https://discord.gg/QkqfQpE
 
