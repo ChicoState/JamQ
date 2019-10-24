@@ -81,15 +81,6 @@ function watchroom(roomnumber, spotifytoken) {
                         console.log(snapshot.toJSON());
 
 
-
-                        spotify.getPlaylistTracks(playlistid.owner.id, playlistid.id)
-                            .then(function (data) {
-
-                            }
-
-
-
-
                         var track = "spotify:track:" + snapshot.toJSON().songid;
 
                         spotify.addTracksToPlaylist(playlistid.owner.id, playlistid.id, [track])
@@ -112,71 +103,6 @@ function watchroom(roomnumber, spotifytoken) {
             }, function (err) {
                 console.log('Something went wrong!', err);
             });
-
-
-            
-
-
-
-    });
-
-
-
-
-    songsref.on('child_removed', function (snapshot) {
-
-        var spotify = new SpotifyWebApi();
-        spotify.setAccessToken(spotifytoken);
-
-        spotify.getMe()
-            .then(function (data) {
-
-                spotify.getUserPlaylists(data.body.id)
-                    .then(function (data) {
-                        console.log('Got playlists!');
-
-
-                        var playlists = data.body.items;
-
-                        var playlistid;
-
-
-                        // Find the playlist we are looking for
-                        for (var i = 0; i < playlists.length; i++) {
-                            if (playlists[i].name == 'JamQ' + roomnumber)
-                                playlistid = playlists[i];
-                        }
-
-
-                        console.log(playlistid);
-                        console.log(snapshot.toJSON());
-
-
-                        var track = "spotify:track:" + snapshot.toJSON().songid;
-
-                        spotify.removeTracksFromPlaylist(playlistid.owner.id, playlistid.id, [track])
-                            .then(function (data) {
-                                console.log('Added tracks to playlist!');
-                            }, function (err) {
-                                console.log('Something went wrong in watchroom remove!', err);
-                            });
-
-
-
-
-
-
-                    }, function (err) {
-                        console.log('Something went wrong!', err);
-                    });
-
-
-            }, function (err) {
-                console.log('Something went wrong!', err);
-            });
-
-
-            
 
 
 
