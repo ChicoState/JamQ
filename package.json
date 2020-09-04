@@ -35,7 +35,7 @@
     "cordova-plugin-add-swift-support": "^1.7.0",
     "cordova-plugin-console": "^1.0.5",
     "cordova-plugin-device": "^1.1.4",
-    "cordova-plugin-inappbrowser": "^1.7.1",
+    "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-ionic": "^1.1.9",
     "cordova-plugin-splashscreen": "^4.0.3",
     "cordova-plugin-statusbar": "^2.2.2",
